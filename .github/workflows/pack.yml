@@ -1,0 +1,44 @@
+name: Modpack
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-pack:
+    name: Validate pack metadata
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      # Packwiz has no tagged releases, so the official installation route is a Go
+      # build from source. See https://packwiz.infra.link/installation/.
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.25'
+
+      - name: Install packwiz
+        run: go install github.com/packwiz/packwiz@latest
+
+      # This validation needs no private credentials and downloads no mods. It checks
+      # that the metadata is internally consistent, that versions are pinned, and that
+      # no third-party binary has been committed.
+      - name: Validate pack
+        run: ./scripts/validate-pack.sh
+
+      # Exporting proves the pack is reproducible from metadata alone. The artifact is
+      # deliberately not published here: it references third-party files by URL, and
+      # distribution requires the licence review recorded in ADR 0020.
+      - name: Export .mrpack
+        run: ./scripts/build-pack.sh
+
+      - name: Check the dependency report is current
+        run: |
+          ./scripts/report-dependencies.sh
+          git diff --exit-code docs/mod-research/dependency-lock.md \
+            || { echo "dependency-lock.md is stale; run scripts/report-dependencies.sh and commit"; exit 1; }
