@@ -152,3 +152,47 @@ Confirmed present in the resolved 0.158.0+26.2 dependency tree:
 If you are unsure of a signature, **run `javap` and check**. A wrong guess costs a
 full build cycle. The command is at the top of this file. Do not copy signatures
 from tutorials or from memory of earlier Minecraft versions.
+
+## Durability interception: the public seam (FVR-101)
+
+This was investigated and confirmed by `javap`. Do not redo this work.
+
+**There is no public generic "item broke" event**, and `ItemStack.applyDamage` is
+private. But you do not need a mixin, because Fabric provides a purpose-built hook:
+
+```java
+// net.fabricmc.fabric.api.item.v1.CustomDamageHandler  (fabric-item-api-v1)
+public interface CustomDamageHandler {
+    int hurtAndBreak(ItemStack stack, int amount, LivingEntity entity,
+                     EquipmentSlot slot, Runnable breakCallback);
+}
+```
+
+You return the damage amount to actually apply, and you decide whether
+`breakCallback` (the thing that shrinks the stack) ever runs. Clamping the returned
+amount so damage never reaches max means vanilla never takes the destruction path.
+
+Related, for attaching default components to existing vanilla items without a mixin:
+
+```java
+// net.fabricmc.fabric.api.item.v1.DefaultItemComponentEvents
+public static final Event<ModifyCallback> MODIFY;
+```
+
+### Vanilla 26.2 already models "broken"
+
+```java
+public boolean isBroken();            // isDamageableItem() && getDamageValue() >= getMaxDamage()
+public boolean nextDamageWillBreak();
+```
+
+In `applyDamage`, the `shrink(1)` call is **gated behind `isBroken()`**. So a stack
+sitting at `damage == maxDamage` is already a coherent vanilla state. Forever's
+broken-item requirement (principle 5, FVR-102) is therefore additive: hold the item
+at maximum damage, suppress the shrink, and layer Forever condition semantics on top.
+This is far less invasive than replacing the durability system.
+
+`isDamageableItem()` is itself gated on the `MAX_DAMAGE` component being present,
+`UNBREAKABLE` being absent, and `DAMAGE` being present. Note that using `UNBREAKABLE`
+to prevent destruction is the wrong tool: it also disables the damage bar and makes
+condition state unrepresentable.
