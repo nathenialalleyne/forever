@@ -112,7 +112,7 @@ These are investigation and integration spikes. They establish whether the selec
 - **Test requirements:** Client and dedicated-server placement, bulk selection limits, cancellation, tool condition, protected-area behaviour, item drops, disconnect or retry, multiplayer permission, and absent-mod fallback.
 - **Removal/migration risks:** Disabling a placement or excavation mod can change recipes, key bindings, block interaction, and unfinished operations. Do not remove a selected tool from a persistent profile without a release note and disposable-world test.
 
-### LAB-04: Blueprint and schematic compatibility spike [Next]
+### LAB-04: Blueprint and schematic compatibility spike [Done]
 
 - **Objective:** Evaluate an existing planning tool for optional previews, material lists, and player-authored blueprints while preserving style-independent functional building.
 - **Dependencies:** MRH-000, LAB-03, ADRs 0032 and 0026, and the projects and settlements specifications.
@@ -146,7 +146,7 @@ These are investigation and integration spikes. They establish whether the selec
 - **Test requirements:** Recipe discovery, unknown-food fallback, processing interruption, duplicate output prevention, preservation recovery, effect-cap review, server-side consumption, and client explanation checks.
 - **Removal/migration risks:** Removing a cooking mod can orphan recipes, prepared items, traits, or preserved stock. Record item identities, retain physical inputs, and define a readable migration before changing a selected food provider.
 
-### LAB-06: Seasons and climate compatibility spike [Next]
+### LAB-06: Seasons and climate compatibility spike [Done]
 
 - **Objective:** Verify a climate provider and safe fallback for visible seasons, modest crop situations, weather context, and greenhouse or mitigation choices.
 - **Dependencies:** MRH-000, LAB-05, LAB-02, ADR 0014, and the seasons and weather specification.
