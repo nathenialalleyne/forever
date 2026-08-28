@@ -84,7 +84,7 @@ L. Cross-dimensional logistics: no magical universal warehouse across dimensions
    Depots may connect networks.
 M. Elytra becomes glider/scouting/vertical traversal; unlimited rocket flight is not dominant travel;
    established rail must beat Elytra for repeated fixed routes.
-N. Seasons: first climate adapter target is Serene Seasons, but depend on a climate abstraction.
+N. Seasons: depend on a climate abstraction, never a provider. LAB-06 pilots Homeostatic Seasons and defers Serene Seasons (beta, All Rights Reserved, beta GlitchCore, unknown game rule left on removal).
 O. Worldgen posture conservative: dramatic terrain + restrained structure set; add no worldgen deps now.
 P. Existing natural villages may later be incorporated via a charter/import workflow.
 Q. Player shops: free pricing; NPCs have willingness-to-pay so bad prices simply do not sell.

@@ -151,7 +151,7 @@ These are investigation and integration spikes. They establish whether the selec
 - **Objective:** Verify a climate provider and safe fallback for visible seasons, modest crop situations, weather context, and greenhouse or mitigation choices.
 - **Dependencies:** MRH-000, LAB-05, LAB-02, ADR 0014, and the seasons and weather specification.
 - **Authoritative sources to inspect:** `docs/systems/seasons-and-weather.md`, `docs/systems/food-and-alchemy.md`, `docs/systems/transportation.md`, `docs/design-principles.md`, ADRs 0014, 0024, and 0026, and the official Serene Seasons project and release sources.
-- **Existing-mod candidates:** Serene Seasons as the first target, vanilla weather, greenhouse or crop-support mods with public compatibility, and a later climate provider if authoritative evidence exists.
+- **Existing-mod candidates:** **Revised by LAB-06.** Homeostatic Seasons `1bSif4Rz` is the pilot target. Serene Seasons `13sXhUkI` is DEFERRED: beta 26.2 build, All Rights Reserved, beta GlitchCore dependency, and an unknown custom game rule left behind on removal. Also vanilla weather and greenhouse or crop-support mods with public compatibility.
 - **Custom-code gate:** No custom calendar or crop-kill system. A climate abstraction is considered only after the provider and fallback behaviour are tested and the adapter gap is documented.
 - **Explicit non-goals:** No months-long crop lockout, weather disaster simulator, mandatory greenhouse, guessed mapping for unknown crops, or permanent chunk loading.
 - **Acceptance criteria:**

@@ -1,7 +1,19 @@
 # Seasons and weather
 
 ## Status
-**Concept. NOT implemented.** No climate abstraction, seasonal calendar, weather situation model, greenhouse integration, or Serene Seasons adapter exists. Field Guide documentation is FVR-200..204. A dedicated seasons implementation ticket must be assigned before code.
+**Concept. NOT implemented.** No climate abstraction, seasonal calendar, weather situation model, greenhouse integration, or climate-provider adapter exists.
+
+**LAB-06 revised the provider choice.** The original plan named Serene Seasons as the
+first adapter target. LAB-06 tested it and deferred it: its 26.2 build is a beta, it is
+All Rights Reserved, and it depends on a beta GlitchCore. Homeostatic Seasons is the
+current pilot target because it boots beside Matcha, leaves the recipe and advancement
+baseline unchanged, and exposes calendar, transition, weather and temperature.
+
+ADR 0014 is unchanged and was strengthened by the evidence: the pack depends on the
+abstraction, not on any provider. LAB-06 found that removing a provider is not a
+cosmetic toggle, because a custom game rule can persist as an unknown registry key after
+the jar is gone and some providers leave calendar or meltable state in the save. Full
+detail in `labs/results/LAB-06-seasons-and-climate.md`. Field Guide documentation is FVR-200..204. A dedicated seasons implementation ticket must be assigned before code.
 
 ## Purpose
 Visible seasons and weather should give regions a changing identity and create modest situations for planning. They must not turn survival into long punitive crop lockouts or make the player wait for a calendar before ordinary play is possible.
