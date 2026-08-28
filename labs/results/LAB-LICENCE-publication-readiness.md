@@ -68,6 +68,7 @@ The relevant persistent repository state is Git history, not a Minecraft save:
 - All 21 were introduced by commit `0f09a38` (`M0-M2: architecture docs, Matcha tooling, audit CLI, CI`), which is an ancestor of `main`, `modpack-first`, and the `prototype-pre-modpack-pivot` tag.
 - Therefore, deleting the files only from a future tip would not remove them from the history exposed by publishing the existing repository. A history rewrite or a new clean public repository would be required for a source-only publication that excludes them.
 - The audit tool's successful output is deterministic for identical input bytes and options except for `metadata.json`'s generated timestamp. A different input path also changes the path-bearing metadata and summary. This is a reproducibility/tooling issue, not a reason to retain third-party excerpts in public history.
+  - **Resolved 2026-08-28.** The timestamp gap this lab identified has been fixed. The tool now honours `SOURCE_DATE_EPOCH`, so two audits of the same archive are byte-identical across all 21 files, verified by running them and comparing, and verified to still differ when the variable is unset. This matters because the recommended publication path depends on the reports being reproducible from a legitimately obtained archive rather than committed. That option is now technically sound rather than nearly-sound. See `scripts/README.md` and `ReportWriterTimestampTest`.
 
 ## Removal behaviour
 
