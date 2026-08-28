@@ -1,0 +1,171 @@
+# LAB-08 manifest: local item transport and automation compatibility
+#
+# Modrinth metadata was queried on 2026-08-28. Candidate SHA-1 and SHA-512 values
+# below are returned by the exact version endpoint and were matched after download.
+# Local SHA-256 values are included as an additional acquisition record.
+#
+# The added files are lab inputs only. This lab does not add any of them to pack/.
+
+[baseline]
+minecraft = "26.2"
+fabric_loader = "0.19.3"
+fabric_api = { project_id = "P7dR8mSH", version_id = "NqwNSxwA", file = "fabric-api-0.158.0+26.2.jar" }
+fabric_api_sha256 = "a4510eb2e9d4057ff20f751e420d0618598813ab9695b6f793a53c2883808dac"
+global_packs = { project_id = "NRLPy2mk", version_id = "DqrPrUMp", file = "globalpacks-fabric-26.2-26.2.0.jar" }
+global_packs_sha256 = "405e25ccd4e0184fd7228f4a9904d27e8ec0c25f3b0046e6489a2a7c1072c0f8"
+matcha = { project_id = "QI0EmgZ1", version_id = "E9rngRfK", file = "Matcha_Flavoured_1_12.zip" }
+matcha_sha256 = "6209783021c358044abedabacee471faff5bd4080437d4e3b5e51963f1804248"
+rei = { project_id = "nfn13YXA", version_id = "4o0NSIMj", file = "RoughlyEnoughItems-26.2.820.jar" }
+rei_sha256 = "9ba9d2a31531759549924064f33d3d45af342e7246f877efb8cee9f75f6ddaa9"
+jade = { project_id = "nvQzSEkH", version_id = "ue8CO97w", file = "Jade-mc26.2-Fabric-26.2.11.jar" }
+jade_sha256 = "ffe5d2e83a531c3fbe75ad54095e6a9eafc73a38d5827b4c90bedb4b03618b87"
+architectury = { project_id = "lhGA9TYQ", version_id = "1yQC4VvP", file = "architectury-fabric-21.0.7.jar" }
+architectury_sha256 = "0f57afbd3dcddd0b7304c22d712ccf5437e2c41270ec08bd2d8c4e1df0a6d627"
+cloth_config = { project_id = "9s6osm5g", version_id = "Nv3xnWXd", file = "cloth-config-26.2.155.jar" }
+cloth_config_sha256 = "def4be7639cd66704f7e304d658ea0f6bf490fb4a6eaa2dbf18ec2c3999d6349"
+
+[[add]]
+name = "Simple Copper Pipes"
+project_id = "9r4ZkgSN"
+version_id = "CEH3bXSV"
+version = "2.1.7-mc26.2"
+file = "SimpleCopperPipes-mc26.2-2.1.7.jar"
+url = "https://cdn.modrinth.com/data/9r4ZkgSN/versions/CEH3bXSV/SimpleCopperPipes-mc26.2-2.1.7.jar"
+release_type = "release"
+published = "2026-06-18T18:12:03.853147Z"
+license = "MIT"
+side = "both"
+role = "Adjacent copper pipe block inventories for local item transfer"
+source_url = "https://github.com/AViewFromTheTop/SimpleCopperPipesMC"
+issues_url = "https://github.com/AViewFromTheTop/SimpleCopperPipesMC/issues"
+sha1 = "ad1eb94f999799571b4a33fe43f93c3967a08287"
+sha512 = "c1d148bf93946929f1db4048d7c46c457fe9f2f4ea42f78f23b6382ba03fb9306e08c5bfbeb52154691ef34b0e19582474748e3b6914bd52a6d2ca781d0f54c4"
+sha256 = "222b7e4116d52784c1f495b8ff86ff4849fcbef55cf9ddd6bf87ffe4c4c30484"
+
+[[add]]
+name = "FrozenLib"
+project_id = "9KawNmQc"
+version_id = "Ak4sHFuc"
+version = "2.5.3-mc26.2"
+file = "FrozenLib-2.5.3-mc26.2.jar"
+url = "https://cdn.modrinth.com/data/9KawNmQc/versions/Ak4sHFuc/FrozenLib-2.5.3-mc26.2.jar"
+release_type = "release"
+published = "2026-07-09T15:20:06.382811Z"
+license = "GPL-3.0-only"
+side = "both"
+role = "Required Simple Copper Pipes runtime library"
+sha1 = "286a589b0b3891f0a9e6dc3a3e37cda45381dd96"
+sha512 = "e41ce242c16ee7a79350fb2eea3b09a7ca51afbc2eaebd452680aab9da4d9e26b6195248d08f44aa6726d955f2cf39cda5f926ac77cf96ad3029fb836f4b92f1"
+sha256 = "510bce30b1d7fdc869eccab3cd2ffd49609ec81c29b40f30da5d9d984f73338e"
+
+[[add]]
+name = "Classic Pipes"
+project_id = "xX5VOqpH"
+version_id = "5IRtOFZj"
+version = "1.1.7"
+file = "classicpipes-fabric-26.2-1.1.7.jar"
+url = "https://cdn.modrinth.com/data/xX5VOqpH/versions/5IRtOFZj/classicpipes-fabric-26.2-1.1.7.jar"
+release_type = "release"
+published = "2026-08-17T10:24:17.240425Z"
+license = "CC-BY-NC-SA-4.0"
+side = "both"
+role = "Physical item and fluid pipes with optional networked request and autocraft features"
+source_url = "https://github.com/J4gm/classicpipes"
+issues_url = "https://github.com/J4gm/classicpipes/issues"
+sha1 = "58317fc0ced7726f3d99c62f42d4d39897ea0805"
+sha512 = "6bef3911732da07d60dddf764d9dd671eb1b50713855a3748f103461ca9fff60e199d84e3352032cac5f6d1ef7ec465ba556e3bfa84f81325380d79e1882a555"
+sha256 = "8eff671e2a219056bbe1c2ee7f36ed4bac8928cad44b14da5e70025dc6b00a63"
+
+[[add]]
+name = "Ductwork"
+project_id = "E5Qy8rmu"
+version_id = "XCNsSwQj"
+version = "0.13.0"
+file = "ductwork-0.13.0.jar"
+url = "https://cdn.modrinth.com/data/E5Qy8rmu/versions/XCNsSwQj/ductwork-0.13.0.jar"
+release_type = "release"
+published = "2026-08-11T21:52:55.475993Z"
+license = "MIT"
+side = "both"
+role = "Bounded local ducts, collectors, dampers, and hopper-compatible transfer"
+source_url = "https://github.com/gniftygnome/ductwork"
+issues_url = "https://github.com/gniftygnome/ductwork/issues"
+sha1 = "991708f2ddd94c11ea60fc7cef6965ebbb25c47a"
+sha512 = "13ec58f1b6b44f75c5fb835706bfee0a8ee7ecff99251299bb2bb7910d1649ba1ffb18cf2560da417c84243fca2b5f36a4e9b7c1f78824832fd8a6145d11dfcc"
+sha256 = "9947373a3a48d7a8a749e8d362a0cd65443803e18adc703d4aa0037a0a23e3ef"
+
+[[add]]
+name = "Cooldown Coordinator"
+project_id = "2lfPteTN"
+version_id = "GMuuCYlJ"
+version = "0.10.0"
+file = "cooldown-coordinator-0.10.0.jar"
+url = "https://cdn.modrinth.com/data/2lfPteTN/versions/GMuuCYlJ/cooldown-coordinator-0.10.0.jar"
+release_type = "release"
+published = "2026-08-11T19:39:54.514256Z"
+license = "Apache-2.0"
+side = "both"
+role = "Required Ductwork runtime dependency"
+sha1 = "951a597eca94f9f7ca6c1460a740aafa39ae2264"
+sha512 = "5e5f022402dfbc3d215346837d9b42e30dcca53e8c0aabdc874b6949d4e8549e683d07c4f7923bfca52a254fc3d0206c2bfae1f8fe2f1d93e49715442f0ed8b1"
+sha256 = "ffd6adaa0c6136b8602fc5ed385481e51ca90946b19025a0d8b0d6d6e0b35f29"
+
+[[add]]
+name = "Copper Item Pipes"
+project_id = "QItx9xE2"
+version_id = "NNEAuaYK"
+version = "1.1.0+mod"
+file = "copper-item-pipes-1.1.0.jar"
+url = "https://cdn.modrinth.com/data/QItx9xE2/versions/NNEAuaYK/copper-item-pipes-1.1.0.jar"
+release_type = "release"
+published = "2026-02-23T23:00:52.914086Z"
+license = "MIT"
+side = "server"
+role = "Visible hopper-to-copper-grate item display transport"
+source_url = ""
+issues_url = ""
+requested_status = "unlisted"
+sha1 = "5a9850e06fcf81ee58abaa3952c4ba9c2e6518ff"
+sha512 = "4c23917ece9fc669746d6700cabf80c76a9d1154adc03e468ea12baa18f8889ac89763f809da1310e11df9506fea9ceaf2c3170dc5af23953ea3a44ccda77158"
+sha256 = "f17fe47f2065e9ce4607045aded2a6d8f7600c48e34cc3546035fa9081689738"
+
+[[add]]
+name = "Logistics: Automation"
+project_id = "cyW2SS1x"
+version_id = "JHnkVzMU"
+version = "0.8.6+mc26.2.fabric"
+file = "logistics-0.8.6+mc26.2.fabric.jar"
+url = "https://cdn.modrinth.com/data/cyW2SS1x/versions/JHnkVzMU/logistics-0.8.6%2Bmc26.2.fabric.jar"
+release_type = "release"
+published = "2026-08-07T16:32:44.016687Z"
+license = "MIT"
+side = "both"
+role = "Physical traveling-item pipes with optional provider, requester, and autocrafting networks"
+source_url = "https://github.com/Indemnity83/logistics"
+issues_url = "https://github.com/Indemnity83/logistics/issues"
+sha1 = "d0a75c7e8f1fa0c11f5155ed848d38cfc505babb"
+sha512 = "9a4c5741d52735726158df93171ea29749a02ad6d472cbda91aab64270f0c1a607dfb2cec00aaefe9f1416dd7f9bbc4575e30899208f1ef6d3c1c38d6c88e109"
+sha256 = "1c3f839a39c4d6d07a81abe816d69c3bf78687a28b4d2559e71ae5d85fcd81c8"
+
+# Candidates with no suitable exact Fabric 26.2 release, or whose stated behavior
+# conflicts with the lab's physical local-transport contract, were not added.
+[not_added]
+create = "Create (LNytGWDc) has no usable exact Fabric 26.2 release in the Modrinth version query. The project is Forge/NeoForge-oriented and uses LicenseRef-Create-Mod-License."
+create_fabric = "Create Fabric (Xbc0uyRg) has no usable exact Fabric 26.2 release in the Modrinth version query."
+pipez = "Pipez (iRmWy6ga) has no exact Fabric 26.2 release. Its observed loader targets are Forge and NeoForge, and its licence is LicenseRef-All-Rights-Reserved."
+integrated_dynamics = "Integrated Dynamics (yYzdQHJI) has no usable exact Fabric 26.2 release. The observed project targets Forge and NeoForge."
+integrated_tunnels = "Integrated Tunnels (Etqy1Omb) has no usable exact Fabric 26.2 release. The observed project targets Forge and NeoForge."
+modern_industrialization = "Modern Industrialization (Gov5Dboq) has no usable exact Fabric 26.2 release. Its project description says Fabric support stops at Minecraft 1.20.4."
+tesseract = "Tesseract (OUhp5O2m) has an exact 26.2 Fabric release AETPj8j4, but its project description advertises item transport any distance and across dimensions. That conflicts with ADR 0012 without an explicit physical depot."
+hopper_plus = "Hopper Plus (t4nmH7xE) has an exact 26.2 Fabric release qHMihi82, but its project description explicitly advertises teleporting items across distances."
+vanilla_hoppers = "Vanilla hoppers are not a downloadable candidate. They remain the ordinary baseline and were used as endpoints in the transport tests."
+
+[not_tested]
+buildcraft_refabricated = "BuildCraft Refabricated has exact 26.2 Fabric release xeEm4i1L, but it is a broad unofficial port and declares a different Fabric API dependency. It was not included in this focused local-transport run."
+hydrofarm = "Hydrofarm has exact 26.2 Fabric release et1b55B5, but it is a broader farming and automation surface with low adoption. Its item pipes were deferred for a focused farming compatibility lab."
+redstone_additions = "Redstone Additions has exact 26.2 release zqEKmnRW, but combines conveyors, item pipes, wireless features, and chunk loading under a broad custom licence. It was not isolated for this lab."
+logistics_request_provider_permissions = "Logistics provider, requester, and autocrafting flows were not exercised. No client or real multiplayer player was available, and these flows require a separate permission and duplicate-request test."
+client_rendering = "No client could be launched because the host has no usable display. Screenshots and rendered packet visibility for client-required candidates remain unverified."
+non_logistics_minecart_endpoints = "Ductwork was tested with a vanilla chest minecart. Simple Copper Pipes, Classic Pipes, Logistics, and Copper Item Pipes were not separately tested with minecart endpoints."
+cross_dimension = "No live cross-dimensional transfer was run. Tested local candidates expose no explicit bridge in the inspected source or embedded data. Tesseract was rejected statically because its advertised behavior is cross-dimensional and any-distance."
+server_profiling = "No tick profiler or sustained large-network benchmark was run. Startup timings are observations only and do not establish a performance bound."
