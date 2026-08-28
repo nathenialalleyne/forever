@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "initial_cache_slots": 9,
+  "expanded_cache_slots": 18,
+  "max_warehouses": 64,
+  "max_registered_containers": 256,
+  "max_indexed_slots": 8192,
+  "max_query_results": 200,
+  "max_query_text_length": 128,
+  "max_query_facets": 16,
+  "warehouse_registration_range": 64,
+  "max_rebuild_containers": 256,
+  "max_rebuild_slots": 8192,
+  "max_network_payload_bytes": 65536
+}

@@ -25,7 +25,12 @@ final class NameNotSnakeCaseCheck implements AssetRule {
 						"Directory name '" + name + "' must match ^[a-z][a-z0-9_]*$."));
 			}
 		}
+		// The contract covers resource filename stems. Marker files such as .gitkeep
+		// support empty planned directories and are not production resources.
 		for (AssetFile file : context.inventory().files()) {
+			if (".gitkeep".equals(file.relativePath().getFileName().toString())) {
+				continue;
+			}
 			if (!SNAKE_CASE.matcher(file.stem()).matches()) {
 				violations.add(new AssetViolation(code(), pathName(file.relativePath()),
 						"Filename stem '" + file.stem() + "' must match ^[a-z][a-z0-9_]*$."));

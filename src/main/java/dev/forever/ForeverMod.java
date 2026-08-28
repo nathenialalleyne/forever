@@ -1,5 +1,10 @@
 package dev.forever;
 
+import dev.forever.compat.matcha.ForeverMatchaCompat;
+import dev.forever.core.equipment.ForeverEquipment;
+import dev.forever.core.mastery.ForeverMastery;
+import dev.forever.core.settlement.ForeverSettlement;
+import dev.forever.core.storage.ForeverStorage;
 import net.fabricmc.api.ModInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,17 +12,21 @@ import org.slf4j.LoggerFactory;
 /**
  * Common (server and client) entrypoint for Forever.
  *
- * <p>This class is deliberately minimal. Forever is currently an architecture and
- * audit foundation: no gameplay systems are registered yet. See
- * {@code docs/architecture.md} for the intended module boundaries and
- * {@code docs/backlog.md} for the ordered work queue.
+ * <p>This class does one job: it invokes each system's own initialiser in a defined
+ * order. It deliberately holds no state and contains no gameplay logic, so that it
+ * never becomes the {@code ForeverManager} god-object that
+ * {@code docs/architecture.md} forbids. Each system owns its own registration.
  *
- * <p>Rules that apply to this class:
+ * <p>Rules that apply here:
  * <ul>
- *   <li>It must never reference client-only classes. It runs on dedicated servers.</li>
- *   <li>It must not become a god-object registry ({@code ForeverManager}). Each future
- *       system owns its own registration and is invoked from here explicitly.</li>
+ *   <li>Never reference client-only classes. This runs on dedicated servers.</li>
+ *   <li>Add one line per system, and nothing else.</li>
  * </ul>
+ *
+ * @see dev.forever.core.mastery.ForeverMastery
+ * @see dev.forever.core.settlement.ForeverSettlement
+ * @see dev.forever.core.storage.ForeverStorage
+ * @see dev.forever.compat.matcha.ForeverMatchaCompat
  */
 public final class ForeverMod implements ModInitializer {
 
@@ -28,6 +37,20 @@ public final class ForeverMod implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		LOGGER.info("Forever initialising (foundation only; no gameplay systems registered).");
+		// Registers the equipment state component, the field tool, the balance reload
+		// listener, and the tooltip provider. Touching a constant here instead would
+		// register the component but silently leave the rest absent in production.
+		ForeverEquipment.initialize();
+
+		ForeverMastery.initialize();
+		ForeverSettlement.initialize();
+		ForeverStorage.initialize();
+
+		// Matcha is a datapack, not a mod, so detection cannot complete at mod-init
+		// time. This registers the adapter and its no-op fallback; the adapter resolves
+		// its real support level once a server and its datapacks are available.
+		ForeverMatchaCompat.initialize();
+
+		LOGGER.info("Forever initialised: equipment, mastery, settlement, storage, and Matcha compatibility registered.");
 	}
 }

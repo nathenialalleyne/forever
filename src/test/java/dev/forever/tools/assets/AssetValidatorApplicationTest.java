@@ -58,7 +58,7 @@ class AssetValidatorApplicationTest {
 		RunResult result = run(assets, manifest);
 
 		assertEquals(0, result.exitCode(), result.output() + result.errors());
-		assertFalse(result.output().contains("UNEXPECTED_DIMENSIONS"));
+		assertTrue(result.output().contains("Violations: 0"), result.output());
 	}
 
 	@Test
@@ -126,7 +126,7 @@ class AssetValidatorApplicationTest {
 		RunResult result = run(assets, manifest);
 
 		assertEquals(0, result.exitCode(), result.output() + result.errors());
-		assertFalse(result.output().contains("MISSING_TEXTURE_REFERENCE"));
+		assertTrue(result.output().contains("Violations: 0"), result.output());
 	}
 
 	@Test
@@ -137,7 +137,7 @@ class AssetValidatorApplicationTest {
 		RunResult result = run(assets, manifest);
 
 		assertEquals(0, result.exitCode(), result.output() + result.errors());
-		assertFalse(result.output().contains("MANIFEST_ENTRY_MISSING_ASSET"));
+		assertTrue(result.output().contains("Violations: 0"), result.output());
 	}
 
 	@Test
@@ -237,6 +237,28 @@ class AssetValidatorApplicationTest {
 	}
 
 	@Test
+	void missingManifestIsAUsageError() throws Exception {
+		Path assets = createAssetsDirectory();
+
+		RunResult result = run(assets, temporaryDirectory.resolve("missing-manifest.csv"));
+
+		assertEquals(2, result.exitCode());
+		assertTrue(result.errors().contains("Manifest file does not exist"));
+		assertTrue(result.errors().contains("--manifest"));
+	}
+
+	@Test
+	void invalidPathArgumentIsAUsageErrorWithoutAStackTrace() throws Exception {
+		Path manifest = writeManifest();
+
+		RunResult result = runArguments("--assets", String.valueOf((char) 0), "--manifest", manifest.toString());
+
+		assertEquals(2, result.exitCode());
+		assertTrue(result.errors().contains("invalid path"));
+		assertFalse(result.errors().contains("Exception in thread"));
+	}
+
+	@Test
 	void jsonReportIsWrittenDeterministically() throws Exception {
 		Path assets = createAssetsDirectory();
 		writePng(assets.resolve("textures/item/valid_asset.png"), 16, 16, BufferedImage.TYPE_INT_ARGB, 0xff336699);
@@ -307,13 +329,17 @@ class AssetValidatorApplicationTest {
 	}
 
 	private RunResult run(Path assets, Path manifest, Path json) {
+		String[] arguments = json == null
+				? new String[] {"--assets", assets.toString(), "--manifest", manifest.toString()}
+				: new String[] {"--assets", assets.toString(), "--manifest", manifest.toString(), "--json", json.toString()};
+		return runArguments(arguments);
+	}
+
+	private RunResult runArguments(String... arguments) {
 		ByteArrayOutputStream outputBytes = new ByteArrayOutputStream();
 		ByteArrayOutputStream errorBytes = new ByteArrayOutputStream();
 		PrintStream output = new PrintStream(outputBytes, true, StandardCharsets.UTF_8);
 		PrintStream errors = new PrintStream(errorBytes, true, StandardCharsets.UTF_8);
-		String[] arguments = json == null
-				? new String[] {"--assets", assets.toString(), "--manifest", manifest.toString()}
-				: new String[] {"--assets", assets.toString(), "--manifest", manifest.toString(), "--json", json.toString()};
 		int exitCode = AssetValidatorApplication.run(arguments, output, errors);
 		return new RunResult(exitCode, outputBytes.toString(StandardCharsets.UTF_8), errorBytes.toString(StandardCharsets.UTF_8));
 	}

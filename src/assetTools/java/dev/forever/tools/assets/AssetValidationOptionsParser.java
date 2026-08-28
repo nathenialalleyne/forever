@@ -1,5 +1,6 @@
 package dev.forever.tools.assets;
 
+import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 
 /** Parses the deliberately small validator command line. */
@@ -27,7 +28,7 @@ final class AssetValidationOptionsParser {
 						throw new UsageException("Option --assets was supplied more than once.");
 					}
 					assetsSeen = true;
-					assetsDirectory = Path.of(valueFor(arguments, index, argument));
+					assetsDirectory = pathFor(valueFor(arguments, index, argument), argument);
 					index++;
 				}
 				case "--manifest" -> {
@@ -35,7 +36,7 @@ final class AssetValidationOptionsParser {
 						throw new UsageException("Option --manifest was supplied more than once.");
 					}
 					manifestSeen = true;
-					manifestFile = Path.of(valueFor(arguments, index, argument));
+					manifestFile = pathFor(valueFor(arguments, index, argument), argument);
 					index++;
 				}
 				case "--json" -> {
@@ -43,13 +44,21 @@ final class AssetValidationOptionsParser {
 						throw new UsageException("Option --json was supplied more than once.");
 					}
 					jsonSeen = true;
-					jsonOutput = Path.of(valueFor(arguments, index, argument));
+					jsonOutput = pathFor(valueFor(arguments, index, argument), argument);
 					index++;
 				}
 				default -> throw new UsageException("Unknown argument: " + argument + ".");
 			}
 		}
 		return new AssetValidationOptions(assetsDirectory, manifestFile, jsonOutput);
+	}
+
+	private static Path pathFor(String value, String option) throws UsageException {
+		try {
+			return Path.of(value);
+		} catch (InvalidPathException exception) {
+			throw new UsageException("Option " + option + " has an invalid path: " + exception.getMessage() + ".");
+		}
 	}
 
 	private static String valueFor(String[] arguments, int optionIndex, String option)

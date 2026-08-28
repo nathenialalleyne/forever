@@ -79,6 +79,8 @@ public final class EquipmentGameTest {
 		int workshopMaterialBefore = workshopMaterial.getCount();
 		EquipmentOperationResult workshopRepair = EquipmentService.workshopRepair(equipment, workshopMaterial, true);
 		helper.assertTrue(workshopRepair.success(), "workshop repair should restore full condition");
+		helper.assertTrue(equipment.getCount() == equipmentCountBefore,
+				"workshop repair must not duplicate or delete equipment");
 		helper.assertTrue(workshopMaterial.getCount() == workshopMaterialBefore - 1,
 				"workshop repair must consume exactly one configured material");
 		helper.assertTrue(EquipmentService.state(equipment).orElseThrow().currentCondition()

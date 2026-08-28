@@ -7,7 +7,10 @@
 	"environment": "*",
 	"entrypoints": {
 		"fabric-gametest": [
-			"dev.forever.gametest.ForeverInitializationGameTest"
+			"dev.forever.gametest.ForeverInitializationGameTest",
+			"dev.forever.gametest.equipment.EquipmentGameTest",
+			"dev.forever.gametest.mastery.MasteryPersistenceGameTest",
+			"dev.forever.gametest.settlement.SettlementPersistenceGameTest"
 		]
 	},
 	"depends": {
