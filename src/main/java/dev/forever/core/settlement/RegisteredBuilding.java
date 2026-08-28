@@ -1,6 +1,7 @@
 package dev.forever.core.settlement;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.DataResult;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.Objects;
 import java.util.Set;
@@ -21,15 +22,30 @@ public record RegisteredBuilding(
 
 	private static final int MAX_ROLES = 8;
 
-	public static final Codec<RegisteredBuilding> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-			SettlementCodecs.UUID_CODEC.fieldOf("id").forGetter(RegisteredBuilding::id),
-			Identifier.CODEC.fieldOf("dimension").forGetter(RegisteredBuilding::dimension),
-			BuildingBounds.CODEC.fieldOf("bounds").forGetter(RegisteredBuilding::bounds),
+	private record Encoded(
+			UUID id,
+			Identifier dimension,
+			BuildingBounds bounds,
+			Set<SettlementRole> roles,
+			boolean outpost,
+			ValidationResult validation) {
+	}
+
+	private static final Codec<Encoded> RAW_CODEC = RecordCodecBuilder.create(instance -> instance.group(
+			SettlementCodecs.UUID_CODEC.fieldOf("id").forGetter(Encoded::id),
+			Identifier.CODEC.fieldOf("dimension").forGetter(Encoded::dimension),
+			BuildingBounds.CODEC.fieldOf("bounds").forGetter(Encoded::bounds),
 			SettlementCodecs.enumSetCodec(SettlementRole.class, MAX_ROLES, "building roles")
-					.fieldOf("roles").forGetter(RegisteredBuilding::roles),
-			Codec.BOOL.fieldOf("outpost").forGetter(RegisteredBuilding::outpost),
-			ValidationResult.CODEC.fieldOf("validation").forGetter(RegisteredBuilding::validation)
-	).apply(instance, RegisteredBuilding::new));
+					.fieldOf("roles").forGetter(Encoded::roles),
+			Codec.BOOL.fieldOf("outpost").forGetter(Encoded::outpost),
+			ValidationResult.CODEC.fieldOf("validation").forGetter(Encoded::validation)
+	).apply(instance, Encoded::new));
+
+	public static final Codec<RegisteredBuilding> CODEC = RAW_CODEC.flatXmap(
+			encoded -> create(encoded),
+			building -> DataResult.success(new Encoded(
+					building.id(), building.dimension(), building.bounds(), building.roles(), building.outpost(),
+					building.validation())));
 
 	public RegisteredBuilding {
 		Objects.requireNonNull(id, "id");
@@ -48,6 +64,16 @@ public record RegisteredBuilding(
 			outpost = true;
 		}
 		Objects.requireNonNull(validation, "validation");
+	}
+
+	private static DataResult<RegisteredBuilding> create(Encoded encoded) {
+		try {
+			return DataResult.success(new RegisteredBuilding(
+					encoded.id(), encoded.dimension(), encoded.bounds(), encoded.roles(), encoded.outpost(),
+					encoded.validation()));
+		} catch (IllegalArgumentException exception) {
+			return DataResult.error(exception::getMessage);
+		}
 	}
 
 	public static RegisteredBuilding pending(

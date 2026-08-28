@@ -166,6 +166,11 @@ public final class SettlementCharterService {
 			return new ImportResult(false, state, Optional.empty(),
 					"The selected import candidates could not form a graph; the original Charter state is unchanged.");
 		}
+		if (unresolved.size() > VillageImportRecord.MAX_UNRESOLVED_ISSUES) {
+			return new ImportResult(false, state, Optional.empty(), "The import produced " + unresolved.size()
+					+ " unresolved issues, above the bounded limit of " + VillageImportRecord.MAX_UNRESOLVED_ISSUES
+					+ "; narrow the selection and review again. The original Charter state is unchanged.");
+		}
 
 		VillageImportRecord record = new VillageImportRecord(proposal.proposalId(), proposal.sourceDimension(),
 				proposal.candidateArea(), proposal.sourceVillagerCount(), orderedSelection, unresolved);

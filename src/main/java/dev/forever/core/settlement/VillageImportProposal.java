@@ -1,6 +1,7 @@
 package dev.forever.core.settlement;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.DataResult;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -25,18 +26,33 @@ public record VillageImportProposal(
 	private static final int MAX_CANDIDATE_BUILDINGS = 4_096;
 	private static final int MAX_UNRESOLVED_ISSUES = 128;
 
-	public static final Codec<VillageImportProposal> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-			SettlementCodecs.UUID_CODEC.fieldOf("proposal_id").forGetter(VillageImportProposal::proposalId),
-			Identifier.CODEC.fieldOf("source_dimension").forGetter(VillageImportProposal::sourceDimension),
-			BuildingBounds.CODEC.fieldOf("candidate_area").forGetter(VillageImportProposal::candidateArea),
+	private record Encoded(
+			UUID proposalId,
+			Identifier sourceDimension,
+			BuildingBounds candidateArea,
+			List<RegisteredBuilding> candidateBuildings,
+			int sourceVillagerCount,
+			List<String> unresolvedIssues) {
+	}
+
+	private static final Codec<Encoded> RAW_CODEC = RecordCodecBuilder.create(instance -> instance.group(
+			SettlementCodecs.UUID_CODEC.fieldOf("proposal_id").forGetter(Encoded::proposalId),
+			Identifier.CODEC.fieldOf("source_dimension").forGetter(Encoded::sourceDimension),
+			BuildingBounds.CODEC.fieldOf("candidate_area").forGetter(Encoded::candidateArea),
 			SettlementCodecs.boundedList(RegisteredBuilding.CODEC, MAX_CANDIDATE_BUILDINGS,
 					"import candidates").fieldOf("candidate_buildings")
-					.forGetter(VillageImportProposal::candidateBuildings),
-			Codec.INT.fieldOf("source_villager_count").forGetter(VillageImportProposal::sourceVillagerCount),
+					.forGetter(Encoded::candidateBuildings),
+			Codec.INT.fieldOf("source_villager_count").forGetter(Encoded::sourceVillagerCount),
 			SettlementCodecs.boundedList(Codec.STRING, MAX_UNRESOLVED_ISSUES,
 					"proposal unresolved issues").fieldOf("unresolved_issues")
-					.forGetter(VillageImportProposal::unresolvedIssues)
-	).apply(instance, VillageImportProposal::new));
+					.forGetter(Encoded::unresolvedIssues)
+		).apply(instance, Encoded::new));
+
+	public static final Codec<VillageImportProposal> CODEC = RAW_CODEC.flatXmap(
+			VillageImportProposal::create,
+			proposal -> DataResult.success(new Encoded(
+					proposal.proposalId(), proposal.sourceDimension(), proposal.candidateArea(), proposal.candidateBuildings(),
+					proposal.sourceVillagerCount(), proposal.unresolvedIssues())));
 
 	public VillageImportProposal {
 		Objects.requireNonNull(proposalId, "proposalId");
@@ -80,6 +96,16 @@ public record VillageImportProposal(
 		unresolvedIssues = unresolvedIssues.stream()
 				.map(issue -> SettlementCodecs.requiredText(issue, "proposal issue", 512))
 				.toList();
+	}
+
+	private static DataResult<VillageImportProposal> create(Encoded encoded) {
+		try {
+			return DataResult.success(new VillageImportProposal(
+					encoded.proposalId(), encoded.sourceDimension(), encoded.candidateArea(), encoded.candidateBuildings(),
+					encoded.sourceVillagerCount(), encoded.unresolvedIssues()));
+		} catch (IllegalArgumentException exception) {
+			return DataResult.error(exception::getMessage);
+		}
 	}
 
 	public RegisteredBuilding candidate(UUID buildingId) {

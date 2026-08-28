@@ -11,12 +11,20 @@ public record ValidationResult(ValidationStatus status, int revision, List<Valid
 
 	private static final int MAX_ISSUES = 16;
 
-	public static final Codec<ValidationResult> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-			ValidationStatus.CODEC.fieldOf("status").forGetter(ValidationResult::status),
-			Codec.INT.fieldOf("revision").forGetter(ValidationResult::revision),
+	private record Encoded(ValidationStatus status, int revision, List<ValidationIssue> issues) {
+	}
+
+	private static final Codec<Encoded> RAW_CODEC = RecordCodecBuilder.create(instance -> instance.group(
+			ValidationStatus.CODEC.fieldOf("status").forGetter(Encoded::status),
+			Codec.INT.fieldOf("revision").forGetter(Encoded::revision),
 			SettlementCodecs.boundedList(ValidationIssue.CODEC, MAX_ISSUES, "validation issues")
-					.fieldOf("issues").forGetter(ValidationResult::issues)
-	).apply(instance, ValidationResult::new));
+					.fieldOf("issues").forGetter(Encoded::issues)
+	).apply(instance, Encoded::new));
+
+	public static final Codec<ValidationResult> CODEC = RAW_CODEC.flatXmap(
+			encoded -> create(encoded.status(), encoded.revision(), encoded.issues()),
+			validation -> DataResult.success(new Encoded(
+					validation.status(), validation.revision(), validation.issues())));
 
 	public ValidationResult {
 		Objects.requireNonNull(status, "status");

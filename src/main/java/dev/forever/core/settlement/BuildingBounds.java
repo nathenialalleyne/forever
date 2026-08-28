@@ -9,10 +9,17 @@ import net.minecraft.core.BlockPos;
 /** Inclusive, player-selected building bounds. No world scan is implied by this record. */
 public record BuildingBounds(BlockPos min, BlockPos max) {
 
-	public static final Codec<BuildingBounds> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-			BlockPos.CODEC.fieldOf("min").forGetter(BuildingBounds::min),
-			BlockPos.CODEC.fieldOf("max").forGetter(BuildingBounds::max)
-	).apply(instance, BuildingBounds::new));
+	private record Encoded(BlockPos min, BlockPos max) {
+	}
+
+	private static final Codec<Encoded> RAW_CODEC = RecordCodecBuilder.create(instance -> instance.group(
+			BlockPos.CODEC.fieldOf("min").forGetter(Encoded::min),
+			BlockPos.CODEC.fieldOf("max").forGetter(Encoded::max)
+	).apply(instance, Encoded::new));
+
+	public static final Codec<BuildingBounds> CODEC = RAW_CODEC.flatXmap(
+		encoded -> create(encoded.min(), encoded.max()),
+		bounds -> DataResult.success(new Encoded(bounds.min(), bounds.max())));
 
 	public BuildingBounds {
 		Objects.requireNonNull(min, "min");
