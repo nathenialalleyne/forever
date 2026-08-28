@@ -1,0 +1,16 @@
+{
+	"schema_version": 1,
+	"proximity_attachment_distance": 64.0,
+	"outpost_attachment_distance": 512.0,
+	"validation_volume_cap": 32768,
+	"hard_validation_volume_cap": 262144,
+	"minimum_interior_space": 8,
+	"minimum_beds": 1,
+	"minimum_workstations": 1,
+	"minimum_storage_slots": 9,
+	"minimum_light_level": 8,
+	"abstract_villager_budget_per_tick": 64,
+	"migration_interval_ticks": 24000,
+	"migration_arrivals_per_interval": 1,
+	"maximum_import_buildings": 256
+}
