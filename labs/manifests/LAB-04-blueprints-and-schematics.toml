@@ -1,0 +1,122 @@
+# LAB-04 manifest: blueprint and schematic compatibility spike
+#
+# Versions were re-verified against the official Modrinth API on 2026-08-28.
+# Query shape used for each project:
+# https://api.modrinth.com/v2/project/<project_id>/version?game_versions=["26.2"]&loaders=["fabric"]
+#
+# These are disposable lab fixtures, not an approval to add every candidate to pack/.
+# Third-party files were downloaded only under /tmp/lab04/ and are not committed.
+
+[baseline]
+minecraft = "26.2"
+fabric_loader = "0.19.3"
+fabric_api = { project_id = "P7dR8mSH", version_id = "NqwNSxwA", file = "fabric-api-0.158.0+26.2.jar" }
+global_packs = { project_id = "NRLPy2mk", version_id = "DqrPrUMp", file = "globalpacks-fabric-26.2-26.2.0.jar" }
+matcha = { project_id = "QI0EmgZ1", version_id = "E9rngRfK", file = "Matcha_Flavoured_1_12.zip", sha256 = "6209783021c358044abedabacee471faff5bd4080437d4e3b5e51963f1804248" }
+roughly_enough_items = { project_id = "nfn13YXA", version_id = "4o0NSIMj", file = "RoughlyEnoughItems-26.2.820.jar" }
+jade = { project_id = "nvQzSEkH", version_id = "ue8CO97w", file = "Jade-mc26.2-Fabric-26.2.11.jar" }
+architectury = { project_id = "lhGA9TYQ", version_id = "1yQC4VvP", file = "architectury-fabric-21.0.7.jar" }
+cloth_config = { project_id = "9s6osm5g", version_id = "Nv3xnWXd", file = "cloth-config-26.2.155.jar" }
+
+[[add]]
+name = "Litematica"
+project_id = "bEpr0Arc"
+version_id = "Fhq3KCI8"
+version = "0.28.5"
+file = "litematica-fabric-26.2-0.28.5.jar"
+url = "https://cdn.modrinth.com/data/bEpr0Arc/versions/Fhq3KCI8/litematica-fabric-26.2-0.28.5.jar"
+sha256 = "e711f69b0899ab3c4afafd49e7b825aa7d5051ee5358c88fef36023c612ae91a"
+release_type = "release"
+published = "2026-08-20T01:12:38.969277Z"
+license = "LGPL-3.0-only"
+side = "client-only"
+role = "Ghost Plan preview, native .litematic material lists, and manual placement reference"
+dependencies = ["GcWjdA9I"]
+
+[[add]]
+name = "MaLiLib"
+project_id = "GcWjdA9I"
+version_id = "ZCq1iE1J"
+version = "0.29.4"
+file = "malilib-fabric-26.2-0.29.4.jar"
+url = "https://cdn.modrinth.com/data/GcWjdA9I/versions/ZCq1iE1J/malilib-fabric-26.2-0.29.4.jar"
+sha256 = "a691f78959e19ac0e1224e5f3aec63c5fc705ba2b9b7c3a86367e569b95bf2c8"
+release_type = "release"
+published = "2026-08-20T00:45:48.843067Z"
+license = "LGPL-3.0-only"
+side = "client-only"
+role = "required Litematica library dependency"
+
+[[add]]
+name = "AutoBuild"
+project_id = "wzBO46L7"
+version_id = "Q7qeA1GB"
+version = "2.0.1+26.2"
+file = "autobuild-2.0.1+26.2.jar"
+url = "https://cdn.modrinth.com/data/wzBO46L7/versions/Q7qeA1GB/autobuild-2.0.1%2B26.2.jar"
+sha256 = "dd851e1274e8ce3e879658d9c75c542557abeaf691572de5a9f8121d0e7c85e3"
+release_type = "release"
+published = "2026-08-15T15:41:30.686311Z"
+license = "MIT in Modrinth and fabric.mod.json; bundled LICENSE_autobuild states CC0"
+side = "client-and-server"
+role = "Ghost Plan preview plus material-aware automatic construction comparison"
+dependencies = ["P7dR8mSH"]
+
+[[add]]
+name = "HoloBuilder - Schematic Loader"
+project_id = "k9maSaFI"
+version_id = "2dPJ8wxq"
+version = "0.1.5"
+file = "holobuilder-fabric-26.2-0.1.5.jar"
+url = "https://cdn.modrinth.com/data/k9maSaFI/versions/2dPJ8wxq/holobuilder-fabric-26.2-0.1.5.jar"
+sha256 = "04c4571cd609c0aba822404637669e25fc75111cd1f8f1b1f57110614f43d774"
+release_type = "release"
+published = "2026-08-22T10:04:35.297534Z"
+license = "LicenseRef-All-Rights-Reserved on Modrinth; embedded LICENSE_holobuilder states MIT"
+side = "client-only"
+role = "Alternative Ghost Plan hologram, comparison, and material preview"
+
+[[add]]
+name = "Simple Blueprints"
+project_id = "fYjWAMwz"
+version_id = "V9DvhYUD"
+version = "26.2-1.2.1"
+file = "simple_blueprints-26.2-1.2.1.jar"
+url = "https://cdn.modrinth.com/data/fYjWAMwz/versions/V9DvhYUD/simple_blueprints-26.2-1.2.1.jar"
+sha256 = "9d87ab7336b06fd7bc3f2a3880a0629d74868a64c3e0b1093e0e40b7da656959"
+release_type = "release"
+published = "2026-06-18T16:57:21.071392Z"
+license = "MIT"
+side = "client-only"
+role = "Format and survival-authority control comparison for local blueprint preview"
+
+[[add]]
+name = "SchematicPreview"
+project_id = "OC1Ud2T4"
+version_id = "ZtNv1tgJ"
+version = "0.0.17+26.2"
+file = "schematicpreview-0.0.17+26.2.jar"
+url = "https://cdn.modrinth.com/data/OC1Ud2T4/versions/ZtNv1tgJ/schematicpreview-0.0.17%2B26.2.jar"
+sha256 = "a030767498e92c1f0031386bd22aaf40dd0045151495c8e36335b383678074ca"
+release_type = "release"
+published = "2026-08-21T20:06:42.894437Z"
+license = "LicenseRef-All-Rights-Reserved"
+side = "client-only"
+role = "Litematica preview addon comparison"
+dependencies = ["bEpr0Arc", "GcWjdA9I", "P7dR8mSH"]
+
+[not_tested]
+blueprints_image_projection = "project_id=x9zklasX, version_id=W9qTp23A, file=blueprints.2024-26.2.12.jar, MIT; exact 26.2 client release found, but its documented image and blueprint projection focus did not establish a schematic material-list provider, so it was not added to the bounded fixture set."
+litematica_inventory_highlight = "project_id=uXn3roAp, version_id=y10Knozv, file=litematica-inv-highlight-26.2-1.0.1.jar, MIT; optional Litematica missing-block visualization addon, not needed to establish the base Ghost Plan capability."
+litematica_rawmaterials = "project_id=OWsxlyPe, version_id=xP2QKQZH, file=rawmats-fabric-26.2-0.4.1.jar, MIT; optional Litematica raw-crafting-material expansion, not needed because base Litematica already exposes block-level material counts."
+
+[not_added]
+axiom = "project_id=N6n5dqoA, release version_id=QO99kC52, file=Axiom-5.5.0-for-MC26.2.jar, LicenseRef-All-Rights-Reserved; exact release exists, but the project is a creative/editor tool with no source URL, and its 6.0.0 26.2 artifact was alpha. It was rejected as the survival Ghost Plan baseline."
+worldedit = "project_id=1u6JkXh5, version_id=6YnCYPwc, file=worldedit-mod-7.4.5.jar, GPL-3.0-only; already rejected by LAB-03 as a privileged map editor and command paste tool rather than a survival planning layer, so it was not duplicated in this lab."
+structurize = "The official Structurize project at https://github.com/ldtteam/Structurize is GPL-3.0, but no verified Modrinth 26.2 Fabric artifact was returned. The Modrinth project and version lookups did not provide a compatible release, so no substitute was invented."
+litematica_printer = "project_id=3llatzyE, version_id=7l7ihnI0, file=litematica-printer-26.2-3.2.2.jar, AGPL-3.0-only; explicitly adds missing printing functionality and conflicts with the no-creative-printing scope."
+schematic_placer = "project_id=uQVTjOl4, version_id=esbnGUqT, file=schematic-placer-1.0.4.jar, MIT; WorldEdit addon whose purpose is placing schematics over ticks, so it is a printing tool rather than Ghost Plan."
+litematica_server_paster = "project_id=HCbarMw6; no 26.2 Fabric release was returned. The project description is server pasting of block and entity data, which is outside the preview-only scope even if a compatible release appears later."
+portable_blueprints = "project_id=pTRNOhPP; no 26.2 Fabric release was returned. Its description promises one-click instant rebuilding, which would also require a separate survival-authority review."
+building_blueprint = "project_id=AmLpMiSO; no 26.2 Fabric release was returned. The project is All Rights Reserved and advertises saving and placing structures, so no unverified substitute was used."
+schematica_reloaded = "project_id=eJObCFt0; no 26.2 Fabric release was returned. The observed releases target older Minecraft versions."
