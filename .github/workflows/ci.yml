@@ -45,6 +45,16 @@ jobs:
       - name: Run root unit tests
         run: ./gradlew test --no-daemon
 
+      # `build` already runs `check`, which covers Checkstyle and the ArchUnit rules.
+      # Naming them as their own step is deliberate: when a contributor breaks a
+      # layering or style rule, the failing step should say which gate rejected the
+      # change rather than burying it inside a generic build failure.
+      - name: Check architecture rules
+        run: ./gradlew test --no-daemon --tests 'dev.forever.architecture.*'
+
+      - name: Check code style
+        run: ./gradlew checkstyleMain checkstyleClient checkstyleTest checkstyleGametest checkstyleAssetTools --no-daemon
+
       # The asset validator is a pure-JDK developer tool. It needs no Minecraft
       # runtime, no network access, and no third-party dependency, so it is cheap to
       # enforce here. Running it in CI is what makes the manifest an actual gate
