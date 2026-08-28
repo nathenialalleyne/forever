@@ -13,6 +13,7 @@
 			"dev.forever.gametest.guide.GuideTranslationGameTest",
 			"dev.forever.gametest.mason.MasonVerticalSliceGameTest",
 			"dev.forever.gametest.mastery.MasteryPersistenceGameTest",
+			"dev.forever.gametest.matcha.MatchaDetectionGameTest",
 			"dev.forever.gametest.settlement.SettlementPersistenceGameTest",
 			"dev.forever.gametest.storage.StorageGameTest"
 		]

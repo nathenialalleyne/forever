@@ -279,3 +279,33 @@ Matcha content and fail safe for an absent pack.
 There is no automatic "closest version" mode. A new Matcha archive requires a new
 fingerprint profile, audit evidence, compatibility decision, and tests before its
 mappings can be enabled.
+
+## Live-server detection (implemented, FVR-017)
+
+Detection is wired to the server lifecycle in `MatchaServerEvidence`:
+
+- `ServerLifecycleEvents.SERVER_STARTED` gathers evidence once the world is loaded.
+- `ServerLifecycleEvents.END_DATA_PACK_RELOAD` re-gathers after a successful `/reload`,
+  so a stale decision cannot survive a datapack change.
+
+**What is observed.** A bounded probe for ten known Matcha data namespaces
+(`blasting`, `blessings`, `crafting`, `endless_repairs`, `food`, `main`, `smelting`,
+`smithing_table`, `smoking`, `stonecutting`), plus the `version_number` marker
+scoreboard objective the pack creates during setup. The probe deliberately excludes
+`minecraft`: the pack overrides vanilla content, so probing that namespace would match
+every world and report Matcha as present always.
+
+**Why bounded.** The archive holds over 5,000 files. Walking it on every server start
+would be a permanent startup cost for every player, so detection asks about a fixed
+list instead of enumerating the tree.
+
+**What cannot be observed.** The archive SHA-256. A server sees unpacked resources, not
+the original zip, so the hash in `matcha.lock.json` cannot be re-verified at runtime.
+Detection reports this honestly rather than inventing a hash.
+
+**Verified behaviour.** `MatchaDetectionGameTest` runs on a dedicated server and passes
+both with the real pinned Matcha 1.12 archive installed in the world's `datapacks`
+directory (all ten namespaces plus the version marker observed) and with it absent
+(clean absence, safe no-op adapter). `MatchaServerEvidenceTest` cross-checks the probe
+list against `generated/matcha/1.12/namespaces.json` so it cannot silently drift from
+the pinned archive.

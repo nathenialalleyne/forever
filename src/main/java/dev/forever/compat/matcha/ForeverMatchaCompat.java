@@ -1,5 +1,6 @@
 package dev.forever.compat.matcha;
 
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,7 +20,20 @@ public final class ForeverMatchaCompat {
 	public static MatchaAdapter initialize() {
 		MatchaAdapter next = NoOpMatchaAdapter.absent();
 		active = next;
-		LOGGER.info("Matcha compatibility initialized in vanilla-safe no-op mode; server datapack signal wiring is still required.");
+
+		// Detection needs a running server, because a datapack exposes no mod-version
+		// API and its namespaces only exist once resources are loaded. Re-detect after
+		// a datapack reload too, so /reload cannot leave a stale decision in place.
+		ServerLifecycleEvents.SERVER_STARTED.register(
+				server -> initialize(MatchaServerEvidence.gather(server)));
+		ServerLifecycleEvents.END_DATA_PACK_RELOAD.register(
+				(server, resources, success) -> {
+					if (success) {
+						initialize(MatchaServerEvidence.gather(server));
+					}
+				});
+
+		LOGGER.info("Matcha compatibility registered in vanilla-safe no-op mode; awaiting server datapack signals.");
 		return next;
 	}
 
