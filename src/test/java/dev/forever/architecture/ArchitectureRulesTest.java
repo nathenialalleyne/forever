@@ -51,7 +51,8 @@ class ArchitectureRulesTest {
 	 *   DOMAIN_MUST_NOT_DEPEND_ON_OUTER_LAYERS     domain class importing an adapter type
 	 *   APPLICATION_MUST_NOT_DEPEND_ON_ADAPTER     application class importing WarehouseController
 	 *   MATCHA_INTERNALS_MUST_NOT_LEAK_OUTSIDE_ADAPTER  core class importing MatchaServerEvidence
-	 *   PRODUCTION_CODE_MUST_AVOID_FORBIDDEN_JAVA_HYGIENE  production class calling System.out
+	 *   PRODUCTION_CODE_MUST_AVOID_FORBIDDEN_JAVA_HYGIENE  production class writing to a
+	 *                                                      standard stream directly
 	 *
 	 * Worth recording from that exercise: most Matcha internals are package-private, so
 	 * the COMPILER rejects a leak before ArchUnit sees it. The rule still earns its place
