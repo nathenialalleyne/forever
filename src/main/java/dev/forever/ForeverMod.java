@@ -1,7 +1,10 @@
 package dev.forever;
 
 import dev.forever.compat.matcha.ForeverMatchaCompat;
+import dev.forever.core.career.ForeverCareer;
+import dev.forever.core.economy.ForeverEconomy;
 import dev.forever.core.equipment.ForeverEquipment;
+import dev.forever.core.guide.ForeverGuide;
 import dev.forever.core.mastery.ForeverMastery;
 import dev.forever.core.settlement.ForeverSettlement;
 import dev.forever.core.storage.ForeverStorage;
@@ -45,12 +48,18 @@ public final class ForeverMod implements ModInitializer {
 		ForeverMastery.initialize();
 		ForeverSettlement.initialize();
 		ForeverStorage.initialize();
+		ForeverGuide.initialize();
+
+		// Career and economy form the Mason vertical slice. Career depends on the
+		// settlement workplace concept, so it initialises after settlement.
+		ForeverCareer.initialize();
+		ForeverEconomy.initialize();
 
 		// Matcha is a datapack, not a mod, so detection cannot complete at mod-init
 		// time. This registers the adapter and its no-op fallback; the adapter resolves
 		// its real support level once a server and its datapacks are available.
 		ForeverMatchaCompat.initialize();
 
-		LOGGER.info("Forever initialised: equipment, mastery, settlement, storage, and Matcha compatibility registered.");
+		LOGGER.info("Forever initialised: equipment, mastery, settlement, storage, guide, career, economy, and Matcha compatibility registered.");
 	}
 }
