@@ -1,0 +1,91 @@
+# LAB-07 manifest: storage indexing and local search compatibility
+#
+# This lab uses the fixed baseline from pack/ and tests three additional 26.2 Fabric
+# candidates. The baseline is repeated so the lab can be reproduced independently.
+#
+# Modrinth metadata was queried on 2026-08-28. Candidate SHA-1/SHA-512 values below
+# are the hashes returned by the version endpoint and were matched after download.
+# Local SHA-256 values are included as an additional acquisition record.
+
+[baseline]
+minecraft = "26.2"
+fabric_loader = "0.19.3"
+fabric_api = { project_id = "P7dR8mSH", version_id = "NqwNSxwA", file = "fabric-api-0.158.0+26.2.jar" }
+global_packs = { project_id = "NRLPy2mk", version_id = "DqrPrUMp", file = "globalpacks-fabric-26.2-26.2.0.jar" }
+matcha = { project_id = "QI0EmgZ1", version_id = "E9rngRfK", file = "Matcha_Flavoured_1_12.zip" }
+matcha_sha256 = "6209783021c358044abedabacee471faff5bd4080437d4e3b5e51963f1804248"
+rei = { project_id = "nfn13YXA", version_id = "4o0NSIMj", file = "RoughlyEnoughItems-26.2.820.jar" }
+jade = { project_id = "nvQzSEkH", version_id = "ue8CO97w", file = "Jade-mc26.2-Fabric-26.2.11.jar" }
+architectury = { project_id = "lhGA9TYQ", version_id = "1yQC4VvP", file = "architectury-fabric-21.0.7.jar" }
+cloth_config = { project_id = "9s6osm5g", version_id = "Nv3xnWXd", file = "cloth-config-26.2.155.jar" }
+
+[[add]]
+name = "Tom's Simple Storage Mod"
+project_id = "XZNI4Cpy"
+version_id = "9KkiCXs5"
+version = "26.2-2.11.2-fabric"
+file = "toms_storage_fabric-26.2-2.11.2.jar"
+release_type = "release"
+published = "2026-07-24T17:22:37.968696Z"
+license = "MIT"
+side = "both"
+role = "Searchable physical storage network and terminal, with wireless terminal features under review"
+sha1 = "ec7fee3234654003b42892f5e9303eb45186195f"
+sha512 = "53f886fb0574f600c95e5e9842562be63f2d32d2624359fed535967cfb51bf310ad6f16889f45070aece20e38ec87116ccaec0ae6c9d448b9fd8c1e161743efe"
+sha256 = "373ac4868eb487dc4f539e699639f3e2b764406f3acec9e7ea4a5bddbbbfb72f"
+
+[[add]]
+name = "Storage Drawers (Unofficial Port)"
+project_id = "3bqn07Ul"
+version_id = "tsCab41T"
+version = "26.2-19.1.7"
+file = "StorageDrawers-fabric-26.2-19.1.7.jar"
+release_type = "release"
+published = "2026-08-27T02:24:34.661928Z"
+license = "MIT"
+side = "both"
+role = "Physical drawer storage and bounded controller network, not a generic local inventory index"
+sha1 = "3a761215e9e41e506e54035373ef2a5cb1c94821"
+sha512 = "de498c07a1e45622f5f259e2311093dc62c291ec8cd2c1aadd597ddbf3d7c4955442eb27fb874098b93cc26cba44c5cfe5540da485de8d670d4a26b22fa3de49"
+sha256 = "4719d2f33847f192ec0182af0799b1f9c8d46120d80a3117a7c22a67a31a9f2a"
+
+[[add]]
+name = "StorageGuide"
+project_id = "4kCoqlbL"
+version_id = "ZAXhGyEX"
+version = "2.4.1"
+file = "storageguide-2.4.1.jar"
+release_type = "release"
+published = "2026-06-29T09:15:39.792321Z"
+license = "MIT"
+side = "both"
+role = "Server-backed local storage-wall map and read-only item location highlights"
+sha1 = "d5563a662288a2b8176fcc93402b4ea3aa54ee7f"
+sha512 = "f3eb4d5a7bf84639c1d708518c32c95d5a0e330e85be99120b6b3e0d96c6ff96d39f7275893d864e823cdbe3b00872408c8c0c99390701cd612fbfcb5255f2a1"
+sha256 = "6a97633342cba54b0c3f877703fccdcc922bfb31298f0228cee08d1d20412b8d"
+
+# Optional dependencies were deliberately not added. REI and Jade are already in the
+# fixed baseline. Tom's embeds Cloth Config and Storage Drawers only optionally integrates
+# with Jade. StorageGuide only suggests Mod Menu, which is client-only and not needed for
+# the dedicated-server test.
+
+[not_added]
+simple_storage_network = "Modrinth project cVIr8Vz1 has no version returned by the exact 26.2 Fabric query. Its newest observed release is YznUL5Pm, 26.1.2-1.13.2, NeoForge, storagenetwork-26.1.2-1.13.2.jar, published 2026-08-23. The project licence is LicenseRef-All-Rights-Reserved."
+sophisticated_storage = "Modrinth project hMlaZH8f has no version returned by the exact 26.2 Fabric query. A 26.2 release does exist, EVA2q8Zy 26.2-1.5.113.2122, but it is NeoForge-only and LicenseRef-All-Rights-Reserved."
+functional_storage = "Modrinth project cO40ZIg3 has no 26.2 release. The newest observed entry is nSI7DQsa, 26.1-1.6.1 for 26.1.2 NeoForge, and it is a beta release."
+expanded_storage = "The exact Modrinth project slugs expanded-storage and expandedstorage returned 404, and the exact-title search returned only unrelated addons or modpacks. No direct Modrinth candidate was available to pin or test."
+sophisticated_storage_fabric_port = "The unofficial Fabric project iHtpVwJL has no 26.2 Fabric version. Its newest observed release is xezSXA8y, 1.20.1-1.3.5.11.142."
+easy_storage = "The 26.2 Fabric release TmGfMDmE exists, but the official project description advertises no fixed chest limit and direct insert/extract through one display. The project exposes no source_url in its API metadata, so it fails the bounded local-source contract without a separate review."
+upgraded_iron_chests = "The 26.2 release vV2zgK02 exists, but the project is LicenseRef-All-Rights-Reserved, exposes no source_url, and advertises global search over linked chests. It is not suitable for the default pack baseline."
+linked_chests = "The 26.2.1 release 5oJWzvLd explicitly advertises access to the same inventory from any chest, any place, any time. This is the universal wireless/shared-inventory behaviour rejected by ADR 0012."
+portable_storage = "The 26.2 release bAwTVe47 explicitly provides a portable warehouse with infinite stacking. Its project page also warns that AI wrote 99.99 percent of the code and design. This conflicts with ADR 0011 and the save-safety bar."
+infinite_shulker_box = "The 26.2 release ZfmgcHIb explicitly allows an infinite amount of Shulker Boxes inside one Shulker Box. This is a direct container-nesting violation."
+compact_storage = "The 26.2 release mehMI8pF provides upgradable chests, barrels, and backpacks but no local search/index contract. Its portable backpack surface needs a separate ADR 0011 review."
+
+[not_tested]
+storage_tracker = "The 26.2 release EaRyTxXR is MIT and client-only/server-unsupported. It records client-side snapshots and advertises nested shulker indexing. No client can be launched in this environment."
+storage_finder = "The 26.2 release PReIxUWo is MIT and client-only/server-unsupported. It remembers previously opened containers and highlights local targets. No client can be launched in this environment."
+chest_tracker_port = "The 26.2 release cwtdCpdg is an unofficial LGPL client-only port. It can search remembered storage on multiplayer servers, but it cannot provide server-authoritative state. No client can be launched in this environment."
+invsearch = "The 26.2 release 5B8rNxhp is client-only, LicenseRef-All-Rights-Reserved, and includes an embedded web dashboard. No client can be launched in this environment."
+client_ui_for_tested_candidates = "Tom's terminal UI, Storage Drawers controller UI, and StorageGuide's grid creation, assignment, highlights, paging, and non-operator views were not exercised because the host has no usable display."
+multiplayer_player_flow = "No real player connection was available. Server-side authority and permission paths were inspected in source for StorageGuide, while dedicated-server startup was exercised for all three added candidates."
