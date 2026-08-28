@@ -89,7 +89,7 @@ These totals count records, not classes. For example, the 27 Matcha adapter clas
 | Schematic preview | Litematica `bEpr0Arc`, `0.28.5 [Fhq3KCI8]`, `PILOT` | No current implementation found. DEFER | LAB-02/LAB-12. Keep Easy Place disabled until server policy is tested |
 | Cooking content | Farmer's Delight Refabricated `7vxePowz`, `26.2-3.6.17 [7v050iYz]`, `ADOPT_BASELINE`; Cooking for Blockheads `vJnhuDde`, `COMPATIBILITY_SPIKE` | No current implementation found. DEFER | LAB-03 against Matcha recipes, ingredients, hunger, and healing |
 | Seasons and climate | Serene Seasons `e0bNACJD`, `26.1.2.0.4 [13sXhUkI]`, `PILOT` | No current implementation found. DEFER | LAB-04. Keep climate abstraction rather than hardcoding the candidate |
-| Searchable local storage | Tom's Simple Storage `XZNI4Cpy`, `26.2-2.11.2-fabric [9KkiCXs5]`, `COMPATIBILITY_SPIKE`; Storage Drawers `3bqn07Ul`, `PILOT` | REPLACE generic index after migration evidence | LAB-05 and explicit saved-data/removal plan |
+| Searchable local storage | **LAB-07 result:** Tom's Simple Storage REJECT (wireless headline feature, no disable switch); Storage Drawers REJECT (loses drawer data on removal); StorageGuide PILOT for read-only location search only | **ADAPT, revised from REPLACE.** No candidate qualifies | LAB-07, and a migration contract before any change |
 | Physical item movement | Simple Copper Pipes `9r4ZkgSN`, `2.1.7-mc26.2 [CEH3bXSV]`, `COMPATIBILITY_SPIKE` | No current implementation found. DEFER | LAB-06 for local range, chunk unloading, and Matcha overlap |
 | Rail physics | High-Speed Rail `d7PCSOkD`, `0.24.0+26.2 [UnL9JxtC]`, `COMPATIBILITY_SPIKE` | No current implementation found. DEFER | LAB-07 |
 | Horse handling | Icy's Better Horses `XlUm5I57`, `1.2.0 [41Q9OmbL]`, `COMPATIBILITY_SPIKE`; Horseman `qIv5FhAA`, `1.7.5 [xU6ysEWF]`, `PILOT` | No current implementation found. DEFER | LAB-07 and mount progression/removal checks |
@@ -364,7 +364,7 @@ The storage system contains both a custom traveler cache and a generic searchabl
 
 **Rationale:** Preserve the invariants even if the generic index goes away. A third-party storage mod must not become permission to make remote stock physically available everywhere.
 
-### [REPLACE] Generic warehouse indexing and search
+### [ADAPT, revised from REPLACE by LAB-07] Generic warehouse indexing and search
 
 **Paths:**
 
@@ -383,13 +383,13 @@ The storage system contains both a custom traveler cache and a generic searchabl
 
 **Build and tests:** Compiles in `compileJava`. `StorageBehaviorTest`, `StorageCodecTest`, and `StorageGameTest` passed. Passing tests establish the current safety behavior, not that this custom index is the right release owner.
 
-**Possible duplicated mechanic:** Tom's Simple Storage or another mature local storage index. The candidate matrix now records Tom's Simple Storage as a 26.2 `COMPATIBILITY_SPIKE` and Storage Drawers as a `PILOT`; neither is adopted until LAB-05 proves physical truth, removal, and Matcha compatibility. Vanilla containers remain the source of physical truth.
+**Possible duplicated mechanic:** none, as measured. LAB-07 tested Tom's Simple Storage, Storage Drawers, StorageGuide, Storage Tracker, Storage Finder, Chest Tracker, and InvSearch. Tom's Simple Storage was REJECTED because wireless access is a headline feature with no documented disable switch, and Storage Drawers was REJECTED because removal loses drawer block data and contents. Vanilla containers remain the source of physical truth, and no third-party mod currently duplicates this mechanic safely.
 
-**Recommended destination:** Replace with one tested third-party local index after LAB-05. Retain `StorageSafetyLimits`, physical transfer, reconciliation tests, and a narrow compatibility adapter. Do not silently delete saved warehouse data. The removal or migration plan must define what happens to index-only records and any physical containers.
+**Recommended destination:** **Revised by LAB-07.** No replacement exists. LAB-07 tested seven storage mods and none provides a server-authoritative index over arbitrary registered containers without either wireless access, which the design rejects, or data loss on removal, which principle 18 forbids. Retain and adapt this code rather than replacing it, and revisit only if a qualifying mod appears. Retain `StorageSafetyLimits`, physical transfer, reconciliation tests, and a narrow compatibility adapter. Do not silently delete saved warehouse data. The removal or migration plan must define what happens to index-only records and any physical containers.
 
 **Migration risk:** **Highest storage risk.** `forever:storage/warehouses`, `WarehouseState`, index revisions, container references, and any remote-looking result can cause duplication or item loss if migrated incorrectly. `WarehouseController` is a large authority boundary and should not be rewritten during an unrelated pack pin change.
 
-**Rationale:** This is the clearest existing implementation of a generic mechanic that the pivot expects a maintained mod to own. The safety and physical-truth contracts are valuable, but the custom searchable implementation should not remain merely because its tests pass.
+**Rationale:** This was classified REPLACE on the reasonable assumption that a maintained storage mod would own a generic searchable index. LAB-07 tested that assumption and it did not hold: the closest candidate, StorageGuide, maps one configured storage wall rather than live quantities across registered containers, and every candidate offering real indexing also offered wireless access. The safety and physical-truth contracts here remain valuable, and there is now nothing to hand the mechanic to. Keeping it is the evidence-backed choice, not a failure to replace it.
 
 ### [ADAPT] Traveler cache and physical container access
 
@@ -1517,7 +1517,7 @@ The following likely replacement candidates were explicitly searched for by resp
 | Structure generation | None | One restrained structure pack | DEFER |
 | Global enemy scaling | None and prohibited by ADR 0030 | No global scaler | KEEP decision to not implement |
 
-This negative inventory explains why there are no custom classes to classify as REPLACE for mass placement, vein mining, schematics, seasons, cooking, rails, horses, or structures. The existing generic storage index is the exception and is classified REPLACE above.
+This negative inventory explains why there are no custom classes to classify as REPLACE for mass placement, vein mining, schematics, seasons, cooking, rails, horses, or structures. The existing generic storage index was the one exception, classified REPLACE on the assumption that a mod would own it. LAB-07 tested seven candidates and found none that qualifies, so it is now ADAPT. There are currently **no** REPLACE entries in this inventory.
 
 ## Validation evidence
 
