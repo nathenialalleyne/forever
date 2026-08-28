@@ -93,6 +93,36 @@ This file remains the index and dependency map.
   `docs/dependency-baseline.md`; run `./gradlew build` and the audit-tool tests when a
   real version change is later proposed.
 
+### FVR-A001: Establish the art and texture pipeline [Done]
+
+- **Objective:** Establish the editable art source tree, the production asset
+  directories, a developer-only asset validation tool exposed as `./gradlew
+  validateAssets`, and the documentation an artist needs to take one asset from source
+  to a verified in-game texture.
+- **Dependencies:** FVR-001, FVR-003, and the approved asset manifest and art direction
+  in `docs/assets/`.
+- **Explicit non-goals:** No gameplay item, block, screen, recipe, model, blockstate,
+  translation, or system. No final artwork. No image-generation dependency in the
+  Minecraft runtime. No vanilla Minecraft texture is downloaded or copied. The
+  validation tool must never ship inside the mod JAR.
+- **Acceptance criteria:**
+  1. `art/` holds editable sources and `src/client/resources/assets/forever/` holds the
+     exported production tree, with the split and both workflows documented.
+  2. `./gradlew validateAssets` runs a pure-JDK tool from a separate `assetTools` source
+     set and reports snake_case naming, supported image formats, dimensions, the 16x16
+     default for item and ordinary block textures with manifest whitelisting,
+     fully transparent images, missing texture references, duplicate asset IDs,
+     unmanifested production PNGs, and manifest rows whose assets are missing.
+  3. Rows with status `planned` are never rejected for having no file, so an unfinished
+     asset cannot block the build.
+  4. Exactly one intentionally obvious original placeholder texture exists and does not
+     imitate Minecraft's built-in missing-texture graphic.
+- **Expected tests:** Unit tests for a valid 16x16 PNG, incorrect dimensions, an
+  uppercase filename, a fully transparent image, a production PNG missing from the
+  manifest, and a missing texture reference, plus exit-code, duplicate-ID, planned-row,
+  and tooling-marker cases; and a real `./gradlew validateAssets` run against the
+  repository reporting CLEAN.
+
 ## Matcha acquisition and compatibility
 
 ### FVR-010: Fetch and pin Matcha scripts [Done]

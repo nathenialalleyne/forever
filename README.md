@@ -82,6 +82,24 @@ Run the plain JVM unit tests with:
 ./gradlew test
 ```
 
+Validate the art assets with:
+
+```sh
+./gradlew validateAssets
+```
+
+This is a developer-only check. It runs a pure-JDK tool from the separate `assetTools`
+source set, so no image-handling code and no image-generation dependency ever reaches
+the Minecraft runtime or the mod JAR. It checks filenames, image formats, dimensions,
+fully transparent images, missing texture references, duplicate asset IDs, and
+agreement between the production tree and `docs/assets/asset-manifest.csv`. Manifest
+rows with status `planned` are deliberately never rejected for having no file yet.
+
+Editable art sources live in `art/` and are never loaded by the game. Exported
+production assets live in `src/client/resources/assets/forever/`, which is the only
+tree Minecraft reads. See `art/README.md` for the quickstart and
+`docs/assets/pipeline.md` for the authoritative reference.
+
 Run the dedicated-server GameTest harness with:
 
 ```sh

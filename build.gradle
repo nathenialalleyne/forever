@@ -25,6 +25,12 @@ loom {
 // GameTest source set. Kept separate so gameplay test scaffolding never ships
 // in the production JAR. See docs/development-workflow.md.
 sourceSets {
+	// Keep the developer-only validator out of Loom's production mod source sets and
+	// therefore out of the shipped JAR. It has no Minecraft or third-party dependency.
+	assetTools {
+		java.srcDir("src/assetTools/java")
+	}
+
 	gametest {
 		compileClasspath += sourceSets.main.compileClasspath
 		runtimeClasspath += sourceSets.main.runtimeClasspath
@@ -74,6 +80,19 @@ dependencies {
 	testImplementation platform("org.junit:junit-bom:${project.junit_version}")
 	testImplementation "org.junit.jupiter:junit-jupiter"
 	testRuntimeOnly "org.junit.platform:junit-platform-launcher"
+	testImplementation files(sourceSets.assetTools.output, sourceSets.assetTools.compileClasspath)
+}
+
+tasks.register("validateAssets", JavaExec) {
+	group = "verification"
+	description = "Validate the repository's Forever PNG assets against the asset manifest."
+	dependsOn(tasks.named("assetToolsClasses"))
+	classpath = sourceSets.assetTools.runtimeClasspath
+	mainClass.set("dev.forever.tools.assets.AssetValidatorApplication")
+	args(
+			"--assets", layout.projectDirectory.dir("src/client/resources/assets/forever").asFile.absolutePath,
+			"--manifest", layout.projectDirectory.file("docs/assets/asset-manifest.csv").asFile.absolutePath
+	)
 }
 
 processResources {

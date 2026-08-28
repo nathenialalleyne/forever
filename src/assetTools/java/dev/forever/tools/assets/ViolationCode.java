@@ -1,0 +1,13 @@
+package dev.forever.tools.assets;
+
+/** Stable codes for every independent validation rule. */
+enum ViolationCode {
+	NAME_NOT_SNAKE_CASE,
+	UNSUPPORTED_IMAGE_FORMAT,
+	UNEXPECTED_DIMENSIONS,
+	FULLY_TRANSPARENT,
+	MISSING_TEXTURE_REFERENCE,
+	DUPLICATE_ASSET_ID,
+	UNMANIFESTED_ASSET,
+	MANIFEST_ENTRY_MISSING_ASSET
+}

@@ -1,0 +1,32 @@
+GIMP Palette
+Name: Forever Core
+Columns: 4
+#
+# Original Forever palette. These values were chosen for this project and are not
+# sampled, traced, or derived from Minecraft's own textures or from any third-party
+# pack, including Matcha. Do not replace them with sampled vanilla colours.
+#
+# The palette is deliberately small. A restrained ramp keeps 16x16 art readable at
+# hotbar scale, which the art direction requires, and it stops each new asset from
+# inventing its own slightly different browns and greys. Where a state must be
+# communicated, use shape, notch, badge, or an icon mark. Colour alone is never
+# sufficient, because design principle 16 forbids colour-only state and a resource
+# pack may replace every one of these values.
+#
+# Neutrals: outlines, shadow, and structural edges.
+ 18  22  26	Ink
+ 34  55  62	Deep Slate
+ 82 121 125	Slate
+150 168 168	Ash
+#
+# Warm materials: timber, rope, leather, and worked surfaces.
+ 92  58  38	Dark Timber
+150  96  56	Timber
+211 125  63	Amber
+243 226 171	Parchment
+#
+# Cool materials: stone, metal, and cut surfaces.
+ 58  74  92	Dark Stone
+104 124 142	Stone
+164 182 196	Pale Stone
+226 236 240	Highlight
