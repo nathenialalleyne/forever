@@ -5,11 +5,11 @@
     "projectId": "QI0EmgZ1",
     "source": "Matcha Flavoured archive"
   },
-  "generatedAt": "2026-08-28T02:50:53.149938319Z",
+  "generatedAt": "2026-08-28T02:50:53Z",
   "input": {
     "fileCount": 5190,
+    "fileName": "Matcha_Flavoured_1_12.zip",
     "kind": "zip",
-    "path": "/home/natea/repos/forever/vendor/matcha/Matcha_Flavoured_1_12.zip",
     "sha256": "6209783021c358044abedabacee471faff5bd4080437d4e3b5e51963f1804248",
     "versionLabel": "Matcha_Flavoured_1_12.zip"
   },
@@ -1467,7 +1467,7 @@
     "observationType": "observed",
     "prefix": ""
   },
-  "schemaVersion": "1",
+  "schemaVersion": "2",
   "tool": "matcha-audit",
   "toolVersion": "0.1.0",
   "warnings": []

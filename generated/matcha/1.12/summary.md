@@ -7,7 +7,7 @@
 
 - Version label: `Matcha_Flavoured_1_12.zip`
 - Input kind: `zip`
-- Input path: `/home/natea/repos/forever/vendor/matcha/Matcha_Flavoured_1_12.zip`
+- Input file: `Matcha_Flavoured_1_12.zip`
 - SHA-256: `6209783021c358044abedabacee471faff5bd4080437d4e3b5e51963f1804248`
 - Pack-root detection: `direct-pack-root`
 

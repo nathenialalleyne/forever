@@ -25,7 +25,16 @@ import java.util.stream.Collectors;
 /** Writes the complete stable report set beneath exactly the selected output directory. */
 public final class ReportWriter {
     private static final String TOOL_VERSION = "0.1.0";
-    private static final String SCHEMA_VERSION = "1";
+    /**
+     * Report schema version.
+     *
+     * <p>Bumped to 2 when {@code input.path} became {@code input.fileName}. The absolute
+     * path leaked the operator's home directory into committed reports and made output
+     * depend on where the input file happened to sit. A consumer reading version 1 should
+     * expect {@code path}, and version 2 {@code fileName}; the archive's identity is the
+     * {@code sha256} field in both.
+     */
+    private static final String SCHEMA_VERSION = "2";
     private static final List<String> REPORT_NAMES = List.of(
             "metadata.json", "input-sha256.txt", "file-inventory.csv", "namespaces.json", "pack-filters.json",
             "recipes.json", "advancements.json", "functions.json", "scoreboards.json", "tags.json",
@@ -180,6 +189,22 @@ public final class ReportWriter {
         return Instant.ofEpochSecond(epochSeconds);
     }
 
+    /**
+     * The final path element of the audit input, used instead of its absolute path.
+     *
+     * <p>Package-private so the behaviour can be tested directly. A root path has no file
+     * name, in which case {@link Path#getFileName()} returns {@code null}; that is
+     * reported as {@code "(unnamed)"} rather than allowed to become a null JSON property,
+     * because a silently absent field would be harder to diagnose than an odd-looking one.
+     */
+    static String inputFileName(Path source) {
+        if (source == null) {
+            return "(unnamed)";
+        }
+        Path fileName = source.getFileName();
+        return fileName == null ? "(unnamed)" : fileName.toString();
+    }
+
     private static JsonObject metadata(CliOptions options, AuditReport report) {
         JsonObject root = new JsonObject();
         root.addProperty("schemaVersion", SCHEMA_VERSION);
@@ -194,7 +219,12 @@ public final class ReportWriter {
         root.add("attribution", attribution);
         JsonObject input = new JsonObject();
         input.addProperty("kind", report.snapshot().kind().name().toLowerCase(Locale.ROOT));
-        input.addProperty("path", report.snapshot().source().toString());
+        // The file name, never the absolute path. The archive's identity is its sha256,
+        // recorded below, so the location it happened to be read from adds no evidence.
+        // Writing the full path leaked the operator's home directory and username into a
+        // committed report, and made output depend on where the input sat, so two audits
+        // of the same archive from different directories were not byte-identical.
+        input.addProperty("fileName", inputFileName(report.snapshot().source()));
         input.addProperty("versionLabel", options.versionLabel());
         input.addProperty("sha256", report.snapshot().sha256());
         input.addProperty("fileCount", report.files().size());

@@ -21,7 +21,11 @@ public final class SummaryWriter {
         summary.append("## Input identity\n\n");
         summary.append("- Version label: `").append(markdown(options.versionLabel())).append("`\n");
         summary.append("- Input kind: `").append(report.snapshot().kind().name().toLowerCase(java.util.Locale.ROOT)).append("`\n");
-        summary.append("- Input path: `").append(markdown(report.snapshot().source().toString())).append("`\n");
+        // File name, not absolute path: see ReportWriter.inputFileName. The SHA-256 on the
+        // next line is what actually identifies the archive.
+        summary.append("- Input file: `")
+                .append(markdown(ReportWriter.inputFileName(report.snapshot().source())))
+                .append("`\n");
         summary.append("- SHA-256: `").append(report.snapshot().sha256()).append("`\n");
         summary.append("- Pack-root detection: `").append(report.layout().detection()).append("`\n");
         if (report.layout().isHeuristic()) {

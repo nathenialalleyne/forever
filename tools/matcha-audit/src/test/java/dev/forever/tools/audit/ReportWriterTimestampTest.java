@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.nio.file.Path;
 import java.time.Instant;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -86,5 +87,35 @@ class ReportWriterTimestampTest {
                 () -> ReportWriter.generatedAt("-1", () -> FALLBACK));
 
         assertEquals(true, failure.getMessage().contains("negative"));
+    }
+
+    @Test
+    @DisplayName("only the file name is reported, never the absolute path")
+    void reportsFileNameNotAbsolutePath() {
+        // The absolute path leaked the operator's home directory and username into a
+        // committed report, and made output depend on where the input happened to sit.
+        assertEquals(
+                "Matcha_Flavoured_1_12.zip",
+                ReportWriter.inputFileName(
+                        Path.of("/home/someone/repos/forever/vendor/matcha/Matcha_Flavoured_1_12.zip")));
+    }
+
+    @Test
+    @DisplayName("the same archive in different directories yields the same reported name")
+    void fileNameIsIndependentOfDirectory() {
+        // This is the property that makes two audits of one archive byte-identical
+        // regardless of where each was run from.
+        assertEquals(
+                ReportWriter.inputFileName(Path.of("/one/place/Matcha_Flavoured_1_12.zip")),
+                ReportWriter.inputFileName(Path.of("/somewhere/else/Matcha_Flavoured_1_12.zip")));
+    }
+
+    @Test
+    @DisplayName("a path with no file name is reported explicitly rather than as null")
+    void rootPathIsHandled() {
+        // Path.getFileName() returns null for a root. A null JSON property would be harder
+        // to diagnose than an obviously odd value.
+        assertEquals("(unnamed)", ReportWriter.inputFileName(Path.of("/")));
+        assertEquals("(unnamed)", ReportWriter.inputFileName(null));
     }
 }

@@ -1428,7 +1428,7 @@
     ]
   },
   "observationType": "observed",
-  "schemaVersion": "1",
+  "schemaVersion": "2",
   "source": "pack.mcmeta",
   "status": "observed"
 }
