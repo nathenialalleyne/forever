@@ -23,6 +23,7 @@ import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.gametest.v1.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.Entity;
 
 /** Dedicated-server lifecycle checks for FVR-305. */
 public final class MasteryPersistenceGameTest {
@@ -48,18 +49,36 @@ public final class MasteryPersistenceGameTest {
 	public void masteryAttachmentSurvivesPlayerDeathCopy(GameTestHelper helper) {
 		MasteryRegistry registry = loadRegistry(helper);
 		MasteryState original = populatedState(registry);
-		ServerPlayer oldPlayer = helper.makeMockServerPlayerInLevel();
-		ServerPlayer replacementPlayer = helper.makeMockServerPlayerInLevel();
-		oldPlayer.setAttached(MasteryAttachment.TYPE, original);
+		ServerPlayer player = helper.makeMockServerPlayerInLevel();
+		player.setAttached(MasteryAttachment.TYPE, original);
 
 		if (!MasteryAttachment.TYPE.copyOnDeath()) {
 			throw helper.assertionException("Mastery attachment must opt into copyOnDeath.");
 		}
-		ServerPlayerEvents.AFTER_RESPAWN.invoker().afterRespawn(oldPlayer, replacementPlayer, false);
 
-		MasteryState copied = replacementPlayer.getAttached(MasteryAttachment.TYPE);
-		if (!original.equals(copied)) {
-			throw helper.assertionException("Mastery progress was not copied to the replacement player.");
+		// Actually kill the player and go through the server's real respawn path rather
+		// than invoking the respawn event by hand. Firing the event directly would pass
+		// even if copyOnDeath were broken, because the test would be doing the copying
+		// that the game is supposed to do. Principle 3 (learning is permanent) is only
+		// proven if a genuine death preserves progress.
+		player.setHealth(0.0F);
+		player.die(player.damageSources().fellOutOfWorld());
+
+		ServerPlayer respawned = helper.getLevel().getServer().getPlayerList()
+				.respawn(player, false, Entity.RemovalReason.KILLED);
+
+		if (respawned == null) {
+			throw helper.assertionException("The server did not produce a respawned player.");
+		}
+
+		MasteryState afterDeath = respawned.getAttached(MasteryAttachment.TYPE);
+		if (afterDeath == null) {
+			throw helper.assertionException(
+					"Mastery progress was lost on a real death. Learning must be permanent (principle 3).");
+		}
+		if (!original.equals(afterDeath)) {
+			throw helper.assertionException(
+					"Mastery progress changed across a real death. Expected " + original + " but found " + afterDeath);
 		}
 		helper.succeed();
 	}

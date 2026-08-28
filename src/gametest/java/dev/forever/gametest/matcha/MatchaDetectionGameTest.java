@@ -3,11 +3,19 @@ package dev.forever.gametest.matcha;
 import dev.forever.compat.matcha.ForeverMatchaCompat;
 import dev.forever.compat.matcha.MatchaAdapter;
 import dev.forever.compat.matcha.MatchaAdapterStatus;
+import dev.forever.compat.matcha.MatchaBehaviorObservation;
+import dev.forever.compat.matcha.MatchaSignalKind;
+import dev.forever.compat.matcha.MatchaBehaviorTranslation;
+import dev.forever.compat.matcha.MatchaItemObservation;
+import dev.forever.compat.matcha.MatchaItemTranslation;
+import dev.forever.compat.matcha.MatchaTranslationStatus;
 import dev.forever.compat.matcha.MatchaDetectionEvidence;
 import dev.forever.compat.matcha.MatchaPresence;
 import dev.forever.compat.matcha.MatchaServerEvidence;
 import net.fabricmc.fabric.api.gametest.v1.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
+import java.util.Map;
+import java.util.Optional;
 import net.minecraft.server.MinecraftServer;
 
 /**
@@ -89,6 +97,28 @@ public final class MatchaDetectionGameTest {
 		// callers could read a stale decision.
 		helper.assertTrue(ForeverMatchaCompat.active() == adapter,
 				"The active adapter does not match the one detection just published.");
+
+		// The point of a fallback is behaviour, not existence. Exercise the adapter's
+		// real capability methods and assert they degrade safely rather than throwing or
+		// inventing a mapping. Asserting only that the object is non-null would pass even
+		// if every method threw.
+		MatchaItemObservation observed = new MatchaItemObservation(
+				"minecraft:stone", Optional.empty(), Map.of(), 1);
+		MatchaItemTranslation itemResult = adapter.translateItem(observed);
+
+		helper.assertTrue(itemResult != null, "translateItem returned null instead of a translation result.");
+		helper.assertTrue(itemResult.status() != MatchaTranslationStatus.MAPPED,
+				"A fallback adapter must never claim a real Matcha mapping. Status was " + itemResult.status());
+
+		MatchaBehaviorTranslation behaviourResult =
+				adapter.translateBehavior(new MatchaBehaviorObservation(MatchaSignalKind.SCOREBOARD, "test:probe", null));
+		helper.assertTrue(behaviourResult != null, "translateBehavior returned null instead of a result.");
+		helper.assertTrue(behaviourResult.status() != MatchaTranslationStatus.MAPPED,
+				"A fallback adapter must not emit a mapped behaviour event.");
+
+		// Null input is third-party-shaped garbage and must be rejected, not thrown on.
+		helper.assertTrue(adapter.translateItem(null) != null,
+				"A null observation must produce an invalid result rather than an exception.");
 
 		helper.succeed();
 	}
