@@ -1,7 +1,7 @@
 # Villagers
 
 ## Status
-**Concept. NOT implemented.** No migration service, villager career attachment, mentor relationship, home or workplace assignment, or loaded/unloaded simulation exists. This document depends on the settlement backlog FVR-400..405 and Field Guide work FVR-200..204. A dedicated villager implementation ticket must be assigned before code begins.
+**In Development (partial).** FVR-501 to FVR-504 are implemented for the Mason slice: persistent villager career state (profession, rank, home, workplace, known techniques, mentor and apprentice links), rank progression, and the rule that taught knowledge survives a professional's death while untaught knowledge is lost. Unloaded abstract simulation never kills a villager. Not yet implemented: migration at scale and professions beyond Mason.
 
 ## Purpose
 Villagers should be persistent people in the world rather than disposable breeding inputs or fixed vending machines. Migration supplies population and skills through geography and relationships. Career, home, workplace, rank, and known techniques make a villager worth remembering.

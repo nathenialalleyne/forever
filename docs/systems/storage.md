@@ -1,7 +1,7 @@
 # Storage
 
 ## Status
-**Concept. NOT implemented.** No warehouse registry, search index, Traveler's Cache item, early shulker integration, or inventory transfer service exists. Storage work is tracked by FVR-600..604, with Field Guide documentation in FVR-200..204.
+**In Development.** FVR-600 to FVR-604 are implemented: the warehouse controller as world-scoped saved data, registered-container indexing with no world scans, bounded search queries, the 9-to-18 slot Traveler's Cache, and component-based container-nesting prevention. Physical inventories remain the source of truth. Not yet covered: custom screens and cross-network logistics.
 
 ## Purpose
 Storage should reduce the repeated friction of finding and organising physical goods without making containers magical. The design keeps physical inventories as the source of truth, introduces a local searchable warehouse, and gives early access to shulker-like personal organisation without allowing infinite container nesting.

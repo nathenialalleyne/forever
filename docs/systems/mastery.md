@@ -1,7 +1,7 @@
 # Mastery
 
 ## Status
-**Concept. NOT implemented.** No mastery records, loadout switching, progression evaluator, or mastery UI exists yet. The primary backlog is FVR-300..305, with player explanations and Field Guide projection covered by FVR-200..204.
+**In Development.** FVR-300 to FVR-305 are implemented: the data-driven mastery registry, persistent player state via a copy-on-death attachment, the one Focus plus two Supporting loadout rules, rest-gated switching that preserves all progress, and the Prospector prototype whose progression is evidence-based rather than a repetition counter. Not yet covered: the remaining nine masteries beyond their definitions, custom screens, and balance tuning.
 
 ## Purpose
 Mastery gives a player durable learning without turning ordinary survival into a counter-based grind. It makes specialisation a current working stance rather than an irreversible character class. A Builder can later work as a Prospector without losing what was learned as a Builder.

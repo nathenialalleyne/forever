@@ -1,7 +1,7 @@
 # Matcha substrate
 
 ## Status
-**Concept. NOT implemented.** No Matcha adapter, runtime classifier, or gameplay bridge exists in the current codebase. The implementation work is tracked by FVR-010..017 and must remain documentation and audit work until those tickets are taken up.
+**In Development.** FVR-015 to FVR-017 are implemented: 29 Matcha systems are classified with traced source evidence in `docs/matcha-audit/system-classification.csv`, the stable adapter boundary lives in `dev.forever.compat.matcha` with a working no-op fallback, and datapack version detection reports a confidence level instead of guessing. No Matcha internal identifier appears outside that package.
 
 ## Purpose
 Forever starts from the official Matcha Flavoured pack rather than forking or replacing it immediately. Matcha supplies the initial gameplay substrate that makes a Forever world feel like the selected baseline, while Forever adds durable progression, infrastructure, and social systems around it.

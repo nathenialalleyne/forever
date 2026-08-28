@@ -1,7 +1,7 @@
 # Economy
 
 ## Status
-**Concept. NOT implemented.** No Obols ledger, Coin Purse, shop service, NPC demand model, contract record, or material-order workflow exists. The supplied foundation brief names no dedicated economy ticket, so implementation must receive an explicit FVR ticket before code. Field Guide integration is FVR-200..204 and storage integration is FVR-600..604.
+**In Development (partial).** FVR-506 is implemented: the hybrid Obol model with a Coin Purse balance, withdrawable coins, and property-tested value conservation across interleaved deposits and withdrawals. Not yet implemented: player shops, NPC willingness-to-pay, bulk orders, and contracts.
 
 ## Purpose
 The economy gives players an alternative route to abundance through exchange, stewardship, and reliable supply. It should make a cartographer, merchant, farmer, smith, or settlement useful without becoming a full financial simulator that demands spreadsheets or punishes players who prefer direct production.

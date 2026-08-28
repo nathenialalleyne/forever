@@ -1,7 +1,7 @@
 # Equipment
 
 ## Status
-**Concept. NOT implemented.** No item condition component, craftsmanship record, mastery-path state, repair flow, or reforging service exists. The implementation backlog is FVR-100..106, with explanations and Field Guide pages in FVR-200..204.
+**In Development.** FVR-100 to FVR-106 are implemented: the schema-versioned equipment state component (identity, condition, craftsmanship, multi-path progress), durability interception via Fabric's CustomDamageHandler so zero condition yields a broken-but-present item, field and workshop repair, and reforging that preserves identity and prior path progress. Balance lives in `data/forever/equipment/`. Not yet covered: custom screens, Field Guide art, and playtest tuning.
 
 ## Purpose
 Equipment should become a long-lived expression of how a player works. It can gain identity and specialised capability without turning a single perfect tool into the answer to every task. The design has three conceptual layers: craftsmanship, mastery path, and rare enchantment.

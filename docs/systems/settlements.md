@@ -1,7 +1,7 @@
 # Settlements
 
 ## Status
-**Concept. NOT implemented.** No settlement charter, registered-building record, graph validator, residence assignment, workplace service, or outpost system exists. The planned settlement backlog is FVR-400..405. Mason integration is FVR-500..507, and Field Guide documentation is FVR-200..204.
+**In Development.** FVR-400 to FVR-405 are implemented: the Settlement Charter, explicit building registration with a bounded volume cap, functional residence validation with no aesthetic scoring, the proximity-attached building graph with outposts, existing-village import, and a migration prototype. Abstract simulation of unloaded settlements is bounded and provably never kills a villager. Not yet covered: custom screens and long-run playtest tuning.
 
 ## Purpose
 A settlement is a useful social and infrastructure graph, not a radius with an aesthetic score. It gives a player a durable way to turn ordinary buildings into recognised residences, workplaces, warehouses, route anchors, and outposts while leaving the act of building completely free.

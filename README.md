@@ -7,15 +7,29 @@ freedom and improvisation that make ordinary Minecraft work.
 
 ## Current status
 
-This repository is currently an **architecture and audit foundation only**. The current
-scope is M0 project foundation, M1 Matcha acquisition/pinning/audit tooling, and M2
-AI-readable architecture and design documentation.
+This repository contains the architecture and audit foundation (M0 to M2) plus a
+**first implementation pass at seven gameplay systems**.
 
-**Gameplay systems are not implemented yet.** There is no implemented mastery,
-equipment condition or repair, reforge, settlement, villager career, Mason, Obol,
-warehouse, logistics, transportation, season, food-trait, shop, worker, or Field Guide
-gameplay system. Future systems are documented and queued in `docs/backlog.md`, not
-silently present in the foundation.
+**Implemented and tested, but never playtested or balanced:**
+
+| System | Tickets | What exists |
+|---|---|---|
+| Equipment | FVR-100..106 | Schema-versioned condition and multi-path state, no destruction at zero condition, broken state, field and workshop repair, reforging that preserves identity |
+| Mastery | FVR-300..305 | Data-driven registry, persistent copy-on-death player state, one Focus plus two Supporting slots, rest-gated switching, Prospector prototype |
+| Settlements | FVR-400..405 | Charter, explicit building registration, functional residence validation, proximity building graph, village import, migration prototype |
+| Storage | FVR-600..604 | Warehouse saved data, registered-container indexing, bounded search, 9-to-18 slot Traveler's Cache, container-nesting prevention |
+| Field Guide | FVR-200..204 | Data-driven entries, bounded search, audited Matcha early-progression and campfire entries, recipe-viewer seam |
+| Mason and economy | FVR-500..507 | Villager career state, ranks, mentor and apprentice teaching, bulk catalog, Obol Coin Purse |
+| Matcha compatibility | FVR-015..017 | 29 classified systems with traced evidence, adapter boundary with no-op fallback, datapack version detection |
+
+Everything is server-authoritative and schema-versioned, with **126 unit tests** and
+**20 GameTests** passing on a dedicated server.
+
+**Still not implemented:** custom screens and client UI, logistics and shipments,
+transportation and routes, seasons, food traits, player shops, workers, animal bonding,
+and the world chronicle. These remain documented in `docs/backlog.md`.
+
+**These systems have never been played.** Balance values are first guesses in JSON.
 
 ## Technical baseline
 
