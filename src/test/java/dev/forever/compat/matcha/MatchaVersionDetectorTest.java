@@ -56,6 +56,41 @@ class MatchaVersionDetectorTest {
 	}
 
 	@Test
+	@DisplayName("refuses a fingerprint conflict as an unsupported version")
+	void refusesFingerprintConflict() {
+		Map<String, String> fingerprints = new java.util.HashMap<>(MatchaProfile.FINGERPRINTS);
+		fingerprints.put("pack.mcmeta", "1".repeat(64));
+		MatchaDetectionEvidence evidence = new MatchaDetectionEvidence(
+				MatchaPresence.PRESENT,
+				java.util.Optional.of(MatchaProfile.ARCHIVE_SHA256),
+				java.util.Optional.of(metadata()),
+				fingerprints,
+				fingerprints.keySet(),
+				runtimeMarkers(),
+				java.util.List.of());
+
+		assertEquals(MatchaDetectionStatus.UNSUPPORTED_VERSION, detector.detect(evidence).status());
+	}
+
+	@Test
+	@DisplayName("refuses a conflicting runtime version marker as an unsupported version")
+	void refusesRuntimeMarkerConflict() {
+		MatchaDetectionEvidence evidence = new MatchaDetectionEvidence(
+				MatchaPresence.PRESENT,
+				java.util.Optional.of(MatchaProfile.ARCHIVE_SHA256),
+				java.util.Optional.of(metadata()),
+				MatchaProfile.FINGERPRINTS,
+				MatchaProfile.FINGERPRINTS.keySet(),
+				MatchaRuntimeMarkers.observed(
+						Set.of(MatchaProfile.VERSION_OBJECTIVE),
+						Map.of(MatchaProfile.VERSION_SCORE_HOLDER, 113),
+						MatchaProfile.ADVANCEMENT_MARKERS),
+				java.util.List.of());
+
+		assertEquals(MatchaDetectionStatus.UNSUPPORTED_VERSION, detector.detect(evidence).status());
+	}
+
+	@Test
 	@DisplayName("does not guess when Matcha-like content lacks locked provenance")
 	void refusesAmbiguousSignals() {
 		MatchaDetectionEvidence evidence = MatchaDetectionEvidence.present(

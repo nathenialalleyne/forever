@@ -49,10 +49,17 @@ public final class MatchaVersionDetector {
 					diagnostics);
 		}
 
-		boolean fingerprintsMatch = checkFingerprints(evidence.fileFingerprints(), diagnostics);
-		boolean runtimeMarkersMatch = checkRuntimeMarkers(evidence.runtimeMarkers(), diagnostics);
+		SignalCheck fingerprints = checkFingerprints(evidence.fileFingerprints(), diagnostics);
+		SignalCheck runtimeMarkers = checkRuntimeMarkers(evidence.runtimeMarkers(), diagnostics);
+		if (fingerprints == SignalCheck.CONFLICT || runtimeMarkers == SignalCheck.CONFLICT) {
+			return result(
+					MatchaDetectionStatus.UNSUPPORTED_VERSION,
+					MatchaPresence.PRESENT,
+					MatchaConfidence.UNVERIFIED,
+					diagnostics);
+		}
 		boolean identityEvidence = archiveMatches && metadata.matches();
-		boolean corroborated = fingerprintsMatch && runtimeMarkersMatch;
+		boolean corroborated = fingerprints == SignalCheck.MATCH && runtimeMarkers == SignalCheck.MATCH;
 		if (identityEvidence && corroborated) {
 			return new MatchaDetectionResult(
 					MatchaDetectionStatus.SUPPORTED,
@@ -122,9 +129,9 @@ public final class MatchaVersionDetector {
 		return new MetadataCheck(true, false);
 	}
 
-	private static boolean checkFingerprints(Map<String, String> observed, List<String> diagnostics) {
+	private static SignalCheck checkFingerprints(Map<String, String> observed, List<String> diagnostics) {
 		if (observed.isEmpty()) {
-			return false;
+			return SignalCheck.MISSING;
 		}
 		boolean complete = true;
 		for (Map.Entry<String, String> expected : MatchaProfile.FINGERPRINTS.entrySet()) {
@@ -136,31 +143,32 @@ public final class MatchaVersionDetector {
 			if (!expected.getValue().equalsIgnoreCase(actual)) {
 				diagnostics.add("Fingerprint mismatch for audited path " + expected.getKey()
 						+ ". Do not use the 1.12 mapping profile.");
-				return false;
+				return SignalCheck.CONFLICT;
 			}
 		}
 		if (!complete) {
 			diagnostics.add("Only a partial Matcha fingerprint set was observed.");
+			return SignalCheck.MISSING;
 		}
-		return complete;
+		return SignalCheck.MATCH;
 	}
 
-	private static boolean checkRuntimeMarkers(MatchaRuntimeMarkers markers, List<String> diagnostics) {
+	private static SignalCheck checkRuntimeMarkers(MatchaRuntimeMarkers markers, List<String> diagnostics) {
 		if (!markers.observationsAvailable()) {
-			return false;
+			return SignalCheck.MISSING;
 		}
 		boolean objective = markers.scoreboardObjectives().contains(MatchaProfile.VERSION_OBJECTIVE);
 		Integer version = markers.scoreboardValues().get(MatchaProfile.VERSION_SCORE_HOLDER);
 		if (version != null && version != MatchaProfile.VERSION_SCORE) {
 			diagnostics.add("Runtime version marker value " + version + " does not match the audited 1.12 marker.");
-			return false;
+			return SignalCheck.CONFLICT;
 		}
 		boolean advancements = markers.advancementIds().containsAll(MatchaProfile.ADVANCEMENT_MARKERS);
 		if (!objective || version == null || !advancements) {
 			diagnostics.add("Loaded runtime markers are incomplete. Marker absence is not treated as proof of a version.");
-			return false;
+			return SignalCheck.MISSING;
 		}
-		return true;
+		return SignalCheck.MATCH;
 	}
 
 	private static boolean isKnownPackId(String packId) {
@@ -202,5 +210,11 @@ public final class MatchaVersionDetector {
 	}
 
 	private record MetadataCheck(boolean matches, boolean explicitConflict) {
+	}
+
+	private enum SignalCheck {
+		MATCH,
+		MISSING,
+		CONFLICT
 	}
 }
