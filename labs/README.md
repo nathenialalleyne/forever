@@ -39,16 +39,46 @@ names, so the same lab can be re-run months later against the same artifacts.
 |---|---|---|
 | LAB-01 | Information and onboarding: recipe viewer, contextual info, guidebook noise, advancement noise, Field Journal requirements | Done: REI + Jade adopted, JEI excluded, no guidebook problem found |
 | LAB-02 | Matcha pack-loader and dual role: one archive as both datapack and resource pack, load order, failure diagnostics | Done: Global Packs adopted, but ALL failure paths fail open. Raised MRH-010. |
-| LAB-03 | Building and excavation: assisted placement, vein mining, durability and inventory consumption, multiplayer authority | Next |
+| LAB-03 | Building and excavation: assisted placement, vein mining, durability and inventory consumption, multiplayer authority | In progress (wave 1) |
 | LAB-04 | Blueprints and schematics: preview, material lists, .litematic and .schem support, server authority | Planned |
-| LAB-05 | Food, cooking, and preservation against Matcha hunger and healing behaviour | Planned |
+| LAB-05 | Food, cooking, and preservation against Matcha hunger and healing behaviour | In progress (wave 1) |
 | LAB-06 | Seasons and climate against Matcha environment, crops, weather, performance | Planned |
-| LAB-07 | Storage indexing and local search: early shulkers, wireless restrictions, world removal | Planned |
+| LAB-07 | Storage indexing and local search: early shulkers, wireless restrictions, world removal | In progress (wave 1) |
 | LAB-08 | Local item transport and automation: pipes, minecarts, storage integration, chunk unloading | Planned |
 | LAB-09 | Rail, horse, boat, and vehicle behaviour on a dedicated server | Planned |
 | LAB-10 | Performance, ambience, structures, and worldgen: spacing, loot control, save permanence | Planned |
 | LAB-11 | Adventure rewards and capability gates: no essential capability is adventure-only | Planned |
 | LAB-12 | Companion boundary and gap analysis: what genuinely needs custom code | Planned |
+
+## Running labs in parallel
+
+Labs are not a strict sequence. Most of the dependencies in the backlog are real but
+shallow, so once the two foundation labs are done the queue opens up considerably.
+
+Deriving the waves from the recorded `Dependencies` field of each ticket:
+
+| Wave | Labs that can run concurrently | Unblocked by |
+|---|---|---|
+| Foundation | LAB-01, then LAB-02 | nothing; LAB-02 depends on the information stack |
+| 1 | **LAB-03, LAB-05, LAB-07** | LAB-01 and LAB-02 |
+| 2 | LAB-04, LAB-06, LAB-08, LAB-10 | wave 1 |
+| 3 | LAB-09, LAB-11 | wave 2 |
+| 4 | LAB-12 | everything else, by design |
+
+Ten sequential labs become four waves. LAB-12 is deliberately last because its whole
+purpose is to decide what genuinely needs custom code, which is only answerable once
+every other lab has reported.
+
+### Rules for concurrent labs
+
+- Each lab gets its own instance directory under `/tmp`. Instances must never be shared,
+  because a lab's value comes from knowing exactly which mods were present.
+- A worker commits only its own manifest and result, by name. Never `git add -A` while
+  other labs are running.
+- Only the coordinator updates `docs/backlog.md` and this file. Workers report a status
+  line instead, so two agents never fight over the same table.
+- If two labs both want to adopt a mod, the second one to report defers to the first and
+  records the overlap rather than adding a duplicate pack entry.
 
 ## Running a lab
 
