@@ -1,0 +1,239 @@
+# LAB-03 manifest: building and excavation compatibility spike
+#
+# Versions were verified against the official Modrinth API on 2026-08-28.
+# Query shape used for each project:
+# https://api.modrinth.com/v2/project/<project_id>/version?game_versions=["26.2"]&loaders=["fabric"]
+#
+# These are lab fixtures, not an approval to add every candidate to pack/.
+# Third-party files were downloaded only into /tmp/lab03/ and are not committed.
+
+[baseline]
+minecraft = "26.2"
+fabric_loader = "0.19.3"
+fabric_api = { project_id = "P7dR8mSH", version_id = "NqwNSxwA", file = "fabric-api-0.158.0+26.2.jar" }
+global_packs = { project_id = "NRLPy2mk", version_id = "DqrPrUMp", file = "globalpacks-fabric-26.2-26.2.0.jar" }
+matcha = { project_id = "QI0EmgZ1", version_id = "E9rngRfK", file = "Matcha_Flavoured_1_12.zip", sha256 = "6209783021c358044abedabacee471faff5bd4080437d4e3b5e51963f1804248" }
+roughly_enough_items = { project_id = "nfn13YXA", version_id = "4o0NSIMj", file = "RoughlyEnoughItems-26.2.820.jar" }
+jade = { project_id = "nvQzSEkH", version_id = "ue8CO97w", file = "Jade-mc26.2-Fabric-26.2.11.jar" }
+architectury = { project_id = "lhGA9TYQ", version_id = "1yQC4VvP", file = "architectury-fabric-21.0.7.jar" }
+cloth_config = { project_id = "9s6osm5g", version_id = "Nv3xnWXd", file = "cloth-config-26.2.155.jar" }
+
+[[add]]
+name = "Effortless Building"
+project_id = "DYtfQEYj"
+version_id = "BkGu1Eid"
+version = "4.3"
+file = "effortlessbuilding-fabric-26.2-4.3.jar"
+release_type = "release"
+published = "2026-08-01"
+license = "LGPL-3.0-only"
+side = "both"
+role = "assisted placement, arrays, mirrors, and multi-block interaction"
+
+[[add]]
+name = "Building Wands"
+project_id = "XkisZUfp"
+version_id = "madr0hP0"
+version = "3.2.2"
+file = "BuildingWands_3.2.2_release_fabric_26.2.jar"
+release_type = "release"
+published = "2026-08-09"
+license = "Apache-2.0"
+side = "both"
+role = "survival building wands and bounded bulk placement"
+
+[[add]]
+name = "AutoBuild"
+project_id = "wzBO46L7"
+version_id = "Q7qeA1GB"
+version = "2.0.1+26.2"
+file = "autobuild-2.0.1+26.2.jar"
+release_type = "release"
+published = "2026-08-15"
+license = "MIT"
+side = "both"
+role = "automatic material-aware construction; schematic interaction noted for LAB-04"
+
+[[add]]
+name = "WorldEdit"
+project_id = "1u6JkXh5"
+version_id = "6YnCYPwc"
+version = "7.4.5"
+file = "worldedit-mod-7.4.5.jar"
+release_type = "release"
+published = "2026-08-09"
+license = "GPL-3.0-only"
+side = "server"
+role = "control comparison for command-based map editing, not a survival placement solution"
+
+[[add]]
+name = "Liteminer"
+project_id = "VTnHoofC"
+version_id = "dK23TC0J"
+version = "4.1.2+26.2"
+file = "liteminer-fabric-4.1.2+26.2.jar"
+release_type = "release"
+published = "2026-07-28"
+license = "MIT"
+side = "both"
+role = "vein, tree, and grouped block mining"
+
+[[add]]
+name = "MinersAdvantage"
+project_id = "VcTmRh04"
+version_id = "6KojE9jd"
+version = "2.22.0+26.2-fabric"
+file = "MinersAdvantage_2.22.0+26.2-fabric-2.22.0.jar"
+release_type = "release"
+published = "2026-08-06"
+license = "MIT"
+side = "both"
+role = "broad excavation, vein mining, tree felling, and gathering comparison"
+
+[[add]]
+name = "VeinMiner"
+project_id = "OhduvhIc"
+version_id = "InpIvPQ1"
+version = "2.12.1"
+file = "veinminer-fabric-2.12.1.jar"
+release_type = "release"
+published = "2026-08-22"
+license = "AGPL-3.0-only"
+side = "server with optional client support"
+role = "server-side configurable vein mining"
+
+[[add]]
+name = "Server Side Vein Mine"
+project_id = "Fl69jDHD"
+version_id = "9SzCUKVU"
+version = "1.4.0"
+file = "serversideveinmine-1.4.0.jar"
+release_type = "release"
+published = "2026-06-22"
+license = "CC0-1.0"
+side = "server"
+role = "server-only bounded ore vein mining comparison"
+
+[[add]]
+name = "Simple Ore Vein Miner"
+project_id = "oU7CpxQo"
+version_id = "frEL8M6q"
+version = "1.0.4"
+file = "simple-ore-vein-miner-1.0.4.jar"
+release_type = "release"
+published = "2026-07-01"
+license = "MIT"
+side = "both"
+role = "lightweight 64-block ore-only comparison"
+
+[[add]]
+name = "FallingTree"
+project_id = "Fb4jn8m6"
+version_id = "sOoH5kkd"
+version = "26.2-26.2.0.3"
+file = "FallingTree-26.2-25.jar"
+release_type = "release"
+published = "2026-06-19"
+license = "LGPL-3.0-only"
+side = "server with optional client support"
+role = "bounded configurable tree felling with durability modes"
+
+[[add]]
+name = "Tree Harvester"
+project_id = "abooMhox"
+version_id = "3VcDfhZP"
+version = "26.2.0-9.4-fabric+forge+neo"
+file = "treeharvester-26.2.0-9.4.jar"
+release_type = "release"
+published = "2026-06-18"
+license = "LicenseRef-All-Rights-Reserved"
+side = "server"
+role = "server-side tree felling comparison; redistribution review required"
+
+[[add]]
+name = "Ore Harvester"
+project_id = "Xiv4r347"
+version_id = "A3tU6KDN"
+version = "26.2.0-1.6-fabric+forge+neo"
+file = "oreharvester-26.2.0-1.6.jar"
+release_type = "release"
+published = "2026-06-18"
+license = "LicenseRef-All-Rights-Reserved"
+side = "server"
+role = "server-side ore vein comparison; redistribution review required"
+
+[[add]]
+name = "Chopt"
+project_id = "omDn2JEQ"
+version_id = "V0nSnDKh"
+version = "1.0.10"
+file = "chopt-1.0.10+mc26.2.jar"
+release_type = "release"
+published = "2026-08-03"
+license = "MIT"
+side = "both"
+role = "shared-progress tree felling with shrinking-stump intermediate state"
+
+# Runtime dependencies added only for the candidate that needed them. Cloth Config is
+# already part of the LAB-01 baseline and is therefore not repeated here.
+[[add]]
+name = "Amber"
+project_id = "vjGZJDu5"
+version_id = "g0SbOU8i"
+version = "11.2.0+26.2"
+file = "amber-fabric-11.2.0+26.2.jar"
+release_type = "release"
+published = "2026-08-13"
+license = "MIT"
+side = "both"
+role = "required dependency of Liteminer"
+
+[[add]]
+name = "Konfig"
+project_id = "pp7kIrlM"
+version_id = "MqZmdbqT"
+version = "0.6.1+26.2"
+file = "konfig-fabric-0.6.1+26.2.jar"
+release_type = "release"
+published = "2026-08-20"
+license = "MIT"
+side = "both"
+role = "required dependency of Liteminer"
+
+[[add]]
+name = "Fabric Language Kotlin"
+project_id = "Ha28R6CL"
+version_id = "bdhiINYC"
+version = "1.13.13+kotlin.2.4.10"
+file = "fabric-language-kotlin-1.13.13+kotlin.2.4.10.jar"
+release_type = "release"
+published = "2026-07-15"
+license = "Apache-2.0"
+side = "both"
+role = "required dependency of VeinMiner"
+
+[[add]]
+name = "Collective"
+project_id = "e0M1UDsY"
+version_id = "M75JwjyS"
+version = "26.2.0-8.39-fabric+forge+neo"
+file = "collective-26.2.0-8.39.jar"
+release_type = "release"
+published = "2026-06-29"
+license = "LicenseRef-All-Rights-Reserved"
+side = "both"
+role = "required dependency of Tree Harvester and Ore Harvester"
+
+[not_tested]
+litematica = "project_id=bEpr0Arc, version_id=Fhq3KCI8, file=litematica-fabric-26.2-0.28.5.jar; verified release but held for LAB-04 schematic evaluation and not launched because this host has no usable display."
+omnibuild_wand = "project_id=J8VejjJo, version_id=xDt1RcCl, file=omnibuild-wand-1.4.0+26.2.jar; verified release, depends on Litematica, and held for LAB-04."
+peterwolfs_realistic_tree_felling = "project_id=GevfEXnx, version_id=dWJYq0qo, file=peterwolfs-realistic-tree-felling-1.1.1.jar; Modrinth API alternative found, not needed after FallingTree and Chopt were selected for the spike."
+veinminer_plus_plus = "project_id=syHecAZ6, version_id=rWJhxXyW, file=veinminerplusplus-fabric-0.5.0.jar; Modrinth API alternative found, not needed after VeinMiner was selected for the primary server-side comparison."
+ore_vein_miner = "project_id=Xl2GihRU, version_id=kA9VIz6y, file=ore-vein-miner-2.0.jar; Modrinth API alternative found, not tested in the bounded candidate set."
+tree_vein_miner = "project_id=wEhW4ceB, version_id=L6gEwv12, file=tree-vein-miner-2.0.jar; Modrinth API alternative found, not tested in the bounded candidate set."
+universal_vein_miner = "project_id=bqebtWOI, version_id=zQMjYAVd, file=veinminer-fabric-2.4.0-all.jar; Modrinth API alternative found, not tested in the bounded candidate set."
+
+[not_added]
+ftb_ultimine = "No 26.2 Fabric release was returned by the Modrinth API searches used for this lab, so no substitute artifact was invented."
+axiom = "Axiom 6.0.0 for MC26.2 was visible only as an alpha in the initial candidate query and is outside the no-alpha core dependency rule; schematic and client authoring also belong in LAB-04."
+construction_wand = "The Modrinth search surfaced similarly named Construction Wand projects, but this lab did not establish a verified 26.2 release and did not add an unverified artifact."
