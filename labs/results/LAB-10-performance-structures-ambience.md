@@ -1,5 +1,19 @@
 # LAB-10: Performance, ambience, structures, and worldgen compatibility spike
 
+> **Later correction: the display constraint was false.** This report marks
+> ImmediatelyFast, Entity Culling, Mod Menu, Particular Reforged, Presence Footsteps and
+> AmbientSounds as `NEEDS_MORE_EVIDENCE`, and defers Sodium and Sound Physics Remastered,
+> *solely* because no display-backed client test was thought possible. It is: a client
+> runs here with OpenGL 4.5. See `docs/testing/client-environment.md` and
+> `scripts/client-smoke.sh`.
+>
+> The server-side findings below stand and were correctly reasoned on the evidence
+> available. The client-only verdicts should be re-tested rather than left unresolved,
+> which is tracked as LAB-CLIENT2. Note two genuine limits remain: this host has **no
+> audio**, so Sound Physics, Presence Footsteps and AmbientSounds still cannot be fully
+> judged, and window screenshots capture black, so visual quality still needs a human.
+
+
 - Date: 2026-08-28
 - Run by: coordinating agent, automated
 - Manifest: `labs/manifests/LAB-10-performance-structures-ambience.toml`
