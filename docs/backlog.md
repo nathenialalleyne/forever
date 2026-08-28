@@ -180,7 +180,7 @@ These are investigation and integration spikes. They establish whether the selec
 - **Test requirements:** Index creation, stale index, physical mutation, search paging, permission denial, item identity changes, container nesting rejection, restart, and no-mod fallback.
 - **Removal/migration risks:** Removing a storage provider can invalidate container references, network links, and search metadata. Keep physical containers untouched and migrate derived indexes as discardable data only when safe.
 
-### LAB-08: Local item transport and automation compatibility spike [Next]
+### LAB-08: Local item transport and automation compatibility spike [Done]
 
 - **Objective:** Identify a local transport and automation stack that moves physical goods through bounded networks without replacing the logistics and route authority planned for later milestones.
 - **Dependencies:** MRH-000, LAB-07, LAB-03, LAB-02, ADRs 0010, 0012, 0024, and 0026, and the logistics specification.
@@ -214,7 +214,7 @@ These are investigation and integration spikes. They establish whether the selec
 - **Test requirements:** Station connectivity, disconnected track, freight transfer, horse and boat baseline, vehicle absence, chunk unload, restart, route damage, and dedicated-server movement.
 - **Removal/migration risks:** Removing a vehicle mod can strand entities, cargo, or route references. A future profile change needs an entity and cargo recovery plan before the dependency is removed.
 
-### LAB-10: Performance, ambience, structures, and worldgen compatibility spike [Next]
+### LAB-10: Performance, ambience, structures, and worldgen compatibility spike [Done]
 
 - **Objective:** Establish a conservative baseline for performance, ambience, and restrained structure content without adding a world-generation dependency by assumption.
 - **Dependencies:** MRH-000, LAB-02, LAB-03, and ADR 0015 plus the performance rules in the architecture document.
