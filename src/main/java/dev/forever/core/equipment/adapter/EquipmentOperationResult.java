@@ -1,6 +1,5 @@
-package dev.forever.core.equipment;
+package dev.forever.core.equipment.adapter;
 
-import dev.forever.core.equipment.adapter.EquipmentState;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -17,11 +16,11 @@ public record EquipmentOperationResult(
 		Objects.requireNonNull(state, "state");
 	}
 
-	public static EquipmentOperationResult success(EquipmentState state, String messageKey) {
+	static EquipmentOperationResult success(EquipmentState state, String messageKey) {
 		return new EquipmentOperationResult(true, messageKey, Optional.of(state));
 	}
 
-	public static EquipmentOperationResult failure(EquipmentState state, String messageKey) {
+	static EquipmentOperationResult failure(EquipmentState state, String messageKey) {
 		return new EquipmentOperationResult(false, messageKey, Optional.ofNullable(state));
 	}
 }

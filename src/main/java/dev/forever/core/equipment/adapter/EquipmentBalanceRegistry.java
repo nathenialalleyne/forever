@@ -1,4 +1,4 @@
-package dev.forever.core.equipment;
+package dev.forever.core.equipment.adapter;
 
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
@@ -20,7 +20,7 @@ public final class EquipmentBalanceRegistry {
 				"Forever equipment balance is not loaded. Reload server data before using equipment."));
 	}
 
-	public static void install(EquipmentBalance balance) {
+	static void install(EquipmentBalance balance) {
 		CURRENT.set(balance);
 	}
 }

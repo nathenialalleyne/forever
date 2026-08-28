@@ -1,8 +1,16 @@
 package dev.forever.core.equipment;
 
+import dev.forever.core.equipment.adapter.EquipmentBalance;
 import dev.forever.core.equipment.adapter.EquipmentState;
 
-/** Pure arithmetic for condition changes. */
+/**
+ * Pure arithmetic for condition changes.
+ *
+ * <p>This remains at the feature root because its existing API consumes the Minecraft-shaped
+ * {@link EquipmentBalance} and {@link EquipmentState} records. Moving it into {@code domain}
+ * would make domain code depend on the adapter, while introducing neutral replacement values
+ * would exceed this structural migration's no-redesign scope.
+ */
 public final class EquipmentMath {
 
 	private EquipmentMath() {
