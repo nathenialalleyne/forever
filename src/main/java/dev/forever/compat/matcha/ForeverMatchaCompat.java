@@ -50,6 +50,7 @@ public final class ForeverMatchaCompat {
 		}
 		active = next;
 		logDecision(next.status());
+		reportBaseline(next.status());
 		return next;
 	}
 
@@ -61,13 +62,53 @@ public final class ForeverMatchaCompat {
 		return active.status();
 	}
 
+	/**
+	 * Reports the health of the gameplay baseline, loudly when it is not healthy.
+	 *
+	 * <p>LAB-02 established that the pack loader fails open: a missing Matcha archive
+	 * produces a perfectly normal server start with no diagnostic. This is the pack's
+	 * own safety net for that, and it is deliberately separate from
+	 * {@link #logDecision} because the two answer different questions. logDecision says
+	 * whether Forever's mappings are active; this says whether the player is getting the
+	 * game they installed.
+	 */
+	private static void reportBaseline(MatchaAdapterStatus status) {
+		MatchaBaselineReport report = MatchaBaselineReport.fromStatus(status, MatchaProfile.VERSION);
+		if (!report.needsAttention()) {
+			LOGGER.info("{}", report.summary());
+			return;
+		}
+		// Severity picks the log level deliberately. MISSING means the player is not
+		// playing this pack at all, which is worth a framed banner at ERROR. DEGRADED
+		// means the gameplay content is running and only Forever's translation layer is
+		// inactive, which is a warning: shouting ERROR at a working install is how a
+		// project teaches its operators to ignore errors.
+		if (report.severity() == MatchaBaselineReport.Severity.MISSING) {
+			String banner = "=".repeat(78);
+			LOGGER.error("{}", banner);
+			LOGGER.error("MANY ROADS HOME BASELINE PROBLEM: {}", report.severity());
+			LOGGER.error("{}", report.summary());
+			for (String remedy : report.remedies()) {
+				LOGGER.error("  -> {}", remedy);
+			}
+			LOGGER.error("{}", banner);
+			return;
+		}
+		LOGGER.warn("{}", report.summary());
+		for (String remedy : report.remedies()) {
+			LOGGER.warn("  -> {}", remedy);
+		}
+	}
+
 	private static void logDecision(MatchaAdapterStatus status) {
 		switch (status.detectionStatus()) {
 			case SUPPORTED -> LOGGER.info("Matcha {} detected with exact profile {}.",
 					status.detectedVersion().orElse("unknown"), MatchaProfile.PROFILE_ID);
 			case ABSENT -> LOGGER.info("Matcha is absent; Forever's Matcha mappings stay disabled and vanilla handling is preserved.");
 			case UNSUPPORTED_VERSION, PRESENT_UNVERIFIED, MALFORMED, FAILED_SAFE ->
-					LOGGER.warn("Forever's Matcha mappings are disabled with status {}. Any loaded Matcha datapack still runs its own content; only Forever's translation layer is inactive. {}",
+					LOGGER.warn("Forever's Matcha mappings are disabled with status {}. Any loaded Matcha "
+									+ "datapack still runs its own content; only Forever's translation layer is "
+									+ "inactive. {}",
 							status.detectionStatus(), String.join(" ", status.diagnostics()));
 			// A switch statement over an enum is not exhaustiveness-checked by the
 			// compiler, so a newly added status would otherwise reach no branch and be

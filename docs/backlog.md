@@ -77,7 +77,7 @@ These are investigation and integration spikes. They establish whether the selec
 - **Test requirements:** Lock checksum verification, clean installation, repeat installation, altered archive, missing archive, data-only load, resource-only load, both-role load, order conflict, dedicated-server startup, and disposable-world save/reload.
 - **Removal/migration risks:** Changing the loader or its configuration can alter data-pack order, resource presentation, recipes, and saved references. Retain the old profile, record the utility version, and test removal before any world is opened with a changed loader.
 
-### MRH-010: Fail loudly when the Matcha baseline is absent or altered [Next]
+### MRH-010: Fail loudly when the Matcha baseline is absent or altered [Done]
 
 - **Objective:** Detect at startup that the pinned Matcha archive is missing, altered, or loaded in only one of its two roles, and report it loudly, rather than presenting a working server that silently lacks the entire gameplay foundation.
 - **Dependencies:** LAB-02, `matcha.lock.json`, ADR 0027, and ADR 0033.
