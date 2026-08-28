@@ -49,8 +49,16 @@ src/client/resources/assets/forever/           # exported resources Minecraft re
 ├── models/{item,block}/
 ├── items/
 ├── blockstates/
-└── lang/
+└── lang/                                      # client-only presentation strings, if ever needed
 ```
+
+Translations for server-authoritative systems live in
+`src/main/resources/assets/forever/lang/en_us.json`, not in the client tree. Mastery,
+career, economy, and Field Guide text must remain available to common code, so putting
+those keys in the client source set would break the client/server split described in
+`docs/architecture.md`. The client `lang/` directory above exists only for strings that
+are genuinely client-only. Prefer the common file unless there is a specific reason not
+to, and add the key where the system that owns it lives.
 
 Keep layered `.aseprite` and `.bbmodel` sources, palettes, and optional previews under
 `art/`. Keep only exported PNGs and the JSON and language resources that Minecraft loads

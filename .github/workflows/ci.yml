@@ -45,6 +45,14 @@ jobs:
       - name: Run root unit tests
         run: ./gradlew test --no-daemon
 
+      # The asset validator is a pure-JDK developer tool. It needs no Minecraft
+      # runtime, no network access, and no third-party dependency, so it is cheap to
+      # enforce here. Running it in CI is what makes the manifest an actual gate
+      # rather than a document: an unmanifested PNG, a wrong-sized texture, or a
+      # dangling texture reference fails the build instead of reaching a world.
+      - name: Validate art assets
+        run: ./gradlew validateAssets --no-daemon
+
       - name: Upload root test reports on failure
         if: failure()
         uses: actions/upload-artifact@v4

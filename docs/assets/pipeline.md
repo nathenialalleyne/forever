@@ -69,8 +69,16 @@ src/client/resources/assets/forever/           # exported production resources o
 │   └── block/                                 # block model JSON
 ├── items/                                     # item definition JSON
 ├── blockstates/                               # blockstate JSON
-└── lang/                                      # player-facing translations
+└── lang/                                      # client-only presentation strings
 ```
+
+Translations belong in `src/main/resources/assets/forever/lang/en_us.json` whenever the
+key names a server-authoritative concept, which today covers mastery, career, economy,
+storage, and Field Guide text. Common code must be able to name those things without
+reaching into a client-only source set, and `docs/architecture.md` forbids that
+direction of dependency. Reserve the client `lang/` directory above for strings that
+only a screen or other client-side presentation ever produces. When in doubt, add the
+key to the common file next to the system that owns it.
 
 The source tree exists for editing, review, and provenance. A `.aseprite`, `.bbmodel`,
 palette, template, or preview under `art/` is not a Minecraft resource and must never
