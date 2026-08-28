@@ -68,6 +68,37 @@ public final class WarehouseController {
 		}
 	}
 
+	/**
+	 * Removes a registered warehouse and its derived index entries.
+	 *
+	 * <p>Registration without removal is a one-way door: a player who registers a
+	 * warehouse in the wrong place could never undo it, and the per-world warehouse
+	 * limit would fill permanently. That is the defect this method fixes.
+	 *
+	 * <p>Only the registration record is removed. Physical containers and their
+	 * contents are untouched, because physical inventories are the source of truth
+	 * (see {@code docs/systems/storage.md}). Decommissioning a warehouse must never
+	 * destroy a player's items.
+	 *
+	 * @param level     the server level owning the warehouse
+	 * @param id        the warehouse to remove
+	 * @return success carrying the removed record, or a rejection naming the reason
+	 */
+	public static WarehouseMutationResult removeWarehouse(ServerLevel level, UUID id) {
+		Objects.requireNonNull(level, "level");
+		Objects.requireNonNull(id, "id");
+
+		WarehouseSavedData data = WarehouseSavedData.get(level);
+		synchronized (data) {
+			Optional<WarehouseRecord> existing = data.warehouse(id);
+			if (existing.isEmpty()) {
+				return WarehouseMutationResult.rejected(INVALID_WAREHOUSE);
+			}
+			data.replace(data.state().without(id));
+			return WarehouseMutationResult.success(existing.orElseThrow());
+		}
+	}
+
 	public static WarehouseMutationResult registerContainer(
 			ServerLevel level, UUID warehouseId, ContainerReference reference) {
 		return registerContainer(level, warehouseId, reference, StorageBalanceAccess.requireCurrent());

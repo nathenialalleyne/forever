@@ -56,6 +56,7 @@ public final class StorageGameTest {
 				"warehouse SavedData must retain its state across a restart-shaped codec boundary");
 		helper.assertTrue(reloaded.warehouse(warehouseId).isPresent(),
 				"the saved warehouse must still be addressable after reload");
+		releaseWarehouse(level, warehouseId);
 		helper.succeed();
 	}
 
@@ -83,6 +84,7 @@ public final class StorageGameTest {
 				"the index must expose the physical chest quantity");
 		helper.assertTrue(page.results().getFirst().available(),
 				"a loaded, matching physical row must be available");
+		releaseWarehouse(level, warehouseId);
 		helper.succeed();
 	}
 
@@ -111,6 +113,7 @@ public final class StorageGameTest {
 				"a disagreement must resolve in the world's physical quantity's favour");
 		helper.assertTrue(page.results().getFirst().available(),
 				"the reconciled physical row must be available");
+		releaseWarehouse(level, warehouseId);
 		helper.succeed();
 	}
 
@@ -140,17 +143,66 @@ public final class StorageGameTest {
 		helper.succeed();
 	}
 
+	/**
+	 * Proves a registered warehouse can be decommissioned without destroying items.
+	 *
+	 * <p>Registration used to be a one-way door: nothing could remove a warehouse, so a
+	 * misplaced one was permanent and the per-world limit filled up for good. This test
+	 * covers the removal path and, critically, that removal touches only the
+	 * registration record and never the physical container contents.
+	 */
+	@GameTest
+	public void warehouseCanBeDecommissionedWithoutDestroyingItems(GameTestHelper helper) {
+		ServerLevel level = helper.getLevel();
+		BlockPos controllerRelative = new BlockPos(0, 1, 0);
+		UUID warehouseId = registerWarehouse(helper, level, controllerRelative);
+
+		helper.assertTrue(WarehouseSavedData.get(level).warehouse(warehouseId).isPresent(),
+				"the warehouse must exist before removal");
+
+		WarehouseMutationResult removed = WarehouseController.removeWarehouse(level, warehouseId);
+		helper.assertTrue(removed.applied(), "removing a registered warehouse must succeed");
+		helper.assertTrue(WarehouseSavedData.get(level).warehouse(warehouseId).isEmpty(),
+				"the warehouse registration must be gone after removal");
+
+		// Physical inventories are the source of truth, so the controller block and any
+		// stored items must survive decommissioning untouched.
+		helper.assertBlockPresent(Blocks.CHEST, controllerRelative);
+
+		// Removing an unknown warehouse must be a clean rejection, not a crash.
+		WarehouseMutationResult again = WarehouseController.removeWarehouse(level, warehouseId);
+		helper.assertTrue(!again.applied(), "removing an already-removed warehouse must be rejected, not applied");
+
+		helper.succeed();
+	}
+
+	/** Removes a test warehouse so the shared world does not accumulate registrations. */
+	private static void releaseWarehouse(ServerLevel level, UUID warehouseId) {
+		WarehouseController.removeWarehouse(level, warehouseId);
+	}
+
 	private static ChestBlockEntity placeChest(GameTestHelper helper, BlockPos relative) {
 		helper.setBlock(relative, Blocks.CHEST);
 		return helper.getBlockEntity(relative, ChestBlockEntity.class);
 	}
 
+	/**
+	 * Registers a warehouse for a test.
+	 *
+	 * <p>Callers must pass the returned id to {@link #releaseWarehouse} before the test
+	 * finishes. GameTests share one persistent world, so a test that registers without
+	 * releasing leaks state into every later run until the per-world warehouse limit is
+	 * reached and unrelated tests begin failing. That is not hypothetical: it is exactly
+	 * the failure this suite exhibited before cleanup existed.
+	 */
 	private static UUID registerWarehouse(GameTestHelper helper, ServerLevel level, BlockPos relativeController) {
 		helper.setBlock(relativeController, Blocks.CHEST);
 		UUID warehouseId = UUID.randomUUID();
 		WarehouseMutationResult result = WarehouseController.registerWarehouse(
 				level, warehouseId, helper.absolutePos(relativeController), balance());
-		helper.assertTrue(result.applied(), "warehouse registration must succeed");
+		helper.assertTrue(result.applied(),
+				"warehouse registration must succeed; if this fails with the warehouse limit, a previous "
+						+ "test leaked registrations into the shared world");
 		return warehouseId;
 	}
 

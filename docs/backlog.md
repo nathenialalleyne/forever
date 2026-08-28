@@ -258,6 +258,15 @@ This file remains the index and dependency map.
 
 ## Equipment and condition vertical slice
 
+
+- **Implementation note (verified):** `MatchaVersionDetector` evaluates evidence, and
+  `MatchaServerEvidence` gathers it from a running server via `SERVER_STARTED` and
+  `END_DATA_PACK_RELOAD`. An earlier revision shipped the detector without any gatherer,
+  so production detection would have reported "absent" regardless of what was installed.
+  Detection is now proven against the real pinned archive: with Matcha 1.12 present all
+  ten known data namespaces and the `version_number` marker are observed; with it absent
+  the adapter degrades to a safe no-op. Both paths pass 26/26 GameTests.
+
 ### FVR-100: Define item identity and condition schema [Done]
 
 - **Objective:** Define the versioned per-`ItemStack` identity, condition,
