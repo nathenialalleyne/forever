@@ -72,7 +72,10 @@ dependency and it could arrive transitively, giving the pack two viewers.
 all, and the pack intends to keep it that way.
 
 - [ ] No starter book, manual, or guide item is granted on first join.
-- [ ] The advancement screen shows three Matcha tabs, not one per subsystem.
+- [ ] The advancement screen shows **three** Matcha tabs in addition to the vanilla ones,
+      not one tab per subsystem. Verified by inspection of the archive: Matcha defines
+      exactly three root advancements with a display block, and overrides no vanilla
+      advancement, so it adds three tabs rather than replacing any.
 
 ### 6. Ordinary play is unaffected
 
