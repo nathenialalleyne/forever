@@ -40,7 +40,7 @@ The archive places 309 item-definition files and 713 models in the `minecraft` r
 
 The server must use exact component signatures. A resource pack, texture, colour, translated name, or approximate model match is not identity evidence. An ordinary vanilla item with the same base ID must remain ordinary. A missing or replaced resource pack may change presentation but must not change server outcomes. This is a high-risk **override** boundary for FVR-100, food, economy, storage, and every future item migration.
 
-The adapter therefore maps only audited exact signatures to stable Forever concepts and returns the original observation unchanged when the signature is unknown. No raw model value or private Matcha identifier is exposed in the adapter's stable result.
+The adapter therefore maps only audited exact signatures to stable Forever concepts and returns a sanitized vanilla fallback when the signature is unknown. Identity-only model, entity-marker, and custom-model components do not cross into the stable result, while ordinary preserved components remain available. No private Matcha identifier is exposed in the adapter's stable result.
 
 ### 4. Enchantments, effects, and XP
 
