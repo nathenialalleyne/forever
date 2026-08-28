@@ -58,11 +58,19 @@ class ArchitectureRulesTest {
 	 * the COMPILER rejects a leak before ArchUnit sees it. The rule still earns its place
 	 * because it catches the types that must be public.
 	 *
-	 * Not yet proven by injection, and honest about it:
-	 *   CORE_FEATURE_SLICES_MUST_BE_FREE_OF_CYCLES     needs a two-feature cycle to trigger
-	 *   COMMON_CODE_MUST_NOT_DEPEND_ON_CLIENT_MINECRAFT  needs a common class importing a
-	 *                                                    client-only Minecraft type
-	 *   ADAPTER_CLASSES_SHOULD_ACTUALLY_TOUCH_MINECRAFT  advisory only, reports and passes
+	 *   CORE_FEATURE_SLICES_MUST_BE_FREE_OF_CYCLES  mastery.domain and storage.domain
+	 *                                               importing each other
+	 *
+	 * COMMON_CODE_MUST_NOT_DEPEND_ON_CLIENT_MINECRAFT could not be violated at all. Loom's
+	 * split source sets mean net.minecraft.client is not on the common compile classpath,
+	 * so the probe failed to COMPILE rather than failing the rule. The build configuration
+	 * is therefore the real guarantee here and the rule is a second line of defence that
+	 * catches a dependency arriving some other way, such as through a shaded library.
+	 * That is worth knowing: if this rule is ever the only thing standing between common
+	 * code and a client class, something else has already gone wrong.
+	 *
+	 * ADAPTER_CLASSES_SHOULD_ACTUALLY_TOUCH_MINECRAFT is advisory by design. It reports
+	 * candidates for human review and always passes, so there is nothing to prove.
 	 */
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ArchitectureRulesTest.class);
