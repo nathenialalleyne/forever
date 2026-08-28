@@ -1,5 +1,11 @@
 # LAB-04: Blueprint and schematic compatibility spike
 
+> **Later correction.** This report states or assumes that no client could be launched
+> from the build host. That was untested and is false: a graphical client runs here with
+> OpenGL 4.5. See `docs/testing/client-environment.md`. The findings below stand, but the
+> client-side items deferred as environmentally impossible should be retried, not left
+> for a human.
+
 - Date: 2026-08-28
 - Run by: automated lab worker
 - Manifest: `labs/manifests/LAB-04-blueprints-and-schematics.toml`

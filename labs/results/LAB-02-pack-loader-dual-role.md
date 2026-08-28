@@ -1,5 +1,11 @@
 # LAB-02: Matcha pack-loader and dual role
 
+> **Later correction.** This report states or assumes that no client could be launched
+> from the build host. That was untested and is false: a graphical client runs here with
+> OpenGL 4.5. See `docs/testing/client-environment.md`. The findings below stand, but the
+> client-side items deferred as environmentally impossible should be retried, not left
+> for a human.
+
 - Date: 2026-08-28
 - Run by: coordinating agent, automated
 - Manifest: `labs/manifests/LAB-02-pack-loader-dual-role.toml`

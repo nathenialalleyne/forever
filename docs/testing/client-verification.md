@@ -4,10 +4,20 @@ Several results in this repository are marked "server verified, client pending".
 document is how that gap gets closed. It takes about ten minutes and needs no development
 environment, only a Minecraft launcher.
 
+> **Correction (2026-08-28).** The premise below is wrong. A graphical client *was*
+> launched from the build host: OpenGL 4.5 via Mesa, 13 texture atlases stitched, mod
+> client initialisers logged. See `docs/testing/client-environment.md`. Automated
+> client checks should now be attempted rather than deferred here.
+>
+> This checklist is still needed, but only for what genuinely requires human eyes:
+> visual appearance, colour and contrast judgement, narration, sound (the host has no
+> working audio), screenshots (window capture returns black), and multiplayer with two
+> real players.
+
 ## Why this exists as a separate task
 
-Automated verification runs on a build host with no display, so no client can be launched
-there. That is not a limitation of the pack: it is a property of the machine running the
+Automated verification was believed to run on a build host with no display. That belief
+was not tested and turned out to be false. That is not a limitation of the pack: it is a property of the machine running the
 checks. A dedicated server also never loads resource packs, so no amount of server testing
 can substitute for the client-side half of the question.
 
