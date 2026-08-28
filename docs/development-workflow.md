@@ -131,6 +131,13 @@ claimed as passed merely because it is documented.
 failed dedicated-server start, skipping tests because a change “is only data”, or
 silently accepting a missing datagen or audit task.
 
+**Commit here, while it is green.** A passing build is a checkpoint, so record it before
+continuing. Commit the coherent change and push when a remote exists. Do not carry a large
+uncommitted tree into the next stage of work: it cannot be reviewed incrementally, it is
+invisible to anyone else working in the repository, and it is lost if the tree is reset or
+cleaned. Long tickets should produce several small green commits rather than one large one
+at the end. When several agents share a checkout, add only the paths you own by name.
+
 ## 7. Review the diff against the ticket
 
 Inspect the complete diff, including newly created files. Compare every changed line

@@ -142,6 +142,21 @@ These rules explain the constraints that future implementations must preserve.
 - **Complete with an evidence report.** State the files changed, commands run, test
   results, assumptions, known risks, and the next ticket. Review the final diff against
   the selected ticket before stopping.
+- **Commit at every green checkpoint, and push if a remote exists.** Do not accumulate a
+  large uncommitted working tree. Commit as soon as the build and the applicable tests
+  pass and the change is coherent on its own, then `git push` when a remote is configured.
+  A single commit at the end of a long session is a failure mode: uncommitted work is
+  invisible to everyone else, it cannot be reviewed incrementally, and it is lost outright
+  if the tree is reset or another agent cleans the workspace. This repository has already
+  lost untracked work that way.
+  Practical rules. Prefer several small commits that each pass `./gradlew build` over one
+  large one. Never commit a red build; fix it or stash the broken part. Never commit a
+  merge conflict marker, a debugging probe, or a temporary file. When several agents share
+  a checkout, commit only the paths you own, using explicit `git add <path>` rather than
+  `git add -A`, so you do not sweep up another agent's half-finished edit. Never run
+  `git checkout`, `git reset`, `git stash`, or `git clean` against a shared tree, because
+  those discard work you do not own.
+
 - **Protect real worlds.** Automated development must never open, modify, or point a
   tool at a real user survival world. Use a disposable development world, and follow
   `docs/world-save-safety.md` for cloning, backups, dependency changes, and migration
@@ -284,6 +299,8 @@ At the end of a ticket, report the ticket ID and stop. Include:
 - test and build results, with failure output or an external blocker when relevant;
 - assumptions and any specification or dependency uncertainty;
 - known risks, especially save, migration, duplication, authority, and compatibility risks;
-- the next backlog ticket, without starting it in the same change.
+- the next backlog ticket, without starting it in the same change; and
+- the commit range for the work, confirming it is committed and pushed when a remote
+  exists. Work that is only described in a report and left uncommitted is not delivered.
 
 The next agent should be able to resume from this report without guessing what happened.
