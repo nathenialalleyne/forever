@@ -18,6 +18,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -159,5 +161,34 @@ class GuideContentCoverageTest {
 		assertTrue(undocumented.isEmpty(),
 				"Implemented systems have no Field Guide entry, violating design principle 15: "
 						+ undocumented + ". Present categories: " + present);
+	}
+
+	@Test
+	@DisplayName("every translation key referenced in Java source exists in en_us.json")
+	void everyReferencedTranslationKeyExists() throws IOException {
+		// Guide entries are data, but tooltips and rejection messages are string
+		// literals in Java. A missing key there shows the player a raw identifier such
+		// as "mastery.forever.loadout.invalid" at exactly the moment something went
+		// wrong, which is the worst possible time for an unreadable message.
+		JsonObject lang = readLang();
+		Pattern keyPattern = Pattern.compile(
+				"\"((?:item|block|tooltip|message|status|equipment|mastery|settlement|storage"
+						+ "|career|economy|guide|entity)\\.[a-z_.]*forever[a-z_.]*)\"");
+
+		Set<String> referenced = new HashSet<>();
+		try (Stream<Path> files = Files.walk(Path.of("src/main/java"))) {
+			for (Path file : files.filter(f -> f.toString().endsWith(".java")).toList()) {
+				Matcher matcher = keyPattern.matcher(Files.readString(file, StandardCharsets.UTF_8));
+				while (matcher.find()) {
+					referenced.add(matcher.group(1));
+				}
+			}
+		}
+
+		List<String> missing = referenced.stream().filter(k -> !lang.has(k)).sorted().toList();
+
+		assertTrue(missing.isEmpty(),
+				"Java source references translation keys absent from en_us.json. The player would "
+						+ "see the raw key instead of a readable message. Missing: " + missing);
 	}
 }
