@@ -142,6 +142,16 @@ These rules explain the constraints that future implementations must preserve.
 - **Complete with an evidence report.** State the files changed, commands run, test
   results, assumptions, known risks, and the next ticket. Review the final diff against
   the selected ticket before stopping.
+- **The repository is PRIVATE, and making it public is a licensing decision, not a
+  settings change.** `origin` is `github.com/nathenialalleyne/forever` and is private on
+  purpose. `generated/matcha/<version>/` contains roughly 1,570 verbatim excerpts of
+  Matcha command text, which is CC-BY-NC-SA-4.0 share-alike third-party material, and
+  `LICENSE` is All-rights-reserved. [ADR 0020](docs/adr/0020-private-project-license-separation.md)
+  requires a licence recheck before any public repository, release, or redistribution.
+  Do not run `gh repo edit --visibility public` or publish a mirror. Making it public
+  first requires untracking the Matcha-derived reports, choosing a licence for the
+  original code, and recording a superseding ADR.
+
 - **Commit at every green checkpoint, and push if a remote exists.** Do not accumulate a
   large uncommitted working tree. Commit as soon as the build and the applicable tests
   pass and the change is coherent on its own, then `git push` when a remote is configured.
