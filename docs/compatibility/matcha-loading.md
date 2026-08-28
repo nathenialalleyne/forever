@@ -139,9 +139,9 @@ fetched and its hash and byte length recompared, and all three matched.
 
 Not yet verified. The environment used for this run had no usable display, so a real
 client launch could not be performed honestly. The client path is
-therefore recorded as an outstanding acceptance criterion rather than claimed. It should
-be tested from the Windows launcher against the exported `.mrpack`, checking that
-Matcha's resource pack is active in the pack list and that its textures are visible.
+therefore recorded as an outstanding acceptance criterion rather than claimed. The procedure is written up as a short manual pass in
+`docs/testing/client-verification.md`, which needs a launcher and about ten minutes, not
+a development environment.
 
 What is known without a client: the archive carries 2845 `assets/` entries and 2671
 `data/` entries under a single `pack.mcmeta`, so both halves are present in the file the

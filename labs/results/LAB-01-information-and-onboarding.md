@@ -213,8 +213,9 @@ Yes, for both candidates, with the client verification still outstanding.
 
 ## Follow-up required
 
-1. **Client verification.** Install the pack on Windows and confirm REI opens, Jade's
-   tooltip appears, and Matcha's resource pack is active. This lab cannot do it.
+1. **Client verification.** Follow `docs/testing/client-verification.md`: confirm REI
+   opens and reads Matcha recipes, Jade's tooltip appears, only one viewer is present,
+   and no guidebook is granted. This lab cannot do it without a display.
 2. **Exclude JEI explicitly** so Jade's optional dependency cannot introduce a second
    viewer.
 3. **Do not begin M2 Field Journal implementation.** No information gap was found.

@@ -117,7 +117,7 @@ itself, and it is cheap to close.
    ADR 0033: no configuration of Global Packs can express it.
 2. **Correct the load-order comment** in `pack/defaultconfigs/global_packs.toml`, which
    currently states the opposite of observed behaviour.
-3. **Client verification** of the resource role, once a client is available.
+3. **Client verification** of the resource role, following `docs/testing/client-verification.md`. This is the highest-value remaining check, because LAB-02 case C proved a data-only load produces no diagnostic at all.
 
 ## Decision
 

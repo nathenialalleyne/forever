@@ -69,6 +69,11 @@ it may be replaced by third-party mods. Its per-file classification is in
 ./scripts/report-dependencies.sh  # regenerate the dependency lock report
 ```
 
+Some results are marked "server verified, client pending", because automated checks run
+on a machine with no display and a dedicated server never loads resource packs.
+`docs/testing/client-verification.md` is a ten-minute manual pass that closes that gap
+using only a launcher.
+
 Packwiz is the source of truth for the mod list. It has no tagged releases, so install it
 with `go install github.com/packwiz/packwiz@latest` per the official guidance. Third-party
 JARs are never committed: every dependency is referenced by URL and hash.
