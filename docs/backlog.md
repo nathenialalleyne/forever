@@ -60,7 +60,7 @@ These are investigation and integration spikes. They establish whether the selec
 - **Test requirements:** Disposable client and dedicated-server startup, recipe inspection, item context inspection, guidebook and advancement comparison before and after proposed settings, missing-viewer fallback, translation review, and a manual instruction-loss audit.
 - **Removal/migration risks:** Suppressing a book or advancement can remove information that a player has already learned. Any persistent discovery state, source link, or translation key needs a versioned migration and a reversible configuration path.
 
-### LAB-02: Matcha pack-loader and dual-role compatibility spike [Next]
+### LAB-02: Matcha pack-loader and dual-role compatibility spike [Done]
 
 - **Objective:** Verify that the exact Matcha archive can be loaded as both datapack and resource pack through the compatibility-controlled utility selected by ADR 0027.
 - **Dependencies:** MRH-000, LAB-01, the Matcha lock record, and the pinned Minecraft 26.2 baseline.
@@ -76,6 +76,24 @@ These are investigation and integration spikes. They establish whether the selec
   5. The result states whether Global Packs can remain the technical candidate or whether another utility investigation is required.
 - **Test requirements:** Lock checksum verification, clean installation, repeat installation, altered archive, missing archive, data-only load, resource-only load, both-role load, order conflict, dedicated-server startup, and disposable-world save/reload.
 - **Removal/migration risks:** Changing the loader or its configuration can alter data-pack order, resource presentation, recipes, and saved references. Retain the old profile, record the utility version, and test removal before any world is opened with a changed loader.
+
+### MRH-010: Fail loudly when the Matcha baseline is absent or altered [Next]
+
+- **Objective:** Detect at startup that the pinned Matcha archive is missing, altered, or loaded in only one of its two roles, and report it loudly, rather than presenting a working server that silently lacks the entire gameplay foundation.
+- **Dependencies:** LAB-02, `matcha.lock.json`, ADR 0027, and ADR 0033.
+- **Why this exists:** LAB-02 measured four failure paths and all four fail open. Deleting the archive produced a normal startup with 1585 vanilla recipes and **no diagnostic whatsoever**. Removing the resource-pack role produced a normal startup with no diagnostic. An altered archive produced one extra parse error indistinguishable from Matcha's own. A player or server operator can therefore run a Many Roads Home world that contains none of Many Roads Home.
+- **Authoritative sources to inspect:** `labs/results/LAB-02-pack-loader-dual-role.md`, `matcha.lock.json`, `docs/compatibility/matcha-loading.md`, and the existing Matcha detection code in `dev.forever.compat.matcha`.
+- **Existing-mod candidates:** None. Global Packs offers no integrity or required-pack verification, which LAB-02 established by direct test, and no other 26.2 pack loader exists. This is the gap analysis ADR 0033 requires.
+- **Custom-code gate:** **Met.** No configuration of the selected utility can express this check. The existing `MatchaAdapter` already performs detection and already distinguishes `PRESENT_UNVERIFIED` from `SUPPORTED`, so the work is to make that status visible and actionable at startup rather than to build something new.
+- **Explicit non-goals:** No crash on mismatch, because the world save outranks the feature and a refusal to start would strand an existing world. No automatic download or repair. No archive modification. No new gameplay.
+- **Acceptance criteria:**
+  1. A missing archive produces an unmistakable startup error naming the expected file and its locked SHA-256.
+  2. An archive whose checksum differs from `matcha.lock.json` is reported distinctly from Matcha's own parse errors.
+  3. A one-sided load, data without resource or the reverse, is reported where detectable on that side.
+  4. The check never prevents the server from starting, and never modifies world data.
+  5. The message names the remedy, not just the symptom.
+- **Test requirements:** Unit tests for present, absent, altered, and unreadable archives; a dedicated-server GameTest asserting the diagnostic appears; and confirmation that a correct install produces no new noise.
+- **Removal/migration risks:** Low. The check is read-only and touches no persistent state. The main risk is a false positive after a legitimate Matcha version bump, so the message must name the lock file as the thing to update.
 
 ### LAB-03: Building and excavation compatibility spike [Planned]
 

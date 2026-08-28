@@ -7,7 +7,7 @@ metafile = true
 
 [[files]]
 file = "defaultconfigs/global_packs.toml"
-hash = "11b7b981597edae3776199135cd148597195273c556ebf7704966fdb77ccf8f1"
+hash = "78068084d8d883495eb4dc04effbd9c25c24ecbfc7803b6462bed40b26fd53a6"
 
 [[files]]
 file = "mods/architectury-api.pw.toml"

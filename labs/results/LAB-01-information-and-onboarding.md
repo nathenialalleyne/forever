@@ -37,7 +37,7 @@ All are `release` builds. No beta, alpha, or release candidate is used.
 ## Client and server configuration
 
 - Dedicated server tested: **yes**
-- Client tested: **no, externally blocked.** The build host is WSL without a usable
+- Client tested: **no, externally blocked.** The host used for this run had no usable
   display. This is the same constraint recorded in `docs/compatibility/matcha-loading.md`
   and it is not resolvable here.
 - Multiplayer tested: no. Not required to answer this lab's question.

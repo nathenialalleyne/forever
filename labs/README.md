@@ -37,18 +37,18 @@ names, so the same lab can be re-run months later against the same artifacts.
 
 | Lab | Question | Status |
 |---|---|---|
-| LAB-01 | Information and onboarding: recipe viewer, Jade, guidebook noise, advancement noise, Field Journal requirements | Done: REI + Jade adopted, JEI excluded, no guidebook problem found |
-| LAB-02 | Building and gathering: assisted placement, vein mining, schematics, durability and inventory consumption, multiplayer authority | Next |
-| LAB-03 | Food: Farmer's Delight Refabricated against Matcha hunger and healing behaviour | Planned |
-| LAB-04 | Seasons: Serene Seasons against Matcha environment, crops, weather, performance | Planned |
-| LAB-05 | Storage: local indexed storage, early shulkers, wireless restrictions, world removal | Planned |
-| LAB-06 | Logistics: pipes, minecarts, storage integration, chunk unloading | Planned |
-| LAB-07 | Transportation: rail, Elytra behaviour, horses, roads, dedicated server | Planned |
-| LAB-08 | Skills: one Focus and two Supporting slots, external progression awards, suspension, UI noise | Planned |
-| LAB-09 | Durability and repair: smithing overhaul against Matcha equipment, broken state, Mending conflicts | Planned |
-| LAB-10 | Villagers: villager API against Matcha trades, profession overlays, stock limits | Planned |
-| LAB-11 | Exploration: one restrained structure pack, spacing, loot control, save permanence | Planned |
-| LAB-12 | Building automation: real material consumption, nearby storage, server permissions, limits | Planned |
+| LAB-01 | Information and onboarding: recipe viewer, contextual info, guidebook noise, advancement noise, Field Journal requirements | Done: REI + Jade adopted, JEI excluded, no guidebook problem found |
+| LAB-02 | Matcha pack-loader and dual role: one archive as both datapack and resource pack, load order, failure diagnostics | Done: Global Packs adopted, but ALL failure paths fail open. Raised MRH-010. |
+| LAB-03 | Building and excavation: assisted placement, vein mining, durability and inventory consumption, multiplayer authority | Next |
+| LAB-04 | Blueprints and schematics: preview, material lists, .litematic and .schem support, server authority | Planned |
+| LAB-05 | Food, cooking, and preservation against Matcha hunger and healing behaviour | Planned |
+| LAB-06 | Seasons and climate against Matcha environment, crops, weather, performance | Planned |
+| LAB-07 | Storage indexing and local search: early shulkers, wireless restrictions, world removal | Planned |
+| LAB-08 | Local item transport and automation: pipes, minecarts, storage integration, chunk unloading | Planned |
+| LAB-09 | Rail, horse, boat, and vehicle behaviour on a dedicated server | Planned |
+| LAB-10 | Performance, ambience, structures, and worldgen: spacing, loot control, save permanence | Planned |
+| LAB-11 | Adventure rewards and capability gates: no essential capability is adventure-only | Planned |
+| LAB-12 | Companion boundary and gap analysis: what genuinely needs custom code | Planned |
 
 ## Running a lab
 

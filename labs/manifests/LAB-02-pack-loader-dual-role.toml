@@ -1,0 +1,53 @@
+# LAB-02 manifest: Matcha pack-loader and dual role
+#
+# This lab adds no new mods. It varies the CONFIGURATION and the ARCHIVE of the
+# existing baseline to find out how the loader behaves when something is wrong.
+# That is the point: the question is not "does the happy path work", which LAB-01
+# already showed, but "does a broken install announce itself".
+
+[baseline]
+minecraft = "26.2"
+fabric_loader = "0.19.3"
+fabric_api = { project_id = "P7dR8mSH", version_id = "NqwNSxwA" }
+global_packs = { project_id = "NRLPy2mk", version_id = "DqrPrUMp" }
+matcha = { project_id = "QI0EmgZ1", version_id = "E9rngRfK" }
+matcha_sha256 = "6209783021c358044abedabacee471faff5bd4080437d4e3b5e51963f1804248"
+# LAB-01 adoptions are present so the lab tests the pack as it will actually ship.
+rei = { project_id = "nfn13YXA", version_id = "4o0NSIMj" }
+jade = { project_id = "nvQzSEkH", version_id = "ue8CO97w" }
+architectury = { project_id = "lhGA9TYQ", version_id = "1yQC4VvP" }
+cloth_config = { project_id = "9s6osm5g", version_id = "Nv3xnWXd" }
+
+[[case]]
+id = "base"
+description = "Correct install. Establishes the reference recipe count and the pre-existing Matcha parse-error count, without which the other cases cannot be interpreted."
+expected = "starts, 2346 recipes, 2 Matcha parse errors"
+
+[[case]]
+id = "A-missing-archive"
+description = "Delete the Matcha archive while leaving it listed as required in global_packs.toml."
+expected = "a loud diagnostic naming the missing required pack"
+observed = "FAIL-OPEN: started normally with 1585 vanilla recipes and no diagnostic at all"
+
+[[case]]
+id = "B-altered-archive"
+description = "Corrupt one advancement inside the archive, keeping it a valid zip so only the content differs from the locked checksum."
+expected = "a checksum or integrity complaint"
+observed = "started, 2346 recipes, one extra parse error buried among Matcha's own two"
+
+[[case]]
+id = "C-data-role-only"
+description = "Remove the resourcepacks entry so the archive loads only as a datapack."
+expected = "a warning that a declared role is not active"
+observed = "FAIL-OPEN: started normally with no diagnostic; on a client this is Matcha mechanics with vanilla textures"
+
+[[case]]
+id = "D-order-conflict"
+description = "Add a probe datapack listed BEFORE Matcha that redefines minecraft:stick, to determine which entry wins."
+expected = "determine real override direction"
+observed = "recipe count 2346 -> 2345 and level.dat order Matcha then probe, so the LATER entry wins and config order is inverted relative to applied priority"
+
+[not_tested]
+client_resource_role = "The host used for this run had no display, and a dedicated server never loads resource packs. Case C shows the data role works alone, so only a client can prove the resource role is applied."
+paxi = "Newest listed game version 26.1.2. No 26.2 release to test."
+open_loader = "Newest listed game version 1.21.1. No 26.2 release to test."

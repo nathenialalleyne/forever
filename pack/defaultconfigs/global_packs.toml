@@ -11,10 +11,16 @@
 # Both lists below therefore point at that same path. Global Packs resolves entries
 # relative to the instance folder.
 #
-# Load order. Global Packs treats the FIRST entry in a list as the highest priority.
-# Matcha is listed first deliberately: it is the gameplay foundation, and any Many
-# Roads Home pack that later overrides part of it must be added AFTER this entry so
-# that the override wins only where it is intended to.
+# Load order. MEASURED, not assumed. LAB-02 listed a probe pack before Matcha and the
+# probe WON: the resulting level.dat order was Matcha then probe, and the recipe count
+# changed, which means Minecraft applied the later pack over the earlier one. So the
+# FIRST entry here is the LOWEST applied priority, the opposite of what the Global Packs
+# changelog wording suggests.
+#
+# Matcha is therefore listed first on purpose: it is the gameplay foundation and should
+# be overridden by later entries, not override them. Any Many Roads Home pack meant to
+# change part of Matcha must be added AFTER this entry. See
+# labs/results/LAB-02-pack-loader-dual-role.md.
 # Must match the version the installed Global Packs build expects. A 26.2.0 server
 # rewrote a hand-written 3 to 4 on first launch, so this is pinned to 4 to avoid a
 # needless migration write on every fresh instance. Re-check this when the mod updates.

@@ -154,7 +154,7 @@ All common Java sources compiled under the pinned Java 25 root build. The curren
 
 **Current responsibility:** Minimal client initializer and logger boundary. There is no custom screen, recipe viewer, schematic renderer, or generic skill UI.
 
-**Build and tests:** Compiles in `compileClientJava`. No dedicated client test exists. `runClient` was intentionally not run because this WSL environment has no usable display, and client verification is recorded as pending in `docs/compatibility/matcha-loading.md`.
+**Build and tests:** Compiles in `compileClientJava`. No dedicated client test exists. `runClient` was intentionally not run because the environment used for this run had no usable display, and client verification is recorded as pending in `docs/compatibility/matcha-loading.md`.
 
 **Possible duplicated mechanic:** A future custom guide, recipe viewer, schematic renderer, and skill UI would duplicate selected third-party client mods. None is present in this class.
 
@@ -1536,7 +1536,7 @@ Commands actually run for this inventory:
 
 Applicable commands intentionally not run:
 
-- `./gradlew runClient`, because the current WSL environment has no usable display. Client verification remains pending in `docs/compatibility/matcha-loading.md`.
+- `./gradlew runClient`, because the environment used for this run had no usable display. Client verification remains pending in `docs/compatibility/matcha-loading.md`.
 - `./gradlew runServer`, because the required dedicated-server acceptance was covered by `runGametest` and a separate pack-server verification is already documented. No real world was used.
 - `./gradlew validateAssets`, because this inventory did not change assets and the requested compile/test status was already established. The asset validator itself compiled and its unit test task was green.
 - `./scripts/fetch-matcha.sh`, `./scripts/install-matcha-dev.sh`, `./scripts/build-pack.sh`, `./scripts/validate-pack.sh`, and the PowerShell equivalents, because no dependency fetch, pack export, or world mutation was necessary. `install-matcha-dev.sh` was not pointed at any world.

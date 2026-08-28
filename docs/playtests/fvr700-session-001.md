@@ -42,65 +42,41 @@ each implemented system a player-reachable entry point before playtesting. That 
 is a prerequisite of FVR-700, not part of it. I have not raised or started it, since one
 ticket at a time is the rule and this is your call.
 
-## Running from WSL with Minecraft on Windows
+## Running the pack
 
-This repository builds inside WSL2 while the Minecraft client runs on Windows. Do not
-use `./gradlew runClient` in that arrangement. It would launch a second client inside
-WSL through WSLg, which is slow, and it would not be the launcher you actually play on.
+Many Roads Home is distributed as a Modrinth `.mrpack`. Any launcher that installs one
+works: the Modrinth App, Prism Launcher, ATLauncher, and others. Nothing about the pack
+depends on a particular operating system or launcher.
 
-Run the **server** in WSL and connect from the **Windows client**.
+```sh
+./scripts/build-pack.sh    # writes dist/many-roads-home-<version>.mrpack
+```
 
-Verified working on this machine:
+Import that file in your launcher, then play. The launcher resolves every dependency from
+the URLs and hashes recorded in the pack metadata.
 
-- `.wslconfig` sets `localhostForwarding=true`, so a WSL listener is reachable from
-  Windows on `localhost`.
-- The Windows launcher already has Minecraft `26.2`, which matches the pinned version.
-  A different client version will simply be refused by the server.
-- With the server running, `Test-NetConnection localhost -Port 25565` from PowerShell
-  returned `True`, and a real Minecraft status handshake answered
-  `version 26.2, protocol 776`. Connectivity is confirmed, not assumed.
+### Playing against a local dedicated server
 
-### Steps
+Useful when you want to test server-authoritative behaviour rather than single-player.
 
-1. In WSL, start the server:
+```sh
+./scripts/build-pack.sh
+# install the .mrpack into a server instance, then from that instance:
+curl -s "https://meta.fabricmc.net/v2/versions/loader/26.2/0.19.3/1.1.0/server/jar" \
+  -o fabric-server-launch.jar
+echo "eula=true" > eula.txt
+java -Xmx3G -jar fabric-server-launch.jar nogui
+```
 
-   ```sh
-   export JAVA_HOME=~/toolchains/jdk-25.0.4.1+1
-   ./gradlew runServer
-   ```
+Wait for `Done (...)! For help, type "help"`, then connect a client to `localhost`.
 
-   Wait for `Done (...)! For help, type "help"`.
+If the client and server run on different machines, or in different environments on one
+machine such as a container or a virtual machine, connect to the server host's address
+rather than `localhost`, and make sure port 25565 is reachable between them. That is
+ordinary Minecraft networking and needs no pack-specific setup.
 
-2. On Windows, launch Minecraft `26.2`, choose Multiplayer, then Direct Connection, and
-   enter `localhost:25565`. If `localhost` fails, use the WSL address from `hostname -I`,
-   currently `172.25.42.89`, which changes on restart.
-
-3. Stop the server with `stop` in the Gradle console, or `Ctrl+C`.
-
-### Server configuration already applied
-
-`run/server.properties` has been prepared for this workflow. The original was saved to
-`run/server.properties.orig-backup`.
-
-| Setting | Value | Why |
-|---|---|---|
-| `level-name` | `fvr700-playtest-world` | The disposable world with Matcha installed |
-| `online-mode` | `false` | A development client is not session-authenticated; leaving this true rejects the connection |
-| `enforce-secure-profile` | `false` | Required alongside offline mode |
-| `gamemode` | `creative` | Items must be summoned, since no recipe exists |
-| `difficulty` | `normal` | `easy` suppresses some survival behaviour worth observing |
-
-**Do not expose this server beyond localhost while `online-mode=false`.**
-
-### Windows-side notes
-
-- The Windows client does **not** load the Forever mod. The mod runs server-side, so
-  server-authoritative behaviour still applies, but any future client-only screen or
-  texture will not appear until Forever is installed on the Windows side.
-- To see Matcha's own textures, add
-  `\\wsl$\...\forever\run\resourcepacks\Matcha_Flavoured_1_12.zip` as a Windows resource
-  pack. The datapack half already runs server-side.
-- Reach the repo from Windows Explorer at `\\wsl$\`, or run `explorer.exe .` in WSL.
+A development server started with `online-mode=false` accepts unauthenticated clients,
+which is convenient for testing. Do not expose such a server beyond your own machine.
 
 ## What you can genuinely do today
 
@@ -123,7 +99,7 @@ is already pointed at `fvr700-playtest-world`. Expect `Found new data pack
 file/Matcha_Flavoured_1_12.zip` and signals in 10 namespaces.
 
 **3. Play the world as a Matcha player.** Start the server as above and connect from the
-Windows client at `localhost:25565`, per the WSL section. Matcha's own content is fully
+client at `localhost:25565`, per the section above. Matcha's own content is fully
 active server-side, so this is a genuine test of the pack Forever intends to build on,
 and of whether Forever's absence is noticeable. It is not yet a test of Forever's own
 systems.

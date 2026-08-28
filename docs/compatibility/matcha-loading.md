@@ -78,12 +78,29 @@ such a project. The Packwiz option and the Global Packs config must name the sam
 folder. `scripts/validate-pack.sh` asserts that agreement, because if the two drift
 apart Matcha stops loading without any error message.
 
-## Load order
+## Load order, measured
 
-Global Packs treats the first entry in each list as the highest priority. Matcha is
-listed first deliberately: it is the gameplay foundation, so any future Many Roads Home
-pack that overrides part of it must be added after this entry, and will then win only
-where the override is intended.
+LAB-02 tested this rather than trusting the changelog wording, and the result is the
+opposite of the obvious reading. A probe datapack listed **before** Matcha in
+`global_packs.toml` won: the resulting `level.dat` order was Matcha then probe, and the
+recipe count changed from 2346 to 2345 because the probe replaced a Matcha recipe.
+
+Minecraft applies later packs over earlier ones, so **the first entry in the config has
+the lowest applied priority**. Matcha is listed first deliberately, because it is the
+foundation and should be overridden by later entries rather than overriding them. Any
+future Many Roads Home pack intended to change part of Matcha must be added **after** it.
+
+## Failure behaviour: fail-open
+
+LAB-02 also measured what happens when the install is wrong, and every path fails open.
+A missing archive starts a normal server with 1585 vanilla recipes and **no diagnostic**.
+Removing the resource-pack role starts normally with no diagnostic. An altered archive
+produces one extra parse error indistinguishable from Matcha's own two.
+
+Global Packs offers no integrity or required-pack verification, so the pack must supply
+its own. That gap is ticket MRH-010 and is the reason this dependency is described as
+adopted *with mitigation* rather than simply adopted. Full detail in
+`labs/results/LAB-02-pack-loader-dual-role.md`.
 
 ## Installed-pack verification
 
@@ -120,8 +137,8 @@ fetched and its hash and byte length recompared, and all three matched.
 
 ## Client behaviour
 
-Not yet verified. The development environment for this run is WSL without a usable
-display, so a real client launch could not be performed honestly. The client path is
+Not yet verified. The environment used for this run had no usable display, so a real
+client launch could not be performed honestly. The client path is
 therefore recorded as an outstanding acceptance criterion rather than claimed. It should
 be tested from the Windows launcher against the exported `.mrpack`, checking that
 Matcha's resource pack is active in the pack list and that its textures are visible.

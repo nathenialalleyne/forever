@@ -31,6 +31,42 @@ if ($packToml -notmatch 'minecraft = "26\.2"')  { Fail 'pack.toml is not pinned 
 if ($packToml -notmatch 'fabric = "0\.19\.3"') { Fail 'pack.toml is not pinned to Fabric loader 0.19.3' }
 Pass 'baseline versions checked'
 
+# Parity with validate-pack.sh: the exported .mrpack must satisfy the published Modrinth
+# format, and the Global Packs config_version must match the pinned build. Both were
+# added after real defects; see labs/results/LAB-02-pack-loader-dual-role.md.
+$mrpack = Get-ChildItem -Path (Join-Path $RootDir 'dist') -Filter '*.mrpack' -ErrorAction SilentlyContinue | Select-Object -First 1
+if ($mrpack) {
+    Add-Type -AssemblyName System.IO.Compression.FileSystem
+    $zip = [System.IO.Compression.ZipFile]::OpenRead($mrpack.FullName)
+    try {
+        $entry = $zip.GetEntry('modrinth.index.json')
+        $reader = New-Object System.IO.StreamReader($entry.Open())
+        $idx = $reader.ReadToEnd() | ConvertFrom-Json
+        $reader.Close()
+        $bad = @()
+        if ($idx.formatVersion -ne 1) { $bad += 'formatVersion' }
+        if (-not $idx.dependencies.minecraft) { $bad += 'dependencies.minecraft' }
+        foreach ($f in $idx.files) {
+            if (-not $f.hashes.sha1 -or -not $f.hashes.sha512) { $bad += "$($f.path): needs sha1+sha512" }
+            if ($f.path -match '^/' -or $f.path -match '\.\.') { $bad += "unsafe path $($f.path)" }
+            foreach ($u in $f.downloads) { if ($u -notmatch '^https://') { $bad += "$($f.path): non-https" } }
+        }
+        if ($bad) { Fail "exported .mrpack violates the Modrinth format: $($bad -join '; ')" }
+        else { Pass 'exported .mrpack matches the Modrinth format' }
+    } finally { $zip.Dispose() }
+} else {
+    Write-Host 'validate-pack: note: no .mrpack in dist/, skipped format check (run build-pack)'
+}
+
+$gpConfig = Join-Path $PackDir 'defaultconfigs/global_packs.toml'
+if (Test-Path $gpConfig) {
+    if ((Get-Content $gpConfig -Raw) -match '(?m)^config_version = 4$') {
+        Pass 'Global Packs config_version matches the pinned build'
+    } else {
+        Fail 'global_packs.toml config_version does not match the pinned Global Packs build (expected 4)'
+    }
+}
+
 if (Get-Command packwiz -ErrorAction SilentlyContinue) {
     Push-Location $PackDir
     try { packwiz --config $Config refresh | Out-Null; Pass 'packwiz refresh succeeded' }
