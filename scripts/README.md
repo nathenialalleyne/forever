@@ -97,6 +97,36 @@ prints each source-to-destination path. It creates only the requested resource-p
 and `datapacks` directories. It never touches a real survival world path, and it
 never installs to a world unless the path is explicitly supplied.
 
+## Matcha audit
+
+```sh
+./scripts/run-matcha-audit.sh \
+  --input vendor/matcha/Matcha_Flavoured_1_12.zip \
+  --output generated/matcha/1.12
+```
+
+Regenerates the audit reports from a locally acquired, pinned Matcha archive. Fetch the
+archive with `./scripts/fetch-matcha.sh` first.
+
+**Reproducible output.** Set `SOURCE_DATE_EPOCH` to make two runs byte-identical:
+
+```sh
+SOURCE_DATE_EPOCH=1787885453 ./scripts/run-matcha-audit.sh \
+  --input vendor/matcha/Matcha_Flavoured_1_12.zip \
+  --output generated/matcha/1.12
+```
+
+Every field in a report is a pure function of the input archive except the generation
+timestamp, which was previously the only reason two audits of the same archive differed.
+That defeated verifying the committed reports by regenerating and comparing them.
+`SOURCE_DATE_EPOCH` is the cross-ecosystem convention for this, so no project-specific
+flag is needed. When it is unset the real generation time is recorded, because a one-off
+report is more useful with a true timestamp than a fixed placeholder.
+
+This matters for publication: if the generated reports can be reproduced from a
+legitimately obtained archive, they need not be committed at all. See
+`labs/results/LAB-LICENCE-publication-readiness.md`.
+
 ## Client smoke check
 
 ```sh

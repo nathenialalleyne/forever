@@ -129,12 +129,63 @@ public final class ReportWriter {
         }
     }
 
+    /**
+     * The report timestamp, honouring {@code SOURCE_DATE_EPOCH} when it is set.
+     *
+     * <p>Every other field in the report is a pure function of the input archive, so this
+     * timestamp was the only reason two audits of the same pinned archive produced
+     * different bytes. That defeated any attempt to verify generated output by
+     * regenerating it and comparing, which matters because the reports are committed and
+     * must be honest about their input.
+     *
+     * <p>{@code SOURCE_DATE_EPOCH} is the cross-ecosystem convention for exactly this
+     * problem, so a caller that needs byte-identical output sets it rather than learning a
+     * project-specific flag. When it is unset the behaviour is unchanged and the real
+     * current time is recorded, because a human reading a one-off report is better served
+     * by a true generation time than by a fixed placeholder.
+     *
+     * <p>An unparseable or negative value is a caller mistake worth surfacing: it is
+     * reported rather than silently ignored, since silently falling back would produce
+     * non-reproducible output for someone who explicitly asked for reproducibility.
+     */
+    private static Instant generatedAt() {
+        return generatedAt(System.getenv("SOURCE_DATE_EPOCH"), Instant::now);
+    }
+
+    /**
+     * Resolves the report timestamp from a raw {@code SOURCE_DATE_EPOCH} value.
+     *
+     * <p>Package-private and parameterised rather than reading the environment directly,
+     * because an environment variable cannot be set inside a running JVM. Without this
+     * seam the reproducibility guarantee could only be tested by running the CLI as a
+     * subprocess, which is slow and easy to skip, so the guarantee would drift untested.
+     */
+    static Instant generatedAt(String sourceDateEpoch, java.util.function.Supplier<Instant> fallback) {
+        if (sourceDateEpoch == null || sourceDateEpoch.isBlank()) {
+            return fallback.get();
+        }
+        long epochSeconds;
+        try {
+            epochSeconds = Long.parseLong(sourceDateEpoch.trim());
+        } catch (NumberFormatException cause) {
+            throw new IllegalArgumentException(
+                    "SOURCE_DATE_EPOCH must be an integer number of seconds since the Unix epoch, but was: "
+                            + sourceDateEpoch,
+                    cause);
+        }
+        if (epochSeconds < 0) {
+            throw new IllegalArgumentException(
+                    "SOURCE_DATE_EPOCH must not be negative, but was: " + sourceDateEpoch);
+        }
+        return Instant.ofEpochSecond(epochSeconds);
+    }
+
     private static JsonObject metadata(CliOptions options, AuditReport report) {
         JsonObject root = new JsonObject();
         root.addProperty("schemaVersion", SCHEMA_VERSION);
         root.addProperty("tool", "matcha-audit");
         root.addProperty("toolVersion", TOOL_VERSION);
-        root.addProperty("generatedAt", Instant.now().toString());
+        root.addProperty("generatedAt", generatedAt().toString());
         JsonObject attribution = new JsonObject();
         attribution.addProperty("source", "Matcha Flavoured archive");
         attribution.addProperty("projectId", "QI0EmgZ1");
