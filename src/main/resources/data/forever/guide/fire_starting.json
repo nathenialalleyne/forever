@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "id": "forever:guide/fire_starting",
+  "title_key": "guide.forever.fire_starting.title",
+  "section_keys": [
+    "guide.forever.fire_starting.summary",
+    "guide.forever.fire_starting.inputs",
+    "guide.forever.fire_starting.craft_ignition_tool",
+    "guide.forever.fire_starting.place_target",
+    "guide.forever.fire_starting.ignite",
+    "guide.forever.fire_starting.confirm",
+    "guide.forever.fire_starting.failure"
+  ],
+  "category": "survival",
+  "keywords": [
+    "campfire",
+    "fire",
+    "fire starting",
+    "flint",
+    "ignition",
+    "lighting"
+  ],
+  "process_ids": [
+    "forever:process/fire-starting"
+  ],
+  "related_entry_ids": [
+    "forever:guide/campfire_process"
+  ]
+}

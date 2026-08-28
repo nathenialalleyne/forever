@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "id": "forever:guide/early_processing",
+  "title_key": "guide.forever.early_processing.title",
+  "section_keys": [
+    "guide.forever.early_processing.summary",
+    "guide.forever.early_processing.campfire_role",
+    "guide.forever.early_processing.first_station",
+    "guide.forever.early_processing.second_station",
+    "guide.forever.early_processing.vanilla_processing",
+    "guide.forever.early_processing.automation",
+    "guide.forever.early_processing.failure"
+  ],
+  "category": "processing",
+  "keywords": [
+    "campfire",
+    "cooking",
+    "furnace",
+    "processing",
+    "smoker",
+    "smelting",
+    "station"
+  ],
+  "process_ids": [
+    "forever:process/early-processing"
+  ],
+  "related_entry_ids": [
+    "forever:guide/campfire_process",
+    "forever:guide/early_tools"
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "id": "forever:guide/early_tools",
+  "title_key": "guide.forever.early_tools.title",
+  "section_keys": [
+    "guide.forever.early_tools.summary",
+    "guide.forever.early_tools.first_material_tool",
+    "guide.forever.early_tools.copper_capability",
+    "guide.forever.early_tools.bronze_upgrade",
+    "guide.forever.early_tools.tool_roles",
+    "guide.forever.early_tools.condition",
+    "guide.forever.early_tools.identity",
+    "guide.forever.early_tools.failure"
+  ],
+  "category": "equipment",
+  "keywords": [
+    "copper",
+    "bronze",
+    "early tools",
+    "mining",
+    "pickaxe",
+    "tool progression",
+    "tool tier"
+  ],
+  "process_ids": [
+    "forever:process/early-tool-progression"
+  ],
+  "related_entry_ids": [
+    "forever:guide/early_processing"
+  ]
+}

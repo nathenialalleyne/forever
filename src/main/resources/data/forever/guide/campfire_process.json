@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "id": "forever:guide/campfire_process",
+  "title_key": "guide.forever.campfire_process.title",
+  "section_keys": [
+    "guide.forever.campfire_process.summary",
+    "guide.forever.campfire_process.inputs",
+    "guide.forever.campfire_process.craft",
+    "guide.forever.campfire_process.place",
+    "guide.forever.campfire_process.ignite",
+    "guide.forever.campfire_process.timing",
+    "guide.forever.campfire_process.outputs",
+    "guide.forever.campfire_process.interruption",
+    "guide.forever.campfire_process.safety"
+  ],
+  "category": "survival",
+  "keywords": [
+    "campfire",
+    "cooking",
+    "fire",
+    "fire starting",
+    "ignition",
+    "logs",
+    "sticks"
+  ],
+  "process_ids": [
+    "forever:process/campfire"
+  ],
+  "related_entry_ids": [
+    "forever:guide/early_processing",
+    "forever:guide/fire_starting"
+  ]
+}
