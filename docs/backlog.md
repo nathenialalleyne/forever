@@ -42,7 +42,7 @@ M0 records the product and preservation contract. It contains no gameplay implem
 
 These are investigation and integration spikes. They establish whether the selected pack can work before the project owns custom systems.
 
-### LAB-01: Matcha information and onboarding compatibility spike [Next]
+### LAB-01: Matcha information and onboarding compatibility spike [Done]
 
 - **Objective:** Test the official Matcha baseline with a recipe viewer, Jade-style contextual information, guidebook suppression, advancement-noise handling, and the requirements for one unified Field Journal.
 - **Dependencies:** MRH-000, the pinned Matcha lock, and the Matcha loading decision in ADR 0027.
@@ -60,7 +60,7 @@ These are investigation and integration spikes. They establish whether the selec
 - **Test requirements:** Disposable client and dedicated-server startup, recipe inspection, item context inspection, guidebook and advancement comparison before and after proposed settings, missing-viewer fallback, translation review, and a manual instruction-loss audit.
 - **Removal/migration risks:** Suppressing a book or advancement can remove information that a player has already learned. Any persistent discovery state, source link, or translation key needs a versioned migration and a reversible configuration path.
 
-### LAB-02: Matcha pack-loader and dual-role compatibility spike [Planned]
+### LAB-02: Matcha pack-loader and dual-role compatibility spike [Next]
 
 - **Objective:** Verify that the exact Matcha archive can be loaded as both datapack and resource pack through the compatibility-controlled utility selected by ADR 0027.
 - **Dependencies:** MRH-000, LAB-01, the Matcha lock record, and the pinned Minecraft 26.2 baseline.

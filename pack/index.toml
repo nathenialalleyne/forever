@@ -10,6 +10,16 @@ file = "defaultconfigs/global_packs.toml"
 hash = "11b7b981597edae3776199135cd148597195273c556ebf7704966fdb77ccf8f1"
 
 [[files]]
+file = "mods/architectury-api.pw.toml"
+hash = "1c5dbdc5e213127ae20ea2e878d8a9b8e052279df69834d41f19f3f076d2ed9f"
+metafile = true
+
+[[files]]
+file = "mods/cloth-config.pw.toml"
+hash = "7fa9592b9948b8809018a4e7c3ca7da4d19fc5ef8c03021414cb22ae0253f083"
+metafile = true
+
+[[files]]
 file = "mods/fabric-api.pw.toml"
 hash = "7ed424f5ce1febe2c2c0e5fc58d34858f1bbd97eabdceb9b9c6afdde4bf578df"
 metafile = true
@@ -17,4 +27,14 @@ metafile = true
 [[files]]
 file = "mods/globalpacks.pw.toml"
 hash = "40e90e4fcf96b43a76dd16f48d5fdb0b91d74dcf60fb34a39e58a5bdfb2abf72"
+metafile = true
+
+[[files]]
+file = "mods/jade.pw.toml"
+hash = "427ac639f77e4ed43b801c3597c959f96a054ecb8d531971c11f7d860748d45e"
+metafile = true
+
+[[files]]
+file = "mods/rei.pw.toml"
+hash = "be2716e6d7d8936e79a06a7a8ec1e85e2fa1f966a9bd1bef224914a3765b884d"
 metafile = true

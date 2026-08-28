@@ -11,5 +11,9 @@ Baseline from `pack/pack.toml`:
 | File | Name | Side | Modrinth project | Pinned version |
 |---|---|---|---|---|
 | `pack/datapacks/matcha-flavoured.pw.toml` | Matcha Flavoured | both | `QI0EmgZ1` | `E9rngRfK` |
+| `pack/mods/architectury-api.pw.toml` | Architectury API | both | `lhGA9TYQ` | `1yQC4VvP` |
+| `pack/mods/cloth-config.pw.toml` | Cloth Config API | both | `9s6osm5g` | `Nv3xnWXd` |
 | `pack/mods/fabric-api.pw.toml` | Fabric API | both | `P7dR8mSH` | `NqwNSxwA` |
 | `pack/mods/globalpacks.pw.toml` | Global Packs | both | `NRLPy2mk` | `DqrPrUMp` |
+| `pack/mods/jade.pw.toml` | Jade 🔍 | both | `nvQzSEkH` | `ue8CO97w` |
+| `pack/mods/rei.pw.toml` | Roughly Enough Items (REI) | both | `nfn13YXA` | `4o0NSIMj` |

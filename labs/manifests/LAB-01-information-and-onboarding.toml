@@ -1,0 +1,78 @@
+# LAB-01 manifest: Matcha information and onboarding
+#
+# Everything below is ADDED to the fixed baseline in pack/. The baseline is not
+# repeated here except where the lab depends on a specific pinned value.
+#
+# All versions were read from the Modrinth API on 2026-08-28 and are release builds,
+# not beta or alpha. Verify with:
+#   https://api.modrinth.com/v2/project/<project_id>/version?game_versions=%5B%2226.2%22%5D&loaders=%5B%22fabric%22%5D
+
+[baseline]
+minecraft = "26.2"
+fabric_loader = "0.19.3"
+fabric_api = { project_id = "P7dR8mSH", version_id = "NqwNSxwA", file = "fabric-api-0.158.0+26.2.jar" }
+global_packs = { project_id = "NRLPy2mk", version_id = "DqrPrUMp", file = "globalpacks-fabric-26.2-26.2.0.jar" }
+matcha = { project_id = "QI0EmgZ1", version_id = "E9rngRfK", file = "Matcha_Flavoured_1_12.zip" }
+
+# The recipe viewer under test. REI is the only viewer with a real 26.2 Fabric release:
+# EMI's newest listed game version is 1.21.1 and JEI is present only as a transitive
+# optional dependency. This lab therefore tests whether REI is adequate, not which of
+# several viewers is best, because there is currently no choice to make.
+[[add]]
+name = "Roughly Enough Items"
+project_id = "nfn13YXA"
+version_id = "4o0NSIMj"
+version = "26.2.820+fabric"
+file = "RoughlyEnoughItems-26.2.820.jar"
+release_type = "release"
+published = "2026-06-18"
+license = "MIT"
+side = "client"
+role = "recipe viewer"
+
+# REI declares three required dependencies. All three have 26.2 releases, which is
+# itself a finding: a viewer that dragged in an unmaintained library would be a poor
+# foundation regardless of its own quality.
+[[add]]
+name = "Architectury API"
+project_id = "lhGA9TYQ"
+version_id = "1yQC4VvP"
+version = "21.0.7+fabric"
+file = "architectury-fabric-21.0.7.jar"
+release_type = "release"
+license = "LGPL-3.0-only"
+side = "both"
+role = "required dependency of REI"
+
+[[add]]
+name = "Cloth Config API"
+project_id = "9s6osm5g"
+version_id = "Nv3xnWXd"
+version = "26.2.155+fabric"
+file = "cloth-config-26.2.155.jar"
+release_type = "release"
+license = "LGPL-3.0-only"
+side = "client"
+role = "required dependency of REI"
+
+# The contextual information tool under test. Jade ships a documented API and a
+# server-override command, both of which matter for the Field Journal requirements.
+[[add]]
+name = "Jade"
+project_id = "nvQzSEkH"
+version_id = "ue8CO97w"
+version = "26.2.11+fabric"
+file = "Jade-mc26.2-Fabric-26.2.11.jar"
+release_type = "release"
+published = "2026-08-15"
+license = "CC-BY-NC-SA-4.0"
+side = "both"
+role = "contextual block and entity information"
+
+# Deliberately NOT added, with the reason recorded so the choice is reviewable.
+[not_added]
+emi = "Newest listed game version is 1.21.1. No 26.2 release exists, so it cannot be compared against REI on the pinned baseline."
+jei = "Available for 26.2 and pulled in as an optional Jade dependency, but adding a second recipe viewer alongside REI is the exact duplication this lab exists to prevent. Test one viewer, not two."
+patchouli = "Newest listed game versions stop at 26.1.2. A guidebook framework cannot be evaluated on the pinned baseline yet."
+guideme = "No Fabric release observed; the project targets Forge and NeoForge."
+ftb_quests = "A quest book is explicitly not the default navigation model for this pack. Out of scope for an information spike."

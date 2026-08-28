@@ -37,8 +37,8 @@ names, so the same lab can be re-run months later against the same artifacts.
 
 | Lab | Question | Status |
 |---|---|---|
-| LAB-01 | Information and onboarding: recipe viewer, Jade, guidebook noise, advancement noise, Field Journal requirements | Next |
-| LAB-02 | Building and gathering: assisted placement, vein mining, schematics, durability and inventory consumption, multiplayer authority | Planned |
+| LAB-01 | Information and onboarding: recipe viewer, Jade, guidebook noise, advancement noise, Field Journal requirements | Done: REI + Jade adopted, JEI excluded, no guidebook problem found |
+| LAB-02 | Building and gathering: assisted placement, vein mining, schematics, durability and inventory consumption, multiplayer authority | Next |
 | LAB-03 | Food: Farmer's Delight Refabricated against Matcha hunger and healing behaviour | Planned |
 | LAB-04 | Seasons: Serene Seasons against Matcha environment, crops, weather, performance | Planned |
 | LAB-05 | Storage: local indexed storage, early shulkers, wireless restrictions, world removal | Planned |
