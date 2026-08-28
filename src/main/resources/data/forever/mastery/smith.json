@@ -1,0 +1,14 @@
+{
+  "id": "forever:smith",
+  "display_key": "mastery.forever.smith",
+  "description_key": "mastery.forever.smith.description",
+  "dependencies": [],
+  "evidence_dimensions": ["tool_family", "alloy", "repair_state", "project", "technique"],
+  "milestones": [
+    {"id": "tool_families", "evidence_kind": "variety", "dimension": "tool_family", "threshold": 3, "rank": 1, "capability_key": "mastery.forever.smith.capability.tool_families", "explanation_key": "mastery.forever.smith.milestone.tool_families"},
+    {"id": "alloy_breadth", "evidence_kind": "variety", "dimension": "alloy", "threshold": 2, "rank": 2, "capability_key": "mastery.forever.smith.capability.alloy_breadth", "explanation_key": "mastery.forever.smith.milestone.alloy_breadth"},
+    {"id": "repair_states", "evidence_kind": "variety", "dimension": "repair_state", "threshold": 2, "rank": 3, "capability_key": "mastery.forever.smith.capability.repair_states", "explanation_key": "mastery.forever.smith.milestone.repair_states"},
+    {"id": "commissioned_forge", "evidence_kind": "project", "dimension": "project", "threshold": 1, "rank": 4, "capability_key": "mastery.forever.smith.capability.commissioned_forge", "explanation_key": "mastery.forever.smith.milestone.commissioned_forge"},
+    {"id": "controlled_tradeoff", "evidence_kind": "technique", "dimension": "technique", "threshold": 1, "rank": 4, "capability_key": "mastery.forever.smith.capability.controlled_tradeoff", "explanation_key": "mastery.forever.smith.milestone.controlled_tradeoff"}
+  ]
+}

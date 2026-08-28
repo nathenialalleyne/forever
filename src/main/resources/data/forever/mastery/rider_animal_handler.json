@@ -1,0 +1,14 @@
+{
+  "id": "forever:rider_animal_handler",
+  "display_key": "mastery.forever.rider_animal_handler",
+  "description_key": "mastery.forever.rider_animal_handler.description",
+  "dependencies": [],
+  "evidence_dimensions": ["terrain", "mount", "handling", "project", "technique"],
+  "milestones": [
+    {"id": "terrain_breadth", "evidence_kind": "variety", "dimension": "terrain", "threshold": 3, "rank": 1, "capability_key": "mastery.forever.rider_animal_handler.capability.terrain_breadth", "explanation_key": "mastery.forever.rider_animal_handler.milestone.terrain_breadth"},
+    {"id": "mount_breadth", "evidence_kind": "variety", "dimension": "mount", "threshold": 2, "rank": 2, "capability_key": "mastery.forever.rider_animal_handler.capability.mount_breadth", "explanation_key": "mastery.forever.rider_animal_handler.milestone.mount_breadth"},
+    {"id": "handling_contexts", "evidence_kind": "variety", "dimension": "handling", "threshold": 2, "rank": 3, "capability_key": "mastery.forever.rider_animal_handler.capability.handling_contexts", "explanation_key": "mastery.forever.rider_animal_handler.milestone.handling_contexts"},
+    {"id": "safe_route", "evidence_kind": "project", "dimension": "project", "threshold": 1, "rank": 4, "capability_key": "mastery.forever.rider_animal_handler.capability.safe_route", "explanation_key": "mastery.forever.rider_animal_handler.milestone.safe_route"},
+    {"id": "calm_handling", "evidence_kind": "technique", "dimension": "technique", "threshold": 1, "rank": 4, "capability_key": "mastery.forever.rider_animal_handler.capability.calm_handling", "explanation_key": "mastery.forever.rider_animal_handler.milestone.calm_handling"}
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "id": "forever:farmer_naturalist",
+  "display_key": "mastery.forever.farmer_naturalist",
+  "description_key": "mastery.forever.farmer_naturalist.description",
+  "dependencies": [],
+  "evidence_dimensions": ["crop", "habitat", "season_context", "project", "technique"],
+  "milestones": [
+    {"id": "crop_breadth", "evidence_kind": "variety", "dimension": "crop", "threshold": 3, "rank": 1, "capability_key": "mastery.forever.farmer_naturalist.capability.crop_breadth", "explanation_key": "mastery.forever.farmer_naturalist.milestone.crop_breadth"},
+    {"id": "habitat_breadth", "evidence_kind": "variety", "dimension": "habitat", "threshold": 2, "rank": 2, "capability_key": "mastery.forever.farmer_naturalist.capability.habitat_breadth", "explanation_key": "mastery.forever.farmer_naturalist.milestone.habitat_breadth"},
+    {"id": "changed_conditions", "evidence_kind": "variety", "dimension": "season_context", "threshold": 2, "rank": 3, "capability_key": "mastery.forever.farmer_naturalist.capability.changed_conditions", "explanation_key": "mastery.forever.farmer_naturalist.milestone.changed_conditions"},
+    {"id": "restored_garden", "evidence_kind": "project", "dimension": "project", "threshold": 1, "rank": 4, "capability_key": "mastery.forever.farmer_naturalist.capability.restored_garden", "explanation_key": "mastery.forever.farmer_naturalist.milestone.restored_garden"},
+    {"id": "adapted_yield", "evidence_kind": "technique", "dimension": "technique", "threshold": 1, "rank": 4, "capability_key": "mastery.forever.farmer_naturalist.capability.adapted_yield", "explanation_key": "mastery.forever.farmer_naturalist.milestone.adapted_yield"}
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "id": "forever:explorer_cartographer",
+  "display_key": "mastery.forever.explorer_cartographer",
+  "description_key": "mastery.forever.explorer_cartographer.description",
+  "dependencies": [],
+  "evidence_dimensions": ["region", "landmark", "route_type", "project", "technique"],
+  "milestones": [
+    {"id": "regional_coverage", "evidence_kind": "variety", "dimension": "region", "threshold": 3, "rank": 1, "capability_key": "mastery.forever.explorer_cartographer.capability.regional_coverage", "explanation_key": "mastery.forever.explorer_cartographer.milestone.regional_coverage"},
+    {"id": "landmark_breadth", "evidence_kind": "variety", "dimension": "landmark", "threshold": 2, "rank": 2, "capability_key": "mastery.forever.explorer_cartographer.capability.landmark_breadth", "explanation_key": "mastery.forever.explorer_cartographer.milestone.landmark_breadth"},
+    {"id": "route_breadth", "evidence_kind": "variety", "dimension": "route_type", "threshold": 2, "rank": 3, "capability_key": "mastery.forever.explorer_cartographer.capability.route_breadth", "explanation_key": "mastery.forever.explorer_cartographer.milestone.route_breadth"},
+    {"id": "mapped_region", "evidence_kind": "project", "dimension": "project", "threshold": 1, "rank": 4, "capability_key": "mastery.forever.explorer_cartographer.capability.mapped_region", "explanation_key": "mastery.forever.explorer_cartographer.milestone.mapped_region"},
+    {"id": "safe_route", "evidence_kind": "technique", "dimension": "technique", "threshold": 1, "rank": 4, "capability_key": "mastery.forever.explorer_cartographer.capability.safe_route", "explanation_key": "mastery.forever.explorer_cartographer.milestone.safe_route"}
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "id": "forever:prospector",
+  "display_key": "mastery.forever.prospector",
+  "description_key": "mastery.forever.prospector.description",
+  "dependencies": [],
+  "evidence_dimensions": ["ore_type", "depth_band", "ore_discovery", "biome", "survey_method", "project", "technique"],
+  "milestones": [
+    {"id": "ore_variety", "evidence_kind": "variety", "dimension": "ore_type", "threshold": 3, "rank": 1, "capability_key": "mastery.forever.prospector.capability.ore_variety", "explanation_key": "mastery.forever.prospector.milestone.ore_variety"},
+    {"id": "depth_survey", "evidence_kind": "variety", "dimension": "depth_band", "threshold": 2, "rank": 2, "capability_key": "mastery.forever.prospector.capability.depth_survey", "explanation_key": "mastery.forever.prospector.milestone.depth_survey"},
+    {"id": "ore_behaviour", "evidence_kind": "discovery", "dimension": "ore_discovery", "threshold": 1, "rank": 2, "capability_key": "mastery.forever.prospector.capability.ore_behaviour", "explanation_key": "mastery.forever.prospector.milestone.ore_behaviour"},
+    {"id": "biome_coverage", "evidence_kind": "variety", "dimension": "biome", "threshold": 2, "rank": 3, "capability_key": "mastery.forever.prospector.capability.biome_coverage", "explanation_key": "mastery.forever.prospector.milestone.biome_coverage"},
+    {"id": "survey_methods", "evidence_kind": "variety", "dimension": "survey_method", "threshold": 2, "rank": 4, "capability_key": "mastery.forever.prospector.capability.survey_methods", "explanation_key": "mastery.forever.prospector.milestone.survey_methods"},
+    {"id": "extraction_plan", "evidence_kind": "project", "dimension": "project", "threshold": 1, "rank": 5, "capability_key": "mastery.forever.prospector.capability.extraction_plan", "explanation_key": "mastery.forever.prospector.milestone.extraction_plan"},
+    {"id": "interpreted_sample", "evidence_kind": "technique", "dimension": "technique", "threshold": 1, "rank": 5, "capability_key": "mastery.forever.prospector.capability.interpreted_sample", "explanation_key": "mastery.forever.prospector.milestone.interpreted_sample"}
+  ]
+}

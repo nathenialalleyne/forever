@@ -1,0 +1,14 @@
+{
+  "id": "forever:builder",
+  "display_key": "mastery.forever.builder",
+  "description_key": "mastery.forever.builder.description",
+  "dependencies": [],
+  "evidence_dimensions": ["material_family", "structural_purpose", "terrain_context", "project", "technique"],
+  "milestones": [
+    {"id": "material_breadth", "evidence_kind": "variety", "dimension": "material_family", "threshold": 3, "rank": 1, "capability_key": "mastery.forever.builder.capability.material_breadth", "explanation_key": "mastery.forever.builder.milestone.material_breadth"},
+    {"id": "structural_breadth", "evidence_kind": "variety", "dimension": "structural_purpose", "threshold": 2, "rank": 2, "capability_key": "mastery.forever.builder.capability.structural_breadth", "explanation_key": "mastery.forever.builder.milestone.structural_breadth"},
+    {"id": "terrain_adaptation", "evidence_kind": "variety", "dimension": "terrain_context", "threshold": 2, "rank": 3, "capability_key": "mastery.forever.builder.capability.terrain_adaptation", "explanation_key": "mastery.forever.builder.milestone.terrain_adaptation"},
+    {"id": "validated_build", "evidence_kind": "project", "dimension": "project", "threshold": 1, "rank": 4, "capability_key": "mastery.forever.builder.capability.validated_build", "explanation_key": "mastery.forever.builder.milestone.validated_build"},
+    {"id": "careful_method", "evidence_kind": "technique", "dimension": "technique", "threshold": 1, "rank": 4, "capability_key": "mastery.forever.builder.capability.careful_method", "explanation_key": "mastery.forever.builder.milestone.careful_method"}
+  ]
+}

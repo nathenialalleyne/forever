@@ -1,0 +1,14 @@
+{
+  "id": "forever:fisher_mariner",
+  "display_key": "mastery.forever.fisher_mariner",
+  "description_key": "mastery.forever.fisher_mariner.description",
+  "dependencies": [],
+  "evidence_dimensions": ["water", "species_group", "boat_context", "project", "technique"],
+  "milestones": [
+    {"id": "water_coverage", "evidence_kind": "variety", "dimension": "water", "threshold": 3, "rank": 1, "capability_key": "mastery.forever.fisher_mariner.capability.water_coverage", "explanation_key": "mastery.forever.fisher_mariner.milestone.water_coverage"},
+    {"id": "species_breadth", "evidence_kind": "variety", "dimension": "species_group", "threshold": 2, "rank": 2, "capability_key": "mastery.forever.fisher_mariner.capability.species_breadth", "explanation_key": "mastery.forever.fisher_mariner.milestone.species_breadth"},
+    {"id": "boat_contexts", "evidence_kind": "variety", "dimension": "boat_context", "threshold": 2, "rank": 3, "capability_key": "mastery.forever.fisher_mariner.capability.boat_contexts", "explanation_key": "mastery.forever.fisher_mariner.milestone.boat_contexts"},
+    {"id": "viable_voyage", "evidence_kind": "project", "dimension": "project", "threshold": 1, "rank": 4, "capability_key": "mastery.forever.fisher_mariner.capability.viable_voyage", "explanation_key": "mastery.forever.fisher_mariner.milestone.viable_voyage"},
+    {"id": "weathered_trip", "evidence_kind": "technique", "dimension": "technique", "threshold": 1, "rank": 4, "capability_key": "mastery.forever.fisher_mariner.capability.weathered_trip", "explanation_key": "mastery.forever.fisher_mariner.milestone.weathered_trip"}
+  ]
+}

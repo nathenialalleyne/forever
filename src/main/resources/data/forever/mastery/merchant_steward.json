@@ -1,0 +1,14 @@
+{
+  "id": "forever:merchant_steward",
+  "display_key": "mastery.forever.merchant_steward",
+  "description_key": "mastery.forever.merchant_steward.description",
+  "dependencies": [],
+  "evidence_dimensions": ["category", "supplier", "customer_context", "project", "technique"],
+  "milestones": [
+    {"id": "category_coverage", "evidence_kind": "variety", "dimension": "category", "threshold": 3, "rank": 1, "capability_key": "mastery.forever.merchant_steward.capability.category_coverage", "explanation_key": "mastery.forever.merchant_steward.milestone.category_coverage"},
+    {"id": "supplier_breadth", "evidence_kind": "variety", "dimension": "supplier", "threshold": 2, "rank": 2, "capability_key": "mastery.forever.merchant_steward.capability.supplier_breadth", "explanation_key": "mastery.forever.merchant_steward.milestone.supplier_breadth"},
+    {"id": "customer_contexts", "evidence_kind": "variety", "dimension": "customer_context", "threshold": 2, "rank": 3, "capability_key": "mastery.forever.merchant_steward.capability.customer_contexts", "explanation_key": "mastery.forever.merchant_steward.milestone.customer_contexts"},
+    {"id": "fulfilled_contract", "evidence_kind": "project", "dimension": "project", "threshold": 1, "rank": 4, "capability_key": "mastery.forever.merchant_steward.capability.fulfilled_contract", "explanation_key": "mastery.forever.merchant_steward.milestone.fulfilled_contract"},
+    {"id": "balanced_stock", "evidence_kind": "technique", "dimension": "technique", "threshold": 1, "rank": 4, "capability_key": "mastery.forever.merchant_steward.capability.balanced_stock", "explanation_key": "mastery.forever.merchant_steward.milestone.balanced_stock"}
+  ]
+}

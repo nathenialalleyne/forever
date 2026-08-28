@@ -1,0 +1,14 @@
+{
+  "id": "forever:alchemist_herbalist",
+  "display_key": "mastery.forever.alchemist_herbalist",
+  "description_key": "mastery.forever.alchemist_herbalist.description",
+  "dependencies": [],
+  "evidence_dimensions": ["reagent_trait", "preparation", "concentration", "project", "technique"],
+  "milestones": [
+    {"id": "reagent_breadth", "evidence_kind": "variety", "dimension": "reagent_trait", "threshold": 3, "rank": 1, "capability_key": "mastery.forever.alchemist_herbalist.capability.reagent_breadth", "explanation_key": "mastery.forever.alchemist_herbalist.milestone.reagent_breadth"},
+    {"id": "preparation_breadth", "evidence_kind": "variety", "dimension": "preparation", "threshold": 2, "rank": 2, "capability_key": "mastery.forever.alchemist_herbalist.capability.preparation_breadth", "explanation_key": "mastery.forever.alchemist_herbalist.milestone.preparation_breadth"},
+    {"id": "concentration_breadth", "evidence_kind": "variety", "dimension": "concentration", "threshold": 2, "rank": 3, "capability_key": "mastery.forever.alchemist_herbalist.capability.concentration_breadth", "explanation_key": "mastery.forever.alchemist_herbalist.milestone.concentration_breadth"},
+    {"id": "controlled_batch", "evidence_kind": "project", "dimension": "project", "threshold": 1, "rank": 4, "capability_key": "mastery.forever.alchemist_herbalist.capability.controlled_batch", "explanation_key": "mastery.forever.alchemist_herbalist.milestone.controlled_batch"},
+    {"id": "safe_preparation", "evidence_kind": "technique", "dimension": "technique", "threshold": 1, "rank": 4, "capability_key": "mastery.forever.alchemist_herbalist.capability.safe_preparation", "explanation_key": "mastery.forever.alchemist_herbalist.milestone.safe_preparation"}
+  ]
+}
