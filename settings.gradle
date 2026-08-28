@@ -9,6 +9,59 @@ pluginManagement {
 	}
 }
 
+// Toolchain preflight.
+//
+// The build requires the pinned JDK (see docs/dependency-baseline.md). When it is
+// missing, Gradle's native failure is a toolchain message that never mentions
+// JAVA_HOME, so a new contributor's first `./gradlew build` fails with no visible
+// next step. This check runs first and explains the fix instead.
+//
+// It cannot install or select the JDK for you. Gradle resolves toolchains before
+// settings are evaluated, so setting the installation path from here would be too
+// late to take effect. The value of this block is therefore a clear diagnostic, not
+// an automatic repair.
+//
+// Deliberately platform-neutral: it reads the user's home directory at runtime and
+// hardcodes no absolute path, username, or operating system. It only reports JDKs
+// that are already installed and never downloads one, so the pinned version in
+// docs/dependency-baseline.md stays the single source of truth.
+def requiredJavaVersion = 25
+if (!System.getenv('JAVA_HOME') && !System.getProperty('org.gradle.java.installations.paths')) {
+	def candidates = []
+	['toolchains', '.jdks', 'jdks', '.sdkman/candidates/java'].each { dirName ->
+		def root = new File(System.getProperty('user.home'), dirName)
+		if (root.isDirectory()) {
+			root.listFiles()?.each { candidate ->
+				if (new File(candidate, 'bin/javac').isFile()) {
+					candidates << candidate
+				}
+			}
+		}
+	}
+	// Only warn when the JVM running Gradle is not already the required version,
+	// otherwise a correctly configured machine would be nagged on every build.
+	def runningVersion = JavaVersion.current().majorVersion
+	if (runningVersion != requiredJavaVersion.toString()) {
+		def hint = candidates
+			.find { it.name.contains(requiredJavaVersion.toString()) }
+			?.absolutePath
+		def suggestion = hint
+			? "A matching JDK looks like it is already installed. Try:\n    export JAVA_HOME=${hint}"
+			: "No local JDK ${requiredJavaVersion} was found. Install it, then export JAVA_HOME to point at it."
+		logger.warn("""
+================================================================================
+Forever build: JDK ${requiredJavaVersion} is required but JAVA_HOME is not set.
+Gradle is currently running on Java ${runningVersion}.
+
+${suggestion}
+
+The pinned version is recorded in docs/dependency-baseline.md. If the build fails
+next with a 'Cannot find a Java installation' toolchain error, this is the cause.
+================================================================================
+""")
+	}
+}
+
 rootProject.name = 'forever'
 
 // The Matcha audit CLI is a standalone developer tool. It is deliberately NOT
