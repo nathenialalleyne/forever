@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "id": "forever:guide/mastery_loadout",
+  "title_key": "guide.forever.mastery_loadout.title",
+  "section_keys": [
+    "guide.forever.mastery_loadout.summary",
+    "guide.forever.mastery_loadout.focus_and_supporting",
+    "guide.forever.mastery_loadout.switching",
+    "guide.forever.mastery_loadout.permanent_progress",
+    "guide.forever.mastery_loadout.where_to_switch"
+  ],
+  "category": "mastery",
+  "keywords": [
+    "mastery",
+    "focus",
+    "supporting",
+    "loadout",
+    "specialty",
+    "switch",
+    "rest"
+  ],
+  "process_ids": [],
+  "related_entry_ids": [
+    "forever:guide/mastery_progression",
+    "forever:guide/equipment_reforging"
+  ]
+}

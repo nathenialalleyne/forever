@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "id": "forever:guide/equipment_condition",
+  "title_key": "guide.forever.equipment_condition.title",
+  "section_keys": [
+    "guide.forever.equipment_condition.summary",
+    "guide.forever.equipment_condition.condition",
+    "guide.forever.equipment_condition.broken_state",
+    "guide.forever.equipment_condition.field_repair",
+    "guide.forever.equipment_condition.workshop_repair",
+    "guide.forever.equipment_condition.reading_tooltips"
+  ],
+  "category": "equipment",
+  "keywords": [
+    "condition",
+    "durability",
+    "broken",
+    "repair",
+    "wear",
+    "tool"
+  ],
+  "process_ids": [],
+  "related_entry_ids": [
+    "forever:guide/equipment_reforging",
+    "forever:guide/early_tools"
+  ]
+}

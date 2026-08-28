@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "id": "forever:guide/mason_career",
+  "title_key": "guide.forever.mason_career.title",
+  "section_keys": [
+    "guide.forever.mason_career.summary",
+    "guide.forever.mason_career.careers",
+    "guide.forever.mason_career.ranks",
+    "guide.forever.mason_career.mentors_apprentices",
+    "guide.forever.mason_career.knowledge_after_death",
+    "guide.forever.mason_career.coin_purse",
+    "guide.forever.mason_career.obols"
+  ],
+  "category": "economy",
+  "keywords": [
+    "mason",
+    "career",
+    "rank",
+    "apprentice",
+    "mentor",
+    "obol",
+    "purse",
+    "coin",
+    "villager"
+  ],
+  "process_ids": [],
+  "related_entry_ids": [
+    "forever:guide/settlement_charter",
+    "forever:guide/mastery_progression"
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "id": "forever:guide/storage_travelers_cache",
+  "title_key": "guide.forever.storage_travelers_cache.title",
+  "section_keys": [
+    "guide.forever.storage_travelers_cache.summary",
+    "guide.forever.storage_travelers_cache.cache_slots",
+    "guide.forever.storage_travelers_cache.expansion",
+    "guide.forever.storage_travelers_cache.no_nesting",
+    "guide.forever.storage_travelers_cache.warehouse",
+    "guide.forever.storage_travelers_cache.search",
+    "guide.forever.storage_travelers_cache.physical_truth"
+  ],
+  "category": "storage",
+  "keywords": [
+    "storage",
+    "cache",
+    "traveler",
+    "warehouse",
+    "search",
+    "shulker",
+    "container"
+  ],
+  "process_ids": [],
+  "related_entry_ids": [
+    "forever:guide/settlement_charter"
+  ]
+}

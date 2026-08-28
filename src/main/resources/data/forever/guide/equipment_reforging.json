@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "id": "forever:guide/equipment_reforging",
+  "title_key": "guide.forever.equipment_reforging.title",
+  "section_keys": [
+    "guide.forever.equipment_reforging.summary",
+    "guide.forever.equipment_reforging.paths",
+    "guide.forever.equipment_reforging.active_path",
+    "guide.forever.equipment_reforging.switching",
+    "guide.forever.equipment_reforging.preserved_progress",
+    "guide.forever.equipment_reforging.identity"
+  ],
+  "category": "equipment",
+  "keywords": [
+    "reforge",
+    "reforging",
+    "path",
+    "specialisation",
+    "prospector",
+    "excavator",
+    "delver"
+  ],
+  "process_ids": [],
+  "related_entry_ids": [
+    "forever:guide/equipment_condition",
+    "forever:guide/mastery_loadout"
+  ]
+}

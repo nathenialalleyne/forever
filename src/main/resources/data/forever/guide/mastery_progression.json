@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "id": "forever:guide/mastery_progression",
+  "title_key": "guide.forever.mastery_progression.title",
+  "section_keys": [
+    "guide.forever.mastery_progression.summary",
+    "guide.forever.mastery_progression.not_repetition",
+    "guide.forever.mastery_progression.breadth",
+    "guide.forever.mastery_progression.discoveries",
+    "guide.forever.mastery_progression.projects",
+    "guide.forever.mastery_progression.technique"
+  ],
+  "category": "mastery",
+  "keywords": [
+    "mastery",
+    "progress",
+    "advance",
+    "level",
+    "discovery",
+    "breadth",
+    "technique"
+  ],
+  "process_ids": [],
+  "related_entry_ids": [
+    "forever:guide/mastery_loadout"
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "id": "forever:guide/settlement_charter",
+  "title_key": "guide.forever.settlement_charter.title",
+  "section_keys": [
+    "guide.forever.settlement_charter.summary",
+    "guide.forever.settlement_charter.charter",
+    "guide.forever.settlement_charter.registering_buildings",
+    "guide.forever.settlement_charter.residence_requirements",
+    "guide.forever.settlement_charter.graph_and_outposts",
+    "guide.forever.settlement_charter.no_style_rules"
+  ],
+  "category": "settlement",
+  "keywords": [
+    "settlement",
+    "charter",
+    "building",
+    "residence",
+    "workplace",
+    "outpost",
+    "village"
+  ],
+  "process_ids": [],
+  "related_entry_ids": [
+    "forever:guide/mason_career"
+  ]
+}
