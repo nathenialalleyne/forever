@@ -85,6 +85,39 @@ listed first deliberately: it is the gameplay foundation, so any future Many Roa
 pack that overrides part of it must be added after this entry, and will then win only
 where the override is intended.
 
+## Installed-pack verification
+
+The first server test copied the Global Packs config into place by hand, which proved
+Matcha loads but skipped the path a real user takes. The `.mrpack` was therefore
+re-tested the way a launcher installs it: unpack `overrides/` into the instance root,
+then download each declared file to its declared path.
+
+That second test found two things the first one could not.
+
+**The `overrides/defaultconfigs/` route works.** Global Packs read the shipped file and
+wrote `config/global_packs.toml` containing the pinned
+`datapacks/Matcha_Flavoured_1_12.zip` path rather than its own default of `datapacks/`,
+`resourcepacks/`, and `global_packs/required_data/`. The generated config naming our
+value and not the mod's default is what proves the override was honoured rather than
+coincidentally equivalent.
+
+**The shipped config declared the wrong schema version.** It said `config_version = 3`,
+and the 26.2.0 build rewrote it to `4` on first launch, discarding the explanatory
+comments. Functionally harmless, but it meant every fresh instance performed a migration
+write and lost the documentation. The shipped file now pins `config_version = 4` and
+declares the `enable_builtin` key the mod actually writes. After that correction a clean
+instance boots with the config byte-identical to the shipped file, with no migration
+write.
+
+Independently confirmed on the installed instance: `Found new data pack
+Matcha_Flavoured_1_12.zip, loading it automatically`, `Loaded 2346 recipes`,
+`Done (1.419s)`, and `world/level.dat` listing the pack under `DataPacks`.
+
+The exported archive was also validated against the published Modrinth `.mrpack` format:
+`formatVersion` 1, required keys present, every file carrying both the required `sha1`
+and `sha512`, no unsafe paths, and every download over HTTPS. Each declared URL was
+fetched and its hash and byte length recompared, and all three matched.
+
 ## Client behaviour
 
 Not yet verified. The development environment for this run is WSL without a usable
@@ -92,6 +125,13 @@ display, so a real client launch could not be performed honestly. The client pat
 therefore recorded as an outstanding acceptance criterion rather than claimed. It should
 be tested from the Windows launcher against the exported `.mrpack`, checking that
 Matcha's resource pack is active in the pack list and that its textures are visible.
+
+What is known without a client: the archive carries 2845 `assets/` entries and 2671
+`data/` entries under a single `pack.mcmeta`, so both halves are present in the file the
+pack installs, and the datapack half is confirmed applied on a server. What remains
+unproven is only whether Global Packs activates the resource-pack half in a real client
+session. A dedicated server never loads resource packs, so no server test can settle
+this, and it must not be inferred from the datapack result.
 
 ## Server behaviour: verified
 

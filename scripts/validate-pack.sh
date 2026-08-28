@@ -52,7 +52,40 @@ if [[ -f "${PACK_DIR}/defaultconfigs/global_packs.toml" ]]; then
     pass "Global Packs and packwiz agree on the datapack folder"
 fi
 
-# 5. packwiz's own consistency check, when the tool is available.
+# 5. The exported .mrpack must satisfy the published Modrinth format: every file needs
+#    BOTH sha1 and sha512, an https download, and a safe relative path. A launcher
+#    rejects or mis-installs a pack that violates this, and the failure looks like
+#    corruption rather than a metadata bug.
+mrpack="$(ls -1 "${ROOT_DIR}"/dist/*.mrpack 2>/dev/null | head -1 || true)"
+if [[ -n "${mrpack}" ]]; then
+    python3 - "${mrpack}" <<'PY' && pass "exported .mrpack matches the Modrinth format" || fail "exported .mrpack violates the Modrinth format"
+import json,sys,zipfile
+idx=json.loads(zipfile.ZipFile(sys.argv[1]).read('modrinth.index.json'))
+bad=[]
+if idx.get('formatVersion')!=1: bad.append('formatVersion')
+if 'minecraft' not in idx.get('dependencies',{}): bad.append('dependencies.minecraft')
+for f in idx.get('files',[]):
+    h=f.get('hashes',{})
+    if 'sha1' not in h or 'sha512' not in h: bad.append(f"{f.get('path')}: needs sha1+sha512")
+    p=f.get('path','')
+    if p.startswith('/') or '..' in p: bad.append(f'unsafe path {p}')
+    if any(not u.startswith('https://') for u in f.get('downloads',[])): bad.append(f'{p}: non-https')
+sys.exit(1 if bad else 0)
+PY
+else
+    echo "validate-pack: note: no .mrpack in dist/, skipped format check (run build-pack.sh)"
+fi
+
+# 6. The shipped Global Packs config must declare the schema version the mod expects.
+#    A stale config_version is silently migrated on first launch, which rewrites the
+#    file and discards the comments explaining why it is configured this way.
+if [[ -f "${PACK_DIR}/defaultconfigs/global_packs.toml" ]]; then
+    grep -qE '^config_version = 4$' "${PACK_DIR}/defaultconfigs/global_packs.toml" \
+        && pass "Global Packs config_version matches the pinned build" \
+        || fail "global_packs.toml config_version does not match the pinned Global Packs build (expected 4)"
+fi
+
+# 7. packwiz's own consistency check, when the tool is available.
 if command -v packwiz >/dev/null 2>&1; then
     (cd "${PACK_DIR}" && packwiz --config "${CONFIG}" refresh >/dev/null) \
         && pass "packwiz refresh succeeded" || fail "packwiz refresh failed"

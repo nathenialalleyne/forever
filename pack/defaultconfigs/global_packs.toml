@@ -15,7 +15,10 @@
 # Matcha is listed first deliberately: it is the gameplay foundation, and any Many
 # Roads Home pack that later overrides part of it must be added AFTER this entry so
 # that the override wins only where it is intended to.
-config_version = 3
+# Must match the version the installed Global Packs build expects. A 26.2.0 server
+# rewrote a hand-written 3 to 4 on first launch, so this is pinned to 4 to avoid a
+# needless migration write on every fresh instance. Re-check this when the mod updates.
+config_version = 4
 
 # Keep this false. A user-global folder outside the instance would leak pack content
 # between unrelated instances and make a test result irreproducible.
@@ -36,3 +39,6 @@ required = [
     "datapacks/Matcha_Flavoured_1_12.zip"
 ]
 optional = []
+# Present in the 26.2.0 generated config. Declared here so the shipped file matches
+# what the mod actually writes, rather than drifting from it on first launch.
+enable_builtin = []
