@@ -1,5 +1,9 @@
-package dev.forever.core.equipment;
+package dev.forever.core.equipment.adapter;
 
+import dev.forever.core.equipment.EquipmentBalance;
+import dev.forever.core.equipment.EquipmentBalanceRegistry;
+import dev.forever.core.equipment.EquipmentMath;
+import dev.forever.core.equipment.EquipmentOperationResult;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;

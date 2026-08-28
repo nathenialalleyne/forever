@@ -1,4 +1,4 @@
-package dev.forever.core.settlement;
+package dev.forever.core.settlement.domain;
 
 /** Explicit, actionable failure for malformed settlement input or an invalid mutation. */
 public final class SettlementDataException extends RuntimeException {

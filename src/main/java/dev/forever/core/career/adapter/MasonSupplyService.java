@@ -1,5 +1,7 @@
-package dev.forever.core.career;
+package dev.forever.core.career.adapter;
 
+import dev.forever.core.career.domain.CareerStatus;
+import dev.forever.core.career.domain.MasonRank;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;

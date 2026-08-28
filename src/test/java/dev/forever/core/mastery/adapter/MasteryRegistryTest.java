@@ -1,9 +1,10 @@
-package dev.forever.core.mastery;
+package dev.forever.core.mastery.adapter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import dev.forever.core.mastery.domain.MasteryDataException;
 import java.util.List;
 import net.minecraft.resources.Identifier;
 import org.junit.jupiter.api.DisplayName;
@@ -51,7 +52,24 @@ class MasteryRegistryTest {
 	@DisplayName("duplicate stable IDs fail before gameplay can evaluate them")
 	void duplicateDefinitionsAreRejected() {
 		String definition = """
-				{"id":"forever:duplicate","display_key":"mastery.duplicate","description_key":"mastery.duplicate.description","dependencies":[],"evidence_dimensions":["ore_type"],"milestones":[{"id":"ore","evidence_kind":"variety","dimension":"ore_type","threshold":1,"rank":1,"capability_key":"mastery.duplicate.capability.ore","explanation_key":"mastery.duplicate.milestone.ore"}]}
+				{
+				  "id": "forever:duplicate",
+				  "display_key": "mastery.duplicate",
+				  "description_key": "mastery.duplicate.description",
+				  "dependencies": [],
+				  "evidence_dimensions": ["ore_type"],
+				  "milestones": [
+				    {
+				      "id": "ore",
+				      "evidence_kind": "variety",
+				      "dimension": "ore_type",
+				      "threshold": 1,
+				      "rank": 1,
+				      "capability_key": "mastery.duplicate.capability.ore",
+				      "explanation_key": "mastery.duplicate.milestone.ore"
+				    }
+				  ]
+				}
 				""";
 
 		MasteryDataException exception = assertThrows(
@@ -68,7 +86,24 @@ class MasteryRegistryTest {
 	@DisplayName("missing dependencies fail with both IDs named")
 	void missingDependencyIsRejected() {
 		String definition = """
-				{"id":"forever:dependent","display_key":"mastery.dependent","description_key":"mastery.dependent.description","dependencies":["forever:missing"],"evidence_dimensions":["ore_type"],"milestones":[{"id":"ore","evidence_kind":"variety","dimension":"ore_type","threshold":1,"rank":1,"capability_key":"mastery.dependent.capability.ore","explanation_key":"mastery.dependent.milestone.ore"}]}
+				{
+				  "id": "forever:dependent",
+				  "display_key": "mastery.dependent",
+				  "description_key": "mastery.dependent.description",
+				  "dependencies": ["forever:missing"],
+				  "evidence_dimensions": ["ore_type"],
+				  "milestones": [
+				    {
+				      "id": "ore",
+				      "evidence_kind": "variety",
+				      "dimension": "ore_type",
+				      "threshold": 1,
+				      "rank": 1,
+				      "capability_key": "mastery.dependent.capability.ore",
+				      "explanation_key": "mastery.dependent.milestone.ore"
+				    }
+				  ]
+				}
 				""";
 
 		MasteryDataException exception = assertThrows(
@@ -101,7 +136,24 @@ class MasteryRegistryTest {
 				() -> MasteryRegistryLoader.decodeDefinition(
 						Identifier.parse("forever:mastery/duplicate-dimension.json"),
 						MasteryTestFixtures.json("""
-							{"id":"forever:duplicate_dimension","display_key":"mastery.duplicate_dimension","description_key":"mastery.duplicate_dimension.description","dependencies":[],"evidence_dimensions":["ore_type","ore_type"],"milestones":[{"id":"ore","evidence_kind":"variety","dimension":"ore_type","threshold":1,"rank":1,"capability_key":"mastery.duplicate_dimension.capability.ore","explanation_key":"mastery.duplicate_dimension.milestone.ore"}]}
+							{
+							  "id": "forever:duplicate_dimension",
+							  "display_key": "mastery.duplicate_dimension",
+							  "description_key": "mastery.duplicate_dimension.description",
+							  "dependencies": [],
+							  "evidence_dimensions": ["ore_type", "ore_type"],
+							  "milestones": [
+							    {
+							      "id": "ore",
+							      "evidence_kind": "variety",
+							      "dimension": "ore_type",
+							      "threshold": 1,
+							      "rank": 1,
+							      "capability_key": "mastery.duplicate_dimension.capability.ore",
+							      "explanation_key": "mastery.duplicate_dimension.milestone.ore"
+							    }
+							  ]
+							}
 							""")));
 
 		assertTrue(exception.getMessage().contains("evidence dimension more than once"));

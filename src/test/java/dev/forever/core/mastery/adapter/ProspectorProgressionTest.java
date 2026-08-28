@@ -1,9 +1,11 @@
-package dev.forever.core.mastery;
+package dev.forever.core.mastery.adapter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import dev.forever.core.mastery.domain.EvidenceKind;
+import dev.forever.core.mastery.domain.ProgressionEvidence;
 import java.util.Set;
 import net.minecraft.resources.Identifier;
 import org.junit.jupiter.api.DisplayName;

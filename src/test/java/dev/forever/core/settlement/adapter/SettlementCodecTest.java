@@ -1,4 +1,4 @@
-package dev.forever.core.settlement;
+package dev.forever.core.settlement.adapter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.google.gson.JsonElement;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.JsonOps;
+import dev.forever.core.settlement.domain.MigrationRecord;
+import dev.forever.core.settlement.domain.SettlementRole;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;

@@ -1,5 +1,6 @@
-package dev.forever.core.settlement;
+package dev.forever.core.settlement.adapter;
 
+import dev.forever.core.settlement.domain.SettlementBalance;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
 import net.minecraft.server.level.ServerLevel;

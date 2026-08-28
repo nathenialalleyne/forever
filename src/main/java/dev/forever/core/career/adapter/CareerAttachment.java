@@ -1,4 +1,4 @@
-package dev.forever.core.career;
+package dev.forever.core.career.adapter;
 
 import net.fabricmc.fabric.api.attachment.v1.AttachmentRegistry;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentType;

@@ -1,12 +1,12 @@
 package dev.forever;
 
 import dev.forever.compat.matcha.ForeverMatchaCompat;
-import dev.forever.core.career.ForeverCareer;
-import dev.forever.core.economy.ForeverEconomy;
-import dev.forever.core.equipment.ForeverEquipment;
-import dev.forever.core.guide.ForeverGuide;
-import dev.forever.core.mastery.ForeverMastery;
-import dev.forever.core.settlement.ForeverSettlement;
+import dev.forever.core.career.adapter.ForeverCareer;
+import dev.forever.core.economy.adapter.ForeverEconomy;
+import dev.forever.core.equipment.adapter.ForeverEquipment;
+import dev.forever.core.guide.adapter.ForeverGuide;
+import dev.forever.core.mastery.adapter.ForeverMastery;
+import dev.forever.core.settlement.adapter.ForeverSettlement;
 import dev.forever.core.storage.adapter.ForeverStorage;
 import net.fabricmc.api.ModInitializer;
 import org.slf4j.Logger;
@@ -26,8 +26,8 @@ import org.slf4j.LoggerFactory;
  *   <li>Add one line per system, and nothing else.</li>
  * </ul>
  *
- * @see dev.forever.core.mastery.ForeverMastery
- * @see dev.forever.core.settlement.ForeverSettlement
+ * @see dev.forever.core.mastery.adapter.ForeverMastery
+ * @see dev.forever.core.settlement.adapter.ForeverSettlement
  * @see dev.forever.core.storage.adapter.ForeverStorage
  * @see dev.forever.compat.matcha.ForeverMatchaCompat
  */

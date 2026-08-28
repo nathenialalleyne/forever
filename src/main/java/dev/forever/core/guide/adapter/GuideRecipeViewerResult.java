@@ -1,5 +1,6 @@
-package dev.forever.core.guide;
+package dev.forever.core.guide.adapter;
 
+import dev.forever.core.guide.domain.GuideRecipeViewerStatus;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;

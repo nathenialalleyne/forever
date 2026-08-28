@@ -1,6 +1,8 @@
-package dev.forever.core.mastery;
+package dev.forever.core.mastery.adapter;
 
 import com.mojang.serialization.DataResult;
+import dev.forever.core.mastery.domain.LoadoutChange;
+import dev.forever.core.mastery.domain.SwitchContext;
 import java.util.Objects;
 import net.minecraft.server.level.ServerPlayer;
 

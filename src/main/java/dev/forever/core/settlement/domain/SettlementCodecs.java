@@ -1,4 +1,4 @@
-package dev.forever.core.settlement;
+package dev.forever.core.settlement.domain;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
@@ -13,9 +13,9 @@ import java.util.Set;
 import java.util.UUID;
 
 /** Small codec helpers shared by the immutable settlement records. */
-final class SettlementCodecs {
+public final class SettlementCodecs {
 
-	static final Codec<UUID> UUID_CODEC = Codec.STRING.comapFlatMap(
+	public static final Codec<UUID> UUID_CODEC = Codec.STRING.comapFlatMap(
 			value -> {
 				try {
 					return DataResult.success(UUID.fromString(value));
@@ -28,7 +28,7 @@ final class SettlementCodecs {
 	private SettlementCodecs() {
 	}
 
-	static <E extends Enum<E>> Codec<E> enumCodec(Class<E> enumType) {
+	public static <E extends Enum<E>> Codec<E> enumCodec(Class<E> enumType) {
 		return Codec.STRING.comapFlatMap(
 				value -> {
 					try {
@@ -41,7 +41,7 @@ final class SettlementCodecs {
 				value -> value.name().toLowerCase(Locale.ROOT));
 	}
 
-	static <T> Codec<List<T>> boundedList(Codec<T> elementCodec, int maximum, String label) {
+	public static <T> Codec<List<T>> boundedList(Codec<T> elementCodec, int maximum, String label) {
 		return elementCodec.listOf().validate(values -> {
 			if (values.size() > maximum) {
 				return DataResult.error(() -> "Settlement " + label + " contains " + values.size()
@@ -51,7 +51,7 @@ final class SettlementCodecs {
 		});
 	}
 
-	static <K, V> Codec<Map<K, V>> boundedMap(
+	public static <K, V> Codec<Map<K, V>> boundedMap(
 			Codec<K> keyCodec, Codec<V> valueCodec, int maximum, String label) {
 		return Codec.unboundedMap(keyCodec, valueCodec).validate(values -> {
 			if (values.size() > maximum) {
@@ -62,12 +62,12 @@ final class SettlementCodecs {
 		});
 	}
 
-	static <E extends Enum<E>> Codec<Set<E>> enumSetCodec(
+	public static <E extends Enum<E>> Codec<Set<E>> enumSetCodec(
 			Class<E> enumType, int maximum, String label) {
 		return setCodec(enumCodec(enumType), maximum, label);
 	}
 
-	static <T> Codec<Set<T>> setCodec(Codec<T> elementCodec, int maximum, String label) {
+	public static <T> Codec<Set<T>> setCodec(Codec<T> elementCodec, int maximum, String label) {
 		return boundedList(elementCodec, maximum, label).comapFlatMap(
 				values -> {
 					Set<T> distinct = new LinkedHashSet<>(values);
@@ -82,7 +82,7 @@ final class SettlementCodecs {
 						.toList());
 	}
 
-	static String requiredText(String value, String field, int maximum) {
+	public static String requiredText(String value, String field, int maximum) {
 		if (value == null || value.isBlank()) {
 			throw new IllegalArgumentException("Settlement " + field + " must not be blank.");
 		}
@@ -94,7 +94,7 @@ final class SettlementCodecs {
 		return trimmed;
 	}
 
-	static <E extends Enum<E>> Set<E> copyEnumSet(Set<E> values, Class<E> enumType, String field) {
+	public static <E extends Enum<E>> Set<E> copyEnumSet(Set<E> values, Class<E> enumType, String field) {
 		if (values == null || values.isEmpty()) {
 			throw new IllegalArgumentException("Settlement " + field + " must not be empty.");
 		}

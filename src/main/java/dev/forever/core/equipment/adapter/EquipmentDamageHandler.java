@@ -1,4 +1,4 @@
-package dev.forever.core.equipment;
+package dev.forever.core.equipment.adapter;
 
 import net.fabricmc.fabric.api.item.v1.CustomDamageHandler;
 import net.minecraft.world.entity.EquipmentSlot;

@@ -1,6 +1,8 @@
-package dev.forever.core.mastery;
+package dev.forever.core.mastery.adapter;
 
 import com.mojang.serialization.DataResult;
+import dev.forever.core.mastery.domain.LoadoutRules;
+import dev.forever.core.mastery.domain.MasteryDataException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;

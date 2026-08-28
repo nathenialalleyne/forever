@@ -1,4 +1,4 @@
-package dev.forever.core.career;
+package dev.forever.core.career.domain;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
@@ -11,9 +11,9 @@ import java.util.Set;
 import java.util.UUID;
 
 /** Codec helpers local to the career records. Persistent career data is bounded at every edge. */
-final class CareerCodecs {
+public final class CareerCodecs {
 
-	static final Codec<UUID> UUID_CODEC = Codec.STRING.comapFlatMap(
+	public static final Codec<UUID> UUID_CODEC = Codec.STRING.comapFlatMap(
 			value -> {
 				try {
 					return DataResult.success(UUID.fromString(value));
@@ -26,7 +26,7 @@ final class CareerCodecs {
 	private CareerCodecs() {
 	}
 
-	static <E extends Enum<E>> Codec<E> enumCodec(Class<E> enumType) {
+	public static <E extends Enum<E>> Codec<E> enumCodec(Class<E> enumType) {
 		return Codec.STRING.comapFlatMap(
 				value -> {
 					try {
@@ -39,7 +39,7 @@ final class CareerCodecs {
 				value -> value.name().toLowerCase(Locale.ROOT));
 	}
 
-	static <T> Codec<List<T>> boundedList(Codec<T> elementCodec, int maximum, String label) {
+	public static <T> Codec<List<T>> boundedList(Codec<T> elementCodec, int maximum, String label) {
 		return elementCodec.listOf().validate(values -> {
 			if (values.size() > maximum) {
 				return DataResult.error(() -> "Career " + label + " contains " + values.size()
@@ -49,7 +49,7 @@ final class CareerCodecs {
 		});
 	}
 
-	static <T> Codec<Set<T>> boundedSet(Codec<T> elementCodec, int maximum, String label) {
+	public static <T> Codec<Set<T>> boundedSet(Codec<T> elementCodec, int maximum, String label) {
 		return boundedList(elementCodec, maximum, label).comapFlatMap(
 				values -> {
 					Set<T> distinct = new LinkedHashSet<>(values);
@@ -63,7 +63,7 @@ final class CareerCodecs {
 						.toList());
 	}
 
-	static String requiredText(String value, String field, int maximum) {
+	public static String requiredText(String value, String field, int maximum) {
 		if (value == null || value.isBlank()) {
 			throw new IllegalArgumentException("Career " + field + " must not be blank.");
 		}
@@ -74,7 +74,7 @@ final class CareerCodecs {
 		return trimmed;
 	}
 
-	static <T> Set<T> copySet(Set<T> values, String field, int maximum) {
+	public static <T> Set<T> copySet(Set<T> values, String field, int maximum) {
 		if (values == null) {
 			throw new IllegalArgumentException("Career " + field + " cannot be null.");
 		}

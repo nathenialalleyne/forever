@@ -1,8 +1,8 @@
 package dev.forever.gametest.guide;
 
-import dev.forever.core.guide.ForeverGuide;
-import dev.forever.core.guide.GuideEntry;
-import dev.forever.core.guide.GuideRegistry;
+import dev.forever.core.guide.adapter.ForeverGuide;
+import dev.forever.core.guide.adapter.GuideEntry;
+import dev.forever.core.guide.adapter.GuideRegistry;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;

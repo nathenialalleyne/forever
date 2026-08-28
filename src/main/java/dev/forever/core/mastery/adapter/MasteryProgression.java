@@ -1,5 +1,8 @@
-package dev.forever.core.mastery;
+package dev.forever.core.mastery.adapter;
 
+import dev.forever.core.mastery.domain.MasteryProgress;
+import dev.forever.core.mastery.domain.ProgressionEvidence;
+import dev.forever.core.mastery.domain.ProgressionMilestone;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;

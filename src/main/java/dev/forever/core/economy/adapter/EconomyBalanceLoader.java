@@ -1,10 +1,13 @@
-package dev.forever.core.economy;
+package dev.forever.core.economy.adapter;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.JsonOps;
+import dev.forever.core.economy.application.EconomyBalanceAccess;
+import dev.forever.core.economy.domain.EconomyBalance;
+import dev.forever.core.economy.domain.EconomyDataException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;

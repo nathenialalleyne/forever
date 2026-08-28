@@ -1,4 +1,4 @@
-package dev.forever.core.mastery;
+package dev.forever.core.mastery.adapter;
 
 /** Immutable outcome of a server-authoritative loadout request. */
 public record LoadoutSwitchResult(

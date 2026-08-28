@@ -1,4 +1,4 @@
-package dev.forever.core.mastery;
+package dev.forever.core.mastery.adapter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -7,6 +7,9 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.JsonOps;
+import dev.forever.core.mastery.domain.LoadoutChange;
+import dev.forever.core.mastery.domain.MasteryProgress;
+import dev.forever.core.mastery.domain.SwitchContext;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;

@@ -1,4 +1,4 @@
-package dev.forever.core.settlement;
+package dev.forever.core.settlement.adapter;
 
 import java.util.Objects;
 import net.minecraft.core.BlockPos;

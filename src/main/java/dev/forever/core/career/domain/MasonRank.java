@@ -1,4 +1,4 @@
-package dev.forever.core.career;
+package dev.forever.core.career.domain;
 
 import com.mojang.serialization.Codec;
 

@@ -1,5 +1,7 @@
-package dev.forever.core.settlement;
+package dev.forever.core.settlement.adapter;
 
+import dev.forever.core.settlement.domain.SettlementBalance;
+import dev.forever.core.settlement.domain.SettlementRole;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;

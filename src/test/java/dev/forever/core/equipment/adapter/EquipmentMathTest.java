@@ -1,7 +1,9 @@
-package dev.forever.core.equipment;
+package dev.forever.core.equipment.adapter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import dev.forever.core.equipment.EquipmentBalance;
+import dev.forever.core.equipment.EquipmentMath;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;

@@ -1,4 +1,4 @@
-package dev.forever.core.economy;
+package dev.forever.core.economy.adapter;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 import net.fabricmc.fabric.api.resource.v1.ResourceLoader;

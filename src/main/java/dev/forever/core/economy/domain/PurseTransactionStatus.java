@@ -1,4 +1,4 @@
-package dev.forever.core.economy;
+package dev.forever.core.economy.domain;
 
 /** Outcome categories used by the atomic purse transaction API. */
 public enum PurseTransactionStatus {

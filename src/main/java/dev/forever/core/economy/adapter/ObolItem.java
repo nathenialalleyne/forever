@@ -1,4 +1,4 @@
-package dev.forever.core.economy;
+package dev.forever.core.economy.adapter;
 
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;

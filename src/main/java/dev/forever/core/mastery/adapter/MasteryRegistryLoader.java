@@ -1,10 +1,12 @@
-package dev.forever.core.mastery;
+package dev.forever.core.mastery.adapter;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.JsonOps;
+import dev.forever.core.mastery.domain.LoadoutRules;
+import dev.forever.core.mastery.domain.MasteryDataException;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;

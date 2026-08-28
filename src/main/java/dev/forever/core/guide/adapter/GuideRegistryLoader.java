@@ -1,10 +1,11 @@
-package dev.forever.core.guide;
+package dev.forever.core.guide.adapter;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.JsonOps;
+import dev.forever.core.guide.domain.GuideDataException;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;

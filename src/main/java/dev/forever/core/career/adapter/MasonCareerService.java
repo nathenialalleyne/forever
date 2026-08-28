@@ -1,8 +1,11 @@
-package dev.forever.core.career;
+package dev.forever.core.career.adapter;
 
-import dev.forever.core.settlement.RegisteredBuilding;
-import dev.forever.core.settlement.Settlement;
-import dev.forever.core.settlement.SettlementState;
+import dev.forever.core.career.domain.CareerStatus;
+import dev.forever.core.career.domain.MasonRank;
+import dev.forever.core.career.domain.CareerLearningSource;
+import dev.forever.core.settlement.adapter.RegisteredBuilding;
+import dev.forever.core.settlement.adapter.Settlement;
+import dev.forever.core.settlement.adapter.SettlementState;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
@@ -58,7 +61,7 @@ public final class MasonCareerService {
 			return rejected(stateOf(villager), "The target settlement is not chartered.");
 		}
 		RegisteredBuilding building = settlement.building(workplaceId).orElse(null);
-		if (building == null || !building.roles().contains(dev.forever.core.settlement.SettlementRole.WORKPLACE)
+		if (building == null || !building.roles().contains(dev.forever.core.settlement.domain.SettlementRole.WORKPLACE)
 				|| !building.validation().valid()) {
 			return rejected(stateOf(villager), "The Mason workplace is missing or has not passed functional validation.");
 		}

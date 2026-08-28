@@ -1,4 +1,4 @@
-package dev.forever.core.career;
+package dev.forever.core.career.adapter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.google.gson.JsonElement;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.JsonOps;
+import dev.forever.core.career.domain.CareerStatus;
+import dev.forever.core.career.domain.MasonRank;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;

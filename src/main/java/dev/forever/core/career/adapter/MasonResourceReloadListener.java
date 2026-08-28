@@ -1,4 +1,4 @@
-package dev.forever.core.career;
+package dev.forever.core.career.adapter;
 
 import net.minecraft.server.packs.resources.SimplePreparableReloadListener;
 import net.minecraft.server.packs.resources.ResourceManager;

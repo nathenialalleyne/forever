@@ -1,4 +1,4 @@
-package dev.forever.core.economy;
+package dev.forever.core.economy.adapter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -6,6 +6,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.google.gson.JsonElement;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.JsonOps;
+import dev.forever.core.economy.application.EconomyBalanceAccess;
+import dev.forever.core.economy.domain.CoinPurseState;
+import dev.forever.core.economy.domain.EconomyBalance;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

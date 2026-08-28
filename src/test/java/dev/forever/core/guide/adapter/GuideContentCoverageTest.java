@@ -1,4 +1,4 @@
-package dev.forever.core.guide;
+package dev.forever.core.guide.adapter;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 

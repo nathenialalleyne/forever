@@ -1,5 +1,7 @@
 package dev.forever.core.equipment;
 
+import dev.forever.core.equipment.adapter.EquipmentState;
+
 /** Pure arithmetic for condition changes. */
 public final class EquipmentMath {
 

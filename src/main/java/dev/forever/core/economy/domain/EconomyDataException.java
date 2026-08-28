@@ -1,4 +1,4 @@
-package dev.forever.core.economy;
+package dev.forever.core.economy.domain;
 
 /** Failure while loading or validating economy data. */
 public final class EconomyDataException extends RuntimeException {

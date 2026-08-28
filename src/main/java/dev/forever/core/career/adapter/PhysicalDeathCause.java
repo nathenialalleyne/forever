@@ -1,5 +1,6 @@
-package dev.forever.core.career;
+package dev.forever.core.career.adapter;
 
+import dev.forever.core.career.domain.CareerCodecs;
 import com.mojang.serialization.Codec;
 import java.util.Optional;
 import net.minecraft.world.damagesource.DamageSource;

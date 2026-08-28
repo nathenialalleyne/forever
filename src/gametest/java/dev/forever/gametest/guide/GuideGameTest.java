@@ -1,10 +1,10 @@
 package dev.forever.gametest.guide;
 
-import dev.forever.core.guide.ForeverGuide;
-import dev.forever.core.guide.GuideEntry;
-import dev.forever.core.guide.GuideRegistry;
-import dev.forever.core.guide.GuideSearchQuery;
-import dev.forever.core.guide.GuideSearchResponse;
+import dev.forever.core.guide.adapter.ForeverGuide;
+import dev.forever.core.guide.adapter.GuideEntry;
+import dev.forever.core.guide.adapter.GuideRegistry;
+import dev.forever.core.guide.adapter.GuideSearchQuery;
+import dev.forever.core.guide.adapter.GuideSearchResponse;
 import net.fabricmc.fabric.api.gametest.v1.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.resources.Identifier;

@@ -1,4 +1,4 @@
-package dev.forever.core.mastery;
+package dev.forever.core.mastery.adapter;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;

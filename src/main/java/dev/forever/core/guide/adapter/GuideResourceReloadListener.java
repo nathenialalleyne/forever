@@ -1,4 +1,4 @@
-package dev.forever.core.guide;
+package dev.forever.core.guide.adapter;
 
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimplePreparableReloadListener;

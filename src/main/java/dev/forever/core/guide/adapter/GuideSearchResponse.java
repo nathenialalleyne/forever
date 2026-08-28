@@ -1,4 +1,4 @@
-package dev.forever.core.guide;
+package dev.forever.core.guide.adapter;
 
 import java.util.List;
 import java.util.Objects;

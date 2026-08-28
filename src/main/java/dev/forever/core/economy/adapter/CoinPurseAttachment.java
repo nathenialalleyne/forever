@@ -1,5 +1,6 @@
-package dev.forever.core.economy;
+package dev.forever.core.economy.adapter;
 
+import dev.forever.core.economy.domain.CoinPurseState;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentRegistry;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentType;
 import net.minecraft.resources.Identifier;

@@ -1,9 +1,11 @@
-package dev.forever.core.mastery;
+package dev.forever.core.mastery.adapter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import dev.forever.core.mastery.domain.MasteryProgress;
+import dev.forever.core.mastery.domain.SwitchContext;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;

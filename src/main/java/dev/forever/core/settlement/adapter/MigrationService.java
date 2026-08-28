@@ -1,5 +1,8 @@
-package dev.forever.core.settlement;
+package dev.forever.core.settlement.adapter;
 
+import dev.forever.core.settlement.domain.MigrationRecord;
+import dev.forever.core.settlement.domain.MigrationStatus;
+import dev.forever.core.settlement.domain.SettlementBalance;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;

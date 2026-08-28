@@ -20,7 +20,7 @@ public final class EquipmentBalanceRegistry {
 				"Forever equipment balance is not loaded. Reload server data before using equipment."));
 	}
 
-	static void install(EquipmentBalance balance) {
+	public static void install(EquipmentBalance balance) {
 		CURRENT.set(balance);
 	}
 }

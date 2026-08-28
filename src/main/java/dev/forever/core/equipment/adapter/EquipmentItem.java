@@ -1,4 +1,4 @@
-package dev.forever.core.equipment;
+package dev.forever.core.equipment.adapter;
 
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;

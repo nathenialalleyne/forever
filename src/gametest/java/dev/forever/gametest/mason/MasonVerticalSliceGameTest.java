@@ -2,31 +2,31 @@ package dev.forever.gametest.mason;
 
 import com.google.gson.JsonElement;
 import com.mojang.serialization.JsonOps;
-import dev.forever.core.career.CareerAttachment;
-import dev.forever.core.career.CareerState;
-import dev.forever.core.career.CareerStatus;
-import dev.forever.core.career.CareerTeachingResult;
-import dev.forever.core.career.CareerTeachingService;
-import dev.forever.core.career.ForeverCareer;
-import dev.forever.core.career.MasonCareerService;
-import dev.forever.core.career.MasonDataLoader;
-import dev.forever.core.career.MasonIds;
-import dev.forever.core.career.MasonRank;
-import dev.forever.core.career.MasonWorkshopService;
-import dev.forever.core.economy.CoinPurseAttachment;
-import dev.forever.core.economy.CoinPurseState;
-import dev.forever.core.economy.EconomyBalance;
-import dev.forever.core.economy.EconomyBalanceAccess;
-import dev.forever.core.economy.ForeverEconomy;
-import dev.forever.core.economy.ObolItem;
-import dev.forever.core.economy.PurseService;
-import dev.forever.core.economy.PurseTransactionResult;
-import dev.forever.core.settlement.BuildingBounds;
-import dev.forever.core.settlement.ForeverSettlement;
-import dev.forever.core.settlement.Settlement;
-import dev.forever.core.settlement.SettlementBalance;
-import dev.forever.core.settlement.SettlementCharterService;
-import dev.forever.core.settlement.SettlementState;
+import dev.forever.core.career.adapter.CareerAttachment;
+import dev.forever.core.career.adapter.CareerState;
+import dev.forever.core.career.domain.CareerStatus;
+import dev.forever.core.career.adapter.CareerTeachingResult;
+import dev.forever.core.career.adapter.CareerTeachingService;
+import dev.forever.core.career.adapter.ForeverCareer;
+import dev.forever.core.career.adapter.MasonCareerService;
+import dev.forever.core.career.adapter.MasonDataLoader;
+import dev.forever.core.career.adapter.MasonIds;
+import dev.forever.core.career.domain.MasonRank;
+import dev.forever.core.career.adapter.MasonWorkshopService;
+import dev.forever.core.economy.adapter.CoinPurseAttachment;
+import dev.forever.core.economy.domain.CoinPurseState;
+import dev.forever.core.economy.domain.EconomyBalance;
+import dev.forever.core.economy.application.EconomyBalanceAccess;
+import dev.forever.core.economy.adapter.ForeverEconomy;
+import dev.forever.core.economy.adapter.ObolItem;
+import dev.forever.core.economy.adapter.PurseService;
+import dev.forever.core.economy.domain.PurseTransactionResult;
+import dev.forever.core.settlement.adapter.BuildingBounds;
+import dev.forever.core.settlement.adapter.ForeverSettlement;
+import dev.forever.core.settlement.adapter.Settlement;
+import dev.forever.core.settlement.domain.SettlementBalance;
+import dev.forever.core.settlement.adapter.SettlementCharterService;
+import dev.forever.core.settlement.adapter.SettlementState;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
@@ -201,11 +201,11 @@ public final class MasonVerticalSliceGameTest {
 				Identifier.parse("minecraft:overworld"),
 				bounds,
 				balance,
-				dev.forever.core.settlement.SettlementWorldView.from(helper.getLevel()),
+				dev.forever.core.settlement.adapter.SettlementWorldView.from(helper.getLevel()),
 				1);
 		if (!result.accepted() || !result.validation().valid()
 				|| result.building().orElseThrow().roles().stream()
-						.noneMatch(role -> role == dev.forever.core.settlement.SettlementRole.WORKPLACE)) {
+						.noneMatch(role -> role == dev.forever.core.settlement.domain.SettlementRole.WORKPLACE)) {
 			throw helper.assertionException("Functional Mason workplace registration failed: %s", result.message());
 		}
 		helper.setBlock(new BlockPos(6, 1, 1), Blocks.STONE);

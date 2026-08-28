@@ -1,4 +1,4 @@
-package dev.forever.core.economy;
+package dev.forever.core.economy.domain;
 
 import java.util.Objects;
 

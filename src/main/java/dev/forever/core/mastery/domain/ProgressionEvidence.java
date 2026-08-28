@@ -1,4 +1,4 @@
-package dev.forever.core.mastery;
+package dev.forever.core.mastery.domain;
 
 import java.util.Locale;
 import java.util.Objects;

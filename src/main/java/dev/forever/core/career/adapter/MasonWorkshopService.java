@@ -1,14 +1,15 @@
-package dev.forever.core.career;
+package dev.forever.core.career.adapter;
 
-import dev.forever.core.settlement.BuildingBounds;
-import dev.forever.core.settlement.BuildingRegistrationService;
-import dev.forever.core.settlement.RegisteredBuilding;
-import dev.forever.core.settlement.Settlement;
-import dev.forever.core.settlement.SettlementBalance;
-import dev.forever.core.settlement.SettlementRole;
-import dev.forever.core.settlement.SettlementState;
-import dev.forever.core.settlement.SettlementWorldView;
-import dev.forever.core.settlement.ValidationResult;
+import dev.forever.core.career.domain.CareerCodecs;
+import dev.forever.core.settlement.adapter.BuildingBounds;
+import dev.forever.core.settlement.adapter.BuildingRegistrationService;
+import dev.forever.core.settlement.adapter.RegisteredBuilding;
+import dev.forever.core.settlement.adapter.Settlement;
+import dev.forever.core.settlement.domain.SettlementBalance;
+import dev.forever.core.settlement.domain.SettlementRole;
+import dev.forever.core.settlement.adapter.SettlementState;
+import dev.forever.core.settlement.adapter.SettlementWorldView;
+import dev.forever.core.settlement.domain.ValidationResult;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
@@ -107,8 +108,8 @@ public final class MasonWorkshopService {
 		Settlement settlement = state.settlement(settlementId).orElse(null);
 		if (settlement == null) {
 			ValidationResult result = ValidationResult.invalid(revision, java.util.List.of(
-					new dev.forever.core.settlement.ValidationIssue(
-							dev.forever.core.settlement.FunctionalRequirement.DECLARATION,
+					new dev.forever.core.settlement.domain.ValidationIssue(
+							dev.forever.core.settlement.domain.FunctionalRequirement.DECLARATION,
 							"The target settlement is not chartered.")));
 			return new WorkshopRegistrationResult(false, state, Optional.empty(), result,
 					result.issues().getFirst().message());
@@ -116,8 +117,8 @@ public final class MasonWorkshopService {
 		RegisteredBuilding building = settlement.building(buildingId).orElse(null);
 		if (building == null) {
 			ValidationResult result = ValidationResult.invalid(revision, java.util.List.of(
-					new dev.forever.core.settlement.ValidationIssue(
-							dev.forever.core.settlement.FunctionalRequirement.DECLARATION,
+					new dev.forever.core.settlement.domain.ValidationIssue(
+							dev.forever.core.settlement.domain.FunctionalRequirement.DECLARATION,
 							"The Mason workplace is not registered in the settlement graph.")));
 			return new WorkshopRegistrationResult(false, state, Optional.empty(), result,
 					result.issues().getFirst().message());

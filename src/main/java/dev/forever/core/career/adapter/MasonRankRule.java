@@ -1,5 +1,7 @@
-package dev.forever.core.career;
+package dev.forever.core.career.adapter;
 
+import dev.forever.core.career.domain.CareerCodecs;
+import dev.forever.core.career.domain.MasonRank;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.codecs.RecordCodecBuilder;

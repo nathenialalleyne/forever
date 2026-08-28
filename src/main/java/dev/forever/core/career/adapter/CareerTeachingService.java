@@ -1,5 +1,6 @@
-package dev.forever.core.career;
+package dev.forever.core.career.adapter;
 
+import dev.forever.core.career.domain.CareerStatus;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;

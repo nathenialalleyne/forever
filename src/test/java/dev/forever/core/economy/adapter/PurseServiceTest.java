@@ -1,9 +1,13 @@
-package dev.forever.core.economy;
+package dev.forever.core.economy.adapter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import dev.forever.core.economy.domain.CoinPurseState;
+import dev.forever.core.economy.domain.EconomyBalance;
+import dev.forever.core.economy.domain.PurseTransactionResult;
+import dev.forever.core.economy.domain.PurseTransactionStatus;
 import java.util.Random;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

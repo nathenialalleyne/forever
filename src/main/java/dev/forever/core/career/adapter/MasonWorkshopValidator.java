@@ -1,13 +1,13 @@
-package dev.forever.core.career;
+package dev.forever.core.career.adapter;
 
-import dev.forever.core.settlement.BuildingBounds;
-import dev.forever.core.settlement.FunctionalRequirement;
-import dev.forever.core.settlement.RegisteredBuilding;
-import dev.forever.core.settlement.SettlementBalance;
-import dev.forever.core.settlement.SettlementRole;
-import dev.forever.core.settlement.SettlementWorldView;
-import dev.forever.core.settlement.ValidationIssue;
-import dev.forever.core.settlement.ValidationResult;
+import dev.forever.core.settlement.adapter.BuildingBounds;
+import dev.forever.core.settlement.domain.FunctionalRequirement;
+import dev.forever.core.settlement.adapter.RegisteredBuilding;
+import dev.forever.core.settlement.domain.SettlementBalance;
+import dev.forever.core.settlement.domain.SettlementRole;
+import dev.forever.core.settlement.adapter.SettlementWorldView;
+import dev.forever.core.settlement.domain.ValidationIssue;
+import dev.forever.core.settlement.domain.ValidationResult;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;

@@ -3,9 +3,9 @@ package dev.forever.gametest.equipment;
 import static net.minecraft.world.InteractionHand.MAIN_HAND;
 
 import dev.forever.core.equipment.EquipmentOperationResult;
-import dev.forever.core.equipment.EquipmentService;
-import dev.forever.core.equipment.EquipmentState;
-import dev.forever.core.equipment.ForeverEquipment;
+import dev.forever.core.equipment.adapter.EquipmentService;
+import dev.forever.core.equipment.adapter.EquipmentState;
+import dev.forever.core.equipment.adapter.ForeverEquipment;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;

@@ -1,9 +1,11 @@
-package dev.forever.core.mastery;
+package dev.forever.core.mastery.adapter;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.forever.core.data.SchemaVersioned;
+import dev.forever.core.mastery.domain.LoadoutChange;
+import dev.forever.core.mastery.domain.MasteryProgress;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Objects;

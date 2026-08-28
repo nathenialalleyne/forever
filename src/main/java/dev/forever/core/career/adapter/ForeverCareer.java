@@ -1,4 +1,4 @@
-package dev.forever.core.career;
+package dev.forever.core.career.adapter;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;

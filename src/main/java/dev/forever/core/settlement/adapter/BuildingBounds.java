@@ -1,8 +1,9 @@
-package dev.forever.core.settlement;
+package dev.forever.core.settlement.adapter;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import dev.forever.core.settlement.domain.SettlementDataException;
 import java.util.Objects;
 import net.minecraft.core.BlockPos;
 

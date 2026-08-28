@@ -1,5 +1,7 @@
-package dev.forever.core.mastery;
+package dev.forever.core.mastery.adapter;
 
+import dev.forever.core.mastery.domain.EvidenceKind;
+import dev.forever.core.mastery.domain.ProgressionEvidence;
 import net.minecraft.resources.Identifier;
 
 /** Constructors for the bounded Prospector prototype evidence vocabulary. */

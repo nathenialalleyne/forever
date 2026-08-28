@@ -1,5 +1,6 @@
-package dev.forever.core.guide;
+package dev.forever.core.guide.adapter;
 
+import dev.forever.core.guide.domain.GuideDataException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;

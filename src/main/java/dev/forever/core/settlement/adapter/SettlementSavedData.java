@@ -1,4 +1,4 @@
-package dev.forever.core.settlement;
+package dev.forever.core.settlement.adapter;
 
 import com.mojang.serialization.Codec;
 import java.util.Objects;

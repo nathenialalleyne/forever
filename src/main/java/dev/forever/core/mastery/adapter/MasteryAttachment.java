@@ -1,4 +1,4 @@
-package dev.forever.core.mastery;
+package dev.forever.core.mastery.adapter;
 
 import net.fabricmc.fabric.api.attachment.v1.AttachmentRegistry;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentType;

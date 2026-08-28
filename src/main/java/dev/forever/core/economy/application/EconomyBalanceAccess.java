@@ -1,5 +1,6 @@
-package dev.forever.core.economy;
+package dev.forever.core.economy.application;
 
+import dev.forever.core.economy.domain.EconomyBalance;
 import java.util.Objects;
 import java.util.Optional;
 

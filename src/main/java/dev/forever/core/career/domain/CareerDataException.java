@@ -1,4 +1,4 @@
-package dev.forever.core.career;
+package dev.forever.core.career.domain;
 
 /** Failure while loading or validating server career data. */
 public final class CareerDataException extends RuntimeException {

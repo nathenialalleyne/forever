@@ -1,9 +1,11 @@
-package dev.forever.core.equipment;
+package dev.forever.core.equipment.adapter;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
 import com.mojang.serialization.JsonOps;
+import dev.forever.core.equipment.EquipmentBalance;
+import dev.forever.core.equipment.EquipmentBalanceRegistry;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;

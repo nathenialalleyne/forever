@@ -1,4 +1,4 @@
-package dev.forever.core.guide;
+package dev.forever.core.guide.domain;
 
 /**
  * Raised when a Field Guide resource cannot be decoded or violates the guide schema.

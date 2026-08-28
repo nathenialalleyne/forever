@@ -1,8 +1,11 @@
-package dev.forever.core.settlement;
+package dev.forever.core.settlement.adapter;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import dev.forever.core.settlement.domain.SettlementCodecs;
+import dev.forever.core.settlement.domain.SettlementRole;
+import dev.forever.core.settlement.domain.ValidationResult;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;

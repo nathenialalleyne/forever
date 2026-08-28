@@ -1,5 +1,6 @@
-package dev.forever.core.career;
+package dev.forever.core.career.adapter;
 
+import dev.forever.core.career.domain.CareerDataException;
 import java.util.Objects;
 
 /** Immutable snapshot of the two server data documents needed by the Mason slice. */

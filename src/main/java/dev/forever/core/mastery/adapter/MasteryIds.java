@@ -1,4 +1,4 @@
-package dev.forever.core.mastery;
+package dev.forever.core.mastery.adapter;
 
 import net.minecraft.resources.Identifier;
 

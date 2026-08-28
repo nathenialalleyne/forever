@@ -1,15 +1,15 @@
-package dev.forever.core.career;
+package dev.forever.core.career.adapter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import dev.forever.core.settlement.BuildingBounds;
-import dev.forever.core.settlement.Settlement;
-import dev.forever.core.settlement.SettlementBalance;
-import dev.forever.core.settlement.SettlementCharterService;
-import dev.forever.core.settlement.SettlementState;
-import dev.forever.core.settlement.SettlementWorldView;
+import dev.forever.core.settlement.adapter.BuildingBounds;
+import dev.forever.core.settlement.adapter.Settlement;
+import dev.forever.core.settlement.domain.SettlementBalance;
+import dev.forever.core.settlement.adapter.SettlementCharterService;
+import dev.forever.core.settlement.adapter.SettlementState;
+import dev.forever.core.settlement.adapter.SettlementWorldView;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -77,7 +77,7 @@ class MasonWorkshopTest {
 		assertTrue(result.validation().valid());
 		assertEquals(1, result.state().requireSettlement(settlement.id()).buildings().size());
 		assertTrue(result.building().orElseThrow().roles().contains(
-				dev.forever.core.settlement.SettlementRole.WORKPLACE));
+				dev.forever.core.settlement.domain.SettlementRole.WORKPLACE));
 	}
 
 	@Test

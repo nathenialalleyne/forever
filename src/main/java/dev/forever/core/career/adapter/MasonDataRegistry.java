@@ -1,4 +1,4 @@
-package dev.forever.core.career;
+package dev.forever.core.career.adapter;
 
 import java.util.Objects;
 import java.util.Optional;

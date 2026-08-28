@@ -1,4 +1,4 @@
-package dev.forever.core.guide;
+package dev.forever.core.guide.adapter;
 
 /**
  * Optional capability used by a recipe viewer to expose recipes for a validated guide entry.

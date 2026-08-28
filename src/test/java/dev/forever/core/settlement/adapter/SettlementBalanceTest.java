@@ -1,10 +1,13 @@
-package dev.forever.core.settlement;
+package dev.forever.core.settlement.adapter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.google.gson.JsonParser;
+import dev.forever.core.settlement.domain.SettlementBalance;
+import dev.forever.core.settlement.domain.SettlementDataException;
+import dev.forever.core.settlement.domain.SettlementMigrationProcedure;
 import java.util.List;
 import net.minecraft.resources.Identifier;
 import org.junit.jupiter.api.DisplayName;

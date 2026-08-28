@@ -1,4 +1,4 @@
-package dev.forever.core.equipment;
+package dev.forever.core.equipment.adapter;
 
 import dev.forever.core.ForeverIdentifiers;
 import net.fabricmc.fabric.api.item.v1.FabricItem;

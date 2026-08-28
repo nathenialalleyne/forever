@@ -1,4 +1,4 @@
-package dev.forever.core.guide;
+package dev.forever.core.guide.adapter;
 
 /**
  * Neutral recipe-viewer implementation used when no optional viewer is installed.

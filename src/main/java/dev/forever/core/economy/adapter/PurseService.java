@@ -1,5 +1,10 @@
-package dev.forever.core.economy;
+package dev.forever.core.economy.adapter;
 
+import dev.forever.core.economy.application.EconomyBalanceAccess;
+import dev.forever.core.economy.domain.CoinPurseState;
+import dev.forever.core.economy.domain.EconomyBalance;
+import dev.forever.core.economy.domain.PurseTransactionResult;
+import dev.forever.core.economy.domain.PurseTransactionStatus;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;

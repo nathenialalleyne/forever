@@ -1,4 +1,4 @@
-package dev.forever.core.mastery;
+package dev.forever.core.mastery.domain;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;

@@ -1,4 +1,4 @@
-package dev.forever.core.mastery;
+package dev.forever.core.mastery.adapter;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 import net.fabricmc.fabric.api.resource.v1.ResourceLoader;

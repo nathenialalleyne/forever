@@ -1,8 +1,10 @@
-package dev.forever.core.settlement;
+package dev.forever.core.settlement.adapter;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import dev.forever.core.settlement.domain.SettlementBalance;
+import dev.forever.core.settlement.domain.SettlementCodecs;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;

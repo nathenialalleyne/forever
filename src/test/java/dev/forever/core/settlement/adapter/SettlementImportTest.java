@@ -1,10 +1,11 @@
-package dev.forever.core.settlement;
+package dev.forever.core.settlement.adapter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import dev.forever.core.settlement.domain.SettlementRole;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;

@@ -1,4 +1,4 @@
-package dev.forever.core.guide;
+package dev.forever.core.guide.adapter;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;

@@ -1,9 +1,11 @@
-package dev.forever.core.settlement;
+package dev.forever.core.settlement.adapter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import dev.forever.core.settlement.domain.SettlementEdgeKind;
+import dev.forever.core.settlement.domain.SettlementRole;
 import java.util.Set;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

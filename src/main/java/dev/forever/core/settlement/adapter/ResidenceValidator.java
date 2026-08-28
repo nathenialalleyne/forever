@@ -1,5 +1,10 @@
-package dev.forever.core.settlement;
+package dev.forever.core.settlement.adapter;
 
+import dev.forever.core.settlement.domain.FunctionalRequirement;
+import dev.forever.core.settlement.domain.SettlementBalance;
+import dev.forever.core.settlement.domain.SettlementRole;
+import dev.forever.core.settlement.domain.ValidationIssue;
+import dev.forever.core.settlement.domain.ValidationResult;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;

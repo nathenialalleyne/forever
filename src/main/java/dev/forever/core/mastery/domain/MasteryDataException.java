@@ -1,4 +1,4 @@
-package dev.forever.core.mastery;
+package dev.forever.core.mastery.domain;
 
 /**
  * Indicates that a mastery data resource is malformed or internally inconsistent.

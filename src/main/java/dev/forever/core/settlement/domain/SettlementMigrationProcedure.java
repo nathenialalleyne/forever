@@ -1,11 +1,12 @@
-package dev.forever.core.settlement;
+package dev.forever.core.settlement.domain;
 
 import java.util.List;
 
 /**
  * Operator-facing FVR-405 procedure for the first settlement save migration.
  *
- * <p>The migration itself is pure and runs inside {@link SettlementState#CODEC}. The
+ * <p>The migration itself is pure and runs inside
+ * {@link dev.forever.core.settlement.adapter.SettlementState#CODEC}. The
  * surrounding procedure is intentionally explicit: backups and verification happen before
  * a real world is opened, and a failed or future-schema decode leaves the input untouched.
  */

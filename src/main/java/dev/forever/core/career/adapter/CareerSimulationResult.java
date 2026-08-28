@@ -1,5 +1,6 @@
-package dev.forever.core.career;
+package dev.forever.core.career.adapter;
 
+import dev.forever.core.career.domain.CareerCodecs;
 import java.util.Objects;
 
 /** Explicit result for a bounded unloaded career update. */

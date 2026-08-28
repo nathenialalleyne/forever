@@ -1,10 +1,12 @@
-package dev.forever.core.settlement;
+package dev.forever.core.settlement.adapter;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.JsonOps;
+import dev.forever.core.settlement.domain.SettlementBalance;
+import dev.forever.core.settlement.domain.SettlementDataException;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.List;

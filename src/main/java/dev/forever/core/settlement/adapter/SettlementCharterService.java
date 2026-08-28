@@ -1,5 +1,8 @@
-package dev.forever.core.settlement;
+package dev.forever.core.settlement.adapter;
 
+import dev.forever.core.settlement.domain.SettlementBalance;
+import dev.forever.core.settlement.domain.SettlementCodecs;
+import dev.forever.core.settlement.domain.SettlementDataException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;

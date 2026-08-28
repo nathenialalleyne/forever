@@ -1,4 +1,4 @@
-package dev.forever.core.equipment;
+package dev.forever.core.equipment.adapter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -7,6 +7,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.mojang.serialization.JsonOps;
+import dev.forever.core.equipment.EquipmentBalance;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
@@ -43,7 +44,13 @@ class EquipmentBalanceTest {
 				  \"workshop_repair_cost\": {\"item\": \"minecraft:iron_block\", \"count\": 1},
 				  \"reforge_cost\": {\"item\": \"minecraft:diamond\", \"count\": 1},
 				  \"craftsmanship_multipliers\": {\"0\": 1.0},
-				  \"paths\": {\"forever:prospector\": {\"translation_key\": \"equipment.path.prospector\", \"max_progress\": 1000, \"condition_multiplier\": 1.0}}
+				  \"paths\": {
+				    \"forever:prospector\": {
+				      \"translation_key\": \"equipment.path.prospector\",
+				      \"max_progress\": 1000,
+				      \"condition_multiplier\": 1.0
+				    }
+				  }
 				}
 				""");
 
