@@ -36,7 +36,9 @@ public final class StorageBalanceLoader implements SimpleSynchronousResourceRelo
 
 	@Override
 	public void onResourceManagerReload(ResourceManager resourceManager) {
-		Map<Identifier, Resource> resources = CONVERTER.listMatchingResources(resourceManager);
+		Map<Identifier, Resource> resources = CONVERTER.listMatchingResources(resourceManager).entrySet().stream()
+				.filter(entry -> entry.getKey().getNamespace().equals(BUNDLED_RESOURCE.getNamespace()))
+				.collect(java.util.stream.Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 		if (resources.size() != 1) {
 			throw reject("expected exactly one storage balance JSON under data/forever/storage, found "
 					+ resources.size() + ": " + resources.keySet());

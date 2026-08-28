@@ -9,4 +9,9 @@ record ContainerSnapshot(List<ItemStack> slots) {
 	ContainerSnapshot {
 		slots = slots.stream().map(ItemStack::copy).toList();
 	}
+
+	@Override
+	public List<ItemStack> slots() {
+		return slots.stream().map(ItemStack::copy).toList();
+	}
 }
