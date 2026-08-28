@@ -1,0 +1,16 @@
+{
+	"schemaVersion": 1,
+	"id": "forever-gametest",
+	"version": "1.0.0",
+	"name": "Forever GameTests",
+	"description": "GameTest harness for Forever. Never shipped in the production JAR.",
+	"environment": "*",
+	"entrypoints": {
+		"fabric-gametest": [
+			"dev.forever.gametest.ForeverInitializationGameTest"
+		]
+	},
+	"depends": {
+		"forever": "*"
+	}
+}

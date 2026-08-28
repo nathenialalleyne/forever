@@ -1,0 +1,16 @@
+pluginManagement {
+	repositories {
+		maven {
+			name = 'Fabric'
+			url = 'https://maven.fabricmc.net/'
+		}
+		mavenCentral()
+		gradlePluginPortal()
+	}
+}
+
+rootProject.name = 'forever'
+
+// The Matcha audit CLI is a standalone developer tool. It is deliberately NOT
+// an included build of the mod: it must never end up inside the mod JAR.
+// Build it with: cd tools/matcha-audit && ./gradlew test

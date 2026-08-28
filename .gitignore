@@ -1,0 +1,6 @@
+# Bootstrap .gitignore. The matcha-scripts agent owns the final version.
+.gradle/
+build/
+run/
+vendor/matcha/*.zip
+*.log

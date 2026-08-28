@@ -1,0 +1,26 @@
+{
+	"schemaVersion": 1,
+	"id": "forever",
+	"version": "${version}",
+	"name": "Forever",
+	"description": "A gameplay framework and curated modpack foundation for long-lived Minecraft survival worlds. Specialisation, civilisation, exploration, and infrastructure as alternative routes to abundance. Currently an architecture and audit foundation: no gameplay systems are implemented.",
+	"authors": [
+		"Forever Project"
+	],
+	"license": "LicenseRef-Forever-Proprietary",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"dev.forever.ForeverMod"
+		],
+		"client": [
+			"dev.forever.client.ForeverClient"
+		]
+	},
+	"depends": {
+		"fabricloader": ">=0.19.3",
+		"minecraft": "~26.2",
+		"java": ">=25",
+		"fabric-api": "*"
+	}
+}
