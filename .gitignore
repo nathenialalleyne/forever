@@ -39,6 +39,12 @@ vendor/matcha/*
 vendor/matcha/*.zip
 **/resourcepacks/*
 **/datapacks/*
+
+# Packwiz metadata is NOT a third-party binary. A .pw.toml records a project ID,
+# an exact version, and a hash, and it is the source of truth for the pack, so it
+# must be tracked even though it sits inside a datapacks/ or resourcepacks/ folder.
+# The archives those files point at remain ignored by the rules above.
+!pack/**/*.pw.toml
 resource-packs/
 **/resource-packs/*
 third-party/
@@ -101,3 +107,11 @@ toolchains/
 *.otf
 *.woff
 *.woff2
+
+# Modpack distribution artifacts. Built reproducibly from pack/ metadata by
+# scripts/build-pack.sh, so the artifact itself is not source and must not be
+# committed. Also avoids redistributing third-party binaries from this repository.
+dist/
+
+# Packwiz local cache
+.packwiz-cache/

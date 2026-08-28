@@ -1,0 +1,20 @@
+hash-format = "sha256"
+
+[[files]]
+file = "datapacks/matcha-flavoured.pw.toml"
+hash = "406a8714e82c116feca14517b974a0607dabf8d4671313cc150e98f1d9601a02"
+metafile = true
+
+[[files]]
+file = "defaultconfigs/global_packs.toml"
+hash = "96eefe4c9b9ed7973b66d8a01288d05c8485869b08daaf8b189e3df601ceb54b"
+
+[[files]]
+file = "mods/fabric-api.pw.toml"
+hash = "7ed424f5ce1febe2c2c0e5fc58d34858f1bbd97eabdceb9b9c6afdde4bf578df"
+metafile = true
+
+[[files]]
+file = "mods/globalpacks.pw.toml"
+hash = "40e90e4fcf96b43a76dd16f48d5fdb0b91d74dcf60fb34a39e58a5bdfb2abf72"
+metafile = true

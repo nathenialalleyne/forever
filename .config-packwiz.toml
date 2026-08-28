@@ -1,0 +1,10 @@
+# Packwiz configuration for this repository.
+#
+# datapack-folder tells packwiz where a datapack-loader mod expects datapacks to
+# live. Without it, `packwiz modrinth add` refuses any Modrinth project whose loader
+# field is "datapack", which is exactly what the official Matcha archive is.
+#
+# The value must match the folder Global Packs is configured to scan in
+# pack/defaultconfigs/global_packs.toml. Changing one without the other silently
+# stops Matcha loading, so treat them as a pair.
+datapack-folder = "datapacks"

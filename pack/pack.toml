@@ -1,0 +1,13 @@
+name = "Many Roads Home"
+author = "Many Roads Home project"
+version = "0.1.0-dev"
+pack-format = "packwiz:1.1.0"
+
+[index]
+file = "index.toml"
+hash-format = "sha256"
+hash = "fac6cceb12741ee661553932ac96cd309982539ff34aa0fe3ed859633196e70f"
+
+[versions]
+fabric = "0.19.3"
+minecraft = "26.2"

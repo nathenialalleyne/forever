@@ -1,0 +1,38 @@
+# Global Packs configuration for Many Roads Home.
+#
+# Why this file exists. The official Matcha Flavoured archive is a single zip that
+# contains BOTH assets/ and data/ with one pack.mcmeta, so it must be loaded as a
+# resource pack and as a datapack from the same file. Global Packs is currently the
+# only pack-loading utility with a verified Minecraft 26.2 Fabric release, so it is
+# what makes Matcha apply to every newly created world without the player enabling
+# it by hand.
+#
+# Placement. Packwiz writes the archive to <instance>/datapacks/Matcha_Flavoured_1_12.zip.
+# Both lists below therefore point at that same path. Global Packs resolves entries
+# relative to the instance folder.
+#
+# Load order. Global Packs treats the FIRST entry in a list as the highest priority.
+# Matcha is listed first deliberately: it is the gameplay foundation, and any Many
+# Roads Home pack that later overrides part of it must be added AFTER this entry so
+# that the override wins only where it is intended to.
+config_version = 3
+
+# Keep this false. A user-global folder outside the instance would leak pack content
+# between unrelated instances and make a test result irreproducible.
+enable_system_global_packs = false
+
+# Turn this on temporarily when verifying that Matcha is actually detected. It prints
+# pack IDs to the log, which is the evidence a lab result should quote.
+log_pack_ids = false
+
+[resourcepacks]
+required = [
+    "datapacks/Matcha_Flavoured_1_12.zip"
+]
+enable_builtin = []
+
+[datapacks]
+required = [
+    "datapacks/Matcha_Flavoured_1_12.zip"
+]
+optional = []

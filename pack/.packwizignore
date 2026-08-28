@@ -1,0 +1,14 @@
+# Files packwiz must not index or export.
+# Third-party JARs and archives are never committed; packwiz references them by URL
+# and hash, so a stray downloaded file here would be both redundant and a licensing
+# problem for redistribution.
+*.jar
+*.zip
+*.mrpack
+
+# Local runtime state that a launcher or server produces inside an instance.
+saves/
+logs/
+crash-reports/
+screenshots/
+.fabric/
