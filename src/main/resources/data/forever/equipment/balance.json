@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "max_condition": 100,
+  "field_repair_fraction": 0.25,
+  "sound_threshold": 0.75,
+  "worn_threshold": 0.25,
+  "field_repair_cost": {
+    "item": "minecraft:iron_ingot",
+    "count": 1
+  },
+  "workshop_repair_cost": {
+    "item": "minecraft:iron_block",
+    "count": 1
+  },
+  "reforge_cost": {
+    "item": "minecraft:diamond",
+    "count": 1
+  },
+  "craftsmanship_multipliers": {
+    "0": 1.0,
+    "1": 0.9,
+    "2": 0.8
+  },
+  "paths": {
+    "forever:prospector": {
+      "translation_key": "equipment.path.prospector",
+      "max_progress": 1000,
+      "condition_multiplier": 1.0
+    },
+    "forever:excavator": {
+      "translation_key": "equipment.path.excavator",
+      "max_progress": 1000,
+      "condition_multiplier": 1.1
+    },
+    "forever:delver": {
+      "translation_key": "equipment.path.delver",
+      "max_progress": 1000,
+      "condition_multiplier": 1.2
+    }
+  }
+}
