@@ -29,43 +29,21 @@ jobs:
       # Matcha is deliberately not fetched in CI. Fetching it adds a network
       # dependency, introduces licensed third-party material into the job, and makes
       # the build less deterministic. Matcha acquisition is a pinned developer step.
-      - name: Build root mod
+      # `build` runs `check`, which runs the JUnit `test` task, so this single
+      # invocation covers compilation, the client/common split, and unit tests.
+      # A separate `test` job would duplicate the same work for no extra signal.
+      #
+      # Not run in CI: `runGametest` needs a full Minecraft server and asset
+      # download, and `runClient` needs a display. Both are documented as local
+      # smoke tests in README.md and docs/development-workflow.md.
+      - name: Build root mod and run unit tests
         run: ./gradlew build --no-daemon
 
       - name: Upload root test reports on failure
         if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: root-build-test-reports
-          path: |
-            build/reports/tests/
-            build/test-results/
-          if-no-files-found: ignore
-
-  root-unit-tests:
-    name: Root unit tests
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-
-      - name: Set up Java 25
-        uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: '25'
-
-      - name: Set up Gradle
-        uses: gradle/actions/setup-gradle@v4
-
-      - name: Run root unit tests
-        run: ./gradlew test --no-daemon
-
-      - name: Upload root unit-test reports on failure
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: root-unit-test-reports
+          name: root-test-reports
           path: |
             build/reports/tests/
             build/test-results/

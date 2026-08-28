@@ -1,0 +1,602 @@
+{
+  "collection": "predicates",
+  "entries": [
+    {
+      "file": "data/main/predicate/armour_enchants/apotropaic_boots.json",
+      "id": "main:armour_enchants/apotropaic_boots",
+      "kind": "predicate",
+      "namespace": "main",
+      "observationType": "observed",
+      "parseStatus": "parsed",
+      "references": [
+        {
+          "id": "minecraft:entity_properties",
+          "jsonPath": "$.condition",
+          "key": "condition",
+          "observationType": "observed"
+        },
+        {
+          "id": "main:warding_armour",
+          "jsonPath": "$.predicate.slots.armor.feet.predicates.minecraft:enchantments[0].enchantments",
+          "key": "enchantments",
+          "observationType": "observed"
+        }
+      ]
+    },
+    {
+      "file": "data/main/predicate/armour_enchants/apotropaic_chestplate.json",
+      "id": "main:armour_enchants/apotropaic_chestplate",
+      "kind": "predicate",
+      "namespace": "main",
+      "observationType": "observed",
+      "parseStatus": "parsed",
+      "references": [
+        {
+          "id": "minecraft:entity_properties",
+          "jsonPath": "$.condition",
+          "key": "condition",
+          "observationType": "observed"
+        },
+        {
+          "id": "main:warding_armour",
+          "jsonPath": "$.predicate.slots.armor.chest.predicates.minecraft:enchantments[0].enchantments",
+          "key": "enchantments",
+          "observationType": "observed"
+        }
+      ]
+    },
+    {
+      "file": "data/main/predicate/armour_enchants/apotropaic_helmet.json",
+      "id": "main:armour_enchants/apotropaic_helmet",
+      "kind": "predicate",
+      "namespace": "main",
+      "observationType": "observed",
+      "parseStatus": "parsed",
+      "references": [
+        {
+          "id": "minecraft:entity_properties",
+          "jsonPath": "$.condition",
+          "key": "condition",
+          "observationType": "observed"
+        },
+        {
+          "id": "main:warding_armour",
+          "jsonPath": "$.predicate.slots.armor.head.predicates.minecraft:enchantments[0].enchantments",
+          "key": "enchantments",
+          "observationType": "observed"
+        }
+      ]
+    },
+    {
+      "file": "data/main/predicate/armour_enchants/apotropaic_leggings.json",
+      "id": "main:armour_enchants/apotropaic_leggings",
+      "kind": "predicate",
+      "namespace": "main",
+      "observationType": "observed",
+      "parseStatus": "parsed",
+      "references": [
+        {
+          "id": "minecraft:entity_properties",
+          "jsonPath": "$.condition",
+          "key": "condition",
+          "observationType": "observed"
+        },
+        {
+          "id": "main:warding_armour",
+          "jsonPath": "$.predicate.slots.armor.legs.predicates.minecraft:enchantments[0].enchantments",
+          "key": "enchantments",
+          "observationType": "observed"
+        }
+      ]
+    },
+    {
+      "file": "data/main/predicate/armour_enchants/divinity_boots.json",
+      "id": "main:armour_enchants/divinity_boots",
+      "kind": "predicate",
+      "namespace": "main",
+      "observationType": "observed",
+      "parseStatus": "parsed",
+      "references": [
+        {
+          "id": "minecraft:entity_properties",
+          "jsonPath": "$.condition",
+          "key": "condition",
+          "observationType": "observed"
+        },
+        {
+          "id": "main:divinity",
+          "jsonPath": "$.predicate.slots.armor.feet.predicates.minecraft:enchantments[0].enchantments",
+          "key": "enchantments",
+          "observationType": "observed"
+        }
+      ]
+    },
+    {
+      "file": "data/main/predicate/armour_enchants/divinity_chestplate.json",
+      "id": "main:armour_enchants/divinity_chestplate",
+      "kind": "predicate",
+      "namespace": "main",
+      "observationType": "observed",
+      "parseStatus": "parsed",
+      "references": [
+        {
+          "id": "minecraft:entity_properties",
+          "jsonPath": "$.condition",
+          "key": "condition",
+          "observationType": "observed"
+        },
+        {
+          "id": "main:divinity",
+          "jsonPath": "$.predicate.slots.armor.chest.predicates.minecraft:enchantments[0].enchantments",
+          "key": "enchantments",
+          "observationType": "observed"
+        }
+      ]
+    },
+    {
+      "file": "data/main/predicate/armour_enchants/divinity_helmet.json",
+      "id": "main:armour_enchants/divinity_helmet",
+      "kind": "predicate",
+      "namespace": "main",
+      "observationType": "observed",
+      "parseStatus": "parsed",
+      "references": [
+        {
+          "id": "minecraft:entity_properties",
+          "jsonPath": "$.condition",
+          "key": "condition",
+          "observationType": "observed"
+        },
+        {
+          "id": "main:divinity",
+          "jsonPath": "$.predicate.slots.armor.head.predicates.minecraft:enchantments[0].enchantments",
+          "key": "enchantments",
+          "observationType": "observed"
+        }
+      ]
+    },
+    {
+      "file": "data/main/predicate/armour_enchants/divinity_leggings.json",
+      "id": "main:armour_enchants/divinity_leggings",
+      "kind": "predicate",
+      "namespace": "main",
+      "observationType": "observed",
+      "parseStatus": "parsed",
+      "references": [
+        {
+          "id": "minecraft:entity_properties",
+          "jsonPath": "$.condition",
+          "key": "condition",
+          "observationType": "observed"
+        },
+        {
+          "id": "main:divinity",
+          "jsonPath": "$.predicate.slots.armor.legs.predicates.minecraft:enchantments[0].enchantments",
+          "key": "enchantments",
+          "observationType": "observed"
+        }
+      ]
+    },
+    {
+      "file": "data/main/predicate/armour_enchants/divinity_mainhand.json",
+      "id": "main:armour_enchants/divinity_mainhand",
+      "kind": "predicate",
+      "namespace": "main",
+      "observationType": "observed",
+      "parseStatus": "parsed",
+      "references": [
+        {
+          "id": "minecraft:entity_properties",
+          "jsonPath": "$.condition",
+          "key": "condition",
+          "observationType": "observed"
+        },
+        {
+          "id": "main:divinity",
+          "jsonPath": "$.predicate.slots.weapon.mainhand.predicates.minecraft:enchantments[0].enchantments",
+          "key": "enchantments",
+          "observationType": "observed"
+        }
+      ]
+    },
+    {
+      "file": "data/main/predicate/armour_enchants/shakudo_boots.json",
+      "id": "main:armour_enchants/shakudo_boots",
+      "kind": "predicate",
+      "namespace": "main",
+      "observationType": "observed",
+      "parseStatus": "parsed",
+      "references": [
+        {
+          "id": "minecraft:entity_properties",
+          "jsonPath": "$.condition",
+          "key": "condition",
+          "observationType": "observed"
+        },
+        {
+          "id": "main:shakudo_regen",
+          "jsonPath": "$.predicate.slots.armor.feet.predicates.minecraft:enchantments[0].enchantments",
+          "key": "enchantments",
+          "observationType": "observed"
+        }
+      ]
+    },
+    {
+      "file": "data/main/predicate/armour_enchants/shakudo_chestplate.json",
+      "id": "main:armour_enchants/shakudo_chestplate",
+      "kind": "predicate",
+      "namespace": "main",
+      "observationType": "observed",
+      "parseStatus": "parsed",
+      "references": [
+        {
+          "id": "minecraft:entity_properties",
+          "jsonPath": "$.condition",
+          "key": "condition",
+          "observationType": "observed"
+        },
+        {
+          "id": "main:shakudo_regen",
+          "jsonPath": "$.predicate.slots.armor.chest.predicates.minecraft:enchantments[0].enchantments",
+          "key": "enchantments",
+          "observationType": "observed"
+        }
+      ]
+    },
+    {
+      "file": "data/main/predicate/armour_enchants/shakudo_helmet.json",
+      "id": "main:armour_enchants/shakudo_helmet",
+      "kind": "predicate",
+      "namespace": "main",
+      "observationType": "observed",
+      "parseStatus": "parsed",
+      "references": [
+        {
+          "id": "minecraft:entity_properties",
+          "jsonPath": "$.condition",
+          "key": "condition",
+          "observationType": "observed"
+        },
+        {
+          "id": "main:shakudo_regen",
+          "jsonPath": "$.predicate.slots.armor.head.predicates.minecraft:enchantments[0].enchantments",
+          "key": "enchantments",
+          "observationType": "observed"
+        }
+      ]
+    },
+    {
+      "file": "data/main/predicate/armour_enchants/shakudo_leggings.json",
+      "id": "main:armour_enchants/shakudo_leggings",
+      "kind": "predicate",
+      "namespace": "main",
+      "observationType": "observed",
+      "parseStatus": "parsed",
+      "references": [
+        {
+          "id": "minecraft:entity_properties",
+          "jsonPath": "$.condition",
+          "key": "condition",
+          "observationType": "observed"
+        },
+        {
+          "id": "main:shakudo_regen",
+          "jsonPath": "$.predicate.slots.armor.legs.predicates.minecraft:enchantments[0].enchantments",
+          "key": "enchantments",
+          "observationType": "observed"
+        }
+      ]
+    },
+    {
+      "file": "data/main/predicate/in_the_end.json",
+      "id": "main:in_the_end",
+      "kind": "predicate",
+      "namespace": "main",
+      "observationType": "observed",
+      "parseStatus": "parsed",
+      "references": [
+        {
+          "id": "minecraft:all_of",
+          "jsonPath": "$.condition",
+          "key": "condition",
+          "observationType": "observed"
+        },
+        {
+          "id": "minecraft:entity_properties",
+          "jsonPath": "$.terms[0].condition",
+          "key": "condition",
+          "observationType": "observed"
+        },
+        {
+          "id": "minecraft:the_end",
+          "jsonPath": "$.terms[0].predicate.location.dimension",
+          "key": "dimension",
+          "observationType": "observed"
+        }
+      ]
+    },
+    {
+      "file": "data/main/predicate/in_trial_chamber.json",
+      "id": "main:in_trial_chamber",
+      "kind": "predicate",
+      "namespace": "main",
+      "observationType": "observed",
+      "parseStatus": "parsed",
+      "references": [
+        {
+          "id": "minecraft:all_of",
+          "jsonPath": "$.condition",
+          "key": "condition",
+          "observationType": "observed"
+        },
+        {
+          "id": "minecraft:entity_properties",
+          "jsonPath": "$.terms[0].condition",
+          "key": "condition",
+          "observationType": "observed"
+        },
+        {
+          "id": "minecraft:trial_chambers",
+          "jsonPath": "$.terms[0].predicate.location.structures[0]",
+          "key": "structures",
+          "observationType": "observed"
+        }
+      ]
+    },
+    {
+      "file": "data/main/predicate/in_village.json",
+      "id": "main:in_village",
+      "kind": "predicate",
+      "namespace": "main",
+      "observationType": "observed",
+      "parseStatus": "parsed",
+      "references": [
+        {
+          "id": "minecraft:all_of",
+          "jsonPath": "$.condition",
+          "key": "condition",
+          "observationType": "observed"
+        },
+        {
+          "id": "minecraft:entity_properties",
+          "jsonPath": "$.terms[0].condition",
+          "key": "condition",
+          "observationType": "observed"
+        },
+        {
+          "id": "minecraft:village_desert",
+          "jsonPath": "$.terms[0].predicate.location.structures[0]",
+          "key": "structures",
+          "observationType": "observed"
+        },
+        {
+          "id": "minecraft:village_plains",
+          "jsonPath": "$.terms[0].predicate.location.structures[1]",
+          "key": "structures",
+          "observationType": "observed"
+        },
+        {
+          "id": "minecraft:village_snowy",
+          "jsonPath": "$.terms[0].predicate.location.structures[2]",
+          "key": "structures",
+          "observationType": "observed"
+        },
+        {
+          "id": "minecraft:village_taiga",
+          "jsonPath": "$.terms[0].predicate.location.structures[3]",
+          "key": "structures",
+          "observationType": "observed"
+        },
+        {
+          "id": "minecraft:village_savanna",
+          "jsonPath": "$.terms[0].predicate.location.structures[4]",
+          "key": "structures",
+          "observationType": "observed"
+        }
+      ]
+    },
+    {
+      "file": "data/main/predicate/invalid_nether_water.json",
+      "id": "main:invalid_nether_water",
+      "kind": "predicate",
+      "namespace": "main",
+      "observationType": "observed",
+      "parseStatus": "parsed",
+      "references": [
+        {
+          "id": "minecraft:all_of",
+          "jsonPath": "$.condition",
+          "key": "condition",
+          "observationType": "observed"
+        },
+        {
+          "id": "minecraft:entity_properties",
+          "jsonPath": "$.terms[0].condition",
+          "key": "condition",
+          "observationType": "observed"
+        },
+        {
+          "id": "minecraft:the_nether",
+          "jsonPath": "$.terms[0].predicate.minecraft:location.dimension",
+          "key": "dimension",
+          "observationType": "observed"
+        }
+      ]
+    },
+    {
+      "file": "data/main/predicate/not_in_village.json",
+      "id": "main:not_in_village",
+      "kind": "predicate",
+      "namespace": "main",
+      "observationType": "observed",
+      "parseStatus": "parsed",
+      "references": [
+        {
+          "id": "minecraft:inverted",
+          "jsonPath": "$.condition",
+          "key": "condition",
+          "observationType": "observed"
+        },
+        {
+          "id": "minecraft:any_of",
+          "jsonPath": "$.term.condition",
+          "key": "condition",
+          "observationType": "observed"
+        },
+        {
+          "id": "minecraft:location_check",
+          "jsonPath": "$.term.terms[0].condition",
+          "key": "condition",
+          "observationType": "observed"
+        },
+        {
+          "id": "minecraft:village_plains",
+          "jsonPath": "$.term.terms[0].predicate.structures[0]",
+          "key": "structures",
+          "observationType": "observed"
+        },
+        {
+          "id": "minecraft:village_desert",
+          "jsonPath": "$.term.terms[0].predicate.structures[1]",
+          "key": "structures",
+          "observationType": "observed"
+        },
+        {
+          "id": "minecraft:village_savanna",
+          "jsonPath": "$.term.terms[0].predicate.structures[2]",
+          "key": "structures",
+          "observationType": "observed"
+        },
+        {
+          "id": "minecraft:village_snowy",
+          "jsonPath": "$.term.terms[0].predicate.structures[3]",
+          "key": "structures",
+          "observationType": "observed"
+        },
+        {
+          "id": "minecraft:village_taiga",
+          "jsonPath": "$.term.terms[0].predicate.structures[4]",
+          "key": "structures",
+          "observationType": "observed"
+        }
+      ]
+    },
+    {
+      "file": "data/main/predicate/sky_spawn.json",
+      "id": "main:sky_spawn",
+      "kind": "predicate",
+      "namespace": "main",
+      "observationType": "observed",
+      "parseStatus": "parsed",
+      "references": [
+        {
+          "id": "minecraft:all_of",
+          "jsonPath": "$.condition",
+          "key": "condition",
+          "observationType": "observed"
+        },
+        {
+          "id": "minecraft:entity_properties",
+          "jsonPath": "$.terms[0].condition",
+          "key": "condition",
+          "observationType": "observed"
+        }
+      ]
+    },
+    {
+      "file": "data/main/predicate/surface_spawn.json",
+      "id": "main:surface_spawn",
+      "kind": "predicate",
+      "namespace": "main",
+      "observationType": "observed",
+      "parseStatus": "parsed",
+      "references": [
+        {
+          "id": "minecraft:any_of",
+          "jsonPath": "$.condition",
+          "key": "condition",
+          "observationType": "observed"
+        },
+        {
+          "id": "minecraft:entity_properties",
+          "jsonPath": "$.terms[0].condition",
+          "key": "condition",
+          "observationType": "observed"
+        },
+        {
+          "id": "minecraft:entity_properties",
+          "jsonPath": "$.terms[1].condition",
+          "key": "condition",
+          "observationType": "observed"
+        }
+      ]
+    },
+    {
+      "file": "data/main/predicate/wearing_copper_armour.json",
+      "id": "main:wearing_copper_armour",
+      "kind": "predicate",
+      "namespace": "main",
+      "observationType": "observed",
+      "parseStatus": "parsed",
+      "references": [
+        {
+          "id": "minecraft:any_of",
+          "jsonPath": "$.condition",
+          "key": "condition",
+          "observationType": "observed"
+        },
+        {
+          "id": "minecraft:entity_properties",
+          "jsonPath": "$.terms[0].condition",
+          "key": "condition",
+          "observationType": "observed"
+        },
+        {
+          "id": "minecraft:copper_chestplate",
+          "jsonPath": "$.terms[0].predicate.minecraft:equipment.chest.items",
+          "key": "items",
+          "observationType": "observed"
+        },
+        {
+          "id": "minecraft:entity_properties",
+          "jsonPath": "$.terms[1].condition",
+          "key": "condition",
+          "observationType": "observed"
+        },
+        {
+          "id": "minecraft:copper_helmet",
+          "jsonPath": "$.terms[1].predicate.minecraft:equipment.head.items",
+          "key": "items",
+          "observationType": "observed"
+        },
+        {
+          "id": "minecraft:entity_properties",
+          "jsonPath": "$.terms[2].condition",
+          "key": "condition",
+          "observationType": "observed"
+        },
+        {
+          "id": "minecraft:copper_leggings",
+          "jsonPath": "$.terms[2].predicate.minecraft:equipment.legs.items",
+          "key": "items",
+          "observationType": "observed"
+        },
+        {
+          "id": "minecraft:entity_properties",
+          "jsonPath": "$.terms[3].condition",
+          "key": "condition",
+          "observationType": "observed"
+        },
+        {
+          "id": "minecraft:copper_boots",
+          "jsonPath": "$.terms[3].predicate.minecraft:equipment.feet.items",
+          "key": "items",
+          "observationType": "observed"
+        }
+      ]
+    }
+  ],
+  "entryCount": 21,
+  "observationType": "observed",
+  "schemaVersion": "1"
+}

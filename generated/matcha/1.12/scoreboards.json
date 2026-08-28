@@ -1,0 +1,1686 @@
+{
+  "collection": "scoreboards",
+  "entries": [
+    {
+      "definitions": [
+        {
+          "criterion": "health",
+          "file": "data/main/function/setup/scoreboard.mcfunction",
+          "line": 16,
+          "observationType": "observed",
+          "operation": "create",
+          "text": "scoreboard objectives add HealthPoints health"
+        }
+      ],
+      "objective": "HealthPoints",
+      "observationType": "observed",
+      "references": []
+    },
+    {
+      "definitions": [
+        {
+          "criterion": "dummy",
+          "file": "data/main/function/setup/scoreboard.mcfunction",
+          "line": 19,
+          "observationType": "observed",
+          "operation": "create",
+          "text": "scoreboard objectives add Hearts dummy"
+        }
+      ],
+      "objective": "Hearts",
+      "observationType": "observed",
+      "references": [
+        {
+          "line": 2,
+          "objective": "Hearts",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute as @s if score @p Hearts >= maximum_hearts Hearts run advancement revoke @p only main:mechanics/heart_container_obtained"
+        },
+        {
+          "line": 4,
+          "objective": "Hearts",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute at @p if score @p Hearts < maximum_hearts Hearts run function main:mechanic/heart_container/clear_heart_container"
+        },
+        {
+          "line": 2,
+          "objective": "Hearts",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute as @s if score @s Hearts >= maximum_hearts Hearts run scoreboard players set @s Hearts 60"
+        },
+        {
+          "line": 3,
+          "objective": "Hearts",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute as @s if score @s Hearts < minimum_hearts Hearts run scoreboard players set @s Hearts 20"
+        },
+        {
+          "line": 6,
+          "objective": "Hearts",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute as @s if score @s Hearts matches 60 run attribute @s minecraft:max_health base set 60"
+        },
+        {
+          "line": 7,
+          "objective": "Hearts",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute at @s if score @s Hearts matches 58 run attribute @s minecraft:max_health base set 58"
+        },
+        {
+          "line": 8,
+          "objective": "Hearts",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute at @s if score @s Hearts matches 56 run attribute @s minecraft:max_health base set 56"
+        },
+        {
+          "line": 9,
+          "objective": "Hearts",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute at @s if score @s Hearts matches 54 run attribute @s minecraft:max_health base set 54"
+        },
+        {
+          "line": 10,
+          "objective": "Hearts",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute at @s if score @s Hearts matches 52 run attribute @s minecraft:max_health base set 52"
+        },
+        {
+          "line": 11,
+          "objective": "Hearts",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute at @s if score @s Hearts matches 50 run attribute @s minecraft:max_health base set 50"
+        },
+        {
+          "line": 12,
+          "objective": "Hearts",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute at @s if score @s Hearts matches 48 run attribute @s minecraft:max_health base set 48"
+        },
+        {
+          "line": 13,
+          "objective": "Hearts",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute at @s if score @s Hearts matches 46 run attribute @s minecraft:max_health base set 46"
+        },
+        {
+          "line": 14,
+          "objective": "Hearts",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute at @s if score @s Hearts matches 44 run attribute @s minecraft:max_health base set 44"
+        },
+        {
+          "line": 15,
+          "objective": "Hearts",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute at @s if score @s Hearts matches 42 run attribute @s minecraft:max_health base set 42"
+        },
+        {
+          "line": 16,
+          "objective": "Hearts",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute at @s if score @s Hearts matches 40 run attribute @s minecraft:max_health base set 40"
+        },
+        {
+          "line": 17,
+          "objective": "Hearts",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute at @s if score @s Hearts matches 38 run attribute @s minecraft:max_health base set 38"
+        },
+        {
+          "line": 18,
+          "objective": "Hearts",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute at @s if score @s Hearts matches 36 run attribute @s minecraft:max_health base set 36"
+        },
+        {
+          "line": 19,
+          "objective": "Hearts",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute at @s if score @s Hearts matches 34 run attribute @s minecraft:max_health base set 34"
+        },
+        {
+          "line": 20,
+          "objective": "Hearts",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute at @s if score @s Hearts matches 32 run attribute @s minecraft:max_health base set 32"
+        },
+        {
+          "line": 21,
+          "objective": "Hearts",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute at @s if score @s Hearts matches 30 run attribute @s minecraft:max_health base set 30"
+        },
+        {
+          "line": 22,
+          "objective": "Hearts",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute at @s if score @s Hearts matches 28 run attribute @s minecraft:max_health base set 28"
+        },
+        {
+          "line": 23,
+          "objective": "Hearts",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute at @s if score @s Hearts matches 26 run attribute @s minecraft:max_health base set 26"
+        },
+        {
+          "line": 24,
+          "objective": "Hearts",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute at @s if score @s Hearts matches 24 run attribute @s minecraft:max_health base set 24"
+        },
+        {
+          "line": 25,
+          "objective": "Hearts",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute at @s if score @s Hearts matches 22 run attribute @s minecraft:max_health base set 22"
+        },
+        {
+          "line": 26,
+          "objective": "Hearts",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute at @s if score @s Hearts matches 20 run attribute @s minecraft:max_health base set 20"
+        },
+        {
+          "line": 153,
+          "objective": "Hearts",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute at @a if score @s Hearts <= minimum_hearts Hearts run scoreboard players set @s Hearts 20"
+        },
+        {
+          "line": 20,
+          "objective": "Hearts",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "players-add",
+          "text": "scoreboard players add @a Hearts 0"
+        },
+        {
+          "line": 21,
+          "objective": "Hearts",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "players-set",
+          "text": "scoreboard players set minimum_hearts Hearts 20"
+        },
+        {
+          "line": 22,
+          "objective": "Hearts",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "players-set",
+          "text": "scoreboard players set maximum_hearts Hearts 60"
+        }
+      ]
+    },
+    {
+      "definitions": [
+        {
+          "criterion": "food",
+          "file": "data/main/function/setup/scoreboard.mcfunction",
+          "line": 14,
+          "observationType": "observed",
+          "operation": "create",
+          "text": "scoreboard objectives add Hunger food"
+        }
+      ],
+      "objective": "Hunger",
+      "observationType": "observed",
+      "references": [
+        {
+          "line": 1,
+          "objective": "Hunger",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute at @a if score @p Hunger matches 10.. run effect give @p minecraft:hunger 1 255 true"
+        },
+        {
+          "line": 2,
+          "objective": "Hunger",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute at @a if score @p Hunger matches ..6 run effect give @p minecraft:saturation 1 1 true"
+        }
+      ]
+    },
+    {
+      "definitions": [
+        {
+          "criterion": "minecraft.custom:minecraft.interact_with_anvil",
+          "file": "data/main/function/setup/scoreboard.mcfunction",
+          "line": 70,
+          "observationType": "observed",
+          "operation": "create",
+          "text": "scoreboard objectives add anvil_interaction minecraft.custom:minecraft.interact_with_anvil"
+        }
+      ],
+      "objective": "anvil_interaction",
+      "observationType": "observed",
+      "references": [
+        {
+          "line": 2,
+          "objective": "anvil_interaction",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute as @s run execute if score @s anvil_interaction > 0 anvil_interaction run function main:mechanic/anvil_xp/set_xp"
+        },
+        {
+          "line": 3,
+          "objective": "anvil_interaction",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "players-set",
+          "text": "scoreboard players set @s anvil_interaction 0"
+        },
+        {
+          "line": 3,
+          "objective": "anvil_interaction",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "players-set",
+          "text": "scoreboard players set @s anvil_interaction 0"
+        },
+        {
+          "line": 71,
+          "objective": "anvil_interaction",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "players-set",
+          "text": "scoreboard players set 0 anvil_interaction 0"
+        }
+      ]
+    },
+    {
+      "definitions": [
+        {
+          "criterion": "dummy",
+          "file": "data/main/function/setup/scoreboard.mcfunction",
+          "line": 32,
+          "observationType": "observed",
+          "operation": "create",
+          "text": "scoreboard objectives add apotropaic dummy"
+        }
+      ],
+      "objective": "apotropaic",
+      "observationType": "observed",
+      "references": [
+        {
+          "line": 2,
+          "objective": "apotropaic",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "players-set",
+          "text": "scoreboard players set @a apotropaic 0"
+        },
+        {
+          "line": 10,
+          "objective": "apotropaic",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute unless stopwatch 1s ..0.9 run execute if score @s apotropaic matches 1 run function main:enchantment_effects/warding1"
+        },
+        {
+          "line": 11,
+          "objective": "apotropaic",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute unless stopwatch 1s ..0.9 run execute if score @s apotropaic matches 2 run function main:enchantment_effects/warding2"
+        },
+        {
+          "line": 12,
+          "objective": "apotropaic",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute unless stopwatch 0.5s ..0.4 run execute if score @s apotropaic matches 3 run function main:enchantment_effects/warding2"
+        },
+        {
+          "line": 13,
+          "objective": "apotropaic",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute unless stopwatch 0.5s ..0.4 run execute if score @s apotropaic matches 4 run function main:enchantment_effects/warding3"
+        },
+        {
+          "line": 14,
+          "objective": "apotropaic",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute unless stopwatch divinity30s ..29.9 run execute if score @s apotropaic matches 4 run effect give @p minecraft:absorption 30 1 true"
+        },
+        {
+          "line": 33,
+          "objective": "apotropaic",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "players-set",
+          "text": "scoreboard players set 0 apotropaic 0"
+        }
+      ]
+    },
+    {
+      "definitions": [
+        {
+          "criterion": "minecraft.custom:minecraft.boat_one_cm",
+          "file": "data/main/function/setup/scoreboard.mcfunction",
+          "line": 65,
+          "observationType": "observed",
+          "operation": "create",
+          "text": "scoreboard objectives add boating minecraft.custom:minecraft.boat_one_cm"
+        }
+      ],
+      "objective": "boating",
+      "observationType": "observed",
+      "references": []
+    },
+    {
+      "definitions": [
+        {
+          "criterion": "deathCount",
+          "file": "data/main/function/setup/scoreboard.mcfunction",
+          "line": 17,
+          "observationType": "observed",
+          "operation": "create",
+          "text": "scoreboard objectives add deaths deathCount"
+        }
+      ],
+      "objective": "deaths",
+      "observationType": "observed",
+      "references": [
+        {
+          "line": 2,
+          "objective": "deaths",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute as @a[tag=!remove_hearts] if score @s deaths >= 1 deaths run tag @s add remove_hearts"
+        },
+        {
+          "line": 18,
+          "objective": "deaths",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "players-set",
+          "text": "scoreboard players set 1 deaths 1"
+        }
+      ]
+    },
+    {
+      "definitions": [
+        {
+          "criterion": "dummy",
+          "file": "data/main/function/setup/scoreboard.mcfunction",
+          "line": 101,
+          "observationType": "observed",
+          "operation": "create",
+          "text": "scoreboard objectives add difficulty_score dummy"
+        }
+      ],
+      "objective": "difficulty_score",
+      "observationType": "observed",
+      "references": [
+        {
+          "line": 2,
+          "objective": "difficulty_score",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute if score current_world_settings_difficulty difficulty_score <= easy difficulty_score run execute at @p run effect give @p regeneration 4 4 true"
+        },
+        {
+          "line": 3,
+          "objective": "difficulty_score",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute if score current_world_settings_difficulty difficulty_score <= easy difficulty_score run execute at @p run effect give @p resistance 10 0 true"
+        },
+        {
+          "line": 5,
+          "objective": "difficulty_score",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute if score current_world_settings_difficulty difficulty_score matches 2 run execute at @p run effect give @p regeneration 2 4 true"
+        },
+        {
+          "line": 6,
+          "objective": "difficulty_score",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute if score current_world_settings_difficulty difficulty_score matches 2 run execute at @p run effect give @p resistance 5 0 true"
+        },
+        {
+          "line": 8,
+          "objective": "difficulty_score",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute if score current_world_settings_difficulty difficulty_score >= hard difficulty_score run execute at @p run effect give @p regeneration 2 4 true"
+        },
+        {
+          "line": 9,
+          "objective": "difficulty_score",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute if score current_world_settings_difficulty difficulty_score >= hard difficulty_score run execute at @p run effect give @p resistance 5 0 true"
+        },
+        {
+          "line": 4,
+          "objective": "difficulty_score",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute if score current_world_settings_difficulty difficulty_score matches 2 run tellraw @a [\"\",{\"text\":\"Game is now set to \"},{\"text\":\"Hard\",\"bold\":true,\"color\":\"red\"},{\"text\":\"\\n\"},{\"text\":\"(You can change this if you want)\",\"color\":\"gray\"}]"
+        },
+        {
+          "line": 5,
+          "objective": "difficulty_score",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute if score current_world_settings_difficulty difficulty_score matches 1 run tellraw @a [\"\",{\"text\":\"Game is now set to \"},{\"text\":\"Normal\",\"bold\":true,\"color\":\"gold\"},{\"text\":\"\\n\"},{\"text\":\"(You can change this if you want)\",\"color\":\"gray\"}]"
+        },
+        {
+          "line": 6,
+          "objective": "difficulty_score",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute if score current_world_settings_difficulty difficulty_score matches 1 run difficulty normal"
+        },
+        {
+          "line": 7,
+          "objective": "difficulty_score",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute if score current_world_settings_difficulty difficulty_score matches 2 run difficulty hard"
+        },
+        {
+          "line": 8,
+          "objective": "difficulty_score",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute store result score current_world_settings_difficulty difficulty_score run difficulty"
+        },
+        {
+          "line": 1,
+          "objective": "difficulty_score",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute if score current_world_settings_difficulty difficulty_score matches 1 run function main:mechanic/spawn_mechanic/easy_modifications"
+        },
+        {
+          "line": 2,
+          "objective": "difficulty_score",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute if score current_world_settings_difficulty difficulty_score matches 2 run function main:mechanic/spawn_mechanic/normal_modifications"
+        },
+        {
+          "line": 3,
+          "objective": "difficulty_score",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute if score current_world_settings_difficulty difficulty_score matches 3 run function main:mechanic/spawn_mechanic/hard_modifications"
+        },
+        {
+          "line": 6,
+          "objective": "difficulty_score",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute if score current_world_settings_difficulty difficulty_score matches 1 run tellraw @a [\"\",{\"text\":\"[⛏]\",\"color\":\"green\"},{\"text\":\" Your gamemode is \"},{\"text\":\"Easy\",\"bold\":true,\"color\":\"green\"},{\"text\":\". For players who want to relax. \\n\"},{\"text\":\"(You can change this in the world settings, make sure you restart the world after)\",\"color\":\"gray\"}]"
+        },
+        {
+          "line": 7,
+          "objective": "difficulty_score",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute if score current_world_settings_difficulty difficulty_score matches 2 run tellraw @a [\"\",{\"text\":\"[\\u2620]\",\"color\":\"gold\"},{\"text\":\" Your gamemode is \"},{\"text\":\"Normal\",\"bold\":true,\"color\":\"gold\"},{\"text\":\". For players who want a challenge. \\n\"},{\"text\":\"(You can change this in the world settings, make sure you restart the world after)\",\"color\":\"gray\"}]"
+        },
+        {
+          "line": 8,
+          "objective": "difficulty_score",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute if score current_world_settings_difficulty difficulty_score matches 3 run tellraw @a [\"\",{\"text\":\"[\\u2620\\u2620\\u2620]\",\"color\":\"red\"},{\"text\":\" Your gamemode is \"},{\"text\":\"Hard\",\"bold\":true,\"color\":\"red\"},{\"text\":\". For players who want an unfair challenge. \\n\"},{\"text\":\"(You can change this in the world settings, make sure you restart the world after)\",\"color\":\"gray\"}]"
+        },
+        {
+          "line": 102,
+          "objective": "difficulty_score",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "players-set",
+          "text": "scoreboard players set easy difficulty_score 1"
+        },
+        {
+          "line": 103,
+          "objective": "difficulty_score",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "players-set",
+          "text": "scoreboard players set normal difficulty_score 2"
+        },
+        {
+          "line": 104,
+          "objective": "difficulty_score",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "players-set",
+          "text": "scoreboard players set hard difficulty_score 3"
+        },
+        {
+          "line": 105,
+          "objective": "difficulty_score",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute store result score current_world_settings_difficulty difficulty_score run difficulty"
+        }
+      ]
+    },
+    {
+      "definitions": [
+        {
+          "criterion": "dummy",
+          "file": "data/main/function/setup/scoreboard.mcfunction",
+          "line": 30,
+          "observationType": "observed",
+          "operation": "create",
+          "text": "scoreboard objectives add divinity dummy"
+        }
+      ],
+      "objective": "divinity",
+      "observationType": "observed",
+      "references": [
+        {
+          "line": 2,
+          "objective": "divinity",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "players-set",
+          "text": "scoreboard players set @a divinity 0"
+        },
+        {
+          "line": 11,
+          "objective": "divinity",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute unless stopwatch divinity30s ..29.9 run execute if score @p divinity matches 1 run effect give @p minecraft:absorption 30 0 true"
+        },
+        {
+          "line": 12,
+          "objective": "divinity",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute unless stopwatch divinity30s ..29.9 run execute if score @p divinity matches 2 run effect give @p minecraft:absorption 30 1 true"
+        },
+        {
+          "line": 13,
+          "objective": "divinity",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute unless stopwatch divinity30s ..29.9 run execute if score @p divinity matches 3 run effect give @p minecraft:absorption 30 2 true"
+        },
+        {
+          "line": 14,
+          "objective": "divinity",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute unless stopwatch divinity20s ..19.9 run execute if score @p divinity matches 4 run effect give @p minecraft:absorption 20 4 true"
+        },
+        {
+          "line": 31,
+          "objective": "divinity",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "players-set",
+          "text": "scoreboard players set 0 divinity 0"
+        }
+      ]
+    },
+    {
+      "definitions": [
+        {
+          "criterion": "minecraft.custom:minecraft.eat_cake_slice",
+          "file": "data/main/function/setup/scoreboard.mcfunction",
+          "line": 67,
+          "observationType": "observed",
+          "operation": "create",
+          "text": "scoreboard objectives add eat_cake_slice minecraft.custom:minecraft.eat_cake_slice"
+        }
+      ],
+      "objective": "eat_cake_slice",
+      "observationType": "observed",
+      "references": [
+        {
+          "line": 1,
+          "objective": "eat_cake_slice",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute at @a run execute if score @p eat_cake_slice >= 1 eat_cake_slice run effect give @p minecraft:instant_health 1 0 true"
+        },
+        {
+          "line": 2,
+          "objective": "eat_cake_slice",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute at @a run execute if score @p eat_cake_slice >= 1 eat_cake_slice run effect give @p minecraft:health_boost 180 1 true"
+        },
+        {
+          "line": 3,
+          "objective": "eat_cake_slice",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute at @a run execute if score @p eat_cake_slice >= 1 eat_cake_slice run scoreboard players set @p eat_cake_slice 0"
+        },
+        {
+          "line": 68,
+          "objective": "eat_cake_slice",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "players-set",
+          "text": "scoreboard players set 1 eat_cake_slice 1"
+        }
+      ]
+    },
+    {
+      "definitions": [
+        {
+          "criterion": "dummy",
+          "file": "data/main/function/setup/scoreboard.mcfunction",
+          "line": 62,
+          "observationType": "observed",
+          "operation": "create",
+          "text": "scoreboard objectives add eerie dummy"
+        }
+      ],
+      "objective": "eerie",
+      "observationType": "observed",
+      "references": [
+        {
+          "line": 2,
+          "objective": "eerie",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "players-set",
+          "text": "scoreboard players set @p eerie 1"
+        },
+        {
+          "line": 2,
+          "objective": "eerie",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute at @a run execute if score @p eerie >= 1 eerie run execute if predicate main:not_in_village run advancement revoke @p only main:mechanics/enter_village"
+        },
+        {
+          "line": 3,
+          "objective": "eerie",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute at @a run execute if score @p eerie >= 1 eerie run execute if predicate main:not_in_village run scoreboard players set @p eerie 0"
+        },
+        {
+          "line": 6,
+          "objective": "eerie",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute at @n[type=minecraft:mannequin,tag=haunted] run execute if score @p eerie >= 1 eerie run function main:environmental/village_entity_movement"
+        },
+        {
+          "line": 8,
+          "objective": "eerie",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute at @n[type=minecraft:mannequin,tag=haunted,tag=!music_played] run execute if score @p[distance=..30,gamemode=survival] eerie >= 1 eerie run function main:environmental/play_village_jukebox"
+        },
+        {
+          "line": 14,
+          "objective": "eerie",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute at @a run execute if score @p eerie >= 1 eerie run stopsound @p music"
+        },
+        {
+          "line": 17,
+          "objective": "eerie",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute at @a run execute if score @p eerie >= 1 eerie run execute if stopwatch eerie 1..1.02 run execute if block ~ ~-.5 ~ minecraft:coarse_dirt run playsound minecraft:block.wood.step player @p ~-2 ~4 ~ 0.5"
+        },
+        {
+          "line": 18,
+          "objective": "eerie",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute at @a run execute if score @p eerie >= 1 eerie run execute if stopwatch eerie 1.25..1.27 run execute if block ~ ~-.5 ~ minecraft:coarse_dirt run playsound minecraft:block.wood.step player @p ~-1 ~4 ~ 0.5"
+        },
+        {
+          "line": 19,
+          "objective": "eerie",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute at @a run execute if score @p eerie >= 1 eerie run execute if stopwatch eerie 1.5..1.53 run execute if block ~ ~-.5 ~ minecraft:coarse_dirt run playsound minecraft:block.wood.step player @p ~ ~4 ~ 0.5"
+        },
+        {
+          "line": 20,
+          "objective": "eerie",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute at @a run execute if score @p eerie >= 1 eerie run execute if stopwatch eerie 1.75..1.78 run execute if block ~ ~-.5 ~ minecraft:coarse_dirt run playsound minecraft:block.wood.step player @p ~1 ~4 ~ 0.5"
+        },
+        {
+          "line": 22,
+          "objective": "eerie",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute at @a run execute if score @p eerie >= 1 eerie run execute if stopwatch eerie 1..1.02 run execute if block ~ ~-.5 ~ minecraft:oak_planks run playsound minecraft:block.grass.break player @p ^5 ^ ^ 1"
+        },
+        {
+          "line": 23,
+          "objective": "eerie",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute at @a run execute if score @p eerie >= 1 eerie run execute if stopwatch eerie 100..100.02 run execute if block ~ ~-.5 ~ minecraft:oak_planks run playsound minecraft:block.grass.break player @p ^5 ^ ^ 1"
+        },
+        {
+          "line": 25,
+          "objective": "eerie",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute at @a run execute if score @p eerie >= 1 eerie run execute if stopwatch eerie 1..1.02 run execute if block ~ ~-.5 ~ minecraft:oak_planks run playsound minecraft:ambient.cave ambient @p ~ ~ ~"
+        },
+        {
+          "line": 27,
+          "objective": "eerie",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute at @a run execute if score @p eerie >= 1 eerie run execute if stopwatch eerie 1..1.02 run execute if block ~ ~-.5 ~ minecraft:gravel run playsound minecraft:block.gravel.break player @p ^ ^-3 ^ 1"
+        },
+        {
+          "line": 28,
+          "objective": "eerie",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute at @a run execute if score @p eerie >= 1 eerie run execute if stopwatch eerie 100..100.02 run execute if block ~ ~-.5 ~ minecraft:gravel run playsound minecraft:block.stone.place player @p ^ ^-3 ^ 1"
+        },
+        {
+          "line": 30,
+          "objective": "eerie",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute at @a run execute if score @p eerie >= 1 eerie run execute if stopwatch eerie 1..1.02 run execute if block ~ ~-.5 ~ minecraft:suspicious_gravel run playsound minecraft:block.wooden_door.open player @p ^ ^ ^-3 1"
+        },
+        {
+          "line": 32,
+          "objective": "eerie",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute at @a run execute if score @p eerie >= 1 eerie run execute if stopwatch eerie 1..1.02 run execute if block ~ ~-.5 ~ minecraft:grass_block run playsound minecraft:block.grass.break player @p ~ ~-4 ~ 0.5"
+        },
+        {
+          "line": 33,
+          "objective": "eerie",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute at @a run execute if score @p eerie >= 1 eerie run execute if stopwatch eerie 1.25..1.27 run execute if block ~ ~-.5 ~ minecraft:grass_block run playsound minecraft:block.stone.place player @p ~3 ~-4 ~ 0.5"
+        },
+        {
+          "line": 34,
+          "objective": "eerie",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute at @a run execute if score @p eerie >= 1 eerie run execute if stopwatch eerie 1.5..1.53 run execute if block ~ ~-.5 ~ minecraft:grass_block run playsound minecraft:block.stone.place player @p ~2 ~-4 ~ 0.5"
+        },
+        {
+          "line": 35,
+          "objective": "eerie",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute at @a run execute if score @p eerie >= 1 eerie run execute if stopwatch eerie 1.75..1.78 run execute if block ~ ~-.5 ~ minecraft:grass_block run playsound minecraft:block.stone.place player @p ~1 ~-4 ~ 0.5"
+        },
+        {
+          "line": 36,
+          "objective": "eerie",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute at @a run execute if score @p eerie >= 1 eerie run execute if stopwatch eerie 1.75..1.78 run execute if block ~ ~-.5 ~ minecraft:grass_block run playsound minecraft:block.stone.place player @p ~ ~-4 ~ 0.5"
+        },
+        {
+          "line": 63,
+          "objective": "eerie",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "players-set",
+          "text": "scoreboard players set 1 eerie 1"
+        }
+      ]
+    },
+    {
+      "definitions": [
+        {
+          "criterion": "dummy",
+          "file": "data/main/function/setup/scoreboard.mcfunction",
+          "line": 92,
+          "observationType": "observed",
+          "operation": "create",
+          "text": "scoreboard objectives add gamerule_safe_surface dummy"
+        }
+      ],
+      "objective": "gamerule_safe_surface",
+      "observationType": "observed",
+      "references": [
+        {
+          "line": 3,
+          "objective": "gamerule_safe_surface",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "players-set",
+          "text": "scoreboard players set gamerule gamerule_safe_surface 1"
+        },
+        {
+          "line": 2,
+          "objective": "gamerule_safe_surface",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute if score gamerule gamerule_safe_surface matches 1 run execute as @e[type=#main:mundane_hostiles,tag=!SpawnChecked] run function main:mechanic/spawn_mechanic/safe_surface"
+        }
+      ]
+    },
+    {
+      "definitions": [
+        {
+          "criterion": "dummy",
+          "file": "data/main/function/setup/scoreboard.mcfunction",
+          "line": 94,
+          "observationType": "observed",
+          "operation": "create",
+          "text": "scoreboard objectives add motion_x1 dummy"
+        }
+      ],
+      "objective": "motion_x1",
+      "observationType": "observed",
+      "references": [
+        {
+          "line": 2,
+          "objective": "motion_x1",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute store result score @s motion_x1 run data get entity @s Pos[0] 1000"
+        }
+      ]
+    },
+    {
+      "definitions": [
+        {
+          "criterion": "dummy",
+          "file": "data/main/function/setup/scoreboard.mcfunction",
+          "line": 95,
+          "observationType": "observed",
+          "operation": "create",
+          "text": "scoreboard objectives add motion_x2 dummy"
+        }
+      ],
+      "objective": "motion_x2",
+      "observationType": "observed",
+      "references": [
+        {
+          "line": 8,
+          "objective": "motion_x2",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute store result score @s motion_x2 run data get entity @s Pos[0] 1000"
+        }
+      ]
+    },
+    {
+      "definitions": [
+        {
+          "criterion": "dummy",
+          "file": "data/main/function/setup/scoreboard.mcfunction",
+          "line": 96,
+          "observationType": "observed",
+          "operation": "create",
+          "text": "scoreboard objectives add motion_y1 dummy"
+        }
+      ],
+      "objective": "motion_y1",
+      "observationType": "observed",
+      "references": [
+        {
+          "line": 3,
+          "objective": "motion_y1",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute store result score @s motion_y1 run data get entity @s Pos[1] 1000"
+        }
+      ]
+    },
+    {
+      "definitions": [
+        {
+          "criterion": "dummy",
+          "file": "data/main/function/setup/scoreboard.mcfunction",
+          "line": 97,
+          "observationType": "observed",
+          "operation": "create",
+          "text": "scoreboard objectives add motion_y2 dummy"
+        }
+      ],
+      "objective": "motion_y2",
+      "observationType": "observed",
+      "references": [
+        {
+          "line": 9,
+          "objective": "motion_y2",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute store result score @s motion_y2 run data get entity @s Pos[1] 1000"
+        }
+      ]
+    },
+    {
+      "definitions": [
+        {
+          "criterion": "dummy",
+          "file": "data/main/function/setup/scoreboard.mcfunction",
+          "line": 98,
+          "observationType": "observed",
+          "operation": "create",
+          "text": "scoreboard objectives add motion_z1 dummy"
+        }
+      ],
+      "objective": "motion_z1",
+      "observationType": "observed",
+      "references": [
+        {
+          "line": 4,
+          "objective": "motion_z1",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute store result score @s motion_z1 run data get entity @s Pos[2] 1000"
+        }
+      ]
+    },
+    {
+      "definitions": [
+        {
+          "criterion": "dummy",
+          "file": "data/main/function/setup/scoreboard.mcfunction",
+          "line": 99,
+          "observationType": "observed",
+          "operation": "create",
+          "text": "scoreboard objectives add motion_z2 dummy"
+        }
+      ],
+      "objective": "motion_z2",
+      "observationType": "observed",
+      "references": [
+        {
+          "line": 10,
+          "objective": "motion_z2",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute store result score @s motion_z2 run data get entity @s Pos[2] 1000"
+        }
+      ]
+    },
+    {
+      "definitions": [
+        {
+          "criterion": "dummy",
+          "file": "data/main/function/setup/scoreboard.mcfunction",
+          "line": 34,
+          "observationType": "observed",
+          "operation": "create",
+          "text": "scoreboard objectives add shakudo_regen dummy"
+        }
+      ],
+      "objective": "shakudo_regen",
+      "observationType": "observed",
+      "references": [
+        {
+          "line": 2,
+          "objective": "shakudo_regen",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "players-set",
+          "text": "scoreboard players set @a shakudo_regen 0"
+        },
+        {
+          "line": 10,
+          "objective": "shakudo_regen",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute unless stopwatch shakudo_regen_1 ..29.9 run execute if score @p shakudo_regen matches 1 run effect give @p minecraft:regeneration 3 0 true"
+        },
+        {
+          "line": 11,
+          "objective": "shakudo_regen",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute unless stopwatch shakudo_regen_2 ..25.9 run execute if score @p shakudo_regen matches 2 run effect give @p minecraft:regeneration 3 0 true"
+        },
+        {
+          "line": 12,
+          "objective": "shakudo_regen",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute unless stopwatch shakudo_regen_3 ..21.9 run execute if score @p shakudo_regen matches 3 run effect give @p minecraft:regeneration 3 0 true"
+        },
+        {
+          "line": 13,
+          "objective": "shakudo_regen",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute unless stopwatch shakudo_regen_4 ..17.9 run execute if score @p shakudo_regen matches 4 run effect give @p minecraft:regeneration 3 0 true"
+        },
+        {
+          "line": 14,
+          "objective": "shakudo_regen",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute unless stopwatch shakudo_regen_5 ..19.9 run execute if score @p shakudo_regen matches 5 run effect give @p minecraft:regeneration 3 1 true"
+        },
+        {
+          "line": 15,
+          "objective": "shakudo_regen",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute unless stopwatch shakudo_regen_6 ..15.9 run execute if score @p shakudo_regen matches 6 run effect give @p minecraft:regeneration 3 1 true"
+        },
+        {
+          "line": 16,
+          "objective": "shakudo_regen",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute unless stopwatch shakudo_regen_7 ..11.9 run execute if score @p shakudo_regen matches 7 run effect give @p minecraft:regeneration 3 1 true"
+        },
+        {
+          "line": 17,
+          "objective": "shakudo_regen",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute unless stopwatch shakudo_regen_8 ..7.9 run execute if score @p shakudo_regen matches 8 run effect give @p minecraft:regeneration 3 1 true"
+        },
+        {
+          "line": 35,
+          "objective": "shakudo_regen",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "players-set",
+          "text": "scoreboard players set 0 shakudo_regen 0"
+        }
+      ]
+    },
+    {
+      "definitions": [
+        {
+          "criterion": "dummy",
+          "file": "data/main/function/setup/scoreboard.mcfunction",
+          "line": 26,
+          "observationType": "observed",
+          "operation": "create",
+          "text": "scoreboard objectives add sleepTimerScore dummy"
+        }
+      ],
+      "objective": "sleepTimerScore",
+      "observationType": "observed",
+      "references": [
+        {
+          "line": 1,
+          "objective": "sleepTimerScore",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute at @a store result score @p sleepTimerScore run data get entity @p SleepTimer"
+        },
+        {
+          "line": 2,
+          "objective": "sleepTimerScore",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute at @a run execute if score @p sleepTimerScore >= 1 sleepTimerScore unless score @p sleepTimerScore >= 100 sleepTimerScore run time add 120"
+        },
+        {
+          "line": 3,
+          "objective": "sleepTimerScore",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute at @a run execute if score @p sleepTimerScore >= 1 sleepTimerScore unless score @p sleepTimerScore >= 100 sleepTimerScore run weather clear"
+        },
+        {
+          "line": 27,
+          "objective": "sleepTimerScore",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "players-set",
+          "text": "scoreboard players set 1 sleepTimerScore 1"
+        },
+        {
+          "line": 28,
+          "objective": "sleepTimerScore",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "players-set",
+          "text": "scoreboard players set 100 sleepTimerScore 100"
+        }
+      ]
+    },
+    {
+      "definitions": [
+        {
+          "criterion": "minecraft.custom:minecraft.sneak_time",
+          "file": "data/main/function/setup/scoreboard.mcfunction",
+          "line": 1,
+          "observationType": "observed",
+          "operation": "create",
+          "text": "scoreboard objectives add sneaking minecraft.custom:minecraft.sneak_time"
+        }
+      ],
+      "objective": "sneaking",
+      "observationType": "observed",
+      "references": [
+        {
+          "line": 1,
+          "objective": "sneaking",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute if score @p sneaking matches 45 run particle minecraft:dust_plume ~ ~ ~ .5 .1 .5 .1 50"
+        },
+        {
+          "line": 2,
+          "objective": "sneaking",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute if score @p sneaking matches 45 run playsound minecraft:entity.experience_orb.pickup player @p ~ ~ ~ 0.75"
+        },
+        {
+          "line": 1,
+          "objective": "sneaking",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute if score @p sneaking > 0 sneaking run particle minecraft:gust ~ ~0.1 ~ 0.1 0 0.1 0 1"
+        },
+        {
+          "line": 2,
+          "objective": "sneaking",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute if score @p sneaking >= 45 sneaking run particle minecraft:poof ~ ~ ~ .1 .1 .1 .5 50"
+        },
+        {
+          "line": 3,
+          "objective": "sneaking",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute if score @p sneaking >= 45 sneaking run effect give @p minecraft:levitation 1 12"
+        },
+        {
+          "line": 5,
+          "objective": "sneaking",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "players-set",
+          "text": "scoreboard players set @p sneaking 0"
+        },
+        {
+          "line": 1,
+          "objective": "sneaking",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "players-set",
+          "text": "scoreboard players set @p sneaking 0"
+        },
+        {
+          "line": 2,
+          "objective": "sneaking",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "players-add",
+          "text": "scoreboard players add @a sneaking 0"
+        },
+        {
+          "line": 3,
+          "objective": "sneaking",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "players-set",
+          "text": "scoreboard players set 0 sneaking 0"
+        },
+        {
+          "line": 4,
+          "objective": "sneaking",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "players-set",
+          "text": "scoreboard players set 5 sneaking 5"
+        },
+        {
+          "line": 5,
+          "objective": "sneaking",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "players-set",
+          "text": "scoreboard players set 10 sneaking 10"
+        },
+        {
+          "line": 6,
+          "objective": "sneaking",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "players-set",
+          "text": "scoreboard players set 15 sneaking 15"
+        },
+        {
+          "line": 7,
+          "objective": "sneaking",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "players-set",
+          "text": "scoreboard players set 20 sneaking 20"
+        },
+        {
+          "line": 8,
+          "objective": "sneaking",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "players-set",
+          "text": "scoreboard players set 25 sneaking 25"
+        },
+        {
+          "line": 9,
+          "objective": "sneaking",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "players-set",
+          "text": "scoreboard players set 30 sneaking 30"
+        },
+        {
+          "line": 10,
+          "objective": "sneaking",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "players-set",
+          "text": "scoreboard players set 35 sneaking 35"
+        },
+        {
+          "line": 11,
+          "objective": "sneaking",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "players-set",
+          "text": "scoreboard players set 40 sneaking 40"
+        },
+        {
+          "line": 12,
+          "objective": "sneaking",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "players-set",
+          "text": "scoreboard players set 45 sneaking 45"
+        }
+      ]
+    },
+    {
+      "definitions": [
+        {
+          "criterion": "dummy",
+          "file": "data/main/function/setup/scoreboard.mcfunction",
+          "line": 87,
+          "observationType": "observed",
+          "operation": "create",
+          "text": "scoreboard objectives add version_number dummy"
+        }
+      ],
+      "objective": "version_number",
+      "observationType": "observed",
+      "references": [
+        {
+          "line": 156,
+          "objective": "version_number",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute if score @p version_number < current_version version_number run scoreboard players set @s version_number 112"
+        },
+        {
+          "line": 89,
+          "objective": "version_number",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "players-set",
+          "text": "scoreboard players set current_version version_number 112"
+        },
+        {
+          "line": 90,
+          "objective": "version_number",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "players-set",
+          "text": "scoreboard players set zero version_number 0"
+        },
+        {
+          "line": 12,
+          "objective": "version_number",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute at @a run execute unless score @p version_number >= zero version_number run scoreboard players set @p version_number 0"
+        },
+        {
+          "line": 15,
+          "objective": "version_number",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute if score @p version_number < current_version version_number run function main:setup/scoreboard"
+        },
+        {
+          "line": 17,
+          "objective": "version_number",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute if score @p version_number < current_version version_number run function main:setup/revoke_all_recipe_unlock_advancements"
+        }
+      ]
+    },
+    {
+      "definitions": [
+        {
+          "criterion": "dummy",
+          "file": "data/main/function/setup/scoreboard.mcfunction",
+          "line": 80,
+          "observationType": "observed",
+          "operation": "create",
+          "text": "scoreboard objectives add wandering_trader_timer_score dummy"
+        }
+      ],
+      "objective": "wandering_trader_timer_score",
+      "observationType": "observed",
+      "references": [
+        {
+          "line": 2,
+          "objective": "wandering_trader_timer_score",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute as @e[type=marker,tag=beacon_kindling,tag=!summoned_trader] run execute if score @s wandering_trader_timer_score >= 10min wandering_trader_timer_score run execute as @s run function main:mechanic/wandering_trader/summon_wandering_trader"
+        },
+        {
+          "line": 3,
+          "objective": "wandering_trader_timer_score",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute as @e[type=marker,tag=beacon_kindling,tag=summoned_trader] run execute if score @s wandering_trader_timer_score >= 15min wandering_trader_timer_score run execute as @s run function main:mechanic/wandering_trader/kill_wandering_trader"
+        },
+        {
+          "line": 14,
+          "objective": "wandering_trader_timer_score",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute as @e[type=marker,tag=beacon_kindling] run execute if score @s wandering_trader_timer_score < 15min wandering_trader_timer_score run scoreboard players add @s wandering_trader_timer_score 1"
+        },
+        {
+          "line": 17,
+          "objective": "wandering_trader_timer_score",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute as @e[type=marker,tag=beacon_kindling] run execute if score @s wandering_trader_timer_score <= 15min wandering_trader_timer_score run schedule function main:mechanic/wandering_trader/check_wandering_trader_timer_loop 10s"
+        },
+        {
+          "line": 3,
+          "objective": "wandering_trader_timer_score",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "players-add",
+          "text": "scoreboard players add @n[type=marker,tag=beacon_kindling] wandering_trader_timer_score 0"
+        },
+        {
+          "line": 7,
+          "objective": "wandering_trader_timer_score",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute as @a run execute if score @s wandering_trader_timer_score >= 0 wandering_trader_timer_score run tag @s remove SummonedTrader"
+        },
+        {
+          "line": 8,
+          "objective": "wandering_trader_timer_score",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute as @a run execute if score @s wandering_trader_timer_score >= 15min wandering_trader_timer_score run scoreboard players reset @p wandering_trader_timer_score"
+        },
+        {
+          "line": 4,
+          "objective": "wandering_trader_timer_score",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute at @a run execute if score @p wandering_trader_timer_score >= 0 wandering_trader_timer_score run tellraw @p {\"text\":\"The Wandering Trader has lost sight of your beacon...\",\"color\":\"gray\"}"
+        },
+        {
+          "line": 5,
+          "objective": "wandering_trader_timer_score",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute as @a run execute if score @s wandering_trader_timer_score >= 0 wandering_trader_timer_score run tag @s remove SummonedTrader"
+        },
+        {
+          "line": 81,
+          "objective": "wandering_trader_timer_score",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "players-reset",
+          "text": "scoreboard players reset @a wandering_trader_timer_score"
+        },
+        {
+          "line": 83,
+          "objective": "wandering_trader_timer_score",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "players-set",
+          "text": "scoreboard players set 10min wandering_trader_timer_score 60"
+        },
+        {
+          "line": 84,
+          "objective": "wandering_trader_timer_score",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "players-set",
+          "text": "scoreboard players set 15min wandering_trader_timer_score 90"
+        },
+        {
+          "line": 85,
+          "objective": "wandering_trader_timer_score",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "players-set",
+          "text": "scoreboard players set 0 wandering_trader_timer_score 0"
+        }
+      ]
+    },
+    {
+      "definitions": [
+        {
+          "criterion": "minecraft.used:minecraft.water_bucket",
+          "file": "data/main/function/setup/scoreboard.mcfunction",
+          "line": 73,
+          "observationType": "observed",
+          "operation": "create",
+          "text": "scoreboard objectives add water_bucket_used minecraft.used:minecraft.water_bucket"
+        }
+      ],
+      "objective": "water_bucket_used",
+      "observationType": "observed",
+      "references": [
+        {
+          "line": 1,
+          "objective": "water_bucket_used",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute at @a run execute if score @p water_bucket_used >= 1 water_bucket_used run execute at @p[predicate=main:invalid_nether_water] run fill ~-10 ~-10 ~-10 ~10 ~10 ~10 air replace water"
+        },
+        {
+          "line": 2,
+          "objective": "water_bucket_used",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute at @a run execute if score @p water_bucket_used >= 1 water_bucket_used run execute at @p[predicate=main:invalid_nether_water] run fill ~-2 ~-2 ~-2 ~2 ~2 ~2 air replace water"
+        },
+        {
+          "line": 3,
+          "objective": "water_bucket_used",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute at @a run execute if score @p water_bucket_used >= 1 water_bucket_used run execute at @p[predicate=main:invalid_nether_water] run fill ~-20 ~-20 ~-20 ~20 ~20 ~20 air replace water"
+        },
+        {
+          "line": 4,
+          "objective": "water_bucket_used",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "execute-score",
+          "text": "execute at @a run execute if score @p water_bucket_used >= 1 water_bucket_used run scoreboard players set @p water_bucket_used 0"
+        },
+        {
+          "line": 74,
+          "objective": "water_bucket_used",
+          "observationType": "observed",
+          "operation": "reference",
+          "referenceType": "players-set",
+          "text": "scoreboard players set 1 water_bucket_used 1"
+        }
+      ]
+    }
+  ],
+  "entryCount": 24,
+  "observationType": "observed",
+  "schemaVersion": "1"
+}

@@ -1,0 +1,200 @@
+{
+  "all": [
+    "blasting",
+    "blessings",
+    "crafting",
+    "custom_music",
+    "debug",
+    "endless_repairs",
+    "food",
+    "main",
+    "matcha",
+    "minecraft",
+    "smelting",
+    "smithing_table",
+    "smoking",
+    "stonecutting"
+  ],
+  "data": [
+    {
+      "categories": [
+        "recipes"
+      ],
+      "fileCount": 26,
+      "namespace": "blasting",
+      "observationType": "observed",
+      "side": "data"
+    },
+    {
+      "categories": [
+        "recipes"
+      ],
+      "fileCount": 23,
+      "namespace": "blessings",
+      "observationType": "observed",
+      "side": "data"
+    },
+    {
+      "categories": [
+        "recipes"
+      ],
+      "fileCount": 466,
+      "namespace": "crafting",
+      "observationType": "observed",
+      "side": "data"
+    },
+    {
+      "categories": [
+        "recipes",
+        "unknown"
+      ],
+      "fileCount": 2,
+      "namespace": "custom_music",
+      "observationType": "observed",
+      "side": "data"
+    },
+    {
+      "categories": [
+        "recipes"
+      ],
+      "fileCount": 3,
+      "namespace": "debug",
+      "observationType": "observed",
+      "side": "data"
+    },
+    {
+      "categories": [
+        "advancements",
+        "functions",
+        "unknown"
+      ],
+      "fileCount": 3,
+      "namespace": "endless_repairs",
+      "observationType": "observed",
+      "side": "data"
+    },
+    {
+      "categories": [
+        "recipes"
+      ],
+      "fileCount": 128,
+      "namespace": "food",
+      "observationType": "observed",
+      "side": "data"
+    },
+    {
+      "categories": [
+        "advancements",
+        "functions",
+        "predicates",
+        "registry-data",
+        "tags",
+        "unknown"
+      ],
+      "fileCount": 456,
+      "namespace": "main",
+      "observationType": "observed",
+      "side": "data"
+    },
+    {
+      "categories": [
+        "dimension-type",
+        "loot-tables",
+        "registry-data",
+        "structures",
+        "tags",
+        "unknown",
+        "worldgen"
+      ],
+      "fileCount": 897,
+      "namespace": "minecraft",
+      "observationType": "observed",
+      "side": "data"
+    },
+    {
+      "categories": [
+        "recipes"
+      ],
+      "fileCount": 3,
+      "namespace": "smelting",
+      "observationType": "observed",
+      "side": "data"
+    },
+    {
+      "categories": [
+        "recipes"
+      ],
+      "fileCount": 69,
+      "namespace": "smithing_table",
+      "observationType": "observed",
+      "side": "data"
+    },
+    {
+      "categories": [
+        "recipes"
+      ],
+      "fileCount": 30,
+      "namespace": "smoking",
+      "observationType": "observed",
+      "side": "data"
+    },
+    {
+      "categories": [
+        "recipes"
+      ],
+      "fileCount": 327,
+      "namespace": "stonecutting",
+      "observationType": "observed",
+      "side": "data"
+    }
+  ],
+  "observationType": "observed",
+  "referencedNamespaces": [
+    "Age",
+    "blasting",
+    "blessings",
+    "crafting",
+    "custom",
+    "endless_repairs",
+    "food",
+    "main",
+    "matcha",
+    "minecraft",
+    "minecraft.custom",
+    "minecraft.used",
+    "potions",
+    "prayers",
+    "recipes_using_water_bottles",
+    "smithing_table"
+  ],
+  "resource": [
+    {
+      "categories": [
+        "sounds"
+      ],
+      "fileCount": 2,
+      "namespace": "matcha",
+      "observationType": "observed",
+      "side": "resource"
+    },
+    {
+      "categories": [
+        "blockstates",
+        "equipment",
+        "fonts",
+        "item-definitions",
+        "language",
+        "models",
+        "particles",
+        "sounds",
+        "textures",
+        "unknown"
+      ],
+      "fileCount": 2752,
+      "namespace": "minecraft",
+      "observationType": "observed",
+      "side": "resource"
+    }
+  ],
+  "schemaVersion": "1"
+}
