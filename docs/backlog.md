@@ -305,6 +305,7 @@ These are investigation and integration spikes. They establish whether the selec
 ### INFO-02: Normalise onboarding, guidebooks, and advancement noise [Planned]
 
 - **Objective:** Apply the LAB-01 findings so that starter books, advancements, recipe viewers, and contextual overlays form one understandable onboarding flow.
+- **LAB-01 evidence (read before starting):** LAB-01 measured the onboarding surfaces and proposed **changing nothing**. Matcha ships no starter book to reconcile, and it already silences the 141 recipe-unlock advancements, leaving 69 toasts and 3 tabs across 243. No entry was classified as redundant notification, and the 59 `tutorial` plus 20 `mechanics` entries carry required instruction. REI and Jade are the adopted surfaces; JEI was rejected as beta-only and as a second viewer. Treat suppression work as unjustified unless new evidence contradicts this.
 - **Dependencies:** INFO-01, PACK-01, LAB-01, and ADRs 0028 and 0029.
 - **Authoritative sources to inspect:** LAB-01, `docs/systems/matcha.md`, `docs/systems/projects.md`, `docs/design-principles.md`, ADRs 0002, 0028, and 0029, and each selected upstream configuration guide.
 - **Existing-mod candidates:** Patchouli or Modonomicon, FTB Quests, Better Advancements, Advancement Plaques, EMI, REI, JEI, and Jade.
@@ -324,6 +325,7 @@ These are investigation and integration spikes. They establish whether the selec
 ### BUILD-01: Configure the ordinary building and gathering stack [Planned]
 
 - **Objective:** Ship the selected placement, excavation, tree, and gathering conveniences with normal Minecraft building always available.
+- **LAB-03/LAB-04 evidence (read before starting):** The placement stack is already selected. LAB-03 validated **Effortless Building** and LAB-04 validated **Litematica + MaLiLib**, both PILOT on server-side evidence with client and multiplayer verification still outstanding. LAB-04 **rejected Simple Blueprints** because it gates placement behind a creative-only `setblock` path unusable in survival, and held **AutoBuild** at NEEDS_MORE_EVIDENCE because it can overreach into printing and has unresolved licence, claim, permission, reach, and durability questions. Neither pilot is in `pack/` yet.
 - **Dependencies:** PACK-01, LAB-03, INFO-01, and ADRs 0024, 0026, and 0032.
 - **Authoritative sources to inspect:** LAB-03, `docs/design-principles.md`, `docs/systems/mastery.md`, `docs/systems/equipment.md`, `docs/systems/projects.md`, ADRs 0005, 0006, 0024, 0026, and 0032.
 - **Existing-mod candidates:** The LAB-03 recommendation, including Effortless Building, Building Wands, WorldEdit, FTB Ultimine, Veinminer, and FallingTree where they pass the baseline.
@@ -360,6 +362,7 @@ These are investigation and integration spikes. They establish whether the selec
 ### FOOD-01: Integrate cooking, traits, alchemy, and preservation [Planned]
 
 - **Objective:** Deliver readable food and preparation choices using existing mods and data before considering a custom trait bridge.
+- **LAB-05 evidence (read before starting):** LAB-05 concluded **adopt nothing**. Matcha already owns food, hunger, healing, and food effects, so adding a food mod would contest an owner the pack already has. This ticket is therefore data and presentation work over Matcha's existing vocabulary, not a mod-selection exercise. A candidate that overlaps Matcha's ownership should be rejected on that basis alone.
 - **Dependencies:** BUILD-02, INFO-01, LAB-05, LAB-06, storage and economy plans, and the food specification.
 - **Authoritative sources to inspect:** `docs/systems/food-and-alchemy.md`, `docs/systems/storage.md`, `docs/systems/economy.md`, `docs/systems/mastery.md`, ADRs 0014, 0024, 0026, and 0029.
 - **Existing-mod candidates:** The LAB-05 recommendation, including Farmer's Delight, Croptopia, Cooking for Blockheads, Brewin' and Chewin', Create processing, and a stable alchemy provider.
@@ -377,6 +380,7 @@ These are investigation and integration spikes. They establish whether the selec
 ### FOOD-02: Integrate seasons and climate mitigation [Planned]
 
 - **Objective:** Add a modest, predictable climate layer through the selected provider and fallback, with greenhouse, preservation, trade, and import as alternatives.
+- **LAB-06 evidence (read before starting):** No climate provider is adopted and nothing was added to `pack/`. ADR 0014 stands: depend on the **abstraction**, never a provider. **Homeostatic Seasons** `1bSif4Rz` is the pilot target because it boots beside Matcha and leaves the recipe and advancement baseline unchanged; **Serene Seasons** is deferred (beta 26.2, All Rights Reserved, beta GlitchCore dependency). Critically, provider removal is **not** a cosmetic toggle: a custom game rule can persist as an unknown registry key after the jar is gone, and some providers leave calendar or meltable state in the save. Crop suitability, unknown crops, and greenhouse mitigation remain unanswered and interact with Matcha's food ownership from LAB-05.
 - **Dependencies:** FOOD-01, LAB-06, INFO-01, and the transportation and exploration specifications.
 - **Authoritative sources to inspect:** `docs/systems/seasons-and-weather.md`, `docs/systems/food-and-alchemy.md`, `docs/systems/transportation.md`, `docs/systems/settlements.md`, ADR 0014, and the LAB-06 report.
 - **Existing-mod candidates:** Serene Seasons, vanilla weather, greenhouse or crop-support mods, and the climate provider selected by LAB-06.
@@ -396,6 +400,7 @@ These are investigation and integration spikes. They establish whether the selec
 ### STORAGE-01: Deliver physical local storage and search [Planned]
 
 - **Objective:** Provide a bounded local search and personal cache experience using the selected storage stack while keeping physical inventories authoritative.
+- **LAB-07 evidence (read before starting):** LAB-07 **overturned the code inventory's only REPLACE classification**. No surveyed storage mod indexes containers server-authoritatively without either granting wireless access or losing data, so the assumption that an existing stack could simply be adopted here did not survive testing. Re-read the LAB-07 report before selecting any candidate, and treat 'the existing stack' in the gate below as unproven rather than chosen.
 - **Dependencies:** FOOD-01, PACK-01, LAB-07, INFO-01, and the storage specification.
 - **Authoritative sources to inspect:** `docs/systems/storage.md`, `docs/systems/logistics.md`, `docs/world-save-safety.md`, ADRs 0011, 0012, 0024, and 0026, and the LAB-07 report.
 - **Existing-mod candidates:** The LAB-07 recommendation, including Tom's Simple Storage, Simple Storage Network, Sophisticated Storage, Functional Storage, Storage Drawers, and vanilla containers.
@@ -576,6 +581,7 @@ These are investigation and integration spikes. They establish whether the selec
 ### BLUE-01: Deliver optional blueprint workflows [Planned]
 
 - **Objective:** Make blueprint preview, material planning, and player-authored sharing useful without making a blueprint part of ordinary building permission.
+- **LAB-04 evidence (read before starting):** LAB-04 selected **Litematica + MaLiLib** as PILOT for the Ghost Plan level: it supports `.litematic` and `.schem`, previews, and material lists, so the custom-code gate below is firmly closed on rendering and file format. **Simple Blueprints was rejected** for gating placement behind a creative-only `setblock` path, and **AutoBuild** is NEEDS_MORE_EVIDENCE because it can overreach into printing, which is this ticket's explicit non-goal. PILOT means server-side evidence passed; client and multiplayer verification is outstanding and nothing is in `pack/` yet.
 - **Dependencies:** SETTLE-01, BUILD-01, INFO-01, LAB-04, ADR 0032, and the projects specification.
 - **Authoritative sources to inspect:** `docs/systems/projects.md`, `docs/systems/settlements.md`, `docs/design-principles.md`, ADRs 0009, 0026, and 0032, and the LAB-04 report.
 - **Existing-mod candidates:** Litematica, Axiom, WorldEdit, Structurize, and the candidate selected by LAB-04.
@@ -612,6 +618,7 @@ These are investigation and integration spikes. They establish whether the selec
 ### ECON-01: Deliver physical currency, shops, and contracts [Planned]
 
 - **Objective:** Provide an exchange layer with physical and compact currency, free player pricing, bounded NPC willingness, and contracts that represent real goods.
+- **LAB-05/LAB-07 evidence (read before starting):** LAB-05 established that Matcha owns food, hunger, healing, and food effects, which bounds what an exchange layer may re-price or re-effect. LAB-07 overturned the only REPLACE classification: no surveyed storage mod indexes containers server-authoritatively without wireless access or data loss, so contracts and shops cannot assume an existing indexed-warehouse substrate. Physical conservation must be designed against real containers.
 - **Dependencies:** STORAGE-01, LOGISTICS-01, SETTLE-01, FOOD-01, PROG-01, INFO-01, LAB-05, LAB-07, and the economy specification.
 - **Authoritative sources to inspect:** `docs/systems/economy.md`, `docs/systems/storage.md`, `docs/systems/logistics.md`, `docs/systems/settlements.md`, ADR 0008, ADR 0017, and the LAB reports for storage, food, and transport.
 - **Existing-mod candidates:** Numismatic Overhaul, Lightman's Currency, player-shop providers, villager market providers, Create trading features, and vanilla trading where compatible.
