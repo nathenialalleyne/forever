@@ -106,3 +106,12 @@ S. Private for now; keep original code separate from Matcha-derived material and
 ## Style
 - Use British-neutral clear English. Avoid em dashes. Avoid semicolons used as em dashes.
 - Markdown headings, tables, and short paragraphs. Concrete over abstract.
+
+## Owned by the human maintainer: do not delete
+
+- `art/` (editable art sources), `src/assetTools/` (asset validator),
+  `src/client/resources/assets/forever/` (exported production assets), and the
+  `validateAssets` Gradle task are **deliberate, committed project infrastructure**
+  added by the maintainer under FVR-A001.
+- Run `./gradlew validateAssets` before committing any texture change.
+- Do not remove them, and do not treat them as stray scope creep.
