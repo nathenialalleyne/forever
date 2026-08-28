@@ -39,6 +39,31 @@ import com.tngtech.archunit.junit.ArchTest;
 		importOptions = {ImportOption.DoNotIncludeTests.class, ImportOption.DoNotIncludeArchives.class})
 class ArchitectureRulesTest {
 
+	/*
+	 * PROVEN TO BITE, not merely observed to pass.
+	 *
+	 * A rule that has only ever been seen green proves nothing: it may be matching no
+	 * classes, or asserting something trivially true. This suite has twice shipped a
+	 * check that could not fail, so each rule below was verified by writing a
+	 * deliberately violating class, watching the named rule FAIL, then deleting it.
+	 *
+	 *   DOMAIN_MUST_NOT_DEPEND_ON_MINECRAFT        domain class importing ItemStack
+	 *   DOMAIN_MUST_NOT_DEPEND_ON_OUTER_LAYERS     domain class importing an adapter type
+	 *   APPLICATION_MUST_NOT_DEPEND_ON_ADAPTER     application class importing WarehouseController
+	 *   MATCHA_INTERNALS_MUST_NOT_LEAK_OUTSIDE_ADAPTER  core class importing MatchaServerEvidence
+	 *   PRODUCTION_CODE_MUST_AVOID_FORBIDDEN_JAVA_HYGIENE  production class calling System.out
+	 *
+	 * Worth recording from that exercise: most Matcha internals are package-private, so
+	 * the COMPILER rejects a leak before ArchUnit sees it. The rule still earns its place
+	 * because it catches the types that must be public.
+	 *
+	 * Not yet proven by injection, and honest about it:
+	 *   CORE_FEATURE_SLICES_MUST_BE_FREE_OF_CYCLES     needs a two-feature cycle to trigger
+	 *   COMMON_CODE_MUST_NOT_DEPEND_ON_CLIENT_MINECRAFT  needs a common class importing a
+	 *                                                    client-only Minecraft type
+	 *   ADAPTER_CLASSES_SHOULD_ACTUALLY_TOUCH_MINECRAFT  advisory only, reports and passes
+	 */
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(ArchitectureRulesTest.class);
 	private static final JavaClasses CLASSES = new ClassFileImporter()
 			.withImportOption(ImportOption.Predefined.DO_NOT_INCLUDE_TESTS)
