@@ -97,6 +97,40 @@ prints each source-to-destination path. It creates only the requested resource-p
 and `datapacks` directories. It never touches a real survival world path, and it
 never installs to a world unless the path is explicitly supplied.
 
+## Client smoke check
+
+```sh
+./scripts/client-smoke.sh
+```
+
+The PowerShell equivalent is:
+
+```powershell
+pwsh -File .\scripts\client-smoke.ps1
+```
+
+Launches the development client, confirms it reaches a rendering main menu, and stops
+it. The client never exits on its own, so the script always runs it under a timeout and
+always kills any surviving process: a stray client would hold the display and corrupt a
+later run's evidence.
+
+It checks four things: a graphics backend was initialised, at least five texture atlases
+were stitched, the companion mod logged client initialisation, and nothing was logged
+beyond the known environment gaps. Atlas stitching happens late in startup and only when
+rendering genuinely works, which makes it a stronger signal than any single log line.
+
+Override the defaults with `CLIENT_SMOKE_TIMEOUT` and `CLIENT_SMOKE_LOG`.
+
+This script exists because the client half of several decisions was previously deferred
+on the untested belief that no client could run on a build host. That belief was false;
+see `docs/testing/client-environment.md`. Making the check runnable stops the false
+constraint returning quietly.
+
+When no display is available the script **skips** and exits successfully, because a
+missing display is a property of the machine rather than a defect in the pack. It
+verifies that the client renders, not that it looks correct: visual judgement, sound,
+narration, and multiplayer still need a human, per `docs/testing/client-verification.md`.
+
 ## Licensing boundary
 
 Matcha is a separate third-party project under `CC-BY-NC-SA-4.0`. The original
