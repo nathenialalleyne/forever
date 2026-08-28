@@ -1,0 +1,33 @@
+# LAB-11 manifest: adventure rewards and capability gates
+
+[baseline]
+minecraft = "26.2"
+fabric_loader = "0.19.3"
+fabric_api_project_id = "P7dR8mSH"
+fabric_api_version_id = "NqwNSxwA"
+fabric_api_file = "fabric-api-0.158.0+26.2.jar"
+global_packs_project_id = "NRLPy2mk"
+global_packs_version_id = "DqrPrUMp"
+global_packs_file = "globalpacks-fabric-26.2-26.2.0.jar"
+matcha_project_id = "QI0EmgZ1"
+matcha_version_id = "E9rngRfK"
+matcha_file = "Matcha_Flavoured_1_12.zip"
+
+[not_added]
+reason = "No candidate was added to the primary pack. LAB-01 found no advancement-noise problem, LAB-10 adopted no structure provider, and this spike found no essential capability needing a quest, plaque, or second guidebook."
+
+[not_tested]
+ftb_quests = "The canonical FTB Quests project was not verifiable as a real 26.2 Fabric release through the Modrinth API on 2026-08-28. No substitute or similarly named addon was used."
+better_advancements = "A real 26.2 Fabric release was verified, but it is beta and client-only, so it was not used as a core dependency or lab install. Project Q2OqKxDG, version 8xsHNtMk, file BetterAdvancements-Fabric-26.2-0.6.0.72.jar."
+advancement_plaques = "A real 26.2 Fabric release was verified, but this client-only presentation mod duplicates the advancement notification surface and does not solve a measured pack problem. It was not installed. Project 9NM0dXub, version EULg1tpY, file AdvancementPlaques-26.2-fabric-1.7.2.jar."
+patchouli = "The official project has no 26.2 release. Its newest observed Fabric release is beta for 26.1.2, version AveV4Tjn, file patchouli-fabric-26.1-94.jar. No substitute was used."
+
+[sources]
+modrinth_projects = [
+  "https://api.modrinth.com/v2/project/better-advancements",
+  "https://api.modrinth.com/v2/project/advancement-plaques",
+  "https://api.modrinth.com/v2/project/patchouli",
+  "https://api.modrinth.com/v2/project/Q2OqKxDG/version",
+  "https://api.modrinth.com/v2/project/9NM0dXub/version",
+  "https://api.modrinth.com/v2/project/nU0bVIaL/version"
+]

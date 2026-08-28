@@ -13,7 +13,17 @@ Matcha Flavoured 1.12 is the selected official starting substrate under [ADR 000
 
 A modpack also needs an explicit runtime loader. Among the three named candidates checked for this baseline, Global Packs has a real Fabric release for Minecraft 26.2: version `26.2.0`, ID `DqrPrUMp`, file `globalpacks-fabric-26.2-26.2.0.jar`, with project evidence at [its Modrinth project](https://api.modrinth.com/v2/project/NRLPy2mk). Its configuration file is `global_packs.toml`, it distinguishes builtin data packs from resource packs, and its documented load order makes the first configured entry win. Paxi's latest supported game version stops at 26.1.2 according to [its Modrinth project](https://api.modrinth.com/v2/project/CU0PAyzb). OpenLoader's latest supported game version stops at 1.21.1 according to [its Modrinth project](https://api.modrinth.com/v2/project/KwWsINvD). Global Packs is currently the only named candidate with a real Fabric 26.2 release.
 
-Global Packs is marked LicenseRef-All-Rights-Reserved. That is a genuine consideration for a redistributed pack, not a detail to hide. Private development use does not automatically grant redistribution permission, and the loader's licence may become a release blocker even if its technical behaviour is suitable. The pack must not make a public distribution promise until that licence and the licences of the Matcha archive and every other input have been reviewed.
+Global Packs is marked LicenseRef-All-Rights-Reserved. That is a genuine consideration for a redistributed pack, not a detail to hide.
+
+**Update, 2026-08-28 (LAB-LICENCE).** Two further facts were verified directly against the
+Modrinth API rather than assumed. The All-Rights-Reserved marking is confirmed on both the
+project and the exact pinned JAR. The project's declared source URL,
+`https://github.com/DarkRoleplay/Global-Data-and-Resourcepacks`, now returns **404**, so the
+source is not publicly inspectable and the project text warns against copies outside the
+official platforms. This does not change the technical adoption, which remains sound, but it
+raises the release risk: a redistributable pack must obtain explicit permission or replace
+this loader. Redistribution rights must never be inferred from a URL and hash pin. Full
+analysis in `labs/results/LAB-LICENCE-publication-readiness.md`. Private development use does not automatically grant redistribution permission, and the loader's licence may become a release blocker even if its technical behaviour is suitable. The pack must not make a public distribution promise until that licence and the licences of the Matcha archive and every other input have been reviewed.
 
 ## Decision
 
