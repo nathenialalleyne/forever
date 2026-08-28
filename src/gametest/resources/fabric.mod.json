@@ -10,6 +10,7 @@
 			"dev.forever.gametest.ForeverInitializationGameTest",
 			"dev.forever.gametest.equipment.EquipmentGameTest",
 			"dev.forever.gametest.guide.GuideGameTest",
+			"dev.forever.gametest.guide.GuideTranslationGameTest",
 			"dev.forever.gametest.mason.MasonVerticalSliceGameTest",
 			"dev.forever.gametest.mastery.MasteryPersistenceGameTest",
 			"dev.forever.gametest.settlement.SettlementPersistenceGameTest",

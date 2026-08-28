@@ -33,10 +33,20 @@ import org.junit.jupiter.api.Test;
  * Neither holds if an entry references a translation key that does not exist, because
  * the player would see a raw key like {@code guide.forever.x.title} instead of prose.
  *
- * <p>This test reads the real shipped resources rather than fixtures, so it fails when
- * someone adds an entry and forgets its translations. That defect is invisible to unit
- * tests of the loader and to GameTests, which check that entries load rather than that
- * they read correctly.
+ * <p>This test reads the shipped resource files from the working directory with a
+ * third-party JSON parser. That makes it a fast pre-commit guard, but it is deliberately
+ * NOT the acceptance check: it proves only that the files on disk agree with each other.
+ * It cannot prove the game can locate them, that Minecraft's own parser accepts them, or
+ * that a translated component renders as prose.
+ *
+ * <p>The real acceptance path is
+ * {@code dev.forever.gametest.guide.GuideTranslationGameTest}, which loads the language
+ * file the way the game does, parses it with {@link net.minecraft.locale.Language}, and
+ * renders components through the live translation pipeline on a dedicated server. That
+ * distinction is not academic: an earlier version of that GameTest asked the server's
+ * ResourceManager for the language file and correctly found nothing, because {@code
+ * assets/} is resource-pack territory and a dedicated server only serves {@code data/}.
+ * This file-level test could never have surfaced that.
  */
 class GuideContentCoverageTest {
 
