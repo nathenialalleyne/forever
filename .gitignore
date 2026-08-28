@@ -1,6 +1,103 @@
-# Bootstrap .gitignore. The matcha-scripts agent owns the final version.
+# Gradle and build outputs
 .gradle/
+**/.gradle/
 build/
+**/build/
+out/
+**/out/
+
+# IDE state and machine-specific project files
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+.classpath
+.project
+.settings/
+local.properties
+
+# Fabric and Minecraft runtime data
 run/
+logs/
+**/logs/
+crash-reports/
+**/crash-reports/
+
+# Never commit real or generated Minecraft world saves
+**/saves/
+**/world/
+**/world_nether/
+**/world_the_end/
+**/worlds/
+**/generated-worlds/
+
+# Matcha and other third-party binary material. The vendor directory is local-only.
+vendor/*
+!vendor/matcha/
+vendor/matcha/*
 vendor/matcha/*.zip
-*.log
+**/resourcepacks/*
+**/datapacks/*
+resource-packs/
+**/resource-packs/*
+third-party/
+**/third-party/
+third-party/**/*.zip
+third-party/**/*.jar
+third-party/**/*.mcpack
+third-party/**/*.mcaddon
+third-party/**/*.7z
+third-party/**/*.rar
+
+# Generated Matcha audit reports and matcha.lock.json are deliberately committed.
+# They are deterministic, reviewable metadata. The Matcha binary is never committed.
+!generated/
+!generated/matcha/
+!generated/matcha/**
+# Do not add a broad generated/ or lock-file ignore that hides those records.
+
+# Local environments, credentials, tokens, and secrets
+.env
+.env.*
+!.env.example
+*.local
+*.local.*
+*.token
+*access-token*
+credentials/
+secrets/
+tokens/
+.modrinth/
+modrinth-credentials*
+
+# Temporary audit output and local caches
+audit-tmp/
+audit-output/
+tmp-audit/
+**/.audit/
+*.audit.tmp
+*.audit.log
+.cache/
+**/.cache/
+.pytest_cache/
+__pycache__/
+*.py[cod]
+
+# Local path manifests must not capture absolute developer paths
+local-paths.txt
+paths.local*
+
+# Java runtimes and locally installed toolchains
+.jdk/
+.jdks/
+jdk*/
+jre*/
+java-runtimes/
+toolchains/
+
+# Font files are machine or third-party assets, not project source
+*.ttf
+*.otf
+*.woff
+*.woff2

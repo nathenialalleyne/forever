@@ -1,0 +1,21 @@
+Forever Private Project Licence
+
+Copyright (c) 2026 Forever project contributors.
+
+All rights reserved.
+
+This file is a placeholder private-project licence for ORIGINAL Forever source code
+and original Forever assets in this repository. No permission is granted to copy,
+modify, publish, distribute, sublicense, or use that original material except with
+written permission from the applicable rights holders.
+
+This licence does not apply to third-party material. In particular, Matcha Flavoured
+is a separate datapack/resource-pack project under the Creative Commons
+Attribution-NonCommercial-ShareAlike 4.0 International licence
+(CC-BY-NC-SA-4.0). Matcha is not relicensed under this file, and this file does not
+relicense any Matcha-derived or bundled material. Fabric, Loom, Gson, JUnit, and
+other dependencies retain their own upstream licences.
+
+The original Forever code and third-party material must remain clearly separated.
+Any public distribution of a combined work requires a separate review of copyright,
+licensing, attribution, and the applicable third-party terms.

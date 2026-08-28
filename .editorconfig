@@ -1,0 +1,40 @@
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+indent_size = 4
+tab_width = 4
+
+# Fabric's Java and Gradle template convention uses tabs for indentation.
+[*.{java,gradle,groovy}]
+indent_style = tab
+indent_size = 4
+tab_width = 4
+
+[*.{json,json5}]
+indent_style = space
+indent_size = 2
+
+[*.{yml,yaml}]
+indent_style = space
+indent_size = 2
+
+[*.md]
+# Markdown uses intentional two-space line breaks in a few places.
+trim_trailing_whitespace = false
+
+[*.{sh,bash}]
+indent_style = space
+indent_size = 4
+
+[*.ps1]
+indent_style = space
+indent_size = 4
+
+[*.properties]
+indent_style = space
+indent_size = 2

@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "modrinth_project_id": "QI0EmgZ1",
+  "project_slug": "matcha-flavoured",
+  "project_name": "Matcha Flavoured",
+  "version_id": "E9rngRfK",
+  "version_number": "1.12",
+  "minecraft_compatibility": [
+    "26.2"
+  ],
+  "release_type": "release",
+  "published_timestamp": "2026-08-12T01:54:25.512843Z",
+  "filename": "Matcha_Flavoured_1_12.zip",
+  "download_source_url": "https://cdn.modrinth.com/data/QI0EmgZ1/versions/E9rngRfK/Matcha_Flavoured_1_12.zip",
+  "sha256": "6209783021c358044abedabacee471faff5bd4080437d4e3b5e51963f1804248",
+  "resolved_date": "2026-08-28",
+  "resolved_at": "2026-08-28T02:32:14Z",
+  "license_identifier": "CC-BY-NC-SA-4.0",
+  "source": {
+    "project_api_url": "https://api.modrinth.com/v2/project/QI0EmgZ1",
+    "version_api_url": "https://api.modrinth.com/v2/version/E9rngRfK"
+  },
+  "artifact": {
+    "filename": "Matcha_Flavoured_1_12.zip",
+    "url": "https://cdn.modrinth.com/data/QI0EmgZ1/versions/E9rngRfK/Matcha_Flavoured_1_12.zip",
+    "sha256": "6209783021c358044abedabacee471faff5bd4080437d4e3b5e51963f1804248",
+    "size": 12248989,
+    "api_hashes": {
+      "sha512": "90cc56fd72caea4f0f45bb3817b64e5fb76ff600bad9cf5ae4d4bc340f717d44cce4ed9f94def18b4b3902124df6d96a488c3941661e89ad863db536390db056",
+      "sha1": "77d080d2fe207a886c8c784ac239dec54a213065"
+    }
+  }
+}
