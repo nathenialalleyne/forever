@@ -1,942 +1,661 @@
-# Forever backlog
+# Many Roads Home backlog
 
-This is the ordered ticket queue. Work on one ticket at a time. A ticket is not ready
-for implementation unless its objective, dependencies, explicit non-goals, acceptance
-criteria, and expected tests are clear. Status is part of the contract:
+This is the active ticket queue for the modpack-first product. The working product is the Many Roads Home pack, not a large custom mod. The repository's existing prototype backlog is preserved verbatim in [`backlog-prototype-archive.md`](backlog-prototype-archive.md) under [ADR 0034](adr/0034-preserve-existing-custom-code.md). Its old implementation status is historical evidence and is not completion of a current pack milestone.
 
-- **Done** means the ticket is part of the completed foundation scope recorded for this
-  run. It does not mean future gameplay has been implemented.
-- **Next** is the next intended ticket after the foundation.
-- **Planned** is not started and must not be implemented opportunistically.
+Work on one ticket at a time. `Done` in this file means that the documentation or decision gate is complete. It does not claim that gameplay is implemented. `Next` is the next unblocked ticket. `Planned` is not permission to implement it opportunistically. The first implementation tickets are the compatibility spikes `LAB-01` through `LAB-12`. No custom gameplay system may begin before those spikes have produced evidence.
 
-The sections are intentionally self-contained. If the queue later grows beyond one
-file, a ticket may move to `docs/backlog/FVR-xxx.md` without changing its ID or fields.
-This file remains the index and dependency map.
+Every ticket has the same contract:
 
-## Foundation
+- objective,
+- dependencies,
+- authoritative sources to inspect,
+- existing-mod candidates,
+- custom-code gate,
+- explicit non-goals,
+- acceptance criteria,
+- test requirements, and
+- removal or migration risks.
 
-### FVR-001: Bootstrap Fabric 26.2 project [Done]
+Candidate names are leads for a compatibility investigation, not claims that they support Minecraft 26.2. The spike must inspect an official project page, source repository, release metadata, licence, and supported loader evidence. If evidence is unavailable, record `NEEDS_MORE_EVIDENCE` rather than inferring compatibility.
 
-- **Objective:** Establish the `forever` Fabric project with the pinned Minecraft 26.2,
-  Java 25, Fabric Loader, Fabric API, Loom, and `dev.forever` project identity.
-- **Dependencies:** None.
-- **Explicit non-goals:** No gameplay registrations, custom items, custom blocks,
-  screens, assets, or Matcha integration.
+## M0: Modpack foundation
+
+M0 records the product and preservation contract. It contains no gameplay implementation. The first executable work is the M1 compatibility laboratory queue.
+
+### MRH-000: Record the modpack-first pivot contract [Done]
+
+- **Objective:** Establish Many Roads Home as the working product identity, define modpack ownership, select Packwiz as the composition authority, preserve the existing custom source, and make the compatibility-first queue explicit.
+- **Dependencies:** The existing foundation documents and the shared pivot brief.
+- **Authoritative sources to inspect:** `.pivot-context.md`, `docs/vision.md`, `docs/design-principles.md`, `docs/architecture.md`, `docs/dependency-baseline.md`, `docs/world-save-safety.md`, ADRs 0001 through 0022, and ADRs 0023 through 0034.
+- **Existing-mod candidates:** None. This is a documentation gate. Packwiz and Global Packs are recorded as later investigation subjects rather than implemented dependencies.
+- **Custom-code gate:** No code. The ticket is complete only when the companion remains subject to ADRs 0026 and 0033.
+- **Explicit non-goals:** No gameplay implementation, pack export, dependency upgrade, Java rename, third-party JAR, final asset, or world launch.
 - **Acceptance criteria:**
-  1. The root wrapper and project properties use the approved pinned baseline.
-  2. The common and client entrypoints load with mod ID `forever` and version
-     `0.0.0-dev`.
-  3. Minecraft 26.2 is treated as non-obfuscated with no Yarn mappings declared.
-- **Expected tests:** `./gradlew build`; load the minimal mod in `./gradlew runClient`
-  and confirm a disposable dedicated-server startup path is available.
+  1. The twelve new ADRs, name and identity document, active backlog, archived prototype backlog, and pivot roadmap exist.
+  2. The active queue identifies `LAB-01` through `LAB-12` as the first implementation work.
+  3. Existing source and third-party material are preserved and ownership boundaries are stated.
+  4. The current `forever` identifiers remain unchanged.
+- **Test requirements:** Markdown link review, required-section review, ADR numbering review, archive comparison, `git diff --check`, and manual consistency review against the design documents.
+- **Removal/migration risks:** Replacing the active backlog can hide old assumptions if the archive is incomplete. The archive must remain committed and the working identity must not be treated as a persistent identifier migration.
 
-### FVR-002: Add common/client source separation [Done]
+## M1: Baseline compatibility
 
-- **Objective:** Make common/server-safe and client-only code separate source sets so
-  illegal references fail during compilation rather than on a dedicated server.
-- **Dependencies:** FVR-001.
-- **Explicit non-goals:** No client screens, HUDs, networking payloads, or gameplay
-  systems.
+These are investigation and integration spikes. They establish whether the selected pack can work before the project owns custom systems.
+
+### LAB-01: Matcha information and onboarding compatibility spike [Next]
+
+- **Objective:** Test the official Matcha baseline with a recipe viewer, Jade-style contextual information, guidebook suppression, advancement-noise handling, and the requirements for one unified Field Journal.
+- **Dependencies:** MRH-000, the pinned Matcha lock, and the Matcha loading decision in ADR 0027.
+- **Authoritative sources to inspect:** `.pivot-context.md`, `docs/compatibility/matcha.md`, `docs/systems/matcha.md`, `docs/systems/exploration-and-regions.md`, ADRs 0001, 0002, 0003, 0027, 0028, and 0029, the pinned Matcha archive at `https://cdn.modrinth.com/data/QI0EmgZ1/versions/E9rngRfK/Matcha_Flavoured_1_12.zip`, and the official source or release pages for each selected viewer and guidebook.
+- **Existing-mod candidates:** EMI, REI, JEI, Jade, Patchouli or the Matcha guidebook, Better Advancements, Advancement Plaques, and FTB Quests. Compatibility is `NEEDS_MORE_EVIDENCE` until each candidate is checked for the pinned baseline.
+- **Custom-code gate:** No custom screen, journal, or adapter implementation in this spike. Record a gap for M2 only if existing configuration and supported integration cannot preserve instructions and context. Any later companion code needs ADR 0033 evidence.
+- **Explicit non-goals:** No guidebook deletion, no advancement rewrite, no custom Field Journal, no Matcha identifier leakage, no final translations, and no gameplay progression change.
 - **Acceptance criteria:**
-  1. The build has distinct common and client source sets and entrypoints.
-  2. Common code contains no reference to `dev.forever.client`.
-  3. The client is documented as a projection of server state, never the gameplay
-     authority.
-- **Expected tests:** Root compilation and unit tests; `./gradlew runGametest` or an
-  equivalent dedicated-server smoke test proving common loading does not require client
-  classes.
+  1. A disposable instance loads the exact Matcha archive and records whether both its data and resource roles are active.
+  2. A player can inspect representative Matcha items and recipes through the selected recipe viewer and contextual information tool, or the missing capability is documented.
+  3. Guidebook duplication is inventoried. No proposed suppression loses a process, condition, warning, or provenance record.
+  4. Advancement noise is classified into useful discovery, redundant notification, or required instruction, with a proposed configuration for each.
+  5. The Field Journal requirements name contextual entry points, recipe links, Matcha normalisation, source metadata, discovery state, failure reasons, and optional-provider fallbacks.
+  6. Missing viewers or guidebooks leave ordinary play and an inspectable instruction path intact.
+- **Test requirements:** Disposable client and dedicated-server startup, recipe inspection, item context inspection, guidebook and advancement comparison before and after proposed settings, missing-viewer fallback, translation review, and a manual instruction-loss audit.
+- **Removal/migration risks:** Suppressing a book or advancement can remove information that a player has already learned. Any persistent discovery state, source link, or translation key needs a versioned migration and a reversible configuration path.
 
-### FVR-003: Add automated build/test baseline [Done]
+### LAB-02: Matcha pack-loader and dual-role compatibility spike [Planned]
 
-- **Objective:** Make root compilation, plain JVM tests, and dedicated-server GameTest
-  startup repeatable for local development and CI.
-- **Dependencies:** FVR-001 and FVR-002.
-- **Explicit non-goals:** No gameplay assertions beyond foundation initialisation and
-  no network fetch of Matcha.
+- **Objective:** Verify that the exact Matcha archive can be loaded as both datapack and resource pack through the compatibility-controlled utility selected by ADR 0027.
+- **Dependencies:** MRH-000, LAB-01, the Matcha lock record, and the pinned Minecraft 26.2 baseline.
+- **Authoritative sources to inspect:** `docs/dependency-baseline.md`, `docs/world-save-safety.md`, `docs/compatibility/matcha.md`, ADRs 0001, 0020, 0025, and 0027, Matcha project evidence at `https://api.modrinth.com/v2/project/QI0EmgZ1`, Global Packs project evidence at `https://api.modrinth.com/v2/project/NRLPy2mk`, Paxi project evidence at `https://api.modrinth.com/v2/project/CU0PAyzb`, and OpenLoader project evidence at `https://api.modrinth.com/v2/project/KwWsINvD`.
+- **Existing-mod candidates:** Global Packs `26.2.0` with ID `DqrPrUMp`, Paxi, and OpenLoader. Global Packs is the current named 26.2 candidate. Paxi and OpenLoader require new release evidence before being considered.
+- **Custom-code gate:** No custom loader. Use the selected utility and pack configuration. A narrow diagnostic or adapter is considered only after the utility's supported configuration has been tested and documented.
+- **Explicit non-goals:** No Matcha extraction, archive rewrite, private loader fork, third-party JAR modification, public redistribution, or Minecraft version change.
 - **Acceptance criteria:**
-  1. `./gradlew build` and `./gradlew test` are canonical root commands.
-  2. A separate GameTest source set and `runGametest` server run are documented.
-  3. CI uses Temurin Java 25, Gradle's action-managed cache, and failure report upload.
-- **Expected tests:** Root build, root unit tests, and initialisation GameTest on a
-  disposable environment. CI workflow review must confirm no secrets or Matcha fetch.
+  1. The single pinned Matcha archive is loaded without editing or splitting it.
+  2. Both the datapack and resource-pack roles are active in a disposable instance, with load order recorded.
+  3. A changed checksum, missing archive, one-sided load, and conflicting load order produce visible diagnostics rather than a valid partial baseline.
+  4. The Global Packs All-Rights-Reserved status is recorded as a release risk and not treated as permission to redistribute.
+  5. The result states whether Global Packs can remain the technical candidate or whether another utility investigation is required.
+- **Test requirements:** Lock checksum verification, clean installation, repeat installation, altered archive, missing archive, data-only load, resource-only load, both-role load, order conflict, dedicated-server startup, and disposable-world save/reload.
+- **Removal/migration risks:** Changing the loader or its configuration can alter data-pack order, resource presentation, recipes, and saved references. Retain the old profile, record the utility version, and test removal before any world is opened with a changed loader.
 
-### FVR-004: Add AI architecture documents [Done]
+### LAB-03: Building and excavation compatibility spike [Planned]
 
-- **Objective:** Record the vision, principles, architecture, workflow, save-safety
-  rules, roadmap, and ticket structure so future agents can work from explicit design.
-- **Dependencies:** None, although the documents must remain mutually consistent.
-- **Explicit non-goals:** No gameplay implementation, speculative Java packages, final
-  textures, or design decisions hidden in code.
+- **Objective:** Identify an existing configuration or mature mod stack for block placement, bulk excavation, tree felling, and related gathering convenience without gating ordinary building.
+- **Dependencies:** MRH-000, LAB-02, ADRs 0024 and 0026, and the pinned loader baseline.
+- **Authoritative sources to inspect:** `docs/vision.md`, `docs/design-principles.md`, `docs/systems/mastery.md`, `docs/systems/projects.md`, `docs/systems/equipment.md`, ADRs 0005, 0006, 0024, 0026, and the official release and configuration documentation for each candidate.
+- **Existing-mod candidates:** Effortless Building, Building Wands, WorldEdit, FTB Ultimine, Veinminer, FallingTree, and equivalent 26.2 Fabric candidates discovered through authoritative sources.
+- **Custom-code gate:** No custom placement, excavation, or durability implementation. Test configuration, datapack tags, public APIs, and safe fallbacks before opening a companion gap.
+- **Explicit non-goals:** No custom block, item, tool, texture, mastery XP, style validator, or global block-break rule.
 - **Acceptance criteria:**
-  1. Future agents are told to read the relevant design docs, ADRs, and system specs
-     before changing a system.
-  2. The architecture documents server authority, source boundaries, persistence
-     placement, bounded work, and Matcha isolation.
-  3. The roadmap and backlog distinguish complete foundation work from unstarted
-     gameplay.
-- **Expected tests:** Markdown link and heading review; manual consistency review
-  against `docs/vision.md`, `docs/design-principles.md`, and `docs/architecture.md`.
+  1. Ordinary vanilla block placement and breaking work with all candidate features disabled and enabled.
+  2. Bulk operations have bounded selection, permission, tool, and resource behaviour and cannot silently delete unrelated blocks or items.
+  3. The selected stack does not make a Builder mastery or blueprint a prerequisite for basic construction.
+  4. Candidate conflicts with Matcha tools, equipment condition, claims, and server authority are recorded.
+  5. The recommendation names the least invasive configuration and the capabilities that remain unsupported.
+- **Test requirements:** Client and dedicated-server placement, bulk selection limits, cancellation, tool condition, protected-area behaviour, item drops, disconnect or retry, multiplayer permission, and absent-mod fallback.
+- **Removal/migration risks:** Disabling a placement or excavation mod can change recipes, key bindings, block interaction, and unfinished operations. Do not remove a selected tool from a persistent profile without a release note and disposable-world test.
 
-### FVR-005: Add dependency/version lock documentation [Done]
+### LAB-04: Blueprint and schematic compatibility spike [Planned]
 
-- **Objective:** Make the approved versions and update policy visible and reproducible.
-- **Dependencies:** FVR-001.
-- **Explicit non-goals:** No dependency upgrade, floating version, automatic update,
-  world conversion, or Matcha download during CI.
+- **Objective:** Evaluate an existing planning tool for optional previews, material lists, and player-authored blueprints while preserving style-independent functional building.
+- **Dependencies:** MRH-000, LAB-03, ADRs 0032 and 0026, and the projects and settlements specifications.
+- **Authoritative sources to inspect:** `docs/systems/projects.md`, `docs/systems/settlements.md`, `docs/design-principles.md`, ADRs 0009, 0026, and 0032, and official documentation, source, release, format, and licence information for each candidate.
+- **Existing-mod candidates:** Litematica, Axiom, WorldEdit, Structurize, and any maintained 26.2 Fabric schematic provider. Compatibility and redistribution status are `NEEDS_MORE_EVIDENCE` until verified.
+- **Custom-code gate:** No custom blueprint renderer, parser, or placement engine. A companion integration is considered only for a documented cross-mod gap after the candidate and format tests fail.
+- **Explicit non-goals:** No required blueprint, canonical house set, aesthetic scoring, automated building, final asset, or style-specific settlement validation.
 - **Acceptance criteria:**
-  1. Minecraft, JDK, Loader, API, Loom, Gradle, JUnit, and Matcha versions match the
-     verified baseline.
-  2. Matcha's project, release, file, licence, and acquisition boundary are recorded.
-  3. Version changes require a ticket, a baseline update, a full build/test cycle, and
-     disposable-world dedicated-server validation.
-- **Expected tests:** Review all version declarations against
-  `docs/dependency-baseline.md`; run `./gradlew build` and the audit-tool tests when a
-  real version change is later proposed.
+  1. A player can build and register a functional structure without using a blueprint.
+  2. At least one candidate can preview or describe a player-authored plan without changing server authority over blocks.
+  3. Missing block mappings, unsupported files, and unavailable client tooling leave the physical world intact and produce an actionable limitation.
+  4. The report defines which blueprint metadata may be stored and how provenance is retained.
+  5. Functional contract criteria are expressed independently from visual similarity or palette.
+- **Test requirements:** Load and unload a blueprint, missing-block handling, client/server mismatch, permission checks, material-list bounds, hand-built registration, malformed file handling, and a colour-independent functional validation review.
+- **Removal/migration risks:** Removing a schematic tool can strand client-only plans or persistent contract references. Keep physical builds authoritative and migrate unavailable plans to a readable legacy or unavailable state.
 
-### FVR-A001: Establish the art and texture pipeline [Done]
+### LAB-05: Food, cooking, and preservation compatibility spike [Planned]
 
-- **Objective:** Establish the editable art source tree, the production asset
-  directories, a developer-only asset validation tool exposed as `./gradlew
-  validateAssets`, and the documentation an artist needs to take one asset from source
-  to a verified in-game texture.
-- **Dependencies:** FVR-001, FVR-003, and the approved asset manifest and art direction
-  in `docs/assets/`.
-- **Explicit non-goals:** No gameplay item, block, screen, recipe, model, blockstate,
-  translation, or system. No final artwork. No image-generation dependency in the
-  Minecraft runtime. No vanilla Minecraft texture is downloaded or copied. The
-  validation tool must never ship inside the mod JAR.
+- **Objective:** Find an existing cooking and food-processing stack that supports readable recipes, regional ingredients, preservation, and optional trait integration without making vanilla food obsolete.
+- **Dependencies:** MRH-000, LAB-01, LAB-02, ADRs 0024 and 0026, and the food specification.
+- **Authoritative sources to inspect:** `docs/systems/food-and-alchemy.md`, `docs/systems/exploration-and-regions.md`, `docs/systems/storage.md`, `docs/design-principles.md`, ADRs 0014, 0024, and 0026, and official candidate documentation and release metadata.
+- **Existing-mod candidates:** Farmer's Delight, Croptopia, Cooking for Blockheads, Brewin' and Chewin', Create processing, and a maintained alchemy provider where one is needed. Each candidate's 26.2 support is `NEEDS_MORE_EVIDENCE`.
+- **Custom-code gate:** No custom food effect engine or recipe replacement. Use configuration, datapack recipes, tags, and public integration first. A companion food adapter needs a separate gap analysis.
+- **Explicit non-goals:** No hard seasonal food lockout, hidden recipe puzzle, global hunger overhaul, silent spoilage deletion, or replacement of ordinary vanilla cooking.
 - **Acceptance criteria:**
-  1. `art/` holds editable sources and `src/client/resources/assets/forever/` holds the
-     exported production tree, with the split and both workflows documented.
-  2. `./gradlew validateAssets` runs a pure-JDK tool from a separate `assetTools` source
-     set and reports snake_case naming, supported image formats, dimensions, the 16x16
-     default for item and ordinary block textures with manifest whitelisting,
-     fully transparent images, missing texture references, duplicate asset IDs,
-     unmanifested production PNGs, and manifest rows whose assets are missing.
-  3. Rows with status `planned` are never rejected for having no file, so an unfinished
-     asset cannot block the build.
-  4. Exactly one intentionally obvious original placeholder texture exists and does not
-     imitate Minecraft's built-in missing-texture graphic.
-- **Expected tests:** Unit tests for a valid 16x16 PNG, incorrect dimensions, an
-  uppercase filename, a fully transparent image, a production PNG missing from the
-  manifest, and a missing texture reference, plus exit-code, duplicate-ID, planned-row,
-  and tooling-marker cases; and a real `./gradlew validateAssets` run against the
-  repository reporting CLEAN.
+  1. Vanilla food remains edible and useful without trait knowledge.
+  2. Candidate recipes and processing steps are visible through the selected viewer or Field Journal plan.
+  3. Unknown modded foods remain ordinary food until a safe mapping exists.
+  4. Preservation and alchemy candidates have bounded inputs, outputs, durations, and failure behaviour.
+  5. Regional acquisition, cultivation, import, and trade remain possible alternatives where the pack expects them.
+- **Test requirements:** Recipe discovery, unknown-food fallback, processing interruption, duplicate output prevention, preservation recovery, effect-cap review, server-side consumption, and client explanation checks.
+- **Removal/migration risks:** Removing a cooking mod can orphan recipes, prepared items, traits, or preserved stock. Record item identities, retain physical inputs, and define a readable migration before changing a selected food provider.
 
-### FVR-A002: Open the data loaders to third-party namespaces [Next]
+### LAB-06: Seasons and climate compatibility spike [Planned]
 
-- **Objective:** Allow a datapack in any namespace to contribute Field Guide entries,
-  masteries, Mason data, and balance values, so Forever content can be extended without
-  editing this repository.
-- **Dependencies:** [ADR 0022](adr/0022-extensible-by-default.md) and FVR-A001.
-- **Context:** Six loaders currently filter their input with
-  `id.getNamespace().equals("forever")`: `GuideRegistryLoader`, `GuideEntry` identifier
-  validation, `MasteryRegistryLoader`, `MasonDataLoader`, `EconomyBalanceLoader`, and
-  `SettlementBalanceLoader`. Each system is data-driven in shape but closed in practice,
-  because a resource from any other namespace is silently ignored.
-- **Explicit non-goals:** No new gameplay system, no relaxed validation, no silent
-  acceptance of malformed third-party data, and no change to any existing resource path or
-  translation key.
+- **Objective:** Verify a climate provider and safe fallback for visible seasons, modest crop situations, weather context, and greenhouse or mitigation choices.
+- **Dependencies:** MRH-000, LAB-05, LAB-02, ADR 0014, and the seasons and weather specification.
+- **Authoritative sources to inspect:** `docs/systems/seasons-and-weather.md`, `docs/systems/food-and-alchemy.md`, `docs/systems/transportation.md`, `docs/design-principles.md`, ADRs 0014, 0024, and 0026, and the official Serene Seasons project and release sources.
+- **Existing-mod candidates:** Serene Seasons as the first target, vanilla weather, greenhouse or crop-support mods with public compatibility, and a later climate provider if authoritative evidence exists.
+- **Custom-code gate:** No custom calendar or crop-kill system. A climate abstraction is considered only after the provider and fallback behaviour are tested and the adapter gap is documented.
+- **Explicit non-goals:** No months-long crop lockout, weather disaster simulator, mandatory greenhouse, guessed mapping for unknown crops, or permanent chunk loading.
 - **Acceptance criteria:**
-  1. Each loader accepts resources from any namespace while keeping strict validation, and
-     an invalid entry still fails loudly naming the offending resource.
-  2. Override and merge semantics are defined and tested: what happens when two datapacks
-     declare the same identifier, and in what order packs apply.
-  3. A third-party namespace fixture loads successfully in a test, proving the seam works
-     rather than asserting it in prose.
-  4. Malformed third-party input cannot corrupt or partially apply a registry.
-- **Expected tests:** Per-loader unit tests for a foreign namespace, duplicate identifier,
-  override order, malformed input, and empty input; plus a dedicated-server GameTest that
-  loads a foreign-namespace fixture through the real resource-reload path.
+  1. Current season, forecast band, local profile, crop suitability, and mitigation are inspectable as text and icons.
+  2. Missing or incompatible Serene Seasons leaves ordinary crops, food, and travel functional.
+  3. Unknown crops receive a neutral profile rather than an invented destructive rule.
+  4. Effects remain modest and data-driven, with cultivation, preservation, import, and trade alternatives.
+  5. The candidate's server and client responsibilities and version support are recorded.
+- **Test requirements:** Provider present, provider absent, unknown crop, calendar restart, forecast change, greenhouse or mitigation validation, client stale view, and dedicated-server startup.
+- **Removal/migration risks:** A climate provider can alter crop growth, saved calendar state, and prepared food expectations. Remove or replace it only with a calendar migration and a safe neutral mapping for existing records.
 
-## Matcha acquisition and compatibility
+### LAB-07: Storage indexing and local search compatibility spike [Planned]
 
-### FVR-010: Fetch and pin Matcha scripts [Done]
-
-- **Objective:** Provide deterministic developer tooling that fetches exactly Matcha
-  Flavoured 1.12 and records or verifies its lock identity and checksum.
-- **Dependencies:** FVR-005.
-- **Explicit non-goals:** No automatic update, CI download, gameplay adapter, Matcha
-  fork, or installation into a real world.
+- **Objective:** Select an existing storage and indexing solution that makes physical local goods searchable without turning a remote index into magical withdrawal.
+- **Dependencies:** MRH-000, LAB-02, LAB-01, ADRs 0011, 0012, 0024, and 0026, and the storage specification.
+- **Authoritative sources to inspect:** `docs/systems/storage.md`, `docs/systems/logistics.md`, `docs/design-principles.md`, ADRs 0011, 0012, 0024, and 0026, and official candidate documentation, source, release, and licence pages.
+- **Existing-mod candidates:** Tom's Simple Storage, Simple Storage Network, Sophisticated Storage, Functional Storage, Storage Drawers, and vanilla containers with a bounded search layer.
+- **Custom-code gate:** No custom warehouse controller or search terminal. First test configuration and public integration. A companion layer is allowed only after physical-source-of-truth, nesting, and removal gaps are written.
+- **Explicit non-goals:** No universal cross-dimensional warehouse, remote item creation, infinite container nesting, forced registration for vanilla chests, or unbounded inventory scans.
 - **Acceptance criteria:**
-  1. `./scripts/fetch-matcha.sh` selects Modrinth version ID `E9rngRfK` rather than
-     `latest` and places the archive in the documented vendor location.
-  2. The lock metadata records the release identity and SHA-256, and a mismatch fails
-     with an actionable error.
-  3. A repeat fetch is idempotent and cannot silently replace a changed pinned archive.
-- **Expected tests:** Shell tests with network responses and archive fixtures, checksum
-  mismatch tests, repeat-run tests, and manual review that CI never invokes the script.
+  1. Physical inventories remain the source of truth and ordinary containers remain usable without registration.
+  2. Search results identify a physical location and do not grant withdrawal rights by themselves.
+  3. Candidate indexing is bounded and can rebuild or mark stale results without altering physical stacks.
+  4. Traveler's Cache or equivalent personal storage cannot recursively contain another inventory.
+  5. Permissions, server authority, and missing-container behaviour are documented.
+- **Test requirements:** Index creation, stale index, physical mutation, search paging, permission denial, item identity changes, container nesting rejection, restart, and no-mod fallback.
+- **Removal/migration risks:** Removing a storage provider can invalidate container references, network links, and search metadata. Keep physical containers untouched and migrate derived indexes as discardable data only when safe.
 
-### FVR-011: Install Matcha into a disposable development world [Done]
+### LAB-08: Local item transport and automation compatibility spike [Planned]
 
-- **Objective:** Provide a guarded developer script for installing the pinned Matcha
-  archive into a disposable dev world without touching a live save.
-- **Dependencies:** FVR-010 and the world-save rules in `docs/world-save-safety.md`.
-- **Explicit non-goals:** No live-world support, auto-update, world backup deletion,
-  registry migration, or production modpack installer.
+- **Objective:** Identify a local transport and automation stack that moves physical goods through bounded networks without replacing the logistics and route authority planned for later milestones.
+- **Dependencies:** MRH-000, LAB-07, LAB-03, LAB-02, ADRs 0010, 0012, 0024, and 0026, and the logistics specification.
+- **Authoritative sources to inspect:** `docs/systems/logistics.md`, `docs/systems/storage.md`, `docs/systems/transportation.md`, `docs/world-save-safety.md`, ADRs 0010, 0012, 0024, and 0026, and official candidate source and release records.
+- **Existing-mod candidates:** Create, Pipez, Integrated Dynamics with Integrated Tunnels, Modern Industrialization transport, vanilla hoppers, and another maintained local transport provider if evidence exists.
+- **Custom-code gate:** No custom pipes, shipment state machine, or remote withdrawal. Configuration and public APIs must be exhausted before a connective companion gap is opened.
+- **Explicit non-goals:** No magical remote bulk withdrawal, cross-dimensional transfer without an explicit depot, unbounded network traversal, or permanent chunk loading.
 - **Acceptance criteria:**
-  1. `./scripts/install-matcha-dev.sh` uses the pinned local archive and clearly
-     identifies the disposable target.
-  2. Missing, stale, or checksum-invalid input fails before changing the target.
-  3. Re-running the installation does not duplicate files or leave an ambiguous pack
-     version, and the script documents how to remove the disposable world.
-- **Expected tests:** Installation into a temporary disposable world, missing-archive
-  and invalid-lock cases, interrupted-copy recovery, and an idempotent second run.
+  1. Goods remain physical in a source, transport, cargo, buffer, or destination inventory.
+  2. Network limits, routing scope, permissions, and failure behaviour are bounded and inspectable.
+  3. A broken or unloaded endpoint does not duplicate or silently delete cargo.
+  4. Local automation does not become a hidden dependency for ordinary inventory use.
+  5. The report identifies which later shipment and route contracts can consume the selected stack.
+- **Test requirements:** Full and empty transfers, endpoint removal, restart during transfer, duplicate request, unloaded endpoint, cross-dimension rejection, permission checks, and server performance bounds.
+- **Removal/migration risks:** Transport networks often encode links and buffers outside the item stack. Removing one can strand or duplicate cargo, so preserve the old network long enough to drain or migrate it in a disposable-world test.
 
-### FVR-012: Build the Matcha audit CLI [Done]
+### LAB-09: Rail, horse, boat, and vehicle compatibility spike [Planned]
 
-- **Objective:** Create a standalone, deterministic CLI that inventories the pinned
-  Matcha archive without making it a Gradle dependency of the mod.
-- **Dependencies:** FVR-010 and FVR-005.
-- **Explicit non-goals:** No gameplay interpretation, adapter implementation, Matcha
-  mutation, network download, or inclusion in the Forever mod JAR.
+- **Objective:** Evaluate existing transport mods and vanilla modes for fixed routes, freight, horses, boats, and physical service behaviour.
+- **Dependencies:** MRH-000, LAB-03, LAB-08, LAB-02, ADRs 0010, 0013, 0018, 0024, and 0026, and the transportation specification.
+- **Authoritative sources to inspect:** `docs/systems/transportation.md`, `docs/systems/animals.md`, `docs/systems/logistics.md`, ADRs 0010, 0013, 0018, 0024, and 0026, and official candidate release and API information.
+- **Existing-mod candidates:** Create rail, Extended Rails, vanilla minecarts, horses, boats, Immersive Aircraft or another scoped vehicle provider, and any maintained route or freight mod with 26.2 evidence.
+- **Custom-code gate:** No custom rail physics, vehicle entity, or live pathfinding graph. Test existing capabilities and public route hooks first. A route adapter must be narrow and version-aware.
+- **Explicit non-goals:** No instant travel, global route scan, universal vehicle, Elytra deletion, permanent chunk loading, or automatic route registration.
 - **Acceptance criteria:**
-  1. The audit tool is a separate Gradle build with its own wrapper and test command.
-  2. It reports archive paths, relevant metadata, and validation findings with stable
-     ordering and explicit exit status.
-  3. Versioned generated output is written under `generated/matcha/<version>/` without
-     overwriting a different pinned release.
-- **Expected tests:** CLI success and failure exit codes, deterministic repeated output,
-  malformed archive handling, path traversal checks, and standalone `./gradlew test`
-  from `tools/matcha-audit`.
+  1. Walking, horses, boats, rail, and any selected vehicle each have a clear context and limitation.
+  2. Rail and freight candidates expose bounded station or endpoint behaviour suitable for explicit registration.
+  3. Elytra or gliding remains a distinct scouting and vertical option rather than an accidental fixed-route monopoly.
+  4. Broken infrastructure fails visibly and leaves another ordinary travel option.
+  5. The compatibility report records capacity, service, dimension, and authority limitations.
+- **Test requirements:** Station connectivity, disconnected track, freight transfer, horse and boat baseline, vehicle absence, chunk unload, restart, route damage, and dedicated-server movement.
+- **Removal/migration risks:** Removing a vehicle mod can strand entities, cargo, or route references. A future profile change needs an entity and cargo recovery plan before the dependency is removed.
 
-### FVR-013: Add Matcha audit fixtures and tests [Done]
+### LAB-10: Performance, ambience, structures, and worldgen compatibility spike [Planned]
 
-- **Objective:** Make audit behaviour testable without network access or licensed
-  production material by using small synthetic archive fixtures.
-- **Dependencies:** FVR-012.
-- **Explicit non-goals:** No claim that fixtures represent every Matcha system, no
-  official audit result, and no production adapter behaviour.
+- **Objective:** Establish a conservative baseline for performance, ambience, and restrained structure content without adding a world-generation dependency by assumption.
+- **Dependencies:** MRH-000, LAB-02, LAB-03, and ADR 0015 plus the performance rules in the architecture document.
+- **Authoritative sources to inspect:** `docs/architecture.md`, `docs/vision.md`, `docs/design-principles.md`, `docs/systems/exploration-and-regions.md`, ADR 0015, the dependency baseline, and official sources for every candidate.
+- **Existing-mod candidates:** Sodium, Lithium, FerriteCore, Entity Culling, AmbientSounds, Presence Footsteps, YUNG's Better Structures, Structory, Towns and Towers, and vanilla world generation. Candidate support remains `NEEDS_MORE_EVIDENCE` until checked.
+- **Custom-code gate:** No custom worldgen, structure generator, global scan, or performance manager. Prefer configuration and existing profiling tools. Any compatibility hook needs a separate gap analysis.
+- **Explicit non-goals:** No dramatic worldgen rewrite, mandatory structure pack, enemy scaling, permanent chunk loading, or final ambience assets authored by this repository.
 - **Acceptance criteria:**
-  1. Fixtures cover valid entries, metadata, malformed paths, duplicate records, and
-     unsupported or incomplete input.
-  2. Tests prove stable ordering, bounded resource handling, useful diagnostics, and
-     deterministic report serialisation.
-  3. The fixture suite contains no unapproved third-party or licensed Matcha content.
-- **Expected tests:** The complete audit-tool unit suite, repeated-output comparison,
-  malformed-input tests, and a review of fixture licensing and provenance.
+  1. The selected baseline keeps vanilla terrain and ordinary world creation functional.
+  2. Structure candidates are measured for density, overlap, spawn safety, and removal implications before selection.
+  3. Performance candidates do not hide server errors or change authority to the client.
+  4. Ambience remains optional and does not carry gameplay state alone.
+  5. The report identifies a disposable-world profiling method and rejection thresholds in data or configuration.
+- **Test requirements:** Clean world creation, structure placement sample, dedicated-server startup, tick and memory observation, optional ambience absence, client/server mismatch, and a no-worldgen-dependency fallback.
+- **Removal/migration risks:** Worldgen and structures are difficult to remove after chunks are generated. A selected generator or structure mod requires a worldgen lock, backup, compatibility notice, and explicit removal analysis before persistent release.
 
-### FVR-014: Generate the first official Matcha audit [Done]
+### LAB-11: Adventure rewards and capability-gate compatibility spike [Planned]
 
-- **Objective:** Fetch the exact pinned Matcha release once as a deliberate developer
-  operation and publish the first official deterministic inventory and audit report.
-- **Dependencies:** FVR-010, FVR-011, FVR-012, and FVR-013.
-- **Explicit non-goals:** No gameplay integration, system override, adapter code,
-  Matcha fork, or classification decision hidden inside the report.
+- **Objective:** Audit quest, structure, and advancement rewards so that they provide discovery and optional opportunity without becoming the only route to essential capabilities.
+- **Dependencies:** MRH-000, LAB-01, LAB-02, LAB-10, ADRs 0028 and 0030, and the exploration and projects specifications.
+- **Authoritative sources to inspect:** `docs/systems/exploration-and-regions.md`, `docs/systems/projects.md`, `docs/systems/mastery.md`, `docs/design-principles.md`, ADRs 0015, 0028, 0029, and 0030, and official candidate documentation and configuration.
+- **Existing-mod candidates:** FTB Quests, Better Advancements, Advancement Plaques, Patchouli, structure providers, and the selected Matcha advancement and reward configuration.
+- **Custom-code gate:** No custom quest engine or global enemy scaling. Use configuration, datapacks, reward tables, and existing events first. A companion consequence system needs ADR 0033 evidence.
+- **Explicit non-goals:** No mandatory questbook opening, essential capability locked behind a rare structure, global enemy multiplier, repeatable loot treadmill, or multiplayer-only reward.
 - **Acceptance criteria:**
-  1. The input archive matches version ID `E9rngRfK` and its recorded SHA-256.
-  2. The audit is reproducible from the pinned input and produces reports under
-     `generated/matcha/1.12/` with a documented generation command and timestamp policy.
-  3. The report identifies unknowns, licensing boundaries, and findings that require
-     human classification rather than guessing at semantics.
-- **Expected tests:** Fetch checksum verification, complete audit-tool tests, two audit
-  runs compared for deterministic content, and a manual review of the generated report.
+  1. Every proposed reward is classified as essential, optional, convenience, knowledge, cosmetic, or historical.
+  2. Every essential capability has a documented non-adventure route that is viable in solo play.
+  3. Expected processes remain inspectable in the Field Journal and recipe viewer.
+  4. Local danger is bounded and contextual rather than globally scaled.
+  5. Missing structures, unavailable teammates, and declined opportunities have safe outcomes.
+- **Test requirements:** Fresh-player route, no-structure route, solo route, declined quest, repeated structure visit, reward duplication, advancement-noise review, and server authority checks.
+- **Removal/migration risks:** Removing a quest or structure can strand persistent reward claims and discovery state. Preserve the knowledge record and provide an alternate route before disabling a source.
 
-### FVR-015: Manually classify Matcha systems [Done]
+### LAB-12: Companion boundary and gap-analysis compatibility spike [Planned]
 
-- **Objective:** Classify each audited Matcha system as keep, extend, override, replace
-  eventually, or undecided, with evidence and an owner for the next decision.
-- **Dependencies:** FVR-014 and the relevant vision, principles, ADRs, and system specs.
-- **Explicit non-goals:** No implementation of classified gameplay, no silent change to
-  approved design decisions, and no claim that classification is compatibility code.
+- **Objective:** Produce the first evidence-led inventory of connective problems that existing mods, configuration, datapacks, resource packs, scripting, and public APIs cannot safely solve.
+- **Dependencies:** MRH-000 and LAB-01 through LAB-11.
+- **Authoritative sources to inspect:** ADRs 0022, 0024, 0026, 0033, and 0034, `docs/architecture.md`, `docs/world-save-safety.md`, every LAB report, and the official source, release, API, and licence records for each candidate.
+- **Existing-mod candidates:** All candidates retained by LAB-01 through LAB-11, plus Patchouli or Modonomicon for knowledge, FTB Quests for projects, route and logistics providers, and any maintained cross-mod capability provider found during the spikes.
+- **Custom-code gate:** This ticket may recommend a custom companion feature but may not implement one. Each proposed gap must evaluate the exact nine-step escalation order and at least three plausible alternatives where available. A private fork requires its own licence and rebuild evidence.
+- **Explicit non-goals:** No Java implementation, new registry, custom screen, Mixins, private fork, third-party JAR modification, or silent reuse of prototype systems.
 - **Acceptance criteria:**
-  1. Every relevant audited system has exactly one current classification and rationale.
-  2. Evidence points to audited paths or observed behaviour without leaking private
-     Matcha identifiers into unrelated Forever code.
-  3. Conflicts with Forever principles are recorded as decisions or blockers, not
-     hidden by changing the specification.
-- **Expected tests:** Completeness check for the audit inventory, link/path review,
-  classification consistency review, and an ADR review for each changed decision.
+  1. Each candidate gap names the player problem, pack-identity importance, owner, fallback, and affected systems.
+  2. The report records why configuration and datapacks are insufficient and which higher escalation steps failed.
+  3. Persistent data, network, save migration, removal, licensing, and maintenance costs are named before any approval.
+  4. Each gap has proposed tests covering absence, malformed input, restart, duplication, migration, and authority.
+  5. The output distinguishes “custom code justified”, “use existing tool”, and “defer because evidence is incomplete”.
+- **Test requirements:** Completeness check against all LAB reports, candidate-source review, licence review, save-safety review, and a manual gate review by the pack owner.
+- **Removal/migration risks:** A gap report that omits a dependency or persisted identifier can authorise an unsafe companion. No code ticket may proceed from an incomplete report, and the report must be revisited when candidate versions change.
 
-### FVR-016: Define stable Matcha adapter interfaces [Done]
+### PACK-01: Assemble the pinned baseline profile [Planned]
 
-- **Objective:** Define the smallest stable compatibility interfaces that translate
-  Matcha capabilities into Forever concepts behind `dev.forever.compat.matcha`.
-- **Dependencies:** FVR-015, FVR-005, and the adapter architecture ADR.
-- **Explicit non-goals:** No hardcoded Matcha internals outside the adapter package, no
-  gameplay system implementation, no fork, and no required Matcha runtime for vanilla
-  Forever startup.
+- **Objective:** Build the first Packwiz-managed Many Roads Home profile from the compatibility results, with pinned inputs, configuration, provenance, and a reproducible Matcha loading path.
+- **Dependencies:** LAB-01 through LAB-12, ADRs 0024, 0025, and 0027, and the licence review for every selected input.
+- **Authoritative sources to inspect:** `docs/dependency-baseline.md`, `docs/world-save-safety.md`, ADRs 0020, 0024, 0025, and 0027, the Packwiz repository at `https://github.com/packwiz/packwiz`, the Packwiz releases page at `https://github.com/packwiz/packwiz/releases`, and the official source page for every selected mod and pack input.
+- **Existing-mod candidates:** Packwiz for composition, Global Packs for the current Matcha utility candidate, and the selected candidates that passed LAB compatibility gates.
+- **Custom-code gate:** No companion feature is added. The pack profile may reference an existing companion build only if its separate gap analysis is accepted. Do not modify third-party JARs.
+- **Explicit non-goals:** No public release, automatic updates, unpinned `latest` inputs, persistent-world migration, final art, or gameplay balance claim beyond the tested profile.
 - **Acceptance criteria:**
-  1. Interfaces expose stable Forever concepts and capability checks rather than raw
-     scoreboard, function, advancement, or disguised-item identifiers.
-  2. Absent, malformed, and unsupported Matcha input has a safe no-op or explicit
-     diagnostic path that does not crash ordinary Minecraft play.
-  3. Adapter boundaries and ownership are documented with versioned contracts.
-- **Expected tests:** Adapter unit tests against fixtures, absent-Matcha startup tests,
-  unsupported-version tests, and a source scan proving private identifiers stay in the
-  permitted package.
+  1. Packwiz metadata is the only composition authority and generated exports are reproducible.
+  2. Every input has exact identity, source, licence, compatibility status, and removal note.
+  3. The Matcha archive is one input with both roles configured through the selected utility.
+  4. The Packwiz tool identity and acquisition policy are recorded despite the absence of tagged upstream releases.
+  5. A clean profile can be assembled without committed third-party JARs and produces an actionable failure for missing or altered inputs.
+- **Test requirements:** Clean checkout assembly, repeated export comparison, altered metadata, missing input, Matcha checksum, dedicated-server startup, client startup, and disposable-world smoke test.
+- **Removal/migration risks:** The profile becomes the first dependency contract. Removing an input, changing load order, or changing a config can alter recipes, worldgen, registries, or saved state. Require a backup, migration note, and review for every subsequent profile change.
 
-### FVR-017: Add Matcha version compatibility detection [Done]
+## M2: Information and onboarding
 
-- **Objective:** Detect whether the installed Matcha release matches the supported lock
-  identity and expose actionable capability and incompatibility diagnostics.
-- **Dependencies:** FVR-010, FVR-014, and FVR-016.
-- **Explicit non-goals:** No automatic download, update, replacement of a live pack,
-  migration of arbitrary Matcha versions, or gameplay balancing.
+### INFO-01: Deliver the unified Field Journal and contextual knowledge surface [Planned]
+
+- **Objective:** Implement the single contextual Field Journal that explains pack processes, connects source content, and exposes instructions without requiring external wiki research.
+- **Dependencies:** PACK-01, LAB-01, ADRs 0028, 0029, and 0033, plus accepted candidate reports for recipe viewing and contextual information.
+- **Authoritative sources to inspect:** `docs/systems/matcha.md`, `docs/systems/exploration-and-regions.md`, `docs/systems/projects.md`, `docs/systems/mastery.md`, `docs/design-principles.md`, ADRs 0002, 0022, 0028, 0029, and 0033, and the LAB-01 report.
+- **Existing-mod candidates:** Patchouli, Modonomicon, EMI, REI, JEI, Jade, FTB Quests, and the selected guidebook provider. Existing tools remain the default surface where they can expose the required context.
+- **Custom-code gate:** A companion journal is allowed only if LAB-12 proves that existing surfaces cannot provide one coherent, server-authoritative view. Any code must pass ADR 0033 and use data-driven entries with a safe absent-provider fallback.
+- **Explicit non-goals:** No replacement of every upstream screen, hidden instructions, client-owned discovery, custom recipe system, or requirement to use a journal for ordinary vanilla play.
 - **Acceptance criteria:**
-  1. Exact supported version and checksum are accepted, while mismatches are reported
-     before dependent features run.
-  2. A missing or unsupported version degrades safely and explains the disabled
-     capability to a developer or server operator.
-  3. Detection is bounded, deterministic, and isolated behind the compatibility layer.
-- **Expected tests:** Supported, missing, stale, corrupt, and future-version fixtures;
-  dedicated-server startup with and without Matcha; and deterministic diagnostics.
+  1. A player can inspect a known process, its prerequisites, outcome, warning, and alternatives in game.
+  2. Entries expose source, version, discovery state, and optional-provider limitations without leaking private Matcha identifiers.
+  3. Contextual entry points link from items, recipes, blocks, routes, structures, and failed actions where relevant.
+  4. Server state controls discovery and the client renders bounded pages and projections.
+  5. Missing journal providers do not remove ordinary building, food, shelter, or inventory use.
+- **Test requirements:** Unit tests for entry validation and bounded pages, server/client authority tests, translation and accessibility review, recipe-viewer links, optional-provider absence, save/reload of knowledge, migration from one entry schema version, and dedicated-server startup.
+- **Removal/migration risks:** Knowledge is persistent player state. Removing an entry must preserve a readable legacy or unavailable record. A broken source link must not erase what the player learned.
 
-## Equipment and condition vertical slice
+### INFO-02: Normalise onboarding, guidebooks, and advancement noise [Planned]
 
-
-- **Implementation note (verified):** `MatchaVersionDetector` evaluates evidence, and
-  `MatchaServerEvidence` gathers it from a running server via `SERVER_STARTED` and
-  `END_DATA_PACK_RELOAD`. An earlier revision shipped the detector without any gatherer,
-  so production detection would have reported "absent" regardless of what was installed.
-  Detection is now proven against the real pinned archive: with Matcha 1.12 present all
-  ten known data namespaces and the `version_number` marker are observed; with it absent
-  the adapter degrades to a safe no-op. Both paths pass 26/26 GameTests.
-
-### FVR-100: Define item identity and condition schema [Done]
-
-- **Objective:** Define the versioned per-`ItemStack` identity, condition,
-  craftsmanship, and specialisation data required for durable equipment.
-- **Dependencies:** FVR-002, FVR-004, FVR-005, and the equipment system specification.
-- **Explicit non-goals:** No repair UI, workshop block, reforge process, balance tuning,
-  or permanent durability behaviour change until the schema is accepted.
+- **Objective:** Apply the LAB-01 findings so that starter books, advancements, recipe viewers, and contextual overlays form one understandable onboarding flow.
+- **Dependencies:** INFO-01, PACK-01, LAB-01, and ADRs 0028 and 0029.
+- **Authoritative sources to inspect:** LAB-01, `docs/systems/matcha.md`, `docs/systems/projects.md`, `docs/design-principles.md`, ADRs 0002, 0028, and 0029, and each selected upstream configuration guide.
+- **Existing-mod candidates:** Patchouli or Modonomicon, FTB Quests, Better Advancements, Advancement Plaques, EMI, REI, JEI, and Jade.
+- **Custom-code gate:** Prefer configuration and datapacks. A custom suppression or notification bridge requires the LAB-12 gap record and must not delete source instructions.
+- **Explicit non-goals:** No quest-gated first hour, no removal of all source books, no advancement reward rebalance, no global notification mute, and no new gameplay unlock.
 - **Acceptance criteria:**
-  1. The schema has an explicit version, codec or serializer, field validation,
-     migration strategy, and documented failure behaviour.
-  2. Identity survives dropping, trading, container storage, and ordinary item-stack
-     operations without becoming a global mutable record.
-  3. Condition and balance fields are separated so tuning can live in data/configuration.
-- **Expected tests:** Codec round trips, invalid-field rejection, prior-version
-  migration fixtures, unknown-field handling, and item-stack copy/drop/container tests.
+  1. Duplicate starter material is suppressed only when its complete instruction is available in the Field Journal or a stable linked provider.
+  2. Useful discovery signals remain distinguishable from redundant noise.
+  3. The player can find instructions from a fresh profile without a prescribed quest order.
+  4. Every disabled source has a versioned configuration and a rollback note.
+  5. Text, icons, and non-colour cues explain warnings and unavailable integrations.
+- **Test requirements:** Fresh profile walkthrough, experienced profile walkthrough, source-book comparison, advancement trigger review, missing-provider fallback, localisation review, and client restart.
+- **Removal/migration risks:** Suppression settings and learned-state identifiers may differ between versions. Restore a source book or migrate its entries before changing the onboarding profile for an existing world.
 
-### FVR-101: Prevent permanent durability destruction [Done]
+## M3: Building and gathering
 
-- **Objective:** Replace ordinary zero-durability deletion with a safe transition to a
-  retained broken item while preserving vanilla use where no Forever condition applies.
-- **Dependencies:** FVR-100 and the approved equipment ADR.
-- **Explicit non-goals:** No field repair, workshop repair, reforge, custom visual art,
-  or degradation of ordinary non-equipment Minecraft play.
+### BUILD-01: Configure the ordinary building and gathering stack [Planned]
+
+- **Objective:** Ship the selected placement, excavation, tree, and gathering conveniences with normal Minecraft building always available.
+- **Dependencies:** PACK-01, LAB-03, INFO-01, and ADRs 0024, 0026, and 0032.
+- **Authoritative sources to inspect:** LAB-03, `docs/design-principles.md`, `docs/systems/mastery.md`, `docs/systems/equipment.md`, `docs/systems/projects.md`, ADRs 0005, 0006, 0024, 0026, and 0032.
+- **Existing-mod candidates:** The LAB-03 recommendation, including Effortless Building, Building Wands, WorldEdit, FTB Ultimine, Veinminer, and FallingTree where they pass the baseline.
+- **Custom-code gate:** No custom block or excavation mechanics. Configuration or datapack work is preferred. A companion integration requires a new gap analysis if the selected tools cannot share permissions or item conditions.
+- **Explicit non-goals:** No style scoring, blueprint requirement, Builder mastery requirement, custom block, custom tool, or final texture.
 - **Acceptance criteria:**
-  1. A supported item reaching zero condition remains in the owning inventory or world
-     and cannot be silently deleted by ordinary exhaustion.
-  2. Unaffected vanilla items retain their normal behaviour and normal block placement
-     remains available.
-  3. The server owns the transition and records an actionable diagnostic on invalid
-     condition data.
-- **Expected tests:** Server-side break transition, dropped-item transition,
-  container/trade transition, invalid-state handling, and a regression test for normal
-  vanilla durability behaviour.
+  1. Ordinary block placement and gathering work before registration, mastery, quest, or blueprint use.
+  2. Bulk operations have bounded selection and preserve item and condition rules.
+  3. The Field Journal explains controls, limits, failure reasons, and safe fallback.
+  4. The selected stack does not break Matcha item identity or vanilla tools.
+  5. Pack configuration is documented as source metadata rather than a local manual tweak.
+- **Test requirements:** Dedicated-server placement, bulk operation bounds, protection, tool condition, drops, cancellation, client absence, accessibility cues, and regression tests for vanilla building.
+- **Removal/migration risks:** Configuration keys and unfinished operations may change between mod versions. Drain or cancel active operations before removal and retain normal vanilla behaviour.
 
-### FVR-102: Add the broken-item state [Done]
+### BUILD-02: Add gathering breadth and project-ready resource paths [Planned]
 
-- **Objective:** Represent a broken, unusable item state that retains identity and is
-  understandable through non-colour cues until repair.
-- **Dependencies:** FVR-100 and FVR-101.
-- **Explicit non-goals:** No repair recipe, workshop registration, reforge path, or
-  final texture before the asset manifest and gameplay need are approved.
+- **Objective:** Make regional gathering, cultivation, import, and meaningful project inputs usable without turning raw repetition into progression.
+- **Dependencies:** BUILD-01, INFO-01, LAB-05, LAB-06, LAB-11, and the exploration, food, mastery, and projects specifications.
+- **Authoritative sources to inspect:** `docs/systems/exploration-and-regions.md`, `docs/systems/food-and-alchemy.md`, `docs/systems/mastery.md`, `docs/systems/projects.md`, `docs/design-principles.md`, ADRs 0003, 0014, 0028, and 0030.
+- **Existing-mod candidates:** Farmer's Delight, Croptopia, Create farming and processing, FallingTree, FTB Ultimine, productive resource mods, and the selected regional or structure provider.
+- **Custom-code gate:** Do not add a repetition counter or custom resource generator. A connective resource or discovery record needs the LAB-12 evidence and ADR 0033 approval.
+- **Explicit non-goals:** No AFK replacement farm, raw action-count XP, permanent resource lockout, global enemy scaling, or essential rare-loot gate.
 - **Acceptance criteria:**
-  1. Broken state is encoded in validated persistent data and rejects use paths that
-     would bypass the repair requirement.
-  2. Tooltip, text, icon shape, or another non-colour cue explains the state and how to
-     recover it.
-  3. Identity, enchantments, prior path progress, and other allowed data remain intact.
-- **Expected tests:** State persistence, use denial, tooltip/translation checks,
-  colour-independent presentation review, and server-authority tests for client packets.
+  1. A first regional acquisition can be meaningful without making later access permanently tedious.
+  2. Cultivation, preservation, import, trade, or infrastructure provide documented alternatives where expected.
+  3. Project completion is based on a validated outcome, not a block-count counter.
+  4. The Field Journal explains unknown resources, safe use, and alternative acquisition.
+  5. Unknown modded inputs remain physical and recoverable.
+- **Test requirements:** First discovery, repeat acquisition, alternative route, project substitution, unknown item, solo route, and no-repetition-progression review.
+- **Removal/migration risks:** Resource tags and recipe identities can change the value of existing stock. Preserve physical items, version category mappings, and migrate only with explicit evidence.
 
-### FVR-103: Add field repair [Done]
+## M4: Food and seasons
 
-- **Objective:** Provide a bounded, server-authoritative field repair action that
-  restores partial condition without deleting item identity.
-- **Dependencies:** FVR-102, the equipment system specification, and the balance data
-  contract.
-- **Explicit non-goals:** No full restoration, workshop, reforge, max-durability decay
-  spiral, repetitive mastery XP, or client-only repair outcome.
+### FOOD-01: Integrate cooking, traits, alchemy, and preservation [Planned]
+
+- **Objective:** Deliver readable food and preparation choices using existing mods and data before considering a custom trait bridge.
+- **Dependencies:** BUILD-02, INFO-01, LAB-05, LAB-06, storage and economy plans, and the food specification.
+- **Authoritative sources to inspect:** `docs/systems/food-and-alchemy.md`, `docs/systems/storage.md`, `docs/systems/economy.md`, `docs/systems/mastery.md`, ADRs 0014, 0024, 0026, and 0029.
+- **Existing-mod candidates:** The LAB-05 recommendation, including Farmer's Delight, Croptopia, Cooking for Blockheads, Brewin' and Chewin', Create processing, and a stable alchemy provider.
+- **Custom-code gate:** No custom effect engine unless existing recipes, tags, and APIs cannot express the approved vocabulary and LAB-12 records the gap. Unknown foods must remain ordinary food.
+- **Explicit non-goals:** No forced food trait, opaque recipe puzzle, unbounded effect stacking, silent spoilage deletion, or removal of vanilla food.
 - **Acceptance criteria:**
-  1. A valid field process restores a data-driven partial amount and consumes only the
-     approved costs on the server.
-  2. Invalid item, insufficient resource, distance, or permission cases fail without
-     changing the item or consuming resources.
-  3. Player-facing instructions include translations, tooltip/UI explanation, and a
-     Field Guide entry.
-- **Expected tests:** Valid and invalid server actions, resource atomicity, disconnect
-  and retry handling, save/reload, duplicate-request resistance, and UI/guide content.
+  1. Trait names, effects, interactions, duration, intensity, and contraindications are inspectable.
+  2. Cooking and alchemy remain distinct choices with bounded outputs.
+  3. Preservation keeps physical food recoverable through failure and restart.
+  4. Modded ingredients can use generic mappings or remain neutral when ambiguous.
+  5. The Field Journal and recipe viewer explain every expected process.
+- **Test requirements:** Recipe and trait inspection, effect caps, unknown ingredient, interrupted preparation, duplicate output prevention, restart recovery, vanilla regression, and accessibility review.
+- **Removal/migration risks:** Prepared food and trait records may outlive their provider. Preserve source identity and migrate removed effects to a readable legacy state instead of applying an arbitrary replacement.
 
-### FVR-104: Add workshop repair [Done]
+### FOOD-02: Integrate seasons and climate mitigation [Planned]
 
-- **Objective:** Add a workshop repair process that restores full condition through an
-  explicit server-side interaction and data-driven cost.
-- **Dependencies:** FVR-103 and the approved workshop system specification.
-- **Explicit non-goals:** No settlement graph, Mason career, reforge specialisation,
-  permanent chunk loading, or removal of ordinary anvil and vanilla play.
+- **Objective:** Add a modest, predictable climate layer through the selected provider and fallback, with greenhouse, preservation, trade, and import as alternatives.
+- **Dependencies:** FOOD-01, LAB-06, INFO-01, and the transportation and exploration specifications.
+- **Authoritative sources to inspect:** `docs/systems/seasons-and-weather.md`, `docs/systems/food-and-alchemy.md`, `docs/systems/transportation.md`, `docs/systems/settlements.md`, ADR 0014, and the LAB-06 report.
+- **Existing-mod candidates:** Serene Seasons, vanilla weather, greenhouse or crop-support mods, and the climate provider selected by LAB-06.
+- **Custom-code gate:** No custom calendar or destructive crop rule. A Many Roads Integration climate adapter requires an accepted gap analysis and a safe no-op provider.
+- **Explicit non-goals:** No hard seasonal ban, punitive waiting period, random settlement disaster, mandatory greenhouse, or guessed unknown-crop mapping.
 - **Acceptance criteria:**
-  1. A valid workshop interaction restores full condition without changing identity or
-     deleting the item.
-  2. Cost, eligibility, and timing are data-driven and validated on the server.
-  3. The process is understandable through translations, tooltip/UI explanation,
-     Field Guide text, and recipe-viewer integration when a recipe is involved.
-- **Expected tests:** GameTest for interaction and full repair, invalid/duplicate request
-  tests, restart persistence, client/server authority checks, and recipe/guide checks.
+  1. Season, local climate, forecast band, suitability, and mitigation are visible with text and icons.
+  2. Missing climate provider keeps ordinary food and travel playable.
+  3. Greenhouse function is validated by bounded function, not style or blueprint.
+  4. Climate values and effects are data-driven and modest.
+  5. A player can recover from missed timing through multiple documented routes.
+- **Test requirements:** Calendar save/reload, provider absence, unknown crop, greenhouse invalidation, forecast change, crop regression, client/server authority, and dedicated-server startup.
+- **Removal/migration risks:** Season state and crop mappings can alter a persistent world. Keep a versioned calendar and neutral fallback before replacing or removing a climate provider.
 
-### FVR-105: Add the reforge path [Done]
+## M5: Storage and logistics
 
-- **Objective:** Add the approved reforge operation that restores full condition and
-  permits an item to switch its active specialisation path without losing identity or
-  prior path progress.
-- **Dependencies:** FVR-100, FVR-104, the item-specialisation ADR, and the reforge
-  system specification.
-- **Explicit non-goals:** No mastery registry implementation, recurring tax, XP loss,
-  re-levelling, permanent destruction, or unapproved path balance.
+### STORAGE-01: Deliver physical local storage and search [Planned]
+
+- **Objective:** Provide a bounded local search and personal cache experience using the selected storage stack while keeping physical inventories authoritative.
+- **Dependencies:** FOOD-01, PACK-01, LAB-07, INFO-01, and the storage specification.
+- **Authoritative sources to inspect:** `docs/systems/storage.md`, `docs/systems/logistics.md`, `docs/world-save-safety.md`, ADRs 0011, 0012, 0024, and 0026, and the LAB-07 report.
+- **Existing-mod candidates:** The LAB-07 recommendation, including Tom's Simple Storage, Simple Storage Network, Sophisticated Storage, Functional Storage, Storage Drawers, and vanilla containers.
+- **Custom-code gate:** No custom warehouse or terminal until the existing stack's indexing, permissions, and route boundaries fail a documented test. A companion implementation needs ADR 0033 approval.
+- **Explicit non-goals:** No remote magical withdrawal, dimension-spanning warehouse, recursive cache, forced container registration, or unbounded scan.
 - **Acceptance criteria:**
-  1. An item may know several paths but has only one active path at a time.
-  2. Reforging preserves item identity and inactive path progress, restores full
-     condition, and either commits atomically or changes nothing.
-  3. The operation has versioned persistent data, validated costs, failure behaviour,
-     and in-game explanation.
-- **Expected tests:** Multi-path persistence, successful and rejected reforges,
-  duplicate/disconnect attempts, interrupted save handling, restart behaviour, and
-  client/server authority tests.
+  1. Search results identify physical locations and access rights.
+  2. Indexes are derived, bounded, rebuildable, and never the only copy of an item.
+  3. Personal cache capacity, nesting rules, and movement behaviour are documented.
+  4. Failed transfers leave source and destination unchanged.
+  5. Normal chests, barrels, shulkers, and inventories remain valid without the feature.
+- **Test requirements:** Index rebuild, stale result, physical mutation, transfer atomicity, cache nesting, death or drop, restart, permissions, paging, and absent-provider fallback.
+- **Removal/migration risks:** Derived indexes can be discarded only when physical references remain safe. Cache components and container links require schema and item recovery tests before removal.
 
-### FVR-106: Add equipment persistence and duplication GameTests [Done]
+### LOGISTICS-01: Deliver local physical shipments [Planned]
 
-- **Objective:** Prove the complete equipment vertical slice survives world lifecycle
-  events and cannot create or destroy items through ordinary interaction races.
-- **Dependencies:** FVR-100 through FVR-105.
-- **Explicit non-goals:** No new equipment feature or balance change beyond the tested
-  slice.
+- **Objective:** Connect storage, local transport, and receiving buffers so that bulk movement is physical, restart-safe, and bounded.
+- **Dependencies:** STORAGE-01, LAB-08, LAB-09, INFO-01, ADRs 0010, 0012, 0024, 0026, and the logistics specification.
+- **Authoritative sources to inspect:** `docs/systems/logistics.md`, `docs/systems/storage.md`, `docs/systems/transportation.md`, `docs/world-save-safety.md`, ADRs 0010, 0012, and 0026, and the LAB-08 and LAB-09 reports.
+- **Existing-mod candidates:** Create, Pipez, Integrated Dynamics with Integrated Tunnels, the selected storage provider, and a selected rail or vehicle freight provider.
+- **Custom-code gate:** A custom shipment ledger is allowed only if existing physical transfer and route APIs cannot provide idempotent reservation, cargo, and receiving states. Require ADR 0033 before code.
+- **Explicit non-goals:** No magical remote withdrawal, arbitrary cross-dimensional shipment, invisible cargo loss, infinite reservation, or permanent chunk loading.
 - **Acceptance criteria:**
-  1. Identity, condition, broken state, path progress, repair, and reforge survive save,
-     reload, drop, pickup, container movement, trade, and server restart.
-  2. Repeated packets, disconnects, simultaneous interactions, and reloads cannot
-     duplicate an item or permanently delete it.
-  3. GameTests prove the server decides outcomes and the client is only a projection.
-- **Expected tests:** Dedicated-server GameTests for persistence, duplication, restart,
-  authority boundaries, and vanilla regression, plus unit tests for codecs and migration.
+  1. A shipment has source, destination, manifest, route, reservation, status, and receiving state.
+  2. Physical goods occupy a source, cargo, buffer, or destination at every stage.
+  3. Replaying a request or restart does not duplicate or consume cargo twice.
+  4. Failed routes release or preserve cargo with an actionable reason.
+  5. Cross-dimensional movement is rejected unless an approved depot exists.
+- **Test requirements:** Request lifecycle, reservation, loading, transit, receiving, cancellation, restart at every transition, duplicate request, route damage, malformed manifest, and server-only outcome checks.
+- **Removal/migration risks:** Shipment records and reserved stacks cannot be deleted with a mod update. Reconcile or cancel all active shipments and preserve physical cargo before changing the provider.
 
-## Knowledge and Field Guide
+## M6: Transportation
 
-### FVR-200: Build the Field Guide framework [Done]
+### TRANS-01: Deliver explicit routes and physical transport services [Planned]
 
-- **Objective:** Create the in-game documentation framework that can explain every
-  player-facing Forever mechanic without requiring an external wiki.
-- **Dependencies:** FVR-002, FVR-004, and the client architecture specification.
-- **Explicit non-goals:** No mastery, equipment, settlement, or Matcha gameplay; no
-  final art before the asset manifest; no client authority over gameplay.
+- **Objective:** Create route registration and service validation around the selected rail, road, horse, boat, and vehicle tools without continuous world scanning.
+- **Dependencies:** LOGISTICS-01, LAB-09, INFO-01, LAB-03, ADRs 0010, 0013, 0018, 0024, and the transportation specification.
+- **Authoritative sources to inspect:** `docs/systems/transportation.md`, `docs/systems/logistics.md`, `docs/systems/settlements.md`, `docs/systems/animals.md`, ADRs 0010, 0013, 0018, and the LAB-09 report.
+- **Existing-mod candidates:** Create rail, Extended Rails, vanilla minecarts, horses, boats, and the selected vehicle provider from LAB-09.
+- **Custom-code gate:** No global route graph or custom rail physics. A route adapter may be proposed only after supported endpoint events and bounded validation are exhausted and ADR 0033 is complete.
+- **Explicit non-goals:** No automatic route discovery, distance-only service, instant travel, permanent chunk loading, or requirement to register ordinary walking.
 - **Acceptance criteria:**
-  1. Entries have stable IDs, versioned content metadata, translations, categories, and
-     a bounded rendering/search contract.
-  2. The client renders server-synchronised summaries and cannot grant outcomes.
-  3. Missing or outdated entries fail visibly and safely rather than showing incorrect
-     instructions.
-- **Expected tests:** Entry schema validation, translation fallback, bounded payload and
-  rendering tests, dedicated-server absence of client references, and UI smoke tests.
+  1. Routes use explicit stable markers, bounded validation, cached results, and visible stale reasons.
+  2. Rail can serve repeated fixed routes without making all other modes invalid.
+  3. Road, boat, horse, and walking contexts remain meaningful.
+  4. Infrastructure damage produces a safe false negative and another travel option.
+  5. Route records are versioned and contain endpoint, mode, service, and validation references.
+- **Test requirements:** Road survey, rail graph bound, disconnected route, station removal, invalidation, cache rebuild, restart, multiplayer permissions, cross-dimension rejection, and no-scan performance review.
+- **Removal/migration risks:** Route records point to physical markers and services. Missing endpoints must produce an unavailable state, not a coordinate teleport or deleted route history.
 
-### FVR-201: Add searchable Field Guide entries [Done]
+### TRANS-02: Deliver earned passenger services and fast travel [Planned]
 
-- **Objective:** Make approved Field Guide content searchable and navigable by topic,
-  prerequisite, and recipe or system reference.
-- **Dependencies:** FVR-200.
-- **Explicit non-goals:** No hidden quest gating, external web links as required
-  instructions, unbounded text or result payloads, or speculative future entries.
+- **Objective:** Configure or implement a route-gated convenience that lets a player skip established journeys without making geography irrelevant.
+- **Dependencies:** TRANS-01, INFO-01, LAB-11, ADRs 0018, 0031, and the transportation specification.
+- **Authoritative sources to inspect:** `docs/systems/transportation.md`, `docs/systems/exploration-and-regions.md`, `docs/world-save-safety.md`, ADRs 0010, 0013, 0018, 0028, and 0031, and the selected travel provider documentation.
+- **Existing-mod candidates:** Waystones, Travel Anchors, Create passenger services, rail station providers, and any existing route-aware fast-travel tool that passes the LAB reports.
+- **Custom-code gate:** Prefer configuration and a public integration. A companion passenger service requires ADR 0033 evidence and must not create a coordinate-only teleport.
+- **Explicit non-goals:** No unrestricted waypoint menu, admin command replacement, free global teleport, route registration by distance alone, or cross-dimensional bypass.
 - **Acceptance criteria:**
-  1. Search is deterministic, bounded, and handles no-result and malformed-entry cases.
-  2. Results explain known processes without hiding required instructions behind
-     discovery state.
-  3. Entries have translations and a non-colour-only status presentation.
-- **Expected tests:** Search ranking and limit tests, malformed-content tests, client
-  rendering tests, translation coverage, and payload-size checks.
+  1. Fast travel requires discovered endpoints, physical travel, suitable infrastructure, explicit registration, bounded validation, and a current service.
+  2. A stale or damaged route denies the skip with an actionable reason.
+  3. The service points to route and endpoint IDs, not only coordinates.
+  4. Walking and ordinary transport remain usable without registration.
+  5. Fares, capacity, time, and cooldown are data-driven and cannot replace the route proof.
+- **Test requirements:** Unmet prerequisite matrix, valid skip, route damage, endpoint removal, restart, duplicate request, permission denial, solo route, multiplayer shared route, and client/server authority.
+- **Removal/migration risks:** Fast-travel grants and route references can outlive the provider. Migrate them to unavailable or revalidation states and never silently preserve a stale teleport permission.
 
-### FVR-202: Add Matcha early-progression entries [Done]
+## M7: Masteries and equipment
 
-- **Objective:** Document the approved early Matcha progression in the Field Guide
-  using stable Forever adapter concepts and audited evidence.
-- **Dependencies:** FVR-014, FVR-015, FVR-016, and FVR-200.
-- **Explicit non-goals:** No Matcha internals outside the adapter, no gameplay override,
-  no unsupported claims about unaudited behaviour, and no external-wiki dependency.
+### PROG-01: Deliver evidence-based capability and mastery progression [Planned]
+
+- **Objective:** Build the capability web and configurable mastery loadout around breadth, discovery, projects, and technique rather than repetitive action counts.
+- **Dependencies:** INFO-01, BUILD-02, TRANS-01, LAB-12, ADRs 0003, 0004, 0022, 0026, and the mastery specification.
+- **Authoritative sources to inspect:** `docs/systems/mastery.md`, `docs/systems/projects.md`, `docs/systems/exploration-and-regions.md`, `docs/design-principles.md`, ADRs 0003, 0004, 0022, 0026, and the LAB-12 gap report.
+- **Existing-mod candidates:** Project MMO, LevelZ, FTB Quests, Origins-style capability providers, and the selected pack tools that already expose evidence or skill state.
+- **Custom-code gate:** Custom mastery or capability code requires a complete ADR 0033 gap analysis. No custom code is justified merely because a level or quest system is familiar.
+- **Explicit non-goals:** No raw block-count XP, irreversible class choice, mandatory mastery for ordinary building, recurring respec tax, or client-owned outcome.
 - **Acceptance criteria:**
-  1. Each entry maps to an audited and classified capability or is explicitly marked
-     unknown.
-  2. The instructions, prerequisites, failure states, translations, and relevant
-     recipe links are inspectable in game.
-  3. Removing or disabling Matcha does not crash the base client or corrupt entries.
-- **Expected tests:** Fixture-backed entry validation, translation and link checks,
-  absent/unsupported Matcha rendering, and a manual audit-to-entry trace review.
+  1. Learning is permanent and inactive mastery progress is retained.
+  2. One Focus and two Supporting slots are configurable without XP loss.
+  3. Evidence is idempotent and attributable to meaningful breadth, discovery, projects, or technique.
+  4. Each capability has a plain-language explanation and Field Journal entry.
+  5. Vanilla actions remain usable without a mastery.
+- **Test requirements:** Evidence duplication, inactive progress, loadout switch, restart, death or copy behaviour, client packet authority, solo path, multiplayer contribution, and rejection of repetition counters.
+- **Removal/migration risks:** Mastery IDs, progress, and loadout state are persistent. Removing a mastery needs an alias, preserved history, or explicit unavailable state without deleting unrelated learning.
 
-### FVR-203: Integrate the recipe viewer [Done]
+### PROG-02: Deliver long-lived equipment condition and specialisation [Planned]
 
-- **Objective:** Expose relevant Forever and approved Matcha-related recipes through a
-  recipe-viewer integration without making an optional viewer a hard dependency.
-- **Dependencies:** FVR-200, FVR-201, FVR-202, and the optional-adapter contract.
-- **Explicit non-goals:** No recipe invention, recipe balance changes, hard dependency
-  on one viewer, or server-side client UI logic.
+- **Objective:** Provide recoverable equipment identity, condition, repair, and item-level specialisation using an existing provider where possible and a narrow companion only for proven gaps.
+- **Dependencies:** PROG-01, BUILD-01, FOOD-01, LAB-03, LAB-12, ADRs 0005, 0006, 0026, and the equipment specification.
+- **Authoritative sources to inspect:** `docs/systems/equipment.md`, `docs/systems/mastery.md`, `docs/world-save-safety.md`, ADRs 0005, 0006, 0026, 0033, and the LAB-03 and LAB-12 reports.
+- **Existing-mod candidates:** Tetra, Silent Gear, tool condition and repair providers, Create or vanilla repair interactions, and the selected Matcha equipment rules.
+- **Custom-code gate:** No custom item component or durability interception until candidate APIs, configuration, datapack recipes, and adapter options are documented. Any new persistent component requires schema, migration, and duplication tests.
+- **Explicit non-goals:** No item deletion at zero condition, max-condition decay spiral, universal perfect tool, irreversible path switch, or final texture before asset approval.
 - **Acceptance criteria:**
-  1. Present recipes and usages have stable links from the Field Guide where applicable.
-  2. The integration is optional and has a safe no-op when the viewer is absent.
-  3. Recipe data, translations, and displayed prerequisites agree with server truth.
-- **Expected tests:** Viewer-present and viewer-absent client tests, recipe link
-  completeness, translation checks, and a dedicated-server classpath check.
+  1. A broken item remains present, identifiable, and unusable until repair.
+  2. Field repair, workshop repair, and reforge rules are visible and data-driven.
+  3. Item identity and prior path progress survive movement, storage, trade, drop, restart, and repair.
+  4. Vanilla tools remain usable where no selected condition system applies.
+  5. The server owns all condition and reforge outcomes.
+- **Test requirements:** Codec round trip, invalid data, prior-version migration, zero-condition transition, repair atomicity, reforge preservation, container and trade movement, duplicate requests, restart, and vanilla regression.
+- **Removal/migration risks:** Item components and registry IDs are expensive to change after persistent release. Retain aliases and recovery tooling before replacing a provider or renaming any equipment identifier.
 
-### FVR-204: Document campfire processes [Done]
+## M8: Settlements and villagers
 
-- **Objective:** Add clear Field Guide documentation for approved campfire processes,
-  including inputs, timing, outputs, safety, and failure states.
-- **Dependencies:** FVR-200 and the relevant process specification.
-- **Explicit non-goals:** No recipe changes, new campfire mechanics, final textures, or
-  hidden instructions that require reading an external guide.
+### SETTLE-01: Deliver free-form settlement registration and functional building graphs [Planned]
+
+- **Objective:** Let players register useful residences, workplaces, warehouses, workshops, stations, and outposts without requiring a style or blueprint.
+- **Dependencies:** BUILD-01, BUILD-02, TRANS-01, STORAGE-01, INFO-01, LAB-04, LAB-12, ADRs 0009, 0032, and the settlements specification.
+- **Authoritative sources to inspect:** `docs/systems/settlements.md`, `docs/systems/projects.md`, `docs/systems/transportation.md`, `docs/design-principles.md`, ADRs 0009, 0010, 0016, 0026, 0032, and the LAB-04 and LAB-12 reports.
+- **Existing-mod candidates:** MineColonies, MCA Reborn, Villager Recruits, Structurize, and existing claim or building registration providers with authoritative 26.2 evidence.
+- **Custom-code gate:** A custom settlement graph requires ADR 0033 and must prove that existing claim, colony, and building tools cannot express function without imposing style or a large simulation.
+- **Explicit non-goals:** No aesthetic score, mandatory blueprint, circular settlement scan, automatic natural-village conversion, or permanent chunk loading.
 - **Acceptance criteria:**
-  1. Every documented process matches an approved recipe or server mechanic.
-  2. The entry shows inputs, outputs, conditions, and recovery from interruption in
-     translated, inspectable text.
-  3. Recipe-viewer integration is present when the process has a recipe.
-- **Expected tests:** Content/schema validation, recipe cross-check, translation
-  coverage, interruption wording review, and in-game navigation smoke test.
+  1. Ordinary building remains valid outside a charter.
+  2. Registration names function, capacity, access, and connections rather than architectural theme.
+  3. Graph membership uses explicit nodes and bounded edges with cached validation.
+  4. Existing natural villages remain unchanged until a player-confirmed import workflow exists.
+  5. Invalid function removes only the service and preserves the physical build.
+- **Test requirements:** Registration, invalid function, split or rename, outpost edge, route invalidation, natural village non-import, bounded volume, restart, migration, and dedicated-server performance.
+- **Removal/migration risks:** Settlement IDs, building references, and graph edges are world data. Do not remove a provider without preserving charters, marking services unavailable, and testing a migration on a disposable copy.
 
-## Mastery
+### SETTLE-02: Deliver villager careers, migration, and institutional knowledge [Planned]
 
-### FVR-300: Add the mastery registry [Done]
-
-- **Objective:** Define a stable registry for mastery paths, capabilities, prerequisites,
-  and data-driven balance values.
-- **Dependencies:** FVR-004, FVR-005, FVR-015, and the mastery system specification.
-- **Explicit non-goals:** No repetitive-action XP, player persistence, loadout UI,
-  Prospector implementation, or final mastery art.
+- **Objective:** Make villagers persistent people with careers, mentorship, migration, safe unloaded simulation, and knowledge that can survive teaching.
+- **Dependencies:** SETTLE-01, PROG-01, FOOD-02, TRANS-01, INFO-01, LAB-12, ADR 0007, and the villagers specification.
+- **Authoritative sources to inspect:** `docs/systems/villagers.md`, `docs/systems/settlements.md`, `docs/systems/animals.md`, `docs/world-save-safety.md`, ADRs 0007, 0009, 0016, 0026, and the LAB-12 report.
+- **Existing-mod candidates:** MineColonies, MCA Reborn, Villager Recruits, Easy Villagers, and career or migration providers with public data and safe lifecycle contracts.
+- **Custom-code gate:** No custom villager career state until existing profession, colony, and migration APIs are evaluated. A companion system requires versioned entity data, bounded simulation, and ADR 0033 approval.
+- **Explicit non-goals:** No arbitrary off-screen death, ordinary breeding as the only population route, infinite villager simulation, disposable vending-machine careers, or multiplayer-only mentorship.
 - **Acceptance criteria:**
-  1. Paths have stable IDs, validated definitions, explicit dependencies, and bounded
-     capability descriptions.
-  2. Progression thresholds and modifiers live in data/configuration where practical.
-  3. Invalid or duplicate definitions fail with actionable diagnostics before gameplay
-     outcomes are evaluated.
-- **Expected tests:** Registry load and validation, duplicate/missing dependency tests,
-  malformed data tests, deterministic ordering, and data reload checks.
+  1. Career, home, workplace, rank, mentor, apprentice, techniques, and current state are persistent and inspectable.
+  2. Loaded hazards have visible causes and a recoverable downed state where practical.
+  3. Unloaded simulation uses a fixed budget and cannot invent random death.
+  4. Taught institutional knowledge can survive an individual, while untaught knowledge has an explicit loss rule.
+  5. Solo play can host a complete career and migration path.
+- **Test requirements:** Entity schema round trip, migration, loaded cause, unloaded safe simulation, death and rescue, mentorship transfer, reassignment, restart, duplication resistance, and no-force-load performance.
+- **Removal/migration risks:** Villager attachments and relationships can reference settlement and technique IDs. A provider change must preserve people as physical entities and move unresolved links to a visible reassignment state.
 
-### FVR-301: Add persistent player mastery state [Done]
+## M9: Exploration and danger
 
-- **Objective:** Store player mastery progress as a versioned persistent attachment or
-  component that survives dimensions, save/reload, and server restart.
-- **Dependencies:** FVR-300, FVR-004, and the persistent-data requirements in
-  `docs/world-save-safety.md`.
-- **Explicit non-goals:** No loadout switching, XP source implementation, recurring
-  tax, XP loss, or client-owned progress.
+### EXP-01: Deliver regions, discovery, and meaningful structure outcomes [Planned]
+
+- **Objective:** Make regions and structures teach new possibilities, connect to people and trade, and reduce repeated travel through knowledge and infrastructure rather than loot farming.
+- **Dependencies:** SETTLE-01, FOOD-01, TRANS-01, INFO-01, LAB-10, LAB-11, ADRs 0015, 0028, and the exploration specification.
+- **Authoritative sources to inspect:** `docs/systems/exploration-and-regions.md`, `docs/systems/projects.md`, `docs/systems/food-and-alchemy.md`, `docs/systems/transportation.md`, ADRs 0015, 0018, 0028, 0030, and the LAB-10 and LAB-11 reports.
+- **Existing-mod candidates:** YUNG's Better Structures, Structory, Towns and Towers, Terralith where compatible, structure or map providers, and the selected adventure or quest provider.
+- **Custom-code gate:** Prefer existing structures, datapack tags, loot, advancements, and Field Journal data. A region or discovery ledger requires ADR 0033 evidence if no existing provider can supply stable claims.
+- **Explicit non-goals:** No worldgen overhaul by default, rare structure farming as the main economy, essential capability hidden behind one structure, or automatic chunk-wide discovery scans.
 - **Acceptance criteria:**
-  1. The format defines schema version, codec/serializer, validation, migration, and
-     explicit failure and recovery behaviour.
-  2. Progress is permanent and inactive paths retain their levels.
-  3. Server state remains authoritative and synchronisation is versioned and bounded.
-- **Expected tests:** Codec round trips, prior-schema migration, invalid-data handling,
-  save/reload, dimension transfer, restart, duplicate-write, and authority tests.
+  1. Region identity records ecological, cultural, economic, and knowledge dimensions with inspectable descriptions.
+  2. Discovery is a meaningful observation, not merely entering a chunk.
+  3. Unique outcomes are bounded and not endlessly duplicated by repeat visits.
+  4. A missing structure or declined opportunity leaves a safe alternate route.
+  5. The Field Journal explains discovered processes and remaining uncertainty.
+- **Test requirements:** First discovery, repeat visit, unique reward claim, missing structure, alternate route, multiplayer sharing, save/reload, and structure density review.
+- **Removal/migration risks:** Region claims and structure outcomes become persistent world knowledge. Removing a source must preserve the claim and provide a readable unavailable or migrated result.
 
-### FVR-302: Add one Focus and two Supporting slots [Done]
+### EXP-02: Deliver local danger without global enemy scaling [Planned]
 
-- **Objective:** Represent the mastery loadout contract with exactly one Focus slot and
-  two Supporting slots while retaining progress for inactive paths.
-- **Dependencies:** FVR-301 and the mastery loadout ADR.
-- **Explicit non-goals:** No switching interaction, rest requirement implementation,
-  re-levelling, XP loss, or arbitrary additional slots.
+- **Objective:** Use bounded regional, structural, environmental, and objective-based danger while preserving source mob balance elsewhere.
+- **Dependencies:** EXP-01, FOOD-02, TRANS-01, INFO-01, LAB-10, LAB-11, ADRs 0028 and 0030.
+- **Authoritative sources to inspect:** `docs/systems/exploration-and-regions.md`, `docs/systems/transportation.md`, `docs/systems/seasons-and-weather.md`, `docs/design-principles.md`, ADR 0030, and candidate encounter-mod documentation.
+- **Existing-mod candidates:** Better Combat, Combatify, Simply Swords, selected adventure encounter settings, vanilla difficulty, and regional hazard providers that expose bounded configuration.
+- **Custom-code gate:** No global enemy modifier. A local encounter adapter requires a documented scope, source, version guard, fallback, and ADR 0033 review.
+- **Explicit non-goals:** No world-age multiplier, player-level multiplier, dimension-wide global scaling, hidden combat level, or essential survival gate.
 - **Acceptance criteria:**
-  1. A valid loadout contains one Focus and two Supporting assignments, with explicit
-     validation for duplicates and incompatible paths.
-  2. Inactive progress remains stored and has no hidden reset or recurring tax.
-  3. The loadout summary is a bounded server projection and is explainable in the
-     Field Guide/UI when exposed.
-- **Expected tests:** Valid/invalid slot combinations, persistence, duplicate request
-  handling, bounded synchronisation, and client/server authority tests.
+  1. Vanilla and ordinary modded entities retain source values outside documented local situations.
+  2. Local danger names scope, duration, affected entities, reason, and mitigation.
+  3. Warnings use text, icons, and non-colour cues.
+  4. Missing adventure rewards do not make ordinary building, shelter, food, or travel impossible.
+  5. Local modifiers are data-driven and bounded.
+- **Test requirements:** Same mob inside and outside scope, world-age regression, multiplayer player-level regression, missing provider, local hazard expiry, client warning, and dedicated-server authority.
+- **Removal/migration risks:** Persisted encounter records can retain modifiers after a provider is removed. Expire or migrate them to neutral state and never leave a global attribute change behind.
 
-### FVR-303: Add rest-based mastery switching [Done]
+## M10: Blueprints and construction contracts
 
-- **Objective:** Allow players to change active mastery assignments only through the
-  approved rest, home, or workplace interaction.
-- **Dependencies:** FVR-302, the rest/switching ADR, and the relevant interaction spec.
-- **Explicit non-goals:** No instant hotbar switching, XP loss, re-levelling, recurring
-  tax, or settlement implementation beyond the required interaction contract.
+### BLUE-01: Deliver optional blueprint workflows [Planned]
+
+- **Objective:** Make blueprint preview, material planning, and player-authored sharing useful without making a blueprint part of ordinary building permission.
+- **Dependencies:** SETTLE-01, BUILD-01, INFO-01, LAB-04, ADR 0032, and the projects specification.
+- **Authoritative sources to inspect:** `docs/systems/projects.md`, `docs/systems/settlements.md`, `docs/design-principles.md`, ADRs 0009, 0026, and 0032, and the LAB-04 report.
+- **Existing-mod candidates:** Litematica, Axiom, WorldEdit, Structurize, and the candidate selected by LAB-04.
+- **Custom-code gate:** No custom renderer or file format. A companion bridge requires evidence that existing formats and public APIs cannot provide the required preview or functional metadata.
+- **Explicit non-goals:** No canonical style, automated construction, mandatory schematic, exact palette requirement, or redistribution of unlicensed plans.
 - **Acceptance criteria:**
-  1. The server validates rest/home/workplace conditions and commits a switch
-     atomically.
-  2. Invalid, repeated, disconnected, or client-forged requests do not alter state or
-     consume a cost.
-  3. The process and its reason are translated, explained in UI/tooltips, and recorded
-     in the Field Guide.
-- **Expected tests:** GameTests for valid rest and invalid locations, reconnect/retry and
-  duplicate requests, save/reload and restart, and forged client packet rejection.
+  1. Blueprint use is optional and can be disabled without affecting ordinary building.
+  2. Player-authored plans preserve provenance and do not grant server-side block authority.
+  3. Missing mappings and unsupported formats are visible and non-destructive.
+  4. Material estimates are bounded and cannot become a second physical inventory.
+  5. The Field Journal explains manual and blueprint-assisted paths equally.
+- **Test requirements:** Preview, import, missing block, malformed file, permissions, client-only absence, material estimate bounds, hand-built equivalent, and provenance review.
+- **Removal/migration risks:** Plan files may reference removed blocks or providers. Preserve physical builds, mark plans unavailable, and avoid storing a plan as the only evidence of a completed contract.
 
-### FVR-304: Add the Prospector prototype [Done]
+### BLUE-02: Deliver style-independent construction contracts [Planned]
 
-- **Objective:** Prototype a Prospector path whose progression rewards discovery,
-  breadth, technique, and completed projects rather than repetitive-action counters.
-- **Dependencies:** FVR-300 through FVR-303, the mastery XP ADR, and the Prospector
-  system specification.
-- **Explicit non-goals:** No generic mastery catalogue, raw “mine N blocks” XP, final
-  balance, permanent chunk loading, or unrelated specialist paths.
+- **Objective:** Let projects request functional outcomes such as a safe residence, bridge, greenhouse, station, or warehouse without prescribing visual style.
+- **Dependencies:** BLUE-01, SETTLE-01, BUILD-02, TRANS-01, FOOD-02, INFO-01, ADRs 0028, 0032, and the projects specification.
+- **Authoritative sources to inspect:** `docs/systems/projects.md`, `docs/systems/settlements.md`, `docs/systems/seasons-and-weather.md`, `docs/design-principles.md`, ADRs 0009, 0015, 0028, and 0032.
+- **Existing-mod candidates:** FTB Quests, Create contracts or schematics, Structurize, MineColonies building rules, and the selected project or blueprint provider.
+- **Custom-code gate:** Prefer data-defined objectives, existing task predicates, and functional block tags. A custom contract validator needs ADR 0033 and bounded server-side checks.
+- **Explicit non-goals:** No aesthetic score, prescribed theme, block-count reward, blueprint-only completion, or quest chain that blocks ordinary survival.
 - **Acceptance criteria:**
-  1. The prototype has a bounded, data-driven set of approved accomplishment sources.
-  2. No repetitive-action mastery XP is introduced without an explicitly approved ADR.
-  3. The active path, feedback, translations, tooltip/UI explanation, and Field Guide
-     entry agree with server-authoritative outcomes.
-- **Expected tests:** XP-source allowlist tests, duplicate-event and replay tests,
-  persistence/restart, client-forgery rejection, and content/guide checks.
+  1. Contract criteria name function, access, capacity, safety, and relevant connections.
+  2. Multiple palettes and layouts can satisfy the same declared purpose.
+  3. A declined or abandoned contract leaves physical work and ordinary play intact.
+  4. Contributions are attributed to material work or knowledge, not proximity.
+  5. Completion, failure, reward, and migration states are versioned and explainable.
+- **Test requirements:** Two visually different valid builds, invalid function, substitution, abandonment, multiplayer contribution, solo completion, restart, and server-authoritative validation.
+- **Removal/migration risks:** Contract IDs and validation references can survive a provider update. Migrate active contracts to paused or legacy state rather than declaring an unrelated build complete.
 
-### FVR-305: Add mastery persistence and duplication tests [Done]
+## M11: Economy and regional networks
 
-- **Objective:** Prove registry-backed mastery state, loadout slots, switching, and
-  Prospector progress remain correct across lifecycle and packet races.
-- **Dependencies:** FVR-301 through FVR-304.
-- **Explicit non-goals:** No new mastery path or progression balance changes.
+### ECON-01: Deliver physical currency, shops, and contracts [Planned]
+
+- **Objective:** Provide an exchange layer with physical and compact currency, free player pricing, bounded NPC willingness, and contracts that represent real goods.
+- **Dependencies:** STORAGE-01, LOGISTICS-01, SETTLE-01, FOOD-01, PROG-01, INFO-01, LAB-05, LAB-07, and the economy specification.
+- **Authoritative sources to inspect:** `docs/systems/economy.md`, `docs/systems/storage.md`, `docs/systems/logistics.md`, `docs/systems/settlements.md`, ADR 0008, ADR 0017, and the LAB reports for storage, food, and transport.
+- **Existing-mod candidates:** Numismatic Overhaul, Lightman's Currency, player-shop providers, villager market providers, Create trading features, and vanilla trading where compatible.
+- **Custom-code gate:** No custom economy or second hidden currency until existing currency and shop APIs fail to express physical conservation, free pricing, willingness, and contract state. ADR 0033 is required for a companion economy.
+- **Explicit non-goals:** No forced player price, infinite demand sink, remote item creation, pay-to-unlock essential capability, or unbounded banking simulator.
 - **Acceptance criteria:**
-  1. Progress, active slots, and inactive paths survive save/reload, dimension change,
-     disconnect, and server restart.
-  2. Replayed accomplishments, duplicate packets, and concurrent switches cannot grant
-     duplicate progress or lose valid progress.
-  3. GameTests prove the server decides all outcomes and bounded projections are all the
-     client receives.
-- **Expected tests:** Dedicated-server GameTests for persistence, duplication, restart,
-  and authority boundaries, plus codec and migration unit tests.
+  1. Physical Obols remain transferable and Coin Purse balances remain compact, atomic, and withdrawable.
+  2. Player prices are free within safe data-defined bounds and NPC willingness can decline a sale.
+  3. Contracts reserve physical goods or payment and expose expiry, substitutes, and consequences.
+  4. Solo players can fulfil useful contracts through gathering, craft, preservation, import, or direct delivery.
+  5. The Field Journal explains prices, refusal, reservation, and failure.
+- **Test requirements:** Deposit and withdrawal conservation, stale shop view, declined sale, contract reservation, restart, duplicate transaction, malformed currency, multiplayer permissions, and client/server authority.
+- **Removal/migration risks:** Currency and contract records affect inventories and world economy. Never remove a currency provider without preserving balances, recovering physical tokens, and migrating active contracts.
 
-## Settlement
+### ECON-02: Deliver regional demand and network exchange [Planned]
 
-### FVR-400: Add the settlement Charter [Done]
-
-- **Objective:** Define the versioned settlement Charter that establishes ownership,
-  name, membership, and governance without imposing an architectural style.
-- **Dependencies:** FVR-004, the settlement ADRs, and the settlement system specification.
-- **Explicit non-goals:** No building scan, residence validation, villager career,
-  automatic village conversion, or aesthetic scoring.
+- **Objective:** Connect settlements, routes, food, storage, villagers, and logistics into bounded regional supply and demand without simulating a global market.
+- **Dependencies:** ECON-01, LOGISTICS-01, TRANS-01, SETTLE-02, EXP-01, FOOD-01, and the economy, logistics, and villagers specifications.
+- **Authoritative sources to inspect:** `docs/systems/economy.md`, `docs/systems/logistics.md`, `docs/systems/settlements.md`, `docs/systems/villagers.md`, `docs/systems/exploration-and-regions.md`, ADRs 0009, 0010, 0012, and the relevant LAB reports.
+- **Existing-mod candidates:** Create logistics and trading, the selected warehouse and transport providers, Lightman's Currency or Numismatic Overhaul, villager market providers, and regional trade or contract mods with authoritative baseline evidence.
+- **Custom-code gate:** A cross-mod market or category adapter requires ADR 0033. Use data-defined categories and existing shipment or shop contracts before creating a new network authority.
+- **Explicit non-goals:** No universal warehouse, infinite demand, global auction house, household-by-household simulation, or multiplayer requirement.
 - **Acceptance criteria:**
-  1. Charter data has schema version, codec/serializer, validation, migration, and
-     explicit invalid-data behaviour.
-  2. A Charter identifies a settlement without a permanent chunk-loading requirement
-     and does not judge theme or appearance.
-  3. Server authority, ownership changes, and failure recovery are documented.
-- **Expected tests:** Codec and migration tests, invalid Charter tests, restart/save
-  tests, permission boundary tests, and a no-style-enforcement review.
+  1. Demand is category-based, bounded, visible, and tied to a settlement or region.
+  2. Supply and delivery use physical goods, route service, reservation, and receiving state.
+  3. Geography matters for first access while cultivation, preservation, trade, and transport reduce repeated inconvenience.
+  4. Surplus changes urgency without silently deleting goods.
+  5. Network records are dimension-scoped unless an explicit portal depot is accepted.
+- **Test requirements:** Category demand, substitute, surplus, route failure, shipment restart, cross-dimension rejection, contract expiry, solo fulfilment, and bounded simulation performance.
+- **Removal/migration risks:** Regional demand and route references are persistent. Removing a settlement, route, or provider must pause or cancel commitments and preserve physical goods and readable history.
 
-### FVR-401: Add building selection and registration [Done]
+## M12: World chronicle and long-term play
 
-- **Objective:** Let a player explicitly select and register functional buildings with a
-  settlement using bounded, cached registration rather than world-wide discovery.
-- **Dependencies:** FVR-400 and the registration system specification.
-- **Explicit non-goals:** No unbounded scans, forced style, permanent chunk loading,
-  automatic registration of every nearby structure, or worker simulation.
+### CHRON-01: Deliver the world chronicle and significant history [Planned]
+
+- **Objective:** Record significant settlements, routes, discoveries, careers, projects, migrations, and notable item histories without logging every routine action.
+- **Dependencies:** INFO-01, SETTLE-02, TRANS-01, EXP-01, BLUE-02, ECON-02, PROG-02, and the world chronicle specification.
+- **Authoritative sources to inspect:** `docs/systems/world-chronicle.md`, `docs/systems/projects.md`, `docs/systems/settlements.md`, `docs/systems/villagers.md`, `docs/systems/equipment.md`, `docs/world-save-safety.md`, ADRs 0007, 0010, 0020, 0022, and the relevant milestone reports.
+- **Existing-mod candidates:** FTB Quests, Better Advancements, Advancement Plaques, Patchouli or Modonomicon for presentation, and read-only export or history tools where an official source exists.
+- **Custom-code gate:** A custom chronicle is allowed only if existing advancement, quest, and history surfaces cannot provide significant, deduplicated, permission-aware records. It requires ADR 0033 and a bounded persistent schema.
+- **Explicit non-goals:** No surveillance feed, block-by-block log, power reward for every entry, invisible history rewrite, or client-created fact.
 - **Acceptance criteria:**
-  1. Registration is explicit, server-validated, bounded, and removable through a safe
-     versioned operation.
-  2. Registered references survive save/reload and stale references fail safely without
-     deleting unrelated world content.
-  3. Normal block placement and ordinary Minecraft building remain possible without
-     registration.
-- **Expected tests:** Explicit registration GameTests, bounded-query tests, stale
-  reference handling, persistence/restart, and vanilla-building regression tests.
+  1. Significant events have stable IDs, schema versions, actors, place, time, fact, provenance, and references.
+  2. Duplicate retries do not create duplicate entries.
+  3. Missing entities leave a readable last-known reference.
+  4. Pages, filters, pins, privacy, and summaries are bounded and accessible.
+  5. The Field Journal explains what is and is not recorded.
+- **Test requirements:** Event significance, duplicate event, malformed candidate, missing reference, permission filtering, page bounds, restart, compaction protection, schema migration, and client projection checks.
+- **Removal/migration risks:** Chronicle history should outlive many feature providers. Preserve immutable facts and replace missing links with legacy labels rather than deleting the world story.
 
-### FVR-402: Add the residence validator [Done]
+### CHRON-02: Deliver long-term save, removal, and release hardening [Planned]
 
-- **Objective:** Validate residence function using enclosure, beds, workstations,
-  storage, safety, and space without enforcing a theme or blueprint.
-- **Dependencies:** FVR-401 and the residence validation specification.
-- **Explicit non-goals:** No aesthetic score, required architectural style, unbounded
-  block scan, arbitrary off-screen villager death, or chunk force-loading.
+- **Objective:** Validate that a long-lived Many Roads Home world can survive pack updates, optional-mod removal, migration, and years of bounded history.
+- **Dependencies:** CHRON-01, every persistent milestone, PACK-01, ADRs 0020, 0023, 0025, 0027, 0033, and 0034, plus `docs/world-save-safety.md`.
+- **Authoritative sources to inspect:** `docs/world-save-safety.md`, `docs/dependency-baseline.md`, `docs/architecture.md`, all system specifications with persistent data, ADRs 0020, 0023, 0025, 0027, 0033, and 0034, and the Packwiz profile and provenance records.
+- **Existing-mod candidates:** Packwiz export and validation tooling, Global Packs or its replacement utility, vanilla backup and recovery procedures, WorldEdit or another read-only inspection tool, and the selected providers' official migration guidance.
+- **Custom-code gate:** No new gameplay code. Migration tooling may be added only for a named schema or removal case with a reviewed gap analysis, preserved source data, and disposable-world evidence.
+- **Explicit non-goals:** No live-world test, automatic update, silent data discard, public release, broad dependency upgrade, or cleanup of preserved prototype code.
 - **Acceptance criteria:**
-  1. Validation uses bounded registered areas and cached results with clear invalidation.
-  2. Results explain which functional checks passed or failed and use non-colour cues.
-  3. Validation is server-authoritative and does not prevent ordinary vanilla building.
-- **Expected tests:** Functional pass/fail fixtures, bounds and cache invalidation,
-  malformed registration handling, client projection checks, and dedicated-server tests.
-
-### FVR-403: Add the settlement building graph [Done]
-
-- **Objective:** Represent settlements as a versioned graph of registered buildings,
-  workplaces, residences, infrastructure, and outposts.
-- **Dependencies:** FVR-400 through FVR-402 and the settlement graph ADR.
-- **Explicit non-goals:** No circle-radius settlement model, continuous world scan,
-  permanent chunk loading, logistics shipments, or career simulation.
-- **Acceptance criteria:**
-  1. Graph records define schema version, codec/serializer, validation, migration, and
-     failure behaviour for missing or stale nodes and edges.
-  2. Attachment and distance rules are data-driven, bounded, and cached.
-  3. The graph survives save/reload and server restart without silently dropping nodes.
-- **Expected tests:** Graph codec/migration, node and edge validation, bounded update
-  budget, stale reference recovery, persistence, restart, and authority tests.
-
-### FVR-404: Add existing-village import [Done]
-
-- **Objective:** Provide an explicit Charter/import workflow for incorporating an
-  existing natural Minecraft village without erasing its vanilla behaviour.
-- **Dependencies:** FVR-400, FVR-401, FVR-402, FVR-403, and the village import ADR.
-- **Explicit non-goals:** No automatic world-wide village scan, forced conversion,
-  removal of vanilla buildings, arbitrary NPC deletion, or style requirements.
-- **Acceptance criteria:**
-  1. Import is explicit, previewable, bounded, and cancellable before committing graph
-     records.
-  2. Existing blocks, entities, and identifiers are preserved unless a migration plan
-     explicitly covers a change.
-  3. Partial or invalid import fails safely and leaves the original world and Charter
-     recoverable.
-- **Expected tests:** Disposable-world import GameTests, preview/cancel, partial failure
-  rollback, persistence/restart, duplicate-import prevention, and vanilla regression.
-
-### FVR-405: Add a settlement migration prototype [Done]
-
-- **Objective:** Prove one versioned settlement schema migration and its operational
-  backup, verification, and recovery procedure before broader settlement persistence.
-- **Dependencies:** FVR-400 through FVR-404 and the world-save migration procedure.
-- **Explicit non-goals:** No broad schema rewrite, live-world migration, unbounded
-  repair tool, or release of persistent settlement gameplay without backup procedures.
-- **Acceptance criteria:**
-  1. A prior fixture migrates to the new schema through validated, deterministic steps.
-  2. Failed, interrupted, and unknown-version migrations preserve recoverable input and
-     produce actionable diagnostics.
-  3. The procedure documents backup, detection, migration, verification, rollback, and
-     dedicated-server startup checks on disposable copies.
-- **Expected tests:** Prior-version fixtures, invalid and interrupted migrations,
-  rollback/recovery tests, save/reload, restart, and dedicated-server smoke tests.
-
-## Mason vertical slice
-
-### FVR-500: Add the masonry workshop [Done]
-
-- **Objective:** Add the first approved masonry workshop interaction as the physical
-  anchor for the Mason vertical slice.
-- **Dependencies:** FVR-104, FVR-200, FVR-203, and the workshop/Mason specifications.
-- **Explicit non-goals:** No Mason career ranks, Obol economy, settlement-wide worker
-  simulation, final textures before approval, or forced replacement of vanilla crafting.
-- **Acceptance criteria:**
-  1. Workshop registration and state use the approved source boundary, server authority,
-     versioned persistent format, codec, validation, migration, and failure behaviour.
-  2. The workshop provides optional convenience while ordinary Minecraft crafting and
-     block placement remain possible.
-  3. Interaction instructions include translation, tooltip/UI explanation, Field Guide
-     text, and recipe-viewer links when applicable.
-- **Expected tests:** Workshop GameTests, invalid and duplicate interactions, save/reload
-  and restart, absent optional integration, authority checks, and content tests.
-
-### FVR-501: Add Mason persistent career state [Done]
-
-- **Objective:** Store Mason career rank, techniques, mentors, apprenticeships, and
-  related knowledge in a versioned persistent entity or player structure.
-- **Dependencies:** FVR-500, FVR-301, and the career persistence specification.
-- **Explicit non-goals:** No rank progression, bulk catalogue, Obol purse, arbitrary
-  off-screen death, or unversioned career blob.
-- **Acceptance criteria:**
-  1. State defines schema version, codec/serializer, validation, migration, and failure
-     behaviour for missing or invalid career records.
-  2. Institutional knowledge and personal knowledge follow the approved mortality and
-     teaching rules rather than a hidden global singleton.
-  3. Server state survives save/reload and restart and has bounded client summaries.
-- **Expected tests:** Codec and migration fixtures, entity/player lifecycle, restart,
-  invalid state, death/knowledge boundary, duplicate-write, and authority tests.
-
-### FVR-502: Add Mason Apprentice rank [Done]
-
-- **Objective:** Implement the first Mason rank with approved learning and workshop
-  capabilities.
-- **Dependencies:** FVR-501 and the Apprentice system specification.
-- **Explicit non-goals:** No Journeyman or Master capability, repetitive-action mastery
-  XP, final rank balance, or unrelated career systems.
-- **Acceptance criteria:**
-  1. Apprentice capabilities and thresholds are data-driven and server-validated.
-  2. Learning rewards approved breadth, technique, mentorship, or projects rather than
-     raw repetition counters.
-  3. Player-facing rank rules are translated, explained in UI/tooltips, and in the
-     Field Guide.
-- **Expected tests:** Rank validation, approved-source tests, duplicate/replay handling,
-  persistence/restart, forged-client rejection, and content checks.
-
-### FVR-503: Add Mason Journeyman rank [Done]
-
-- **Objective:** Add the Journeyman rank and its approved additional masonry capability
-  without breaking Apprentice data or normal play.
-- **Dependencies:** FVR-502 and the Journeyman system specification.
-- **Explicit non-goals:** No Master rank, economy, worker network, repetitive XP, or
-  migration shortcut that discards Apprentice knowledge.
-- **Acceptance criteria:**
-  1. Promotion is an explicit server-authoritative transition with data-driven criteria.
-  2. Previous rank progress and identity remain valid across save/reload and restart.
-  3. The capability is optional convenience and includes all required player-facing
-     explanation and recipe links.
-- **Expected tests:** Promotion success/failure, replay and duplicate promotion,
-  migration, persistence/restart, client authority, and content tests.
-
-### FVR-504: Add Mason Master rank [Done]
-
-- **Objective:** Add the Master rank as the top of this vertical slice with bounded,
-  approved masonry capabilities.
-- **Dependencies:** FVR-503 and the Master system specification.
-- **Explicit non-goals:** No new profession catalogue, settlement worker simulation,
-  unlimited automation, final economy rebalance, or degradation of vanilla building.
-- **Acceptance criteria:**
-  1. Master promotion and capabilities are validated on the server and configured in
-     data where practical.
-  2. The rank does not create unbounded work, permanent chunk loading, or a mandatory
-     replacement for ordinary Minecraft play.
-  3. Rank state, instructions, failure cases, translation, Field Guide, and recipe
-     viewer output are consistent.
-- **Expected tests:** Promotion and capability GameTests, performance/budget checks,
-  persistence/restart, duplicate requests, forged-client tests, and documentation checks.
-
-### FVR-505: Add the bulk block catalogue [Done]
-
-- **Objective:** Define a data-driven catalogue of approved bulk masonry blocks and
-  operations for the Mason workshop.
-- **Dependencies:** FVR-500, FVR-504, and the catalogue data specification.
-- **Explicit non-goals:** No unbounded batch size, free resources, removal of vanilla
-  recipes, final textures, or catalogue entries without migration aliases.
-- **Acceptance criteria:**
-  1. Entries have stable IDs, validated inputs/outputs, bounded batch sizes, and
-     data-driven costs and rates.
-  2. Catalogue changes preserve registered content or include a tested migration plan.
-  3. The interface explains previews, costs, errors, and completion without relying on
-     colour alone.
-- **Expected tests:** Data validation, batch-bound tests, atomic output/input handling,
-  interruption/retry, persistence/restart, duplication tests, and recipe/guide checks.
-
-### FVR-506: Add the Obol purse [Done]
-
-- **Objective:** Add the approved hybrid Obol economy with physical transferable items
-  and a withdrawable Coin Purse balance that does not consume many inventory slots.
-- **Dependencies:** FVR-500, FVR-501, the economy ADR, and the purse persistence spec.
-- **Explicit non-goals:** No mandatory shop pricing, arbitrary item deletion, unbounded
-  balance, cross-dimensional universal warehouse, or client-owned currency.
-- **Acceptance criteria:**
-  1. Purse data has schema version, codec/serializer, validation, migration, failure
-     behaviour, and atomic deposit/withdraw operations.
-  2. Physical Obols remain transferable and the balance is withdrawable according to the
-     approved rules.
-  3. The server prevents duplicate deposits, withdrawals, replayed requests, and
-     overflow while UI/tooltips and the Field Guide explain the state.
-- **Expected tests:** Currency codec/migration, atomic transaction GameTests, restart,
-  disconnect/retry, duplication and overflow tests, cross-dimension persistence, and
-  client/server authority checks.
-
-### FVR-507: Add Mason persistence and duplication GameTests [Done]
-
-- **Objective:** Prove the workshop, career ranks, catalogue operations, and Obol purse
-  survive lifecycle events and cannot duplicate blocks, items, or currency.
-- **Dependencies:** FVR-500 through FVR-506.
-- **Explicit non-goals:** No new Mason capability or economy balance change.
-- **Acceptance criteria:**
-  1. Workshop, career, catalogue, and purse state survive save/reload and dedicated
-     server restart with schema and migration evidence.
-  2. Replayed, concurrent, interrupted, and disconnected operations are atomic and do
-     not duplicate or permanently delete resources.
-  3. GameTests cover client/server authority and ordinary vanilla crafting/building.
-- **Expected tests:** Dedicated-server persistence, restart, duplication, rollback,
-  overflow, and authority GameTests plus codec and migration unit tests.
-
-## Storage and logistics
-
-### FVR-600: Add the warehouse controller [Done]
-
-- **Objective:** Define a server-authoritative warehouse controller for registered
-  storage infrastructure with bounded access and versioned world-scoped state.
-- **Dependencies:** FVR-403, FVR-500, the logistics ADR, and the warehouse specification.
-- **Explicit non-goals:** No cross-dimensional universal warehouse, unbounded inventory
-  scan, container nesting, or client-side item movement authority.
-- **Acceptance criteria:**
-  1. Controller state has schema version, codec/serializer, validation, migration, and
-     explicit failure behaviour.
-  2. Access is through registered infrastructure and bounded operations, not a global
-     scan or permanent chunk loading.
-  3. Inventory mutations are atomic, server-authoritative, and explainable in UI and
-     the Field Guide.
-- **Expected tests:** Controller codec/migration, bounded access, atomic move, save/
-  reload, restart, duplicate request, and client-forgery GameTests.
-
-### FVR-601: Add inventory indexing [Done]
-
-- **Objective:** Index registered warehouse contents for bounded search and retrieval
-  without scanning every container or chunk on every request.
-- **Dependencies:** FVR-600 and the indexing specification.
-- **Explicit non-goals:** No stale index treated as authoritative, unbounded rebuild on
-  the server tick, container nesting, or cross-dimensional magic storage.
-- **Acceptance criteria:**
-  1. Index entries have a versioned codec, validation, rebuild/invalidation strategy,
-     and safe failure behaviour.
-  2. Queries have explicit limits and use cached or incrementally maintained results.
-  3. The server revalidates authoritative inventory before committing a transfer.
-- **Expected tests:** Index round trip/migration, stale and corrupt index rebuild,
-  query bounds, concurrent mutation, restart, duplication, and authority tests.
-
-### FVR-602: Add the search terminal [Done]
-
-- **Objective:** Provide a client projection for searching indexed warehouse contents
-  and requesting bounded, server-validated transfers.
-- **Dependencies:** FVR-600, FVR-601, FVR-200, and FVR-201.
-- **Explicit non-goals:** No client-owned inventory, unbounded result lists, hidden
-  server scans, forced warehouse use, or degraded ordinary inventory interaction.
-- **Acceptance criteria:**
-  1. Search requests and responses are versioned, bounded, and safe when the terminal,
-     index, or optional client integration is absent.
-  2. The server validates permissions, current inventory, destination capacity, and
-     atomicity before moving anything.
-  3. Empty, stale, denied, and partial results have translated non-colour explanations
-     and Field Guide documentation.
-- **Expected tests:** Payload bounds, stale-result rejection, atomic transfer, duplicate
-  request, disconnect/retry, restart, and client/server authority tests.
-
-### FVR-603: Add the Traveler's Cache [Done]
-
-- **Objective:** Add the personal Traveler's Cache with nine slots initially and an
-  approved expansion to eighteen slots, without allowing container nesting.
-- **Dependencies:** FVR-600, the Traveler's Cache ADR, and the item persistence spec.
-- **Explicit non-goals:** No universal warehouse, cross-dimensional shared inventory,
-  nested containers, forced use, or removal of ordinary inventory slots.
-- **Acceptance criteria:**
-  1. Cache contents and expansion state have versioned persistent data, codec,
-     validation, migration, and recovery behaviour.
-  2. Capacity is exactly nine slots initially and eighteen after the approved expansion,
-     with server-side enforcement and atomic movement.
-  3. The cache is personal, its limits are explained in UI/tooltips and the Field Guide,
-     and normal inventory remains usable.
-- **Expected tests:** Capacity boundary, save/reload, dimension transfer, restart,
-  duplicate movement, disconnect/retry, migration, and authority GameTests.
-
-### FVR-604: Prevent container nesting [Done]
-
-- **Objective:** Enforce the invariant that a container cannot be placed inside another
-  container, including warehouse, cache, trade, drop, and automation paths.
-- **Dependencies:** FVR-600, FVR-601, FVR-602, FVR-603, and the container safety ADR.
-- **Explicit non-goals:** No arbitrary item deletion, inventory nerf, new container type,
-  or exception that creates an unbounded recursive inventory.
-- **Acceptance criteria:**
-  1. Every insertion path rejects nested containers before mutation and reports an
-     actionable reason.
-  2. Existing valid items remain recoverable, and any legacy nested state has a tested
-     migration or quarantine path rather than silent deletion.
-  3. The rule is server-authoritative, bounded, translated, and documented in the Field
-     Guide where player-facing.
-- **Expected tests:** Direct, drop, trade, warehouse, cache, automation, reload, and
-  migration cases; duplicate and rollback tests; and a dedicated-server authority test.
-
-
-### FVR-700: Playtest the implemented systems in a disposable world [Blocked]
-
-- **Objective:** Play the seven implemented systems in a throwaway development world
-  and record where the balance values, which are currently first guesses, are wrong.
-- **Dependencies:** FVR-100..106, FVR-200..204, FVR-300..305, FVR-400..405,
-  FVR-500..507, FVR-600..604. All are implemented and pass their tests.
-- **Why this is next:** Every system has code and tests but zero minutes of play. The
-  tests prove the mechanics behave as specified; they cannot show whether the
-  specification is any fun. Writing more systems before playing these would multiply
-  unvalidated balance decisions rather than reduce them.
-- **Explicit non-goals:** No new gameplay systems. No custom screens. No balance change
-  without a recorded observation justifying it. Never open a real survival world.
-- **Acceptance criteria:**
-  - A disposable world is created with the pinned Matcha 1.12 installed via
-    `scripts/install-matcha-dev.sh`.
-  - Each implemented system is exercised in normal play and the session is recorded
-    under `docs/playtests/` using the template in that directory.
-  - Every balance value that felt wrong is recorded with the observation that
-    prompted it, not merely an opinion.
-  - Any conflict found between Matcha behaviour and a Forever system is written up
-    against the relevant row of `docs/matcha-audit/system-classification.csv`.
-  - Confirmed defects become their own tickets rather than ad hoc fixes.
-- **Expected tests:** No new automated tests are required. Any defect found must gain a
-  regression test as part of the ticket that fixes it.
-
-## Later themes
-
-The following are intentionally summarised rather than expanded into implementation
-tickets. Each must receive the same five fields before work starts: generic food traits,
-player shops, apprenticeships, workers, logistics expansion, roads, rail, journey
-skipping, seasons, regional economies, animal bonding, and the world chronicle.
-
-They are all **Planned and not started**. Their future tickets must preserve the current
-principles: solo viability, data-driven balance, bounded world work, no permanent
-passive chunk loading, versioned persistent data, no arbitrary off-screen villager
-death, and no degradation of ordinary Minecraft play.
+  1. Each persistent record has a schema version, serializer, validation, migration, failure, and recovery behaviour.
+  2. A cloned disposable world survives selected dependency update, removal, and rollback scenarios.
+  3. Invalid or partial migration preserves recoverable source data and reports an actionable failure.
+  4. Packwiz metadata, third-party notices, Matcha provenance, and utility licence status are release-auditable.
+  5. A release checklist distinguishes pack, companion, upstream, and historical prototype ownership.
+- **Test requirements:** Full backup and restore, save/reload, migration from prior fixtures, interrupted migration, duplicate prevention, provider absence, registry and resource-path review, dedicated-server startup, and long-run bounded-history test.
+- **Removal/migration risks:** This ticket exists because every later dependency and identifier can become a save obligation. A failed migration is a release blocker. Do not open a real survival world or claim release readiness until the disposable-world evidence is complete.

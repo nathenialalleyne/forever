@@ -1,6 +1,7 @@
-# Forever ADRs
+# Many Roads Home ADRs
 
-This directory records design decisions that shape Forever's long-lived Minecraft worlds.
+This directory records design decisions that shape Many Roads Home's long-lived Minecraft
+worlds. Existing records may still use Forever for the repository and internal code identity.
 An ADR captures the problem, the choice made, the trade-offs accepted, and the alternatives
 that were deliberately not chosen. It is a durable contract for humans and AI agents,
 not a feature announcement or a substitute for implementation documentation.
@@ -135,6 +136,19 @@ All records below are **Accepted**.
 | [0019](0019-use-java-not-kotlin.md) | Use Java to match the Fabric 26.2 toolchain, source workflow, and AI-maintained codebase. |
 | [0020](0020-private-project-license-separation.md) | Keep proprietary Forever work distinct from CC-BY-NC-SA-4.0 Matcha and other third-party material. |
 | [0021](0021-layered-feature-packages.md) | Keep package-by-feature while expressing domain, application, and adapter boundaries inside each feature. |
+| [0022](0022-extensible-by-default.md) | Make content data-open, environment-dependent behaviour port-based, and fallible operations described results. |
+| [0023](0023-many-roads-home-working-title.md) | Use Many Roads Home as the working product title and migrate persisted public identifiers before the first persistent release. |
+| [0024](0024-modpack-first-product-ownership.md) | Make the curated modpack the primary product and keep the companion integration layer narrow. |
+| [0025](0025-packwiz-source-of-truth.md) | Use Packwiz metadata as the authoritative source for composition and treat exports as generated outputs. |
+| [0026](0026-existing-mod-first-escalation-policy.md) | Escalate from configuration through supported integration layers before approving a private fork or custom implementation. |
+| [0027](0027-compatibility-controlled-matcha-loading.md) | Load the exact official Matcha archive through a compatibility-controlled utility that provides both pack roles. |
+| [0028](0028-adventure-rewards-not-essential-gates.md) | Do not make adventure rewards the sole route to essential capabilities. |
+| [0029](0029-unified-contextual-knowledge.md) | Use one contextual Field Journal while preserving instructions and source provenance from starter books. |
+| [0030](0030-no-global-enemy-scaling.md) | Avoid global enemy scaling and use bounded, local, inspectable danger instead. |
+| [0031](0031-fast-travel-requires-established-routes.md) | Require discovery, physical travel, infrastructure, registration, and validation before fast travel. |
+| [0032](0032-optional-style-independent-blueprints.md) | Keep blueprints optional and validate construction function rather than architectural style. |
+| [0033](0033-documented-gap-analysis-for-companion-code.md) | Require a documented alternative and maintenance gap analysis before adding companion code. |
+| [0034](0034-preserve-existing-custom-code.md) | Preserve prototype source and evidence during the modpack-first pivot without treating it as released scope. |
 
 If an ADR is superseded or deprecated, update this index's status note and link to the
 replacement while retaining the historical record. Do not remove the row or renumber the
