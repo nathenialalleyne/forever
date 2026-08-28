@@ -231,7 +231,7 @@ These are investigation and integration spikes. They establish whether the selec
 - **Test requirements:** Clean world creation, structure placement sample, dedicated-server startup, tick and memory observation, optional ambience absence, client/server mismatch, and a no-worldgen-dependency fallback.
 - **Removal/migration risks:** Worldgen and structures are difficult to remove after chunks are generated. A selected generator or structure mod requires a worldgen lock, backup, compatibility notice, and explicit removal analysis before persistent release.
 
-### LAB-11: Adventure rewards and capability-gate compatibility spike [Planned]
+### LAB-11: Adventure rewards and capability-gate compatibility spike [Done]
 
 - **Objective:** Audit quest, structure, and advancement rewards so that they provide discovery and optional opportunity without becoming the only route to essential capabilities.
 - **Dependencies:** MRH-000, LAB-01, LAB-02, LAB-10, ADRs 0028 and 0030, and the exploration and projects specifications.
