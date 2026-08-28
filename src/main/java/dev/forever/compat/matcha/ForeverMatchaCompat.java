@@ -33,7 +33,7 @@ public final class ForeverMatchaCompat {
 					}
 				});
 
-		LOGGER.info("Matcha compatibility registered in vanilla-safe no-op mode; awaiting server datapack signals.");
+		LOGGER.info("Matcha compatibility registered; Forever's mappings stay inactive until server datapack signals prove the pack's identity.");
 		return next;
 	}
 
@@ -65,10 +65,10 @@ public final class ForeverMatchaCompat {
 		switch (status.detectionStatus()) {
 			case SUPPORTED -> LOGGER.info("Matcha {} detected with exact profile {}.",
 					status.detectedVersion().orElse("unknown"), MatchaProfile.PROFILE_ID);
-			case ABSENT -> LOGGER.info("Matcha is absent; vanilla-safe no-op capability remains active.");
+			case ABSENT -> LOGGER.info("Matcha is absent; Forever's Matcha mappings stay disabled and vanilla handling is preserved.");
 			case UNSUPPORTED_VERSION, PRESENT_UNVERIFIED, MALFORMED, FAILED_SAFE ->
-					LOGGER.warn("Matcha capability disabled with status {}. {}", status.detectionStatus(),
-							String.join(" ", status.diagnostics()));
+					LOGGER.warn("Forever's Matcha mappings are disabled with status {}. Any loaded Matcha datapack still runs its own content; only Forever's translation layer is inactive. {}",
+							status.detectionStatus(), String.join(" ", status.diagnostics()));
 		}
 	}
 }

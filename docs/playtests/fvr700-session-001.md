@@ -48,13 +48,29 @@ These came from the smoke boot and are context for the session, not defects in F
 
 - All seven systems registered: equipment, mastery, settlement, storage, guide, career,
   economy, plus Matcha compatibility.
-- Matcha compatibility reported `PRESENT_UNVERIFIED`, because the running server was
-  given a copied datapack directory rather than the locked archive digest and parsed
-  `pack.mcmeta`. Forever therefore stayed in vanilla-safe no-op mode and did not apply
-  Matcha mappings. **Decide during the session whether that is the intended developer
-  experience**, since a normal player installing the official pack should not silently
-  lose Matcha integration. If it is wrong, it belongs against the adapter row of
-  `docs/matcha-audit/system-classification.csv`.
+- Matcha compatibility reported `PRESENT_UNVERIFIED`. The Matcha datapack **was loaded
+  and its content is live**: the server logged `Found new data pack
+  file/Matcha_Flavoured_1_12.zip` and observed signals in 10 known namespaces. Matcha's
+  own recipes, advancements, and functions are running, so the world is modded and will
+  play as modded.
+
+  What switched off is only **Forever's adapter**, the layer that translates a Matcha
+  item or behaviour into a Forever concept. "Vanilla-safe" is the code's term for the
+  no-op fallback in `NoOpMatchaAdapter`: it reports `supports(...) == false`, returns
+  `unavailable` for every translation, and explicitly preserves the original item and
+  vanilla handling rather than guessing. It does not mean the world is vanilla.
+
+  This is deliberate. The adapter refuses to map Matcha internals unless it can prove
+  the pack's identity from both the locked archive SHA-256 and parsed `pack.mcmeta`. My
+  smoke boot supplied a copied datapack directory rather than either, so it could not
+  prove identity and declined to act. Guessing here would risk misreading a disguised
+  item, which is exactly what ADR 0002 and principle 13 exist to prevent.
+
+  **The open question for the session** is what a player actually sees. Matcha content
+  works either way, so decide whether any Forever feature that depends on the adapter
+  is silently missing, and whether that is discoverable. If a normal install of the
+  official pack also lands in `PRESENT_UNVERIFIED`, that is a defect worth a ticket
+  against the adapter row of `docs/matcha-audit/system-classification.csv`.
 - Matcha's own content produced parse warnings from its files, not Forever's:
   `minecraft:advancement/custom/root`, `main:mechanics/wither_test`, and two stray
   `.txt` paths. Record them against the audit if they affect play.
