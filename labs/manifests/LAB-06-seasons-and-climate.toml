@@ -1,0 +1,97 @@
+# LAB-06 manifest: seasons and climate compatibility spike
+#
+# Everything in [[add]] was downloaded into /tmp/lab06 only. Nothing was added to
+# pack/. Modrinth project and version metadata was re-verified on 2026-08-28.
+
+[baseline]
+minecraft = "26.2"
+fabric_loader = "0.19.3"
+fabric_api = { project_id = "P7dR8mSH", version_id = "NqwNSxwA", file = "fabric-api-0.158.0+26.2.jar" }
+global_packs = { project_id = "NRLPy2mk", version_id = "DqrPrUMp", file = "globalpacks-fabric-26.2-26.2.0.jar" }
+matcha = { project_id = "QI0EmgZ1", version_id = "E9rngRfK", file = "Matcha_Flavoured_1_12.zip" }
+matcha_sha256 = "6209783021c358044abedabacee471faff5bd4080437d4e3b5e51963f1804248"
+rei = { project_id = "nfn13YXA", version_id = "4o0NSIMj", file = "RoughlyEnoughItems-26.2.820.jar" }
+jade = { project_id = "nvQzSEkH", version_id = "ue8CO97w", file = "Jade-mc26.2-Fabric-26.2.11.jar" }
+architectury = { project_id = "lhGA9TYQ", version_id = "1yQC4VvP", file = "architectury-fabric-21.0.7.jar" }
+cloth_config = { project_id = "9s6osm5g", version_id = "Nv3xnWXd", file = "cloth-config-26.2.155.jar" }
+
+[[add]]
+name = "Serene Seasons"
+project_id = "e0bNACJD"
+version_id = "13sXhUkI"
+version = "26.1.2.0.4"
+file = "SereneSeasons-fabric-26.2-26.1.2.0.4.jar"
+release_type = "beta"
+published = "2026-07-01T09:41:42.050013Z"
+license = "LicenseRef-All-Rights-Reserved"
+side = "both"
+role = "tested seasonal calendar, crop, weather, temperature, calendar-item, and greenhouse-tag provider"
+sha512 = "66ccf587991f0aa06f4ae06038fcead0c1cc413015cceeba756e2b71559b0cc296127fa9b1eafe35a154c5d7a72ab1f720ee5f272c23d5d7abaf2b7431306e73"
+
+[[add]]
+name = "GlitchCore"
+project_id = "s3dmwKy5"
+version_id = "SDUCBYRU"
+version = "26.2.0.0.0"
+file = "GlitchCore-fabric-26.2-26.2.0.0.0.jar"
+release_type = "beta"
+published = "2026-06-28T04:20:58.138059Z"
+license = "LicenseRef-All-Rights-Reserved"
+side = "both"
+role = "required Serene Seasons library dependency"
+sha512 = "b3c7a07bd6b2b636e125b0d6541d6cb9b3c6f94d8032a50b021a4e95d6d8d0147c57fb4a378e12d0d009b7ea854991710407703efe9207af91cd3d586e50f470"
+
+[[add]]
+name = "Homeostatic Seasons"
+project_id = "j3xSC4PA"
+version_id = "1bSif4Rz"
+version = "26.2-1.2.0.3"
+file = "homeostaticseasons-26.2-fabric-1.2.0.3.jar"
+release_type = "release"
+published = "2026-06-30T14:04:58.319906Z"
+license = "MIT"
+side = "both"
+role = "tested climate-only seasonal calendar, weather, and temperature provider"
+sha512 = "acd56db85ae69ec70b4ef1a722f71b5118cd5ae7c026346eae1e77fcabb201b821b72177196bec4bc51c7193c5c695e051aa1d4de36cf7ea46765c3aee527905"
+bundled_dependencies = ["ClimateSettings 1.2.1", "WhiteNoise 2.2.1"]
+
+[[add]]
+name = "Ecliptic Seasons: Fabricated"
+project_id = "WXA03JUt"
+version_id = "NTGuEhvF"
+version = "26.2-fabric-0.14.5"
+file = "EclipticSeasons-Fabricated-26.2-fabric-0.14.5.jar"
+release_type = "release"
+published = "2026-08-17T10:53:41.934958Z"
+license = "LicenseRef-All-Rights-Reserved"
+side = "both"
+role = "tested solar-term, local climate, crop-humidity, greenhouse, and weather provider"
+sha512 = "4c663ef2cd743a52481ae33bb7754b0e52452243a8f5094b401d1bdb126507f15aa5f68a95ab790cf026a08f8c1a8681162435b647347f61d1dcc639fde55346"
+
+[[add]]
+name = "Forge Config API Port"
+project_id = "ohNO6lps"
+version_id = "rSd3GiG8"
+version = "26.2.1"
+file = "ForgeConfigAPIPort-v26.2.1-mc26.2.x-Fabric.jar"
+release_type = "release"
+published = "2026-06-21T09:19:05.384665Z"
+license = "MPL-2.0"
+side = "both"
+role = "required Ecliptic Seasons configuration dependency"
+sha512 = "948b8d83de61a11aad2fc0bb0744a8b4848c9b2f0663c9aa015389d9560b3fa78518e609c44ec90278de0e159a92ebd721ccbdebb453aa455c353e5cd19413bf"
+
+[not_tested]
+fabric_seasons = "Project KJe6y9Eu (Fabric Seasons), latest observed release was 2.4.2-BETA+1.21.1, version 2mIvRTNp, published 2024-10-06T21:50:06.435974Z. The exact Modrinth filter for game_versions=26.2 and loaders=fabric returned no versions, so no incompatible build was tested. DEFER."
+seasonal_visuals = "Project xhy3SoOP (Seasonal Visuals), version ZqYQldzl, file seasonal-visuals-0.1.0.jar, is an alpha visual-atmosphere provider published 2026-07-29T03:58:20.193789Z. It does not provide crop, local-temperature, greenhouse, or weather semantics required by ADR 0014. Not tested."
+season_hud = "Project iDiIfZLX (SeasonHud-Fabric), version JyxCRQwH, file seasonhud-fabric-26.2-2.0.8.jar, is a release overlay published 2026-08-01T02:28:25.385773Z, not a climate provider. It cannot supply the provider contract. Not tested."
+natural_temperature = "Project QZt2fevq (Natural Temperature), version YxkQTe0m, file natural-temperature-1.1.10-FABRIC-MC-26.2.jar, is a release published 2026-08-15T17:12:16.024412Z. It changes biome placement and climate zones during world generation rather than providing a seasonal calendar. Not tested because it is outside this spike and would add worldgen migration risk."
+crops_love_rain = "Project cRci7UZp (Crops Love Rain), version YzNJMQVQ, file cropsloverain-3.2.1.jar, release published 2026-03-25T19:02:33.154075Z. Its description only provides rain-based crop growth acceleration, not a calendar, local profile, forecast, or mitigation contract. Not tested."
+tough_as_nails = "Project ge1sOdFH (Tough As Nails), version bZ9oibj4, file ToughAsNails-fabric-26.2-21.11.0.8.jar, beta published 2026-07-28T11:15:14.990537Z. It supplies body temperature and thirst, which overlaps Matcha's food, hunger, and healing space, and it is not a seasons provider. Not tested."
+other_search_results = "Modrinth searches for season, seasons, climate, weather, temperature, and crop with facets project_type=mod, categories=fabric, and versions=26.2 were inspected on 2026-08-28. Utility, visual-only, crop-rain, fishing, worldgen, weather-only, and body-temperature results were not treated as full seasonal providers. No additional maintained 26.2 Fabric provider was selected for boot testing."
+
+[not_added]
+homeostatic_body_module = "Project oDobngty (Homeostatic), version IQrivzqu, file homeostatic-26.2-fabric-2.13.0.1.jar, release published 2026-06-28T14:07:51.624896Z. Homeostatic Seasons documents this as optional, but it adds body temperature and thirst that overlap Matcha's food, hunger, healing, and food-effect ownership. Not added."
+pack = "No candidate was added to pack/. ADR 0014 requires the pack-facing climate abstraction to remain provider-neutral, and the strongest candidate still lacks crop and greenhouse evidence."
+beta_as_core = "Serene Seasons 13sXhUkI and its required GlitchCore SDUCBYRU are beta builds. They were tested only as compatibility evidence and are not eligible as core dependencies."
+vanilla_weather = "Vanilla weather remains the no-provider fallback. It was not added as a separate dependency because it is already part of Minecraft."
