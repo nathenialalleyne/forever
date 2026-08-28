@@ -36,8 +36,14 @@ jobs:
       # Not run in CI: `runGametest` needs a full Minecraft server and asset
       # download, and `runClient` needs a display. Both are documented as local
       # smoke tests in README.md and docs/development-workflow.md.
-      - name: Build root mod and run unit tests
+      - name: Build root mod
         run: ./gradlew build --no-daemon
+
+      # Keep the unit-test command explicit even though `build` currently includes
+      # `check`. This makes the required unit-test stage visible and independently
+      # rerunnable when the root task graph changes.
+      - name: Run root unit tests
+        run: ./gradlew test --no-daemon
 
       - name: Upload root test reports on failure
         if: failure()
