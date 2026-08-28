@@ -71,6 +71,18 @@ If implementation reveals that the accepted design cannot work, stop and report 
 conflict. Do not silently alter an approved ADR or the specification to make a partial
 implementation appear complete.
 
+Ask the extensibility question once, deliberately, before writing the code. Per
+[ADR 0022](adr/0022-extensible-by-default.md): should this content be datapack data
+loadable from any namespace rather than a code constant? Does it depend on something the
+environment owns, and therefore deserve a small port with a safe fallback? Does a fallible
+operation return a described result rather than a bare boolean?
+
+Ask the opposite question immediately afterwards. Does a second caller actually exist yet?
+If not, ship the concrete implementation. An interface with one implementation invented for
+a hypothetical caller is premature abstraction, it usually guesses the wrong shape, and the
+layering makes extracting the seam later cheap. Answer both questions rather than defaulting
+to either extreme.
+
 **Done looks like:** the diff has a clear relationship to the ticket, includes no
 unrelated refactor or dependency update, and leaves the repository in a coherent state
 when the feature is disabled or its optional integration is absent.

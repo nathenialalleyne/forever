@@ -90,7 +90,36 @@ Use package-private classes and methods for implementation details that do not n
 layer. Make a boundary type public only when a real caller needs it. A public type still needs a
 small contract and tests.
 
-### 4. Check the design before coding
+### 4. Decide whether it needs an extension seam
+
+Forever is a framework, so ask whether the next person can add to your system without
+editing it. [ADR 0022](adr/0022-extensible-by-default.md) has the full reasoning; the
+practical form is three questions.
+
+**Is it catalogue content?** A mastery, guide entry, profession, rank, building type,
+catalogue row, or balance value belongs in a datapack resource under
+`src/main/resources/data/forever/<feature>/`, not as a constant or an enum arm. Write the
+loader to accept **any namespace**, so another pack can contribute. Keep validation strict
+and fail loudly with the offending resource named.
+
+**Does it depend on the environment?** If your logic needs the world, an optional mod, or a
+third-party pack, define a small interface in Forever's own vocabulary and adapt to it.
+Copy the shape of `SettlementWorldView`, which exposes only the narrow operations bounded
+validators need and deliberately offers no world scan, or `GuideRecipeViewerCapability`,
+which names no REI or JEI type so neither becomes a dependency. Always provide a neutral
+fallback for when nothing implements it, as `NoOpMatchaAdapter` does.
+
+**Can it fail?** Return a described result carrying the reason, like `ProgressionResult` or
+`WarehouseMutationResult`, not a bare `boolean`. A boolean throws away the only thing a
+future caller, screen, or Field Guide entry needs in order to explain what happened.
+
+Then apply the brake. **Does a second caller exist yet?** If not, write the concrete class.
+An interface with one implementation, an abstract base class where a record would do, or a
+plugin registry with one entry are all premature abstraction, which `AGENTS.md` forbids.
+Prefer composition and data over inheritance. Because the layering keeps call sites
+visible, extracting a seam later is cheap; guessing the wrong seam early is not.
+
+### 5. Check the design before coding
 
 Before changing a system, read the current run brief, vision, design principles, architecture,
 relevant ADRs, system specification, and save-safety guidance where persistence is involved.
@@ -98,7 +127,7 @@ Confirm that the backlog ticket names the objective, non-goals, acceptance crite
 If the specification and code disagree, stop and report the conflict. Do not make the code
 appear compliant by weakening the specification.
 
-### 5. Verify the boundary
+### 6. Verify the boundary
 
 For a feature change, run the applicable unit tests and dedicated-server GameTests. Review the
 full diff for accidental schema, registry, dependency, client, save, or compatibility changes.

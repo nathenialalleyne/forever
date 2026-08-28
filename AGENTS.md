@@ -115,6 +115,20 @@ These rules explain the constraints that future implementations must preserve.
 - **Put balance in data.** Thresholds, prices, rates, slot counts, distances, and
   multipliers belong in data or configuration wherever practical. Mechanics belong in
   code, but tuning should not require rewriting logic.
+- **Build every system as an extension surface.** Forever is a framework, so new content
+  must be cheap to add later without editing a switch statement and recompiling. See
+  [ADR 0022](docs/adr/0022-extensible-by-default.md). Three seams are expected by default:
+  catalogue content loads from datapack data and its loader accepts **any namespace**, not
+  only `forever`; behaviour that varies by environment goes behind a small port named in
+  Forever's own vocabulary with a safe no-op fallback, as `SettlementWorldView`,
+  `GuideRecipeViewerCapability`, and `MatchaAdapter` already do; and a fallible operation
+  returns a described result carrying the reason rather than a bare boolean.
+  This does **not** override the ban on premature abstraction below. Do not add an
+  interface for a single implementation with no second caller, an abstract base class where
+  a record and a function suffice, or a plugin registry for a system with one entry. Ship
+  the concrete implementation and extract the seam when the second caller genuinely
+  arrives. Prefer composition and data over inheritance.
+
 - **Explain every player-facing mechanic in game.** A complete mechanic needs a
   translation, a tooltip or UI explanation, a Field Guide entry, and recipe-viewer
   integration when recipes are relevant. Discovery may hide a possibility, but it may
@@ -254,6 +268,7 @@ world from `run/`, a Minecraft installation, or a `saves/` directory.
 | Touch Matcha identifiers, recipes, functions, advancements, or disguised items | `docs/dependency-baseline.md`, the relevant Matcha audit/classification docs, and the Matcha adapter ADR. Keep all internals inside `dev.forever.compat.matcha`. |
 | Change common/client boundaries, networking, or a screen | `docs/architecture.md` authority section, the relevant system specification, and the source-set rules in the build configuration |
 | Change a dependency, Minecraft, Fabric, Loom, Gradle, or JUnit version | `docs/dependency-baseline.md` and `docs/world-save-safety.md`, then create a version-update ticket |
+| Add a new content type, interface, base class, registry, or optional integration | [ADR 0022](docs/adr/0022-extensible-by-default.md) and `docs/code-guidelines.md`. Ask whether it should be datapack data, a port, or a described result, and whether a second caller actually exists yet |
 | Add balance values, prices, thresholds, rates, slots, or distances | `docs/design-principles.md` principle 12, the relevant system specification, and the data/configuration plan |
 | Add a player-facing mechanic, tooltip, translation, or recipe | `docs/design-principles.md` principles 2, 15, and 16, then the Field Guide and recipe-viewer requirements |
 | Add textures, models, sounds, or other final art | `docs/design-principles.md` principles 16 and 17 plus the approved asset manifest in `docs/assets/` |

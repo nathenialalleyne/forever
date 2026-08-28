@@ -123,6 +123,32 @@ This file remains the index and dependency map.
   and tooling-marker cases; and a real `./gradlew validateAssets` run against the
   repository reporting CLEAN.
 
+### FVR-A002: Open the data loaders to third-party namespaces [Next]
+
+- **Objective:** Allow a datapack in any namespace to contribute Field Guide entries,
+  masteries, Mason data, and balance values, so Forever content can be extended without
+  editing this repository.
+- **Dependencies:** [ADR 0022](adr/0022-extensible-by-default.md) and FVR-A001.
+- **Context:** Six loaders currently filter their input with
+  `id.getNamespace().equals("forever")`: `GuideRegistryLoader`, `GuideEntry` identifier
+  validation, `MasteryRegistryLoader`, `MasonDataLoader`, `EconomyBalanceLoader`, and
+  `SettlementBalanceLoader`. Each system is data-driven in shape but closed in practice,
+  because a resource from any other namespace is silently ignored.
+- **Explicit non-goals:** No new gameplay system, no relaxed validation, no silent
+  acceptance of malformed third-party data, and no change to any existing resource path or
+  translation key.
+- **Acceptance criteria:**
+  1. Each loader accepts resources from any namespace while keeping strict validation, and
+     an invalid entry still fails loudly naming the offending resource.
+  2. Override and merge semantics are defined and tested: what happens when two datapacks
+     declare the same identifier, and in what order packs apply.
+  3. A third-party namespace fixture loads successfully in a test, proving the seam works
+     rather than asserting it in prose.
+  4. Malformed third-party input cannot corrupt or partially apply a registry.
+- **Expected tests:** Per-loader unit tests for a foreign namespace, duplicate identifier,
+  override order, malformed input, and empty input; plus a dedicated-server GameTest that
+  loads a foreign-namespace fixture through the real resource-reload path.
+
 ## Matcha acquisition and compatibility
 
 ### FVR-010: Fetch and pin Matcha scripts [Done]
@@ -878,7 +904,7 @@ This file remains the index and dependency map.
   migration cases; duplicate and rollback tests; and a dedicated-server authority test.
 
 
-### FVR-700: Playtest the implemented systems in a disposable world [Next]
+### FVR-700: Playtest the implemented systems in a disposable world [Blocked]
 
 - **Objective:** Play the seven implemented systems in a throwaway development world
   and record where the balance values, which are currently first guesses, are wrong.

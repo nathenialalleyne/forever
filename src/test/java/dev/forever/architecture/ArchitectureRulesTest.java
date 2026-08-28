@@ -1,5 +1,6 @@
 package dev.forever.architecture;
 
+import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noCodeUnits;
 import static com.tngtech.archunit.library.dependencies.SlicesRuleDefinition.slices;
@@ -8,7 +9,14 @@ import java.util.Set;
 
 import com.tngtech.archunit.base.DescribedPredicate;
 import com.tngtech.archunit.core.domain.JavaClass;
+import com.tngtech.archunit.core.domain.JavaClasses;
+import com.tngtech.archunit.core.importer.ClassFileImporter;
 import com.tngtech.archunit.core.importer.ImportOption;
+import com.tngtech.archunit.lang.EvaluationResult;
+import java.util.List;
+import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.tngtech.archunit.lang.ArchCondition;
 import com.tngtech.archunit.lang.ArchRule;
 import com.tngtech.archunit.lang.CompositeArchRule;
@@ -30,6 +38,12 @@ import com.tngtech.archunit.junit.ArchTest;
 		packages = "dev.forever",
 		importOptions = {ImportOption.DoNotIncludeTests.class, ImportOption.DoNotIncludeArchives.class})
 class ArchitectureRulesTest {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(ArchitectureRulesTest.class);
+	private static final JavaClasses CLASSES = new ClassFileImporter()
+			.withImportOption(ImportOption.Predefined.DO_NOT_INCLUDE_TESTS)
+			.withImportOption(ImportOption.Predefined.DO_NOT_INCLUDE_ARCHIVES)
+			.importPackages("dev.forever");
 
 	private static final String DOMAIN_PACKAGES = "..domain..";
 	private static final String APPLICATION_PACKAGES = "..application..";
@@ -125,6 +139,69 @@ class ArchitectureRulesTest {
 			.that().resideOutsideOfPackage(MATCHA_PACKAGE)
 			.should().dependOnClassesThat(MATCHA_INTERNAL_TYPES)
 			.because("Matcha implementation details must stay behind the isolated compatibility adapter");
+
+	/*
+	 * The layering rules above only catch dependencies pointing the WRONG way. They
+	 * cannot see a pure class parked in `adapter`, which is the more common migration
+	 * mistake: calling something an adapter is always "safe", so defaulting there
+	 * silently rebuilds the undifferentiated pile this layout exists to break up.
+	 *
+	 * This rule attacks that blind spot from the other side, but deliberately only for
+	 * TOP-LEVEL classes. Nested types were originally included and that was a design
+	 * error: a private `record Raw(...)` inside a SavedData class, or a nested result
+	 * type, is an implementation detail of its enclosing adapter and cannot move
+	 * independently. Flagging them produced pressure to allowlist correct code, which
+	 * teaches contributors that the rule is noise.
+	 *
+	 * It is a WARNING-style advisory rather than a hard gate, evaluated as a reported
+	 * rule below, because the honest answer for a registration entrypoint or a pure
+	 * result type is a judgement call a human should make during review, not a build
+	 * break during an unrelated change.
+	 */
+	private static final DescribedPredicate<JavaClass> TOP_LEVEL_ADAPTER_TYPES =
+			new DescribedPredicate<>("top-level adapter classes") {
+				@Override
+				public boolean test(JavaClass input) {
+					return input.getPackageName().contains(".adapter")
+							&& !input.getName().contains("$");
+				}
+			};
+
+	static final ArchRule ADAPTER_CLASSES_SHOULD_ACTUALLY_TOUCH_MINECRAFT = classes()
+			.that(TOP_LEVEL_ADAPTER_TYPES)
+			.should(new ArchCondition<JavaClass>("depend on a Minecraft or Fabric type") {
+				@Override
+				public void check(JavaClass item, ConditionEvents events) {
+					boolean touchesGame = item.getDirectDependenciesFromSelf().stream()
+							.map(dependency -> dependency.getTargetClass().getPackageName())
+							.anyMatch(name -> name.startsWith("net.minecraft") || name.startsWith("net.fabricmc"));
+					if (!touchesGame) {
+						events.add(SimpleConditionEvent.violated(item, item.getFullName()
+								+ " sits in an adapter package but depends on no Minecraft or Fabric type. "
+								+ "Consider moving it to domain or application."));
+					}
+				}
+			})
+			.allowEmptyShould(true)
+			.because("an adapter package should hold genuine Minecraft integration, not pure logic parked at the boundary");
+
+	/*
+	 * Reported, never enforced. Whether a Minecraft-free class belongs in `adapter` is a
+	 * judgement call: a registration entrypoint, a pure result type, or a codec holder can
+	 * each be legitimate at the boundary. Failing the build on that judgement produced
+	 * pressure to allowlist correct code, and an allowlist full of correct code teaches
+	 * the next contributor that the rule is noise. So this prints guidance for review and
+	 * lets a human decide. The hard layering gates above remain strict.
+	 */
+	@Test
+	void reportAdapterClassesThatTouchNoMinecraftType() {
+		EvaluationResult result = ADAPTER_CLASSES_SHOULD_ACTUALLY_TOUCH_MINECRAFT.evaluate(CLASSES);
+		List<String> messages = result.getFailureReport().getDetails();
+		if (!messages.isEmpty()) {
+			LOGGER.info("Adapter classes worth reviewing ({}). Each may be fine; see docs/code-guidelines.md:", messages.size());
+			messages.stream().sorted().forEach(message -> LOGGER.info("  {}", message));
+		}
+	}
 
 	@ArchTest
 	static final ArchRule CORE_FEATURE_SLICES_MUST_BE_FREE_OF_CYCLES = slices()
