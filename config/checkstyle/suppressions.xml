@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE suppressions PUBLIC
+	"-//Checkstyle//DTD SuppressionFilter Configuration 1.2//EN"
+	"https://checkstyle.org/dtds/suppressions_1_2.dtd">
+<suppressions>
+	<!-- These are current, reviewed exceptions rather than a blanket source-set
+		exemption. New code in each file remains checked on other lines. -->
+	<suppress checks="RegexpSingleline" files="AssetValidatorApplication\.java" lines="54"/>
+
+	<!-- Existing fixture JSON is intentionally kept as one literal so the test names
+		the malformed resource exactly. -->
+	<suppress checks="LineLength" files="MasteryRegistryTest\.java" lines="54,71,104"/>
+	<!-- This malformed equipment fixture keeps the complete path object on one JSON line
+		so the rejected shape remains immediately comparable with the source resource. -->
+	<suppress checks="LineLength" files="EquipmentBalanceTest\.java" lines="46"/>
+
+	<!-- These audited Matcha literals are kept as single path/hash or status-message units,
+		splitting them would make the compatibility evidence less readable. -->
+	<suppress checks="LineLength" files="MatchaProfile\.java" lines="18"/>
+	<suppress checks="LineLength" files="ForeverMatchaCompat\.java" lines="70"/>
+
+	<!-- This intentionally large fixture verifies malformed resource diagnostics in one
+		readable scenario. Production methods remain subject to the 100-line limit. -->
+	<suppress checks="MethodLength" files="GuideRegistryTest\.java" lines="46"/>
+
+	<!-- These public records predate the Javadoc rule and are documented by their
+		surrounding service. Keep the rule strict for every new public type. -->
+	<suppress checks="JavadocType" files="BuildingRegistrationService\.java" lines="16,29"/>
+	<suppress checks="JavadocType" files="SettlementCharterService\.java" lines="92"/>
+	<suppress checks="JavadocType" files="SettlementBalanceLoader\.java" lines="27"/>
+	<suppress checks="JavadocType" files="MasonDataLoader\.java" lines="32"/>
+	<suppress checks="JavadocType" files="MasonWorkshopService\.java" lines="21"/>
+	<suppress checks="JavadocType" files="EquipmentBalance\.java" lines="31,40"/>
+	<suppress checks="JavadocType" files="EconomyBalanceLoader\.java" lines="29"/>
+	<suppress checks="JavadocType" files="ForeverInitializationGameTest\.java" lines="27"/>
+</suppressions>

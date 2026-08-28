@@ -1,12 +1,13 @@
 # Architecture
 
-This document describes the intended structure of Forever. Most of it is **not
-implemented**. It exists so that later agents place new code in the right module
-instead of accumulating everything into one class or one save blob.
+This document describes the intended structure of Forever. It includes implemented
+boundaries and reserved future ones. It exists so that later agents place new code
+in the right module instead of accumulating everything into one class or one save blob.
 
-> Current reality: only the two entrypoints (`dev.forever.ForeverMod`,
-> `dev.forever.client.ForeverClient`) exist. Packages below are described, not
-> created. Do not create empty placeholder classes to "complete" this diagram.
+> Current reality: implemented feature packages exist, but only `core/storage` has
+> been migrated to the layered layout in the current pilot. Other feature packages
+> remain flat until their own migrations are reviewed. Do not create empty
+> placeholder classes to "complete" this diagram.
 
 ## Module overview
 
@@ -98,6 +99,61 @@ concepts. See `docs/adr/0002-isolate-matcha-behind-adapter.md`.
 ### Optional Adapters (`dev.forever.compat.*`)
 One package per optional third-party integration, each behind a capability interface
 with a working no-op/default fallback so the absence of the mod is never a crash.
+
+## Layered feature packages
+
+The outer structure remains package-by-feature. Each implemented server feature lives under
+`dev.forever.core.<feature>`. Inside that feature, use `domain`, `application`, and `adapter`
+only when there is real code for the layer. This makes the boundary visible without scattering
+one feature across a project-wide layer tree.
+
+```mermaid
+flowchart LR
+    Adapter["adapter\nMinecraft and Fabric boundary"] --> Application["application\nuse cases and orchestration"]
+    Application --> Domain["domain\npure rules and values"]
+    Adapter --> Domain
+```
+
+### Layer responsibilities
+
+| Layer | Owns | Allowed direction | Example in `core/storage` |
+|---|---|---|---|
+| `domain` | Pure rules, value objects, validation, bounded results, and Minecraft-independent data contracts | May use the JDK and neutral shared helpers. Must not import `net.minecraft`, Fabric, `application`, or `adapter`. | `StorageBalance`, `CacheOperation`, `WarehouseSearchRequest` |
+| `application` | Use cases, lifecycle services, and orchestration independent of concrete Minecraft integration | May use `domain` and neutral shared helpers. Must not import `adapter`. | `StorageBalanceAccess` |
+| `adapter` | Items, components, registries, `SavedData`, resource reloads, world and container access, Minecraft-shaped codecs, and server entrypoints | May use `application`, `domain`, Minecraft, and Fabric | `WarehouseController`, `TravelerCache`, `ForeverStorage` |
+
+The dependency rule is inward only: `adapter -> application -> domain`. An adapter may depend
+directly on domain as well. Same-layer collaboration is allowed when it does not create a
+cycle. Domain and application code must not reach outward to a concrete adapter. A Minecraft
+type that is needed by a lower layer should remain at the adapter boundary, or be translated to
+a genuinely useful neutral value type as part of a separate behaviour-preserving change.
+
+Classification is by inspected responsibility, not by filename or the presence of one import.
+A registration entrypoint or a codec helper can belong in `adapter` even when it has no direct
+Minecraft import because it serves Minecraft-shaped state. Conversely, a codec for a pure
+domain value may remain beside that value. See [ADR 0021](adr/0021-layered-feature-packages.md)
+for the complete storage pilot classification and its recorded exceptions.
+
+### Where a new file goes
+
+1. Choose the owning feature first. Do not create a project-wide layer package or put a feature
+   rule in an unrelated utility package.
+2. Put a rule, invariant, value object, validation function, or explainable result in
+   `<feature>.domain` when it can be tested without Minecraft or Fabric.
+3. Put a game-independent use case or orchestration service in `<feature>.application` when it
+   coordinates domain operations without depending on a concrete adapter.
+4. Put code that touches registries, items, components, `ItemStack`, worlds, containers,
+   `SavedData`, resource reloads, events, or Minecraft-bound codecs in `<feature>.adapter`.
+5. If a class crosses layers, split it only along a real seam and preserve behaviour with
+   boundary tests. Do not add empty packages, speculative ports, or wrappers merely to make the
+   diagram look complete.
+6. Keep implementation details package-private where they do not need to cross a layer. Make
+   a type public only for a real caller and document the contract it exposes.
+
+Tests should follow the boundary they exercise. Plain JVM tests belong under `src/test/java` and
+may cover domain and game-independent application code. Dedicated-server behaviour belongs under
+`src/gametest/java`. The client source set remains separate and may render server projections,
+but it must never decide a server-authoritative outcome.
 
 ## Data placement
 

@@ -1,5 +1,6 @@
 plugins {
 	id 'net.fabricmc.fabric-loom' version "${loom_version}"
+	id 'checkstyle'
 }
 
 version = project.version
@@ -7,6 +8,13 @@ group = project.group
 
 repositories {
 	mavenCentral()
+}
+
+// Checkstyle is a build-time quality gate, not a runtime dependency. Pinning its
+// Maven Central tool version keeps lint results reproducible across developers and CI.
+checkstyle {
+	toolVersion = project.checkstyle_version
+	configDirectory = layout.projectDirectory.dir("config/checkstyle")
 }
 
 loom {
@@ -80,6 +88,9 @@ dependencies {
 	testImplementation platform("org.junit:junit-bom:${project.junit_version}")
 	testImplementation "org.junit.jupiter:junit-jupiter"
 	testRuntimeOnly "org.junit.platform:junit-platform-launcher"
+	// ArchUnit keeps the documented package boundaries executable without adding
+	// anything to the runtime mod or shipped JAR.
+	testImplementation "com.tngtech.archunit:archunit-junit5:${project.archunit_version}"
 	testImplementation files(sourceSets.assetTools.output, sourceSets.assetTools.compileClasspath)
 }
 
@@ -125,6 +136,28 @@ test {
 	useJUnitPlatform()
 	testLogging {
 		events "passed", "skipped", "failed"
+	}
+}
+
+// The built-in plugin creates checkstyleMain and checkstyleTest automatically. It also
+// observes the custom source sets above, so client, GameTest, and asset-tool Java are
+// checked without copying source-set logic into a second lint implementation.
+tasks.withType(Checkstyle).configureEach {
+	configFile = layout.projectDirectory.file("config/checkstyle/checkstyle.xml").asFile
+	// SuppressionFilter references this file from XML, but Gradle cannot infer that
+	// indirect input. Declaring it explicitly prevents a stale green report after a
+	// suppression is added or removed.
+	inputs.file(layout.projectDirectory.file("config/checkstyle/suppressions.xml"))
+	// The common and server source sets peak at complexity 25. The standalone asset
+	// validator contains an intentionally dense RFC 4180 parser at 29, so its task gets
+	// a separate bound instead of weakening the production threshold for every source set.
+	configProperties = [cyclomatic_max: name == "checkstyleAssetTools" ? "29" : "25"]
+	// All active checks are blocking after the current-tree high-water marks were
+	// established. A future breach therefore fails the normal Gradle check lifecycle.
+	ignoreFailures = false
+	reports {
+		xml.required = true
+		html.required = false
 	}
 }
 

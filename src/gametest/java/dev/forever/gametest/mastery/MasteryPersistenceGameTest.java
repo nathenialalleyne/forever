@@ -19,7 +19,6 @@ import dev.forever.core.mastery.SwitchContext;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.gametest.v1.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.server.level.ServerPlayer;

@@ -69,6 +69,15 @@ public final class ForeverMatchaCompat {
 			case UNSUPPORTED_VERSION, PRESENT_UNVERIFIED, MALFORMED, FAILED_SAFE ->
 					LOGGER.warn("Forever's Matcha mappings are disabled with status {}. Any loaded Matcha datapack still runs its own content; only Forever's translation layer is inactive. {}",
 							status.detectionStatus(), String.join(" ", status.diagnostics()));
+			// A switch statement over an enum is not exhaustiveness-checked by the
+			// compiler, so a newly added status would otherwise reach no branch and be
+			// logged nowhere. Detection state decides whether Matcha mappings are
+			// applied, so silently losing that signal is exactly the failure this
+			// project refuses to accept. Log the gap rather than throwing: logging must
+			// never take down a running server.
+			default -> LOGGER.error("Unhandled Matcha detection status {}. This is a Forever bug: "
+					+ "logDecision must describe every MatchaDetectionStatus. Treating it as disabled.",
+					status.detectionStatus());
 		}
 	}
 }

@@ -7,7 +7,7 @@ import dev.forever.core.equipment.ForeverEquipment;
 import dev.forever.core.guide.ForeverGuide;
 import dev.forever.core.mastery.ForeverMastery;
 import dev.forever.core.settlement.ForeverSettlement;
-import dev.forever.core.storage.ForeverStorage;
+import dev.forever.core.storage.adapter.ForeverStorage;
 import net.fabricmc.api.ModInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +28,7 @@ import org.slf4j.LoggerFactory;
  *
  * @see dev.forever.core.mastery.ForeverMastery
  * @see dev.forever.core.settlement.ForeverSettlement
- * @see dev.forever.core.storage.ForeverStorage
+ * @see dev.forever.core.storage.adapter.ForeverStorage
  * @see dev.forever.compat.matcha.ForeverMatchaCompat
  */
 public final class ForeverMod implements ModInitializer {

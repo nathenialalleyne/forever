@@ -215,6 +215,7 @@ side effect.
 - [`docs/vision.md`](docs/vision.md), project premise and intended long arc
 - [`docs/design-principles.md`](docs/design-principles.md), non-negotiable principles
 - [`docs/architecture.md`](docs/architecture.md), module boundaries and authority
+- [`docs/code-guidelines.md`](docs/code-guidelines.md), human code navigation and layer placement
 - [`docs/dependency-baseline.md`](docs/dependency-baseline.md), pinned versions
 - [`docs/development-workflow.md`](docs/development-workflow.md), ten-step AI workflow
 - [`docs/world-save-safety.md`](docs/world-save-safety.md), save and migration safety

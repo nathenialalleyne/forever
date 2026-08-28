@@ -134,6 +134,7 @@ All records below are **Accepted**.
 | [0018](0018-infrastructure-gated-journey-skipping.md) | Permit journey skipping only after discovery, physical travel, built infrastructure, and validation. |
 | [0019](0019-use-java-not-kotlin.md) | Use Java to match the Fabric 26.2 toolchain, source workflow, and AI-maintained codebase. |
 | [0020](0020-private-project-license-separation.md) | Keep proprietary Forever work distinct from CC-BY-NC-SA-4.0 Matcha and other third-party material. |
+| [0021](0021-layered-feature-packages.md) | Keep package-by-feature while expressing domain, application, and adapter boundaries inside each feature. |
 
 If an ADR is superseded or deprecated, update this index's status note and link to the
 replacement while retaining the historical record. Do not remove the row or renumber the

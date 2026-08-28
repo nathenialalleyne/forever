@@ -1,5 +1,6 @@
 package dev.forever.core.mastery;
 
+import com.mojang.serialization.DataResult;
 import java.util.Objects;
 import net.minecraft.server.level.ServerPlayer;
 
@@ -34,7 +35,7 @@ public final class MasteryLoadoutService {
 					"mastery.forever.loadout.invalid_timestamp",
 					"The server supplied a negative loadout-change timestamp.");
 		}
-		var validation = registry.validateLoadout(desired);
+		DataResult<MasteryLoadout> validation = registry.validateLoadout(desired);
 		if (validation.error().isPresent()) {
 			String detail = validation.error().orElseThrow().message();
 			return LoadoutSwitchResult.rejected(
