@@ -1,0 +1,11 @@
+{
+  "parent": "minecraft:story/root",
+  "criteria": {
+    "made_tool": {"trigger": "minecraft:recipe_crafted", "conditions": {"recipe_id": "matcha:custom"}}
+  },
+  "rewards": {
+    "function": "matcha:reward",
+    "recipes": ["matcha:custom"],
+    "loot": ["matcha:loot"]
+  }
+}

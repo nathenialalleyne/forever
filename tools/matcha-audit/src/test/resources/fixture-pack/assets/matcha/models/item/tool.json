@@ -1,0 +1,5 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {"layer0": "matcha:item/tool"},
+  "overrides": [{"predicate": {"custom_model_data": 1}, "model": "matcha:item/tool_special"}]
+}

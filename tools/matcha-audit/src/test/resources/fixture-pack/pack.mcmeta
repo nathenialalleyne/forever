@@ -1,0 +1,11 @@
+{
+  "pack": {
+    "description": {"text": "Synthetic Matcha audit fixture"},
+    "pack_format": 101
+  },
+  "filter": {
+    "block": [
+      {"namespace": "minecraft", "path": "recipes/vanilla.json"}
+    ]
+  }
+}
