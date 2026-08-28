@@ -1,6 +1,7 @@
 # Claude pointer
 
-Read `AGENTS.md` first. It is the single source of truth for agent instructions,
+Many Roads Home is a MODPACK, not primarily a custom mod. Prefer maintained
+third-party mods, configuration, and datapacks over new Java. Read `AGENTS.md` first. It is the single source of truth for agent instructions,
 scope, validation, and reporting. Before changing a system, also read the relevant
 documents in `docs/vision.md`, `docs/design-principles.md`, `docs/architecture.md`,
 `docs/adr/`, and `docs/systems/`.

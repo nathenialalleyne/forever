@@ -1,8 +1,45 @@
 # AGENTS.md
 
-This is the primary instruction file for AI agents working on Forever. It is the
-single source of truth for agent behaviour, scope control, design constraints, and
-completion reporting. `CLAUDE.md` and `.github/copilot-instructions.md` are deliberately
+This is the primary instruction file for AI agents working on **Many Roads Home**. It is
+the single source of truth for agent behaviour, scope control, design constraints, and
+completion reporting.
+
+## The product is a modpack, not a mod
+
+Read this before anything else, because it inverts the assumption the repository was
+built on. Many Roads Home is a **modpack**. The product is a curated set of maintained
+third-party mods, their configuration, datapacks, a resource pack, optional blueprint
+libraries, and a **small** companion integration mod used only where existing tools
+cannot express the design.
+
+The companion mod in `src/` is not the product. It began as a custom-mod-first prototype
+and much of it may be replaced by third-party mods. Its classification is recorded in
+`docs/pivot/existing-code-inventory.md`, and the prototype is preserved at the tag
+`prototype-pre-modpack-pivot`.
+
+Prefer mature existing mods for block placement and excavation, vein mining, schematic
+previews, recipe viewing, contextual information, cooking content, seasons, storage
+indexing, local item transport, rail physics, horse mechanics, structure generation,
+performance, and visual or sound ambience.
+
+Reserve custom Java for connective systems that no maintained mod can provide: the
+capability web, the unified contextual knowledge system, Matcha normalization, free-form
+settlement registration, villager career and institutional progression, cross-mod
+economic behaviour, discovery consequences, earned passenger services, world history, and
+integrations that cannot be expressed through configuration, datapacks, resource packs,
+or supported APIs.
+
+**Before writing Java, work down the escalation order in
+[ADR 0026](docs/adr/0026-existing-mod-first-escalation-policy.md) and stop at the first
+rung that works:** existing configuration, datapack, resource pack, supported scripting
+layer, public API or event integration, narrow compatibility adapter, narrow
+version-guarded Mixin, private fork, then new custom implementation. A custom
+implementation requires a documented gap analysis under
+[ADR 0033](docs/adr/0033-documented-gap-analysis-for-companion-code.md). Never modify a
+third-party JAR.
+
+The modpack source of truth is `pack/`, managed with Packwiz. Third-party JARs are never
+committed; dependencies are referenced by URL and hash. `CLAUDE.md` and `.github/copilot-instructions.md` are deliberately
 short pointers to this file. Do not treat a shorter pointer, a code comment, or an
 implementation convenience as permission to weaken these instructions.
 
@@ -44,18 +81,27 @@ the change visible in the completion report.
 
 ## Current status and hard scope
 
-The current project status is **foundation only**. The present scope consists of M0
-(project foundation), M1 (Matcha acquisition, pinning, and audit tooling), and M2
-(AI-readable architecture and design documentation). Those milestones are recorded as
-complete in `docs/roadmap.md`, while the first official Matcha audit, FVR-014, is the
-next ticket. **No gameplay systems are implemented yet.** Mastery, equipment condition
-and repair, reforging, settlements, careers, Mason progression, Obols, Field Guide
-content, warehouses, logistics, transportation, seasons, food traits, shops, workers,
-and other future systems are documented or backlogged only.
+The project is **mid-pivot** from a custom-mod-first prototype to a modpack-first
+product. Two things are true at once and must not be confused.
 
-Do not implement a future gameplay system during foundation work. Do not add a custom
-item, custom block, screen, recipe, texture, or empty gameplay class merely because a
-future milestone mentions it. The source tree should remain honest about what exists.
+**The modpack foundation exists and is verified.** `pack/` pins Minecraft 26.2, Fabric
+loader 0.19.3, Fabric API `NqwNSxwA`, Global Packs `DqrPrUMp`, and official Matcha
+`E9rngRfK`. A dedicated server built from the exported `.mrpack` boots with Matcha loaded
+automatically. Evidence is in `docs/compatibility/matcha-loading.md`.
+
+**A prototype companion mod also exists** in `src/`, implementing seven gameplay systems
+with unit tests and dedicated-server GameTests. It has never been playtested, and several
+of its systems duplicate mechanics that maintained mods already own. Do not treat its
+existence as approval to extend it.
+
+The next work is **compatibility spikes**, not gameplay. The lab queue is in
+`labs/README.md` and the tickets are in `docs/backlog.md`. LAB-01, information and
+onboarding, is next.
+
+Do not implement a gameplay system during this phase. Do not add every candidate mod to
+the primary pack at once. Do not write custom Java for a mechanic a maintained mod
+provides. Establish what the pack should own and what existing mods should own before
+writing more gameplay code.
 
 ## Non-negotiable engineering and design rules
 
@@ -188,7 +234,13 @@ and the disposable-world validation described in `docs/dependency-baseline.md` a
 | Fabric Loom | `1.17.20` (plugin ID `net.fabricmc.fabric-loom`) |
 | Gradle wrapper | `9.5.1` |
 | JUnit | `5.14.2` |
-| Matcha Flavoured | `1.12` |
+| Matcha Flavoured | `1.12` (Modrinth version `E9rngRfK`) |
+| Global Packs | `26.2.0` (Modrinth version `DqrPrUMp`) |
+| Packwiz | no tagged releases; `go install github.com/packwiz/packwiz@latest` |
+
+The pack dependencies above are pinned in `pack/` as Packwiz metadata and are the
+authoritative list. `scripts/validate-pack.sh` fails the build if Minecraft or the Fabric
+loader drifts from this table, which is the check that stops a silent version change.
 
 Minecraft 26.2 is distributed non-obfuscated. There are no Yarn mappings and none are
 declared. The local JDK 25 example is:
@@ -224,7 +276,10 @@ future work. A directory being shown here does not mean its gameplay is implemen
 | `src/client/` | Client-only source and resources. It contains only the minimal client entrypoint. |
 | `src/test/` | Plain JVM JUnit tests for logic that does not need Minecraft. |
 | `src/gametest/` | Dedicated-server GameTest source and resources. The current test is an initialisation smoke test. |
-| `scripts/` | Pinned Matcha acquisition and disposable development-world installation scripts. These scripts must never target a live world. |
+| `pack/` | **Packwiz modpack source of truth.** Metadata only, never third-party binaries. `pack.toml` pins Minecraft and the loader; `mods/` and `datapacks/` hold one pinned dependency per file. |
+| `labs/` | Compatibility spikes: manifests and written results. Candidates are tested here in small groups, never added straight to `pack/`. |
+| `dist/` | Exported `.mrpack` build artifacts. Git-ignored; produced by `scripts/build-pack.sh`. |
+| `scripts/` | Pack build, validation, and dependency reporting, plus pinned Matcha acquisition and disposable development-world installation. These scripts must never target a live world. |
 | `vendor/matcha/` | Local, pinned Matcha material when deliberately acquired. It is not a Gradle dependency and must remain separate from original code. |
 | `matcha.lock.json` | Exact Matcha release identity and SHA-256 lock metadata, when acquired by the pinned script. |
 | `tools/matcha-audit/` | Standalone audit CLI with its own Gradle wrapper and tests. It must not be included in the mod JAR. |
@@ -254,6 +309,16 @@ create its boundary, tests, and documentation together under a selected ticket.
 Run from the repository root unless a command changes directory. These are the exact
 commands expected by the project. They are not evidence by themselves. Only report a
 command as passing when it was actually run and its result observed.
+
+Modpack commands, which are the primary product:
+
+```sh
+./scripts/validate-pack.sh        # metadata consistency, exact pins, no committed binaries
+./scripts/build-pack.sh           # reproducible .mrpack export under dist/
+./scripts/report-dependencies.sh  # regenerate the dependency lock report
+```
+
+Companion-mod commands:
 
 ```sh
 ./gradlew build
@@ -293,6 +358,9 @@ world from `run/`, a Minecraft installation, or a `saves/` directory.
 | Touch Matcha identifiers, recipes, functions, advancements, or disguised items | `docs/dependency-baseline.md`, the relevant Matcha audit/classification docs, and the Matcha adapter ADR. Keep all internals inside `dev.forever.compat.matcha`. |
 | Change common/client boundaries, networking, or a screen | `docs/architecture.md` authority section, the relevant system specification, and the source-set rules in the build configuration |
 | Change a dependency, Minecraft, Fabric, Loom, Gradle, or JUnit version | `docs/dependency-baseline.md` and `docs/world-save-safety.md`, then create a version-update ticket |
+| Add ANY new mechanic, or reach for custom Java | [ADR 0026](docs/adr/0026-existing-mod-first-escalation-policy.md) escalation order, `docs/mod-research/candidate-matrix.csv`, and `docs/architecture/ownership-matrix.csv`. Ask first whether a maintained mod already owns this. |
+| Add, update, pin, or remove a mod | `docs/modpack-architecture.md`, `pack/` metadata, then run `scripts/validate-pack.sh`. Never commit a JAR. |
+| Test a candidate mod | `docs/testing/compatibility-labs.md` and `labs/README.md`. Use an isolated lab, never the primary pack. |
 | Add a new content type, interface, base class, registry, or optional integration | [ADR 0022](docs/adr/0022-extensible-by-default.md) and `docs/code-guidelines.md`. Ask whether it should be datapack data, a port, or a described result, and whether a second caller actually exists yet |
 | Add balance values, prices, thresholds, rates, slots, or distances | `docs/design-principles.md` principle 12, the relevant system specification, and the data/configuration plan |
 | Add a player-facing mechanic, tooltip, translation, or recipe | `docs/design-principles.md` principles 2, 15, and 16, then the Field Guide and recipe-viewer requirements |

@@ -1,35 +1,77 @@
-# Forever
+# Many Roads Home
 
-Forever is a Minecraft Fabric gameplay framework and curated modpack foundation for
-long-lived survival worlds. Its goal is to make specialisation, civilisation,
-exploration, and infrastructure competitive routes to abundance without removing the
-freedom and improvisation that make ordinary Minecraft work.
+**Many ways to play. One world worth keeping.**
+
+Many Roads Home is a Minecraft Fabric **modpack** for long-lived survival worlds. It aims
+to make building, exploration, professions, production, trade, and technical engineering
+different but interacting routes to a capable world, rather than a single optimal
+checklist of farms.
+
+The defining rule:
+
+> Adventure discovers possibilities. Building gives them a home. Professions make them
+> repeatable. Engineering scales them. Trade connects them.
+
+## The product is a modpack
+
+This matters more than anything else in this README, because the repository began life as
+a custom mod and that history is still visible in `src/`.
+
+The product is:
+
+1. a curated set of maintained third-party mods;
+2. carefully designed configuration;
+3. datapacks for recipes, loot, tags, trades, progression, and balance;
+4. a resource pack for cohesion and compatibility;
+5. optional blueprint libraries;
+6. a small companion integration mod, used only where existing tools cannot express the
+   design.
+
+The companion mod is not the product. Mature existing mods should own block placement,
+vein mining, schematic previews, recipe viewing, contextual information, cooking,
+seasons, storage indexing, local item transport, rail physics, horses, structures,
+performance, and ambience. Custom Java is reserved for connective systems that no
+existing mod can provide, such as the capability web, the unified knowledge system,
+Matcha normalization, settlement registration, villager careers, cross-mod economy,
+discovery consequences, earned passenger services, and world history.
+
+See `docs/modpack-architecture.md` and `docs/architecture/ownership-matrix.csv`.
 
 ## Current status
 
-This repository contains the architecture and audit foundation (M0 to M2) plus a
-**first implementation pass at seven gameplay systems**.
+The repository is mid-pivot from a custom-mod-first prototype to a modpack-first product.
+The prototype is preserved at tag `prototype-pre-modpack-pivot`.
 
-**Implemented and tested, but never playtested or balanced:**
+**The modpack foundation exists and is verified:**
 
-| System | Tickets | What exists |
-|---|---|---|
-| Equipment | FVR-100..106 | Schema-versioned condition and multi-path state, no destruction at zero condition, broken state, field and workshop repair, reforging that preserves identity |
-| Mastery | FVR-300..305 | Data-driven registry, persistent copy-on-death player state, one Focus plus two Supporting slots, rest-gated switching, Prospector prototype |
-| Settlements | FVR-400..405 | Charter, explicit building registration, functional residence validation, proximity building graph, village import, migration prototype |
-| Storage | FVR-600..604 | Warehouse saved data, registered-container indexing, bounded search, 9-to-18 slot Traveler's Cache, container-nesting prevention |
-| Field Guide | FVR-200..204 | Data-driven entries, bounded search, audited Matcha early-progression and campfire entries, recipe-viewer seam |
-| Mason and economy | FVR-500..507 | Villager career state, ranks, mentor and apprentice teaching, bulk catalog, Obol Coin Purse |
-| Matcha compatibility | FVR-015..017 | 29 classified systems with traced evidence, adapter boundary with no-op fallback, datapack version detection |
+| Component | Pinned |
+|---|---|
+| Minecraft | `26.2` |
+| Fabric Loader | `0.19.3` |
+| Fabric API | `0.158.0+26.2` (`NqwNSxwA`) |
+| Global Packs | `26.2.0` (`DqrPrUMp`) |
+| Matcha Flavoured | `1.12` (`E9rngRfK`) |
 
-Everything is server-authoritative and schema-versioned, with **126 unit tests** and
-**20 GameTests** passing on a dedicated server.
+A dedicated server built from the exported `.mrpack` boots with Matcha loaded
+automatically, applying 2346 recipes and 1805 advancements, with the pack recorded in
+`level.dat`. See `docs/compatibility/matcha-loading.md` for the evidence.
 
-**Still not implemented:** custom screens and client UI, logistics and shipments,
-transportation and routes, seasons, food traits, player shops, workers, animal bonding,
-and the world chronicle. These remain documented in `docs/backlog.md`.
+**A prototype companion mod also exists**, implementing seven gameplay systems with 143
+unit tests and 27 dedicated-server GameTests. None of it has been playtested, and much of
+it may be replaced by third-party mods. Its per-file classification is in
+`docs/pivot/existing-code-inventory.md`.
 
-**These systems have never been played.** Balance values are first guesses in JSON.
+## Working with the pack
+
+```sh
+./scripts/validate-pack.sh        # metadata consistency, exact pins, no committed binaries
+./scripts/build-pack.sh           # reproducible .mrpack export under dist/
+./scripts/report-dependencies.sh  # regenerate the dependency lock report
+```
+
+Packwiz is the source of truth for the mod list. It has no tagged releases, so install it
+with `go install github.com/packwiz/packwiz@latest` per the official guidance. Third-party
+JARs are never committed: every dependency is referenced by URL and hash.
 
 ## Technical baseline
 
