@@ -1,0 +1,73 @@
+# LAB-05 manifest: food, cooking, and preservation compatibility spike
+#
+# Everything in [[add]] was downloaded into /tmp/lab05 only. Nothing was added to
+# pack/. API metadata was re-verified on 2026-08-28.
+
+[baseline]
+minecraft = "26.2"
+fabric_loader = "0.19.3"
+fabric_api = { project_id = "P7dR8mSH", version_id = "NqwNSxwA", file = "fabric-api-0.158.0+26.2.jar" }
+global_packs = { project_id = "NRLPy2mk", version_id = "DqrPrUMp", file = "globalpacks-fabric-26.2-26.2.0.jar" }
+matcha = { project_id = "QI0EmgZ1", version_id = "E9rngRfK", file = "Matcha_Flavoured_1_12.zip" }
+matcha_sha256 = "6209783021c358044abedabacee471faff5bd4080437d4e3b5e51963f1804248"
+rei = { project_id = "nfn13YXA", version_id = "4o0NSIMj", file = "RoughlyEnoughItems-26.2.820.jar" }
+jade = { project_id = "nvQzSEkH", version_id = "ue8CO97w", file = "Jade-mc26.2-Fabric-26.2.11.jar" }
+architectury = { project_id = "lhGA9TYQ", version_id = "1yQC4VvP", file = "architectury-fabric-21.0.7.jar" }
+cloth_config = { project_id = "9s6osm5g", version_id = "Nv3xnWXd", file = "cloth-config-26.2.155.jar" }
+
+[[add]]
+name = "Farmer's Delight Refabricated"
+project_id = "7vxePowz"
+version_id = "7v050iYz"
+version = "26.2-3.6.17"
+file = "FarmersDelight-26.2-3.6.17+refabricated.jar"
+release_type = "release"
+published = "2026-08-21T15:31:29.652618Z"
+license = "MIT"
+side = "both"
+role = "tested cooking, food, farming, and processing candidate"
+sha512 = "d22709ef4ab5c55d527cc8287420304ea06aebce64d29052515de0f84f94b056d4d2c535a117f5419fb6ba1399a047f9eb17d741cd27d792905524427e0f156f"
+
+[[add]]
+name = "Cooking for Blockheads"
+project_id = "vJnhuDde"
+version_id = "4ajPEtRY"
+version = "26.2.0.3+fabric-26.2"
+file = "cookingforblockheads-fabric-26.2-26.2.0.3.jar"
+release_type = "release"
+published = "2026-08-21T06:03:30.423886Z"
+license = "LicenseRef-All-Rights-Reserved"
+side = "both"
+role = "tested kitchen and recipe-book candidate"
+sha512 = "97ae8a1b8a2a8d4e0fd33dc6920974b831f5a20ea268dccdf3f26d3f49e8648b5c08309d0733fd7ca29ba9b94efc6e26afeea7547ec0eb05a5c037e7a907fb8b"
+
+[[add]]
+name = "Balm"
+project_id = "MBAkmtvl"
+version_id = "hT8Zt2uD"
+version = "26.2.0.6+fabric-26.2"
+file = "balm-fabric-26.2-26.2.0.6.jar"
+release_type = "release"
+published = "2026-08-14T07:58:21.088620Z"
+license = "LicenseRef-All-Rights-Reserved"
+side = "both"
+role = "required dependency of Cooking for Blockheads"
+sha512 = "0a0b4b71f2877abd234cf85302165bb05b2cb0e3c0b7c543fa0c12e5ae271dc879f300ecb6f1dbb00c6a8bf5e42e454d4f168a970a0f4a64c4a82122bf2a8fc6"
+
+[not_tested]
+crop_and_kettle = "Project hd2YH2vf, version ZsKxsUNy, file crop-and-kettle-v1.3.12.jar, release. Not booted because its official description explicitly adds over 100 recipes, seven crops, an in-game cookbook, interactive cooking blocks, wine aging, a trader, and an advancement tab. It also documents that its custom items are not detected by REI. Direct duplication and failure of the selected viewer path justify REJECT without a separate boot."
+pantry_for_blockheads = "Project Q0e0aOtQ, version FXzqhdCv, file pantryforblockheads-fabric-26.2-26.2.0.6.jar, release. Not booted. The official description adds 14 crops, 48 meals, an Artisan Press, a Well Fed effect, and Cooking for Blockheads integration. It is LicenseRef-All-Rights-Reserved and would expand the already-conflicting cooking stack. DEFER pending a separately selected food-provider strategy."
+farming_for_blockheads = "Project 4WJZr8JU, version pYMVKfIF, file farmingforblockheads-fabric-26.2-26.2.0.4.jar, release. Not booted. It provides a market and farming utilities rather than a cooking system, and is LicenseRef-All-Rights-Reserved. DEFER as a possible acquisition utility, not a food provider."
+pantry_alpha = "Project Wn42SyT7, version L9XcU0rv, file pantry-1.0.0-alpha.5.jar, alpha. Not eligible as a core dependency under the lab rules. It has no source_url or issues_url in the Modrinth project record. DEFER."
+croptopia = "The exact core slug lookup /v2/project/croptopia returned 404. Search returned compatibility and translation projects but no core 26.2 artifact. No version or file was invented. DEFER."
+brewin_and_chewin = "Project hIu9KJTT latest observed version O3PobqCR is 4.5.0+1.21.1-fabric, release, published 2026-06-24. The 26.2 Fabric filter returned no versions. DEFER."
+brewin_and_chewin_fabric = "Project e4G0uSdm latest observed version ZieRTW8y is 3.0.6+1.20.1, release, published 2024-06-24. The 26.2 Fabric filter returned no versions. DEFER."
+create_processing = "Create project LNytGWDc latest observed version UjX6dr61 is 6.0.10+mc1.21.1, NeoForge, release. The 26.2 Fabric filter returned no versions. DEFER."
+create_fabric = "Create Fabric project Xbc0uyRg latest observed version HAqwA6X1 is 6.0.8.1+build.1744-mc1.20.1, release. The 26.2 Fabric filter returned no versions. DEFER."
+farmers_respite = "Project fasdaXH5 latest observed version kucmCxP0 is 1.20.1-2.1, Forge, release. The 26.2 Fabric filter returned no versions. DEFER."
+balanced_alchemy = "Project R3aYgjsp, version Tu0d9QS2, file 1.0.1balanced-alchemy.jar, release, is LicenseRef-All-Rights-Reserved with no source_url or issues_url and only 421 downloads in the observed project record. Matcha already owns the tested food-effect space. DEFER pending a separate alchemy question."
+herbcraft_alchemy = "Project xDJt8YY2, version KHWiiPji, file herbcraft-alchemy-1.1.4.jar, release. Not booted because alchemy is not needed to answer this cooking overlap question. Evaluate in a separate alchemy lab before any effect integration. DEFER."
+alelchemist = "Project kCRQZY91, version 7h8CDKvM, file alelchemist-0.7.jar, release, has no source_url or issues_url in the observed project record. Not booted. DEFER."
+food_effect_tooltips = "Project GGfyJWnG, version aXyL1zFA, file foodeffecttooltips-2.1.2+26.2.jar, release, is client-only and server_side=unsupported. Client testing was unavailable, and it does not own cooking or preservation. DEFER."
+reliable_recipe_viewer = "Project 5VolwT6c, version YEKlrc4s, release. Farmer's Delight lists it as optional, but the lab baseline already adopts REI as the single recipe viewer. Not added to avoid a second viewer."
+jei = "Project u6dRKJwZ has 26.2 Fabric builds, but the observed current builds are beta. Farmer's Delight lists it as optional, and adding it beside REI would violate the one-viewer decision. Not added."
