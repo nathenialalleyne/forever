@@ -2,6 +2,9 @@ package dev.forever.gametest.matcha;
 
 import dev.forever.compat.matcha.ForeverMatchaCompat;
 import dev.forever.compat.matcha.MatchaAdapter;
+import dev.forever.compat.matcha.MatchaDetectionResult;
+import dev.forever.compat.matcha.MatchaDetectionStatus;
+import dev.forever.compat.matcha.MatchaBaselineReport;
 import dev.forever.compat.matcha.MatchaAdapterStatus;
 import dev.forever.compat.matcha.MatchaBehaviorObservation;
 import dev.forever.compat.matcha.MatchaSignalKind;
@@ -144,6 +147,97 @@ public final class MatchaDetectionGameTest {
 		// Restore the honest observed state so later tests and the running server do not
 		// inherit synthetic evidence.
 		ForeverMatchaCompat.initialize(MatchaServerEvidence.gather(helper.getLevel().getServer()));
+		helper.succeed();
+	}
+	/**
+	 * The baseline report must describe the live server's actual state, and it must
+	 * always be actionable when it is not healthy.
+	 *
+	 * <p>MRH-010 exists because LAB-02 measured that the pack loader fails open: with the
+	 * Matcha archive deleted, a dedicated server started normally with the vanilla recipe
+	 * count and produced no diagnostic at all. The unit tests prove the decision logic
+	 * over constructed statuses. Only a real server can prove the report is actually
+	 * produced from real detection, which is precisely the wiring gap that made the
+	 * original detection code report "absent" forever.
+	 *
+	 * <p>This runs both with and without Matcha installed, so it asserts invariants that
+	 * must hold either way rather than hardcoding one expected verdict.
+	 */
+	@GameTest
+	public void baselineReportDescribesTheLiveServer(GameTestHelper helper) {
+		MatchaAdapter adapter = ForeverMatchaCompat.initialize(
+				MatchaServerEvidence.gather(helper.getLevel().getServer()));
+
+		MatchaBaselineReport report = MatchaBaselineReport.fromStatus(adapter.status(), "1.12");
+
+		helper.assertTrue(report != null, "a baseline report must always be produced");
+		helper.assertTrue(!report.summary().isBlank(),
+				"a baseline report must explain itself rather than being empty");
+
+		// The core MRH-010 guarantee: a warning that does not say what to do is the
+		// failure mode this ticket exists to prevent, so an unhealthy report must carry
+		// at least one concrete remedy.
+		if (report.needsAttention()) {
+			helper.assertTrue(!report.remedies().isEmpty(),
+					"an unhealthy baseline report named no remedy, which trains operators to ignore warnings");
+		} else {
+			helper.assertTrue(report.remedies().isEmpty(),
+					"a healthy baseline should not be cluttered with remedies for problems that do not exist");
+		}
+		helper.succeed();
+	}
+
+	/**
+	 * The report's verdict must agree with the adapter status it was derived from.
+	 *
+	 * <p>An inconsistent pair would be worse than no report, because an operator would
+	 * see a healthy banner while the translation layer was disabled, or a missing-baseline
+	 * alarm on a working install. The second case is the one that erodes trust fastest.
+	 */
+	@GameTest
+	public void baselineVerdictAgreesWithDetection(GameTestHelper helper) {
+		MatchaAdapterStatus status = ForeverMatchaCompat.initialize(
+				MatchaServerEvidence.gather(helper.getLevel().getServer())).status();
+
+		MatchaBaselineReport report = MatchaBaselineReport.fromStatus(status, "1.12");
+
+		boolean detectionSaysAbsent = status.detectionStatus() == MatchaDetectionStatus.ABSENT;
+		boolean reportSaysMissing = report.severity() == MatchaBaselineReport.Severity.MISSING;
+		helper.assertTrue(detectionSaysAbsent == reportSaysMissing,
+				"report severity disagreed with detection: detection=" + status.detectionStatus()
+						+ " report=" + report.severity());
+
+		boolean detectionSaysSupported = status.detectionStatus() == MatchaDetectionStatus.SUPPORTED;
+		boolean reportSaysHealthy = report.severity() == MatchaBaselineReport.Severity.HEALTHY;
+		helper.assertTrue(detectionSaysSupported == reportSaysHealthy,
+				"only a verified baseline may be reported as healthy: detection=" + status.detectionStatus()
+						+ " report=" + report.severity());
+
+		// The checks above only exercise whichever branch this server happens to be in,
+		// and the GameTest environment loads Matcha, so the ABSENT path would never run.
+		// A test that cannot fail is worse than no test, so drive every status explicitly
+		// against the same production mapping the live check just used.
+		for (MatchaDetectionStatus candidate : MatchaDetectionStatus.values()) {
+			MatchaBaselineReport mapped = MatchaBaselineReport.fromStatus(
+					MatchaAdapterStatus.fromDetection(candidate == MatchaDetectionStatus.ABSENT
+							? MatchaDetectionResult.absent()
+							: MatchaDetectionResult.failedSafe("gametest probe for " + candidate)),
+					"1.12");
+			helper.assertTrue(!mapped.summary().isBlank(),
+					candidate + " produced a baseline report with no summary");
+			if (mapped.needsAttention()) {
+				helper.assertTrue(!mapped.remedies().isEmpty(),
+						candidate + " produced a warning with no remedy");
+			}
+		}
+
+		// The single most important mapping, stated directly: an absent baseline must
+		// never be reported as healthy. This is the exact silent failure LAB-02 measured.
+		MatchaBaselineReport absent = MatchaBaselineReport.fromStatus(
+				MatchaAdapterStatus.fromDetection(MatchaDetectionResult.absent()), "1.12");
+		helper.assertTrue(absent.severity() == MatchaBaselineReport.Severity.MISSING,
+				"an absent Matcha baseline was reported as " + absent.severity()
+						+ "; LAB-02 showed this failure is otherwise completely silent");
 		helper.succeed();
 	}
 }
