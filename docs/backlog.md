@@ -95,7 +95,7 @@ These are investigation and integration spikes. They establish whether the selec
 - **Test requirements:** Unit tests for present, absent, altered, and unreadable archives; a dedicated-server GameTest asserting the diagnostic appears; and confirmation that a correct install produces no new noise.
 - **Removal/migration risks:** Low. The check is read-only and touches no persistent state. The main risk is a false positive after a legitimate Matcha version bump, so the message must name the lock file as the thing to update.
 
-### LAB-03: Building and excavation compatibility spike [Planned]
+### LAB-03: Building and excavation compatibility spike [Done]
 
 - **Objective:** Identify an existing configuration or mature mod stack for block placement, bulk excavation, tree felling, and related gathering convenience without gating ordinary building.
 - **Dependencies:** MRH-000, LAB-02, ADRs 0024 and 0026, and the pinned loader baseline.
@@ -112,7 +112,7 @@ These are investigation and integration spikes. They establish whether the selec
 - **Test requirements:** Client and dedicated-server placement, bulk selection limits, cancellation, tool condition, protected-area behaviour, item drops, disconnect or retry, multiplayer permission, and absent-mod fallback.
 - **Removal/migration risks:** Disabling a placement or excavation mod can change recipes, key bindings, block interaction, and unfinished operations. Do not remove a selected tool from a persistent profile without a release note and disposable-world test.
 
-### LAB-04: Blueprint and schematic compatibility spike [Planned]
+### LAB-04: Blueprint and schematic compatibility spike [Next]
 
 - **Objective:** Evaluate an existing planning tool for optional previews, material lists, and player-authored blueprints while preserving style-independent functional building.
 - **Dependencies:** MRH-000, LAB-03, ADRs 0032 and 0026, and the projects and settlements specifications.
@@ -129,7 +129,7 @@ These are investigation and integration spikes. They establish whether the selec
 - **Test requirements:** Load and unload a blueprint, missing-block handling, client/server mismatch, permission checks, material-list bounds, hand-built registration, malformed file handling, and a colour-independent functional validation review.
 - **Removal/migration risks:** Removing a schematic tool can strand client-only plans or persistent contract references. Keep physical builds authoritative and migrate unavailable plans to a readable legacy or unavailable state.
 
-### LAB-05: Food, cooking, and preservation compatibility spike [Planned]
+### LAB-05: Food, cooking, and preservation compatibility spike [Done]
 
 - **Objective:** Find an existing cooking and food-processing stack that supports readable recipes, regional ingredients, preservation, and optional trait integration without making vanilla food obsolete.
 - **Dependencies:** MRH-000, LAB-01, LAB-02, ADRs 0024 and 0026, and the food specification.
@@ -146,7 +146,7 @@ These are investigation and integration spikes. They establish whether the selec
 - **Test requirements:** Recipe discovery, unknown-food fallback, processing interruption, duplicate output prevention, preservation recovery, effect-cap review, server-side consumption, and client explanation checks.
 - **Removal/migration risks:** Removing a cooking mod can orphan recipes, prepared items, traits, or preserved stock. Record item identities, retain physical inputs, and define a readable migration before changing a selected food provider.
 
-### LAB-06: Seasons and climate compatibility spike [Planned]
+### LAB-06: Seasons and climate compatibility spike [Next]
 
 - **Objective:** Verify a climate provider and safe fallback for visible seasons, modest crop situations, weather context, and greenhouse or mitigation choices.
 - **Dependencies:** MRH-000, LAB-05, LAB-02, ADR 0014, and the seasons and weather specification.
@@ -163,7 +163,7 @@ These are investigation and integration spikes. They establish whether the selec
 - **Test requirements:** Provider present, provider absent, unknown crop, calendar restart, forecast change, greenhouse or mitigation validation, client stale view, and dedicated-server startup.
 - **Removal/migration risks:** A climate provider can alter crop growth, saved calendar state, and prepared food expectations. Remove or replace it only with a calendar migration and a safe neutral mapping for existing records.
 
-### LAB-07: Storage indexing and local search compatibility spike [Planned]
+### LAB-07: Storage indexing and local search compatibility spike [Done]
 
 - **Objective:** Select an existing storage and indexing solution that makes physical local goods searchable without turning a remote index into magical withdrawal.
 - **Dependencies:** MRH-000, LAB-02, LAB-01, ADRs 0011, 0012, 0024, and 0026, and the storage specification.
@@ -180,7 +180,7 @@ These are investigation and integration spikes. They establish whether the selec
 - **Test requirements:** Index creation, stale index, physical mutation, search paging, permission denial, item identity changes, container nesting rejection, restart, and no-mod fallback.
 - **Removal/migration risks:** Removing a storage provider can invalidate container references, network links, and search metadata. Keep physical containers untouched and migrate derived indexes as discardable data only when safe.
 
-### LAB-08: Local item transport and automation compatibility spike [Planned]
+### LAB-08: Local item transport and automation compatibility spike [Next]
 
 - **Objective:** Identify a local transport and automation stack that moves physical goods through bounded networks without replacing the logistics and route authority planned for later milestones.
 - **Dependencies:** MRH-000, LAB-07, LAB-03, LAB-02, ADRs 0010, 0012, 0024, and 0026, and the logistics specification.
@@ -214,7 +214,7 @@ These are investigation and integration spikes. They establish whether the selec
 - **Test requirements:** Station connectivity, disconnected track, freight transfer, horse and boat baseline, vehicle absence, chunk unload, restart, route damage, and dedicated-server movement.
 - **Removal/migration risks:** Removing a vehicle mod can strand entities, cargo, or route references. A future profile change needs an entity and cargo recovery plan before the dependency is removed.
 
-### LAB-10: Performance, ambience, structures, and worldgen compatibility spike [Planned]
+### LAB-10: Performance, ambience, structures, and worldgen compatibility spike [Next]
 
 - **Objective:** Establish a conservative baseline for performance, ambience, and restrained structure content without adding a world-generation dependency by assumption.
 - **Dependencies:** MRH-000, LAB-02, LAB-03, and ADR 0015 plus the performance rules in the architecture document.

@@ -39,14 +39,14 @@ names, so the same lab can be re-run months later against the same artifacts.
 |---|---|---|
 | LAB-01 | Information and onboarding: recipe viewer, contextual info, guidebook noise, advancement noise, Field Journal requirements | Done: REI + Jade adopted, JEI excluded, no guidebook problem found |
 | LAB-02 | Matcha pack-loader and dual role: one archive as both datapack and resource pack, load order, failure diagnostics | Done: Global Packs adopted, but ALL failure paths fail open. Raised MRH-010. |
-| LAB-03 | Building and excavation: assisted placement, vein mining, durability and inventory consumption, multiplayer authority | In progress (wave 1) |
-| LAB-04 | Blueprints and schematics: preview, material lists, .litematic and .schem support, server authority | Planned |
-| LAB-05 | Food, cooking, and preservation against Matcha hunger and healing behaviour | In progress (wave 1) |
-| LAB-06 | Seasons and climate against Matcha environment, crops, weather, performance | Planned |
-| LAB-07 | Storage indexing and local search: early shulkers, wireless restrictions, world removal | In progress (wave 1) |
-| LAB-08 | Local item transport and automation: pipes, minecarts, storage integration, chunk unloading | Planned |
+| LAB-03 | Building and excavation: assisted placement, vein mining, durability and inventory consumption, multiplayer authority | Done: Effortless Building + VeinMiner PILOT; WorldEdit rejected |
+| LAB-04 | Blueprints and schematics: preview, material lists, .litematic and .schem support, server authority | Next (wave 2) |
+| LAB-05 | Food, cooking, and preservation against Matcha hunger and healing behaviour | Done: ADOPT NOTHING. Matcha already owns food; all 7 candidates rejected or deferred |
+| LAB-06 | Seasons and climate against Matcha environment, crops, weather, performance | Next (wave 2) |
+| LAB-07 | Storage indexing and local search: early shulkers, wireless restrictions, world removal | Done: no candidate qualifies; StorageGuide PILOT for read-only search only |
+| LAB-08 | Local item transport and automation: pipes, minecarts, storage integration, chunk unloading | Next (wave 2) |
 | LAB-09 | Rail, horse, boat, and vehicle behaviour on a dedicated server | Planned |
-| LAB-10 | Performance, ambience, structures, and worldgen: spacing, loot control, save permanence | Planned |
+| LAB-10 | Performance, ambience, structures, and worldgen: spacing, loot control, save permanence | Next (wave 2) |
 | LAB-11 | Adventure rewards and capability gates: no essential capability is adventure-only | Planned |
 | LAB-12 | Companion boundary and gap analysis: what genuinely needs custom code | Planned |
 

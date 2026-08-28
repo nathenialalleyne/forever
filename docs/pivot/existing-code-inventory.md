@@ -46,7 +46,7 @@ Counts below are **decision records**, not raw file counts. A decision record ma
 |---|---:|---|
 | KEEP | 35 | Architecture, safety contracts, connective domain concepts, Matcha isolation, tests, audit tooling, and authoritative design records |
 | ADAPT | 16 | Existing custom code or metadata that can survive only after ownership and namespace changes |
-| REPLACE | 1 | Generic searchable warehouse/index implementation that duplicates the intended third-party storage role |
+| REPLACE | 0 | **Revised by LAB-07.** The single REPLACE entry was the searchable warehouse index, on the assumption that a third-party storage mod would own it. LAB-07 tested seven candidates and found none that provides a server-authoritative index over arbitrary registered containers without either wireless access or unsafe removal. That entry is now ADAPT pending a proven migration contract. |
 | DEFER | 1 | Future gameplay designs, not-yet-built integrations, and empty asset or lab placeholders |
 | RETIRE | 1 | Ignored exported distribution output |
 | UNKNOWN_PENDING_REVIEW | 0 | No existing artifact is left without an interim disposition. Candidate ownership remains provisional where noted. |
@@ -67,7 +67,7 @@ These totals count records, not classes. For example, the 27 Matcha adapter clas
 | Schematic preview | Litematica or equivalent | No current implementation found. DEFER | LAB-02 and LAB-12. `.schem` and `.litematic` need separate evidence |
 | Cooking content | Farmer's Delight Refabricated or equivalent | No current implementation found. DEFER | LAB-03 against Matcha food content |
 | Seasons and climate | Serene Seasons or equivalent | No current implementation found. DEFER | LAB-04. Keep only a future climate port |
-| Searchable local storage | Tom's Simple Storage or equivalent | REPLACE the generic warehouse/index code after a safe migration plan | LAB-05. Vanilla containers remain physical truth |
+| Searchable local storage | **LAB-07: no candidate qualifies.** StorageGuide is a PILOT for read-only location search only | **ADAPT, not REPLACE.** LAB-07 found no mod that indexes arbitrary registered containers server-authoritatively without wireless access or data loss on removal | LAB-07 result, and a migration contract before any change |
 | Physical item movement | Simple Copper Pipes or equivalent | No current implementation found. DEFER | LAB-06 |
 | Rail physics | High-Speed Rail or equivalent | No current implementation found. DEFER | LAB-07 |
 | Horse handling | Icy's Better Horses or equivalent | No current implementation found. DEFER | LAB-07 |
