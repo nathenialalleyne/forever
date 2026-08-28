@@ -190,7 +190,7 @@ This file remains the index and dependency map.
 - **Expected tests:** The complete audit-tool unit suite, repeated-output comparison,
   malformed-input tests, and a review of fixture licensing and provenance.
 
-### FVR-014: Generate the first official Matcha audit [Next]
+### FVR-014: Generate the first official Matcha audit [Done]
 
 - **Objective:** Fetch the exact pinned Matcha release once as a deliberate developer
   operation and publish the first official deterministic inventory and audit report.
@@ -206,7 +206,7 @@ This file remains the index and dependency map.
 - **Expected tests:** Fetch checksum verification, complete audit-tool tests, two audit
   runs compared for deterministic content, and a manual review of the generated report.
 
-### FVR-015: Manually classify Matcha systems [Planned]
+### FVR-015: Manually classify Matcha systems [Done]
 
 - **Objective:** Classify each audited Matcha system as keep, extend, override, replace
   eventually, or undecided, with evidence and an owner for the next decision.
@@ -222,7 +222,7 @@ This file remains the index and dependency map.
 - **Expected tests:** Completeness check for the audit inventory, link/path review,
   classification consistency review, and an ADR review for each changed decision.
 
-### FVR-016: Define stable Matcha adapter interfaces [Planned]
+### FVR-016: Define stable Matcha adapter interfaces [Done]
 
 - **Objective:** Define the smallest stable compatibility interfaces that translate
   Matcha capabilities into Forever concepts behind `dev.forever.compat.matcha`.
@@ -240,7 +240,7 @@ This file remains the index and dependency map.
   unsupported-version tests, and a source scan proving private identifiers stay in the
   permitted package.
 
-### FVR-017: Add Matcha version compatibility detection [Planned]
+### FVR-017: Add Matcha version compatibility detection [Done]
 
 - **Objective:** Detect whether the installed Matcha release matches the supported lock
   identity and expose actionable capability and incompatibility diagnostics.
@@ -258,7 +258,7 @@ This file remains the index and dependency map.
 
 ## Equipment and condition vertical slice
 
-### FVR-100: Define item identity and condition schema [Planned]
+### FVR-100: Define item identity and condition schema [Done]
 
 - **Objective:** Define the versioned per-`ItemStack` identity, condition,
   craftsmanship, and specialisation data required for durable equipment.
@@ -274,7 +274,7 @@ This file remains the index and dependency map.
 - **Expected tests:** Codec round trips, invalid-field rejection, prior-version
   migration fixtures, unknown-field handling, and item-stack copy/drop/container tests.
 
-### FVR-101: Prevent permanent durability destruction [Planned]
+### FVR-101: Prevent permanent durability destruction [Done]
 
 - **Objective:** Replace ordinary zero-durability deletion with a safe transition to a
   retained broken item while preserving vanilla use where no Forever condition applies.
@@ -292,7 +292,7 @@ This file remains the index and dependency map.
   container/trade transition, invalid-state handling, and a regression test for normal
   vanilla durability behaviour.
 
-### FVR-102: Add the broken-item state [Planned]
+### FVR-102: Add the broken-item state [Done]
 
 - **Objective:** Represent a broken, unusable item state that retains identity and is
   understandable through non-colour cues until repair.
@@ -308,7 +308,7 @@ This file remains the index and dependency map.
 - **Expected tests:** State persistence, use denial, tooltip/translation checks,
   colour-independent presentation review, and server-authority tests for client packets.
 
-### FVR-103: Add field repair [Planned]
+### FVR-103: Add field repair [Done]
 
 - **Objective:** Provide a bounded, server-authoritative field repair action that
   restores partial condition without deleting item identity.
@@ -326,7 +326,7 @@ This file remains the index and dependency map.
 - **Expected tests:** Valid and invalid server actions, resource atomicity, disconnect
   and retry handling, save/reload, duplicate-request resistance, and UI/guide content.
 
-### FVR-104: Add workshop repair [Planned]
+### FVR-104: Add workshop repair [Done]
 
 - **Objective:** Add a workshop repair process that restores full condition through an
   explicit server-side interaction and data-driven cost.
@@ -342,7 +342,7 @@ This file remains the index and dependency map.
 - **Expected tests:** GameTest for interaction and full repair, invalid/duplicate request
   tests, restart persistence, client/server authority checks, and recipe/guide checks.
 
-### FVR-105: Add the reforge path [Planned]
+### FVR-105: Add the reforge path [Done]
 
 - **Objective:** Add the approved reforge operation that restores full condition and
   permits an item to switch its active specialisation path without losing identity or
@@ -361,7 +361,7 @@ This file remains the index and dependency map.
   duplicate/disconnect attempts, interrupted save handling, restart behaviour, and
   client/server authority tests.
 
-### FVR-106: Add equipment persistence and duplication GameTests [Planned]
+### FVR-106: Add equipment persistence and duplication GameTests [Done]
 
 - **Objective:** Prove the complete equipment vertical slice survives world lifecycle
   events and cannot create or destroy items through ordinary interaction races.
@@ -379,7 +379,7 @@ This file remains the index and dependency map.
 
 ## Knowledge and Field Guide
 
-### FVR-200: Build the Field Guide framework [Planned]
+### FVR-200: Build the Field Guide framework [Done]
 
 - **Objective:** Create the in-game documentation framework that can explain every
   player-facing Forever mechanic without requiring an external wiki.
@@ -395,7 +395,7 @@ This file remains the index and dependency map.
 - **Expected tests:** Entry schema validation, translation fallback, bounded payload and
   rendering tests, dedicated-server absence of client references, and UI smoke tests.
 
-### FVR-201: Add searchable Field Guide entries [Planned]
+### FVR-201: Add searchable Field Guide entries [Done]
 
 - **Objective:** Make approved Field Guide content searchable and navigable by topic,
   prerequisite, and recipe or system reference.
@@ -410,7 +410,7 @@ This file remains the index and dependency map.
 - **Expected tests:** Search ranking and limit tests, malformed-content tests, client
   rendering tests, translation coverage, and payload-size checks.
 
-### FVR-202: Add Matcha early-progression entries [Planned]
+### FVR-202: Add Matcha early-progression entries [Done]
 
 - **Objective:** Document the approved early Matcha progression in the Field Guide
   using stable Forever adapter concepts and audited evidence.
@@ -426,7 +426,7 @@ This file remains the index and dependency map.
 - **Expected tests:** Fixture-backed entry validation, translation and link checks,
   absent/unsupported Matcha rendering, and a manual audit-to-entry trace review.
 
-### FVR-203: Integrate the recipe viewer [Planned]
+### FVR-203: Integrate the recipe viewer [Done]
 
 - **Objective:** Expose relevant Forever and approved Matcha-related recipes through a
   recipe-viewer integration without making an optional viewer a hard dependency.
@@ -440,7 +440,7 @@ This file remains the index and dependency map.
 - **Expected tests:** Viewer-present and viewer-absent client tests, recipe link
   completeness, translation checks, and a dedicated-server classpath check.
 
-### FVR-204: Document campfire processes [Planned]
+### FVR-204: Document campfire processes [Done]
 
 - **Objective:** Add clear Field Guide documentation for approved campfire processes,
   including inputs, timing, outputs, safety, and failure states.
@@ -457,7 +457,7 @@ This file remains the index and dependency map.
 
 ## Mastery
 
-### FVR-300: Add the mastery registry [Planned]
+### FVR-300: Add the mastery registry [Done]
 
 - **Objective:** Define a stable registry for mastery paths, capabilities, prerequisites,
   and data-driven balance values.
@@ -473,7 +473,7 @@ This file remains the index and dependency map.
 - **Expected tests:** Registry load and validation, duplicate/missing dependency tests,
   malformed data tests, deterministic ordering, and data reload checks.
 
-### FVR-301: Add persistent player mastery state [Planned]
+### FVR-301: Add persistent player mastery state [Done]
 
 - **Objective:** Store player mastery progress as a versioned persistent attachment or
   component that survives dimensions, save/reload, and server restart.
@@ -489,7 +489,7 @@ This file remains the index and dependency map.
 - **Expected tests:** Codec round trips, prior-schema migration, invalid-data handling,
   save/reload, dimension transfer, restart, duplicate-write, and authority tests.
 
-### FVR-302: Add one Focus and two Supporting slots [Planned]
+### FVR-302: Add one Focus and two Supporting slots [Done]
 
 - **Objective:** Represent the mastery loadout contract with exactly one Focus slot and
   two Supporting slots while retaining progress for inactive paths.
@@ -505,7 +505,7 @@ This file remains the index and dependency map.
 - **Expected tests:** Valid/invalid slot combinations, persistence, duplicate request
   handling, bounded synchronisation, and client/server authority tests.
 
-### FVR-303: Add rest-based mastery switching [Planned]
+### FVR-303: Add rest-based mastery switching [Done]
 
 - **Objective:** Allow players to change active mastery assignments only through the
   approved rest, home, or workplace interaction.
@@ -522,7 +522,7 @@ This file remains the index and dependency map.
 - **Expected tests:** GameTests for valid rest and invalid locations, reconnect/retry and
   duplicate requests, save/reload and restart, and forged client packet rejection.
 
-### FVR-304: Add the Prospector prototype [Planned]
+### FVR-304: Add the Prospector prototype [Done]
 
 - **Objective:** Prototype a Prospector path whose progression rewards discovery,
   breadth, technique, and completed projects rather than repetitive-action counters.
@@ -538,7 +538,7 @@ This file remains the index and dependency map.
 - **Expected tests:** XP-source allowlist tests, duplicate-event and replay tests,
   persistence/restart, client-forgery rejection, and content/guide checks.
 
-### FVR-305: Add mastery persistence and duplication tests [Planned]
+### FVR-305: Add mastery persistence and duplication tests [Done]
 
 - **Objective:** Prove registry-backed mastery state, loadout slots, switching, and
   Prospector progress remain correct across lifecycle and packet races.
@@ -556,7 +556,7 @@ This file remains the index and dependency map.
 
 ## Settlement
 
-### FVR-400: Add the settlement Charter [Planned]
+### FVR-400: Add the settlement Charter [Done]
 
 - **Objective:** Define the versioned settlement Charter that establishes ownership,
   name, membership, and governance without imposing an architectural style.
@@ -572,7 +572,7 @@ This file remains the index and dependency map.
 - **Expected tests:** Codec and migration tests, invalid Charter tests, restart/save
   tests, permission boundary tests, and a no-style-enforcement review.
 
-### FVR-401: Add building selection and registration [Planned]
+### FVR-401: Add building selection and registration [Done]
 
 - **Objective:** Let a player explicitly select and register functional buildings with a
   settlement using bounded, cached registration rather than world-wide discovery.
@@ -589,7 +589,7 @@ This file remains the index and dependency map.
 - **Expected tests:** Explicit registration GameTests, bounded-query tests, stale
   reference handling, persistence/restart, and vanilla-building regression tests.
 
-### FVR-402: Add the residence validator [Planned]
+### FVR-402: Add the residence validator [Done]
 
 - **Objective:** Validate residence function using enclosure, beds, workstations,
   storage, safety, and space without enforcing a theme or blueprint.
@@ -603,7 +603,7 @@ This file remains the index and dependency map.
 - **Expected tests:** Functional pass/fail fixtures, bounds and cache invalidation,
   malformed registration handling, client projection checks, and dedicated-server tests.
 
-### FVR-403: Add the settlement building graph [Planned]
+### FVR-403: Add the settlement building graph [Done]
 
 - **Objective:** Represent settlements as a versioned graph of registered buildings,
   workplaces, residences, infrastructure, and outposts.
@@ -618,7 +618,7 @@ This file remains the index and dependency map.
 - **Expected tests:** Graph codec/migration, node and edge validation, bounded update
   budget, stale reference recovery, persistence, restart, and authority tests.
 
-### FVR-404: Add existing-village import [Planned]
+### FVR-404: Add existing-village import [Done]
 
 - **Objective:** Provide an explicit Charter/import workflow for incorporating an
   existing natural Minecraft village without erasing its vanilla behaviour.
@@ -635,7 +635,7 @@ This file remains the index and dependency map.
 - **Expected tests:** Disposable-world import GameTests, preview/cancel, partial failure
   rollback, persistence/restart, duplicate-import prevention, and vanilla regression.
 
-### FVR-405: Add a settlement migration prototype [Planned]
+### FVR-405: Add a settlement migration prototype [Done]
 
 - **Objective:** Prove one versioned settlement schema migration and its operational
   backup, verification, and recovery procedure before broader settlement persistence.
@@ -653,7 +653,7 @@ This file remains the index and dependency map.
 
 ## Mason vertical slice
 
-### FVR-500: Add the masonry workshop [Planned]
+### FVR-500: Add the masonry workshop [Done]
 
 - **Objective:** Add the first approved masonry workshop interaction as the physical
   anchor for the Mason vertical slice.
@@ -670,7 +670,7 @@ This file remains the index and dependency map.
 - **Expected tests:** Workshop GameTests, invalid and duplicate interactions, save/reload
   and restart, absent optional integration, authority checks, and content tests.
 
-### FVR-501: Add Mason persistent career state [Planned]
+### FVR-501: Add Mason persistent career state [Done]
 
 - **Objective:** Store Mason career rank, techniques, mentors, apprenticeships, and
   related knowledge in a versioned persistent entity or player structure.
@@ -686,7 +686,7 @@ This file remains the index and dependency map.
 - **Expected tests:** Codec and migration fixtures, entity/player lifecycle, restart,
   invalid state, death/knowledge boundary, duplicate-write, and authority tests.
 
-### FVR-502: Add Mason Apprentice rank [Planned]
+### FVR-502: Add Mason Apprentice rank [Done]
 
 - **Objective:** Implement the first Mason rank with approved learning and workshop
   capabilities.
@@ -702,7 +702,7 @@ This file remains the index and dependency map.
 - **Expected tests:** Rank validation, approved-source tests, duplicate/replay handling,
   persistence/restart, forged-client rejection, and content checks.
 
-### FVR-503: Add Mason Journeyman rank [Planned]
+### FVR-503: Add Mason Journeyman rank [Done]
 
 - **Objective:** Add the Journeyman rank and its approved additional masonry capability
   without breaking Apprentice data or normal play.
@@ -717,7 +717,7 @@ This file remains the index and dependency map.
 - **Expected tests:** Promotion success/failure, replay and duplicate promotion,
   migration, persistence/restart, client authority, and content tests.
 
-### FVR-504: Add Mason Master rank [Planned]
+### FVR-504: Add Mason Master rank [Done]
 
 - **Objective:** Add the Master rank as the top of this vertical slice with bounded,
   approved masonry capabilities.
@@ -734,7 +734,7 @@ This file remains the index and dependency map.
 - **Expected tests:** Promotion and capability GameTests, performance/budget checks,
   persistence/restart, duplicate requests, forged-client tests, and documentation checks.
 
-### FVR-505: Add the bulk block catalogue [Planned]
+### FVR-505: Add the bulk block catalogue [Done]
 
 - **Objective:** Define a data-driven catalogue of approved bulk masonry blocks and
   operations for the Mason workshop.
@@ -750,7 +750,7 @@ This file remains the index and dependency map.
 - **Expected tests:** Data validation, batch-bound tests, atomic output/input handling,
   interruption/retry, persistence/restart, duplication tests, and recipe/guide checks.
 
-### FVR-506: Add the Obol purse [Planned]
+### FVR-506: Add the Obol purse [Done]
 
 - **Objective:** Add the approved hybrid Obol economy with physical transferable items
   and a withdrawable Coin Purse balance that does not consume many inventory slots.
@@ -768,7 +768,7 @@ This file remains the index and dependency map.
   disconnect/retry, duplication and overflow tests, cross-dimension persistence, and
   client/server authority checks.
 
-### FVR-507: Add Mason persistence and duplication GameTests [Planned]
+### FVR-507: Add Mason persistence and duplication GameTests [Done]
 
 - **Objective:** Prove the workshop, career ranks, catalogue operations, and Obol purse
   survive lifecycle events and cannot duplicate blocks, items, or currency.
@@ -785,7 +785,7 @@ This file remains the index and dependency map.
 
 ## Storage and logistics
 
-### FVR-600: Add the warehouse controller [Planned]
+### FVR-600: Add the warehouse controller [Done]
 
 - **Objective:** Define a server-authoritative warehouse controller for registered
   storage infrastructure with bounded access and versioned world-scoped state.
@@ -802,7 +802,7 @@ This file remains the index and dependency map.
 - **Expected tests:** Controller codec/migration, bounded access, atomic move, save/
   reload, restart, duplicate request, and client-forgery GameTests.
 
-### FVR-601: Add inventory indexing [Planned]
+### FVR-601: Add inventory indexing [Done]
 
 - **Objective:** Index registered warehouse contents for bounded search and retrieval
   without scanning every container or chunk on every request.
@@ -817,7 +817,7 @@ This file remains the index and dependency map.
 - **Expected tests:** Index round trip/migration, stale and corrupt index rebuild,
   query bounds, concurrent mutation, restart, duplication, and authority tests.
 
-### FVR-602: Add the search terminal [Planned]
+### FVR-602: Add the search terminal [Done]
 
 - **Objective:** Provide a client projection for searching indexed warehouse contents
   and requesting bounded, server-validated transfers.
@@ -834,7 +834,7 @@ This file remains the index and dependency map.
 - **Expected tests:** Payload bounds, stale-result rejection, atomic transfer, duplicate
   request, disconnect/retry, restart, and client/server authority tests.
 
-### FVR-603: Add the Traveler's Cache [Planned]
+### FVR-603: Add the Traveler's Cache [Done]
 
 - **Objective:** Add the personal Traveler's Cache with nine slots initially and an
   approved expansion to eighteen slots, without allowing container nesting.
@@ -851,7 +851,7 @@ This file remains the index and dependency map.
 - **Expected tests:** Capacity boundary, save/reload, dimension transfer, restart,
   duplicate movement, disconnect/retry, migration, and authority GameTests.
 
-### FVR-604: Prevent container nesting [Planned]
+### FVR-604: Prevent container nesting [Done]
 
 - **Objective:** Enforce the invariant that a container cannot be placed inside another
   container, including warehouse, cache, trade, drop, and automation paths.
@@ -867,6 +867,32 @@ This file remains the index and dependency map.
      Guide where player-facing.
 - **Expected tests:** Direct, drop, trade, warehouse, cache, automation, reload, and
   migration cases; duplicate and rollback tests; and a dedicated-server authority test.
+
+
+### FVR-700: Playtest the implemented systems in a disposable world [Next]
+
+- **Objective:** Play the seven implemented systems in a throwaway development world
+  and record where the balance values, which are currently first guesses, are wrong.
+- **Dependencies:** FVR-100..106, FVR-200..204, FVR-300..305, FVR-400..405,
+  FVR-500..507, FVR-600..604. All are implemented and pass their tests.
+- **Why this is next:** Every system has code and tests but zero minutes of play. The
+  tests prove the mechanics behave as specified; they cannot show whether the
+  specification is any fun. Writing more systems before playing these would multiply
+  unvalidated balance decisions rather than reduce them.
+- **Explicit non-goals:** No new gameplay systems. No custom screens. No balance change
+  without a recorded observation justifying it. Never open a real survival world.
+- **Acceptance criteria:**
+  - A disposable world is created with the pinned Matcha 1.12 installed via
+    `scripts/install-matcha-dev.sh`.
+  - Each implemented system is exercised in normal play and the session is recorded
+    under `docs/playtests/` using the template in that directory.
+  - Every balance value that felt wrong is recorded with the observation that
+    prompted it, not merely an opinion.
+  - Any conflict found between Matcha behaviour and a Forever system is written up
+    against the relevant row of `docs/matcha-audit/system-classification.csv`.
+  - Confirmed defects become their own tickets rather than ad hoc fixes.
+- **Expected tests:** No new automated tests are required. Any defect found must gain a
+  regression test as part of the ticket that fixes it.
 
 ## Later themes
 
