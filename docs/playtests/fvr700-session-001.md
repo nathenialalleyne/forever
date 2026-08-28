@@ -1,32 +1,74 @@
 # FVR-700 playtest session 001
 
-Status: **setup complete, not yet played.** Fill in the observation sections during and
-after the session. Do not record an opinion without the observation that produced it.
+Status: **blocked.** The disposable world and Matcha install are ready, but the
+implemented systems have no player-reachable entry point yet. See the blocker below.
 
-## How to start the session
+## Blocker: the systems are not reachable in normal play
 
-The disposable world already exists at `run/fvr700-playtest-world/` with the pinned
-Matcha datapack installed and verified. It carries a `.forever-dev-world` marker. It is
-inside `run/`, which is git-ignored, so nothing here can reach a real save.
+**Read this before starting.** I checked the source before writing the checklists below
+and the honest position is that FVR-700 cannot be run as written yet. The seven systems
+are implemented and tested, but almost none of them is currently connected to anything
+a player can do.
 
-Singleplayer is the easier way to play, because the dedicated server has no client:
+What is missing, verified by inspection:
+
+| Missing | Evidence |
+|---|---|
+| Recipes | No recipe JSON anywhere under `src/main/resources/data` |
+| Commands | No command class, and no `CommandRegistrationCallback` |
+| Creative tab | No `CreativeModeTab` reference in any source set |
+| Item textures and models | `items/` and `models/item/` contain only `.gitkeep` |
+| Gameplay event hooks | The only non-lifecycle hook is `ServerLivingEntityEvents.AFTER_DEATH` in `ForeverCareer` |
+| Cross-system callers | Every system is reached only by `initialize()` from `ForeverMod` |
+
+The practical consequences are:
+
+- The three registered items, `forever:field_tool`, `forever:travelers_cache`, and
+  `forever:obol`, exist in the registry and can be summoned with `/give`, but they have
+  no model, so they render as the missing-model placeholder.
+- `EquipmentService.damage(...)` has **no caller outside its own package**. Nothing
+  applies wear during play, so a tool will not wear down, reach zero condition, or
+  become broken by being used. The broken-state behaviour is real, but only a test
+  currently reaches it.
+- Mastery, settlements, storage, guide, career, and economy are likewise only reachable
+  from their own packages and their tests.
+
+So a session now would mostly measure the absence of wiring, not the balance values
+FVR-700 exists to interrogate. Balance observations recorded against `/give`-summoned
+items with no wear loop would be misleading.
+
+**Recommendation:** treat this as the finding, and raise an integration ticket to give
+each implemented system a player-reachable entry point before playtesting. That ticket
+is a prerequisite of FVR-700, not part of it. I have not raised or started it, since one
+ticket at a time is the rule and this is your call.
+
+## What you can genuinely do today
+
+Three things are real and worth doing.
+
+**1. Watch all 27 GameTests run in a live world.** This is the closest thing to
+observing the systems behave, and it passes today:
 
 ```sh
 export JAVA_HOME=~/toolchains/jdk-25.0.4.1+1
-./gradlew runClient
+./gradlew runGametest
 ```
 
-Then create a **new** singleplayer world from the title screen. Name it something
-obviously disposable such as `fvr700-client`. Before pressing create, open Data Packs
-and add `vendor/matcha/Matcha_Flavoured_1_12.zip`, and optionally select the same
-archive as a resource pack from `run/resourcepacks/`. Record the seed it generates.
+It ends with `All 27 required tests passed`. Each test builds a real server world,
+drives one system, and asserts the outcome. Reading `src/gametest/java/dev/forever/`
+alongside the run shows exactly what each system does and what it does not yet do.
 
-To play the already-prepared dedicated-server world instead, set `level-name` in
-`run/server.properties` to `fvr700-playtest-world`, run `./gradlew runServer`, connect
-a separate client to `localhost`, and set `level-name` back to `world` afterwards. That
-world was booted once as a smoke test and reached `Done (1.584s)`.
+**2. Confirm the modded world boots and Matcha is live.** Set `level-name` to
+`fvr700-playtest-world` in `run/server.properties`, run `./gradlew runServer`, then set
+it back. Expect `Found new data pack file/Matcha_Flavoured_1_12.zip` and signals in 10
+namespaces.
 
-## Recorded session facts
+**3. Play the world as a Matcha player.** Run `./gradlew runClient`, create a disposable
+world with the Matcha datapack added, and play it. Matcha's own content is fully active,
+so this is a genuine test of the pack Forever intends to build on, and of whether
+Forever's absence is noticeable. It is not yet a test of Forever's own systems.
+
+## Session facts to record when the session becomes possible
 
 | Field | Value |
 |---|---|
