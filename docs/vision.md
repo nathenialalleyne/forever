@@ -1,15 +1,39 @@
-# Forever: Vision
+# Many Roads Home: Vision
+
+**Many ways to play. One world worth keeping.**
 
 ## The premise
 
-> Specialisation, civilisation, exploration, and infrastructure should become
-> alternative routes to abundance, so players can build and inhabit a world without
-> feeling compelled to speedrun the same AFK farms, trading halls, XP grinders, and
-> Elytra progression.
+> Building, exploration, professions, production, trade, and technical engineering
+> should be different but interacting routes to a capable long-lived world, so players
+> can inhabit that world without feeling compelled to speedrun the same AFK farms,
+> trading halls, XP grinders, and Elytra progression.
 
-Forever is a gameplay framework and curated modpack foundation for long-lived
-Minecraft survival worlds: the kind of world you return to for years rather than
-abandon after the ender dragon dies.
+Many Roads Home is a **modpack** for long-lived Minecraft survival worlds: the kind of
+world you return to for years rather than abandon after the ender dragon dies.
+
+The defining rule is:
+
+> Adventure discovers possibilities. Building gives them a home. Professions make them
+> repeatable. Engineering scales them. Trade connects them.
+
+Important capabilities need multiple routes. An adventurer may discover a masonry
+technique in a ruin; a master mason may develop the same technique through civic
+projects; a merchant may import the knowledge; a technical player may design a
+production route around it. The routes need not cost the same or take the same time, but
+**no broad playstyle may own every essential convenience**.
+
+The pack must not communicate "you are playing incorrectly unless you rush the optimal
+farms, maximum enchantments, and Elytra". It must equally not communicate "you are
+playing incorrectly unless you explore every dungeon". Replacing a farm treadmill with a
+dungeon treadmill would be the same failure wearing different clothes.
+
+## The product is a modpack
+
+The product is a curated set of maintained third-party mods, their configuration,
+datapacks, a resource pack, optional blueprint libraries, and a small companion
+integration mod used only where existing tools cannot express the design. The companion
+mod is not the product. See `docs/modpack-architecture.md`.
 
 ## The problem being solved
 
@@ -82,14 +106,28 @@ Solo play is fully viable. Multiplayer rewards distinct niches (a server's smith
 cartographer, and merchant genuinely benefit each other), but no required progression
 path may depend on another human being present.
 
-## What "Forever" means
+## What the name means
 
-The name is a commitment about world longevity. A Forever world should survive updates,
-migrations, and years of play. That is why world-save safety outranks any individual
-feature, why every persistent format is versioned, and why this project builds an audit
-tool before it builds gameplay.
+"Many Roads" is the multiple-routes promise: no single playstyle owns the essential
+capabilities, and the way you reach a capability is a choice rather than a checklist.
+"Home" is the destination the routes serve, and it carries the longevity commitment the
+earlier working title "Forever" named directly. A world here should survive updates,
+migrations, and years of play, which is why world-save safety outranks any individual
+feature, why every persistent format is versioned, and why this project built an audit
+tool before it built gameplay.
+
+The full naming rationale, including rejected alternatives and the outstanding
+availability and trademark review, is in `docs/branding/name-and-identity.md`.
 
 ## Current status
 
-Architecture and audit foundation only. No gameplay systems are implemented. See
-`docs/roadmap.md` and `docs/backlog.md`.
+Mid-pivot from a custom-mod-first prototype to a modpack-first product.
+
+The modpack foundation exists and is verified: Minecraft 26.2, Fabric loader 0.19.3,
+Fabric API `NqwNSxwA`, Global Packs `DqrPrUMp`, and official Matcha `E9rngRfK`, with a
+dedicated server booting from the exported `.mrpack` and Matcha loading automatically.
+
+A prototype companion mod implementing seven gameplay systems also exists. It has never
+been playtested, and its per-file classification is in
+`docs/pivot/existing-code-inventory.md`. The next work is compatibility spikes, not
+gameplay. See `docs/roadmap.md` and `docs/backlog.md`.

@@ -166,3 +166,60 @@ automatic updates.
 
 *Why:* A missing feature is a disappointment. A corrupted five-year world is the end of
 the project for that player. When these two trade off, the save wins every time.
+
+---
+
+The following principles were added by the modpack-first pivot. They constrain what the
+project builds rather than how the game plays, but they are equally non-negotiable
+because the failure they prevent is the project quietly rebuilding the entire modded
+ecosystem by itself.
+
+## 19. Prefer a maintained mod over new code
+
+If a maintained, compatible mod provides a mechanic, the pack uses it. Custom Java is
+reserved for connective systems that no existing mod can provide. Before writing code,
+walk the escalation order in ADR 0026 and stop at the first rung that works:
+configuration, datapack, resource pack, scripting layer, public API, compatibility
+adapter, narrow Mixin, private fork, then custom implementation.
+
+*Why:* Every custom system is a permanent maintenance commitment that competes with the
+design work only this project can do. A team that rebuilds vein mining has less time for
+settlements, and the rebuilt version will still be worse than the mod that has been
+tested by thousands of players. This is also the principle most easily eroded, because
+writing code is more immediately satisfying than reading someone else's configuration.
+
+## 20. No broad playstyle owns every essential capability
+
+Essential capabilities must be reachable by at least two genuinely different routes, and
+may never be exclusively adventure-gated. Conveniences need at least two plausible
+routes. Specialization may favour one playstyle but must not invalidate the others.
+Prestige rewards may be genuinely exclusive, because they are not required for efficient
+ordinary play.
+
+*Why:* This is the pack's whole thesis. Replacing "you must build the farms" with "you
+must clear the dungeons" would recreate the original problem with new scenery. The
+capability web in `docs/design/capability-web.csv` exists to make violations visible
+rather than leaving them to intuition.
+
+## 21. One knowledge interface, not a shelf of manuals
+
+The pack must not spawn a player with a pile of disconnected guidebooks, one advancement
+tab per installed mod, or a first hour spent reading. Required information becomes
+explicit when it becomes relevant. Optional mysteries may stay hidden until discovered.
+
+*Why:* A modpack's most common onboarding failure is handing the player six manuals
+written by six authors who never spoke to each other. Discovery is enjoyable; confusion
+about which book explains the mechanic in front of you is not. This turns principle 2
+into a constraint on mod selection, not just on our own features.
+
+## 22. Difficulty is contextual, never a global multiplier
+
+Dangerous places are dangerous because of limited healing, environmental hazards,
+visibility, navigation, telegraphed armour-piercing attacks, coordinated enemies, and
+extraction objectives. Not because every mob everywhere has more health.
+
+*Why:* Global enemy scaling makes ordinary building play worse in order to make
+expeditions feel meaningful, which violates principle 17. It also produces the specific
+absurdity where a player in full protection gear is bored everywhere, so the designer
+inflates health, so the player farms better gear, and nothing improves. ADR 0030 records
+this decision.
