@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "entries": [
+    {
+      "id": "forever:mason/stone_bricks",
+      "input": "minecraft:stone",
+      "input_count": 4,
+      "output": "minecraft:stone_bricks",
+      "output_count": 4,
+      "max_batch": 64,
+      "minimum_rank": "apprentice",
+      "capability": "forever:mason/basic_supply"
+    },
+    {
+      "id": "forever:mason/polished_deepslate",
+      "input": "minecraft:cobbled_deepslate",
+      "input_count": 4,
+      "output": "minecraft:polished_deepslate",
+      "output_count": 4,
+      "max_batch": 64,
+      "minimum_rank": "journeyman",
+      "capability": "forever:mason/finished_supply"
+    },
+    {
+      "id": "forever:mason/tuff_bricks",
+      "input": "minecraft:tuff",
+      "input_count": 4,
+      "output": "minecraft:tuff_bricks",
+      "output_count": 4,
+      "max_batch": 64,
+      "minimum_rank": "master",
+      "capability": "forever:mason/bulk_supply"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "schema_version": 1,
+  "max_purse_balance": 1000000,
+  "max_transaction": 4096,
+  "physical_stack_limit": 64,
+  "obol_value": 1
+}

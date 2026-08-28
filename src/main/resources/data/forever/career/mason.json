@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "profession": "forever:mason",
+  "approved_techniques": [
+    "forever:stone_cutting",
+    "forever:structural_finish",
+    "forever:material_breadth",
+    "forever:validated_workshop"
+  ],
+  "ranks": [
+    {
+      "rank": "apprentice",
+      "demonstrated_technique_threshold": 0,
+      "taught_technique_threshold": 0,
+      "validated_project_threshold": 0,
+      "capabilities": ["forever:mason/basic_supply"]
+    },
+    {
+      "rank": "journeyman",
+      "demonstrated_technique_threshold": 2,
+      "taught_technique_threshold": 1,
+      "validated_project_threshold": 1,
+      "capabilities": [
+        "forever:mason/basic_supply",
+        "forever:mason/finished_supply"
+      ]
+    },
+    {
+      "rank": "master",
+      "demonstrated_technique_threshold": 4,
+      "taught_technique_threshold": 2,
+      "validated_project_threshold": 2,
+      "capabilities": [
+        "forever:mason/basic_supply",
+        "forever:mason/finished_supply",
+        "forever:mason/bulk_supply"
+      ]
+    }
+  ]
+}
