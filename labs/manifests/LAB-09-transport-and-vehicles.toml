@@ -1,0 +1,176 @@
+# LAB-09 manifest: rail, horse, boat, and vehicle compatibility
+#
+# Modrinth metadata was queried on 2026-08-28. Candidate SHA-1 and SHA-512 values
+# below are returned by the exact version endpoint and were matched after download.
+# Local SHA-256 values are included as an additional acquisition record.
+#
+# The added files are lab inputs only. This lab does not add any of them to pack/.
+
+[baseline]
+minecraft = "26.2"
+fabric_loader = "0.19.3"
+fabric_api = { project_id = "P7dR8mSH", version_id = "NqwNSxwA", file = "fabric-api-0.158.0+26.2.jar" }
+fabric_api_sha256 = "a4510eb2e9d4057ff20f751e420d0618598813ab9695b6f793a53c2883808dac"
+global_packs = { project_id = "NRLPy2mk", version_id = "DqrPrUMp", file = "globalpacks-fabric-26.2-26.2.0.jar" }
+global_packs_sha256 = "405e25ccd4e0184fd7228f4a9904d27e8ec0c25f3b0046e6489a2a7c1072c0f8"
+matcha = { project_id = "QI0EmgZ1", version_id = "E9rngRfK", file = "Matcha_Flavoured_1_12.zip" }
+matcha_sha256 = "6209783021c358044abedabacee471faff5bd4080437d4e3b5e51963f1804248"
+rei = { project_id = "nfn13YXA", version_id = "4o0NSIMj", file = "RoughlyEnoughItems-26.2.820.jar" }
+rei_sha256 = "9ba9d2a31531759549924064f33d3d45af342e7246f877efb8cee9f75f6ddaa9"
+jade = { project_id = "nvQzSEkH", version_id = "ue8CO97w", file = "Jade-mc26.2-Fabric-26.2.11.jar" }
+jade_sha256 = "ffe5d2e83a531c3fbe75ad54095e6a9eafc73a38d5827b4c90bedb4b03618b87"
+architectury = { project_id = "lhGA9TYQ", version_id = "1yQC4VvP", file = "architectury-fabric-21.0.7.jar" }
+architectury_sha256 = "0f57afbd3dcddd0b7304c22d712ccf5437e2c41270ec08bd2d8c4e1df0a6d627"
+cloth_config = { project_id = "9s6osm5g", version_id = "Nv3xnWXd", file = "cloth-config-26.2.155.jar" }
+cloth_config_sha256 = "def4be7639cd66704f7e304d658ea0f6bf490fb4a6eaa2dbf18ec2c3999d6349"
+
+[[add]]
+name = "High-Speed Rail"
+project_id = "d7PCSOkD"
+version_id = "UnL9JxtC"
+version = "0.24.0+26.2"
+file = "highspeed-rail-fabric-0.24.0+26.2.jar"
+url = "https://cdn.modrinth.com/data/d7PCSOkD/versions/UnL9JxtC/highspeed-rail-fabric-0.24.0%2B26.2.jar"
+release_type = "release"
+published = "2026-07-09T16:12:56.940043Z"
+license = "MIT"
+side = "server"
+role = "Rail physics and speed configuration"
+source_url = "https://github.com/pcal43/highspeed-rail"
+issues_url = "https://github.com/pcal43/highspeed-rail/issues"
+sha1 = "3aca2fa01804cab891b741f05e0d3c3a1ba4b8a2"
+sha512 = "8281ff4863ec3e741f1b25335f26ba383874e50868e2e5e02cff3afdfdc670156d0be2f25b32202a3b4a5b6749af55b87b359806f1d208713f71cee08deed915"
+sha256 = "f6546dc2df25c2833ca527291437b2addf3253882b41fc8ac3af95c606810a5b"
+
+[[add]]
+name = "Minecart Trains Fork"
+project_id = "PtALnG3G"
+version_id = "qaPiTACF"
+version = "2.5.0-alpha.3+26.2"
+file = "minecart-trains-fork-2.5.0-alpha.3+26.2.jar"
+url = "https://cdn.modrinth.com/data/PtALnG3G/versions/qaPiTACF/minecart-trains-fork-2.5.0-alpha.3%2B26.2.jar"
+release_type = "alpha"
+published = "2026-08-23T07:45:06.455962Z"
+license = "GPL-3.0-only"
+side = "both"
+role = "Pairwise minecart chaining with client chain rendering"
+source_url = "https://github.com/KSSJW/minecart-trains-fork"
+issues_url = "https://github.com/KSSJW/minecart-trains-fork/issues"
+sha1 = "9080fabb9ed2e59bab30908bcf893f992b018b7a"
+sha512 = "d11562f54b52fc99efeea49d0af67c946a56dfbb2d12faee70a1241b406e0612b3b9e01f9d5ddae0d60f2e81949c02c4effd999d2faa322301ff21c54ab8af1a"
+sha256 = "c5f64b783c267905856ee7b73bf05b1d3ae454733340b3eb973d4ed81c58983b"
+
+[[add]]
+name = "Horseman"
+project_id = "qIv5FhAA"
+version_id = "xU6ysEWF"
+version = "1.7.5"
+file = "horseman-fabric-26.2-1.7.5.jar"
+url = "https://cdn.modrinth.com/data/qIv5FhAA/versions/xU6ysEWF/horseman-fabric-26.2-1.7.5.jar"
+release_type = "release"
+published = "2026-08-25T23:13:26.290830Z"
+license = "MIT"
+side = "both"
+role = "Horse summon and management convenience features"
+source_url = "https://github.com/mortuusars/Horseman"
+issues_url = "https://github.com/mortuusars/Horseman/issues"
+sha1 = "7da7e833351ae0306e5a35a8a4abdfe4ddf5478e"
+sha512 = "a2638c182bb2a3fcd33a2428506a746db42eae4e9923022a72edb7830e949a8b025ca5c0f9ec29ebcd6c7735a9fb73a3c0c2349c83b38ee346dbc1ed34bea184"
+sha256 = "d2e4c5d023a4f6f0a89e6b0be487eda3465b4eb315d1c2769cd2d4e37762b73b"
+
+[[add]]
+name = "Forge Config API Port"
+project_id = "ohNO6lps"
+version_id = "rSd3GiG8"
+version = "26.2.1"
+file = "ForgeConfigAPIPort-v26.2.1-mc26.2.x-Fabric.jar"
+url = "https://cdn.modrinth.com/data/ohNO6lps/versions/rSd3GiG8/ForgeConfigAPIPort-v26.2.1-mc26.2.x-Fabric.jar"
+release_type = "release"
+published = "2026-06-21T09:19:05.384665Z"
+license = "MPL-2.0"
+side = "both"
+role = "Required Horseman configuration library"
+source_url = "https://github.com/Fuzss/forgeconfigapiport"
+issues_url = "https://github.com/Fuzss/forgeconfigapiport/issues"
+sha1 = "a4083de0d8e0c19b993d21f7a576216efb5ceb23"
+sha512 = "948b8d83de61a11aad2fc0bb0744a8b4848c9b2f0663c9aa015389d9560b3fa78518e609c44ec90278de0e159a92ebd721ccbdebb453aa455c353e5cd19413bf"
+sha256 = "1b4b17fc4150481447201152604688c74726d6631c9a626dd21f2c5e2b3df1ac"
+
+[[add]]
+name = "Move Boats"
+project_id = "7qPEjpyt"
+version_id = "P4qWMK4p"
+version = "26.2.0-3.7-fabric+forge+neo"
+file = "moveboats-26.2.0-3.7.jar"
+url = "https://cdn.modrinth.com/data/7qPEjpyt/versions/P4qWMK4p/moveboats-26.2.0-3.7.jar"
+release_type = "release"
+published = "2026-08-23T14:52:52.991693Z"
+license = "LicenseRef-All-Rights-Reserved"
+side = "server"
+role = "Crouch pickup and release convenience for boats"
+source_url = "https://github.com/Serilum/Move-Boats"
+issues_url = "https://github.com/Serilum/.issue-tracker/labels/Mod:%20Move%20Boats"
+sha1 = "0677a0d6940d1ca0a3b9f300a9b245ed0cb940e8"
+sha512 = "3484097eb3625b4c53f1b108b167c3e63f448ab819dab5e74d5f3aba43fdb7962ae9c50847b4e4177fb55adadf604d5dc95725012da836442d5564f7542df401"
+sha256 = "d86e22ebf1136e85ff9f5008c61c5c8dad49f92aca288836aed34fe0cc3612e7"
+
+[[add]]
+name = "Collective"
+project_id = "e0M1UDsY"
+version_id = "M75JwjyS"
+version = "26.2.0-8.39-fabric+forge+neo"
+file = "collective-26.2.0-8.39.jar"
+url = "https://cdn.modrinth.com/data/e0M1UDsY/versions/M75JwjyS/collective-26.2.0-8.39.jar"
+release_type = "release"
+published = "2026-06-29T16:27:51.706688Z"
+license = "LicenseRef-All-Rights-Reserved"
+side = "both"
+role = "Required Move Boats runtime library"
+source_url = "https://github.com/Serilum/Collective"
+issues_url = "https://github.com/Serilum/.issue-tracker/labels/Library:%20Collective"
+sha1 = "f051fdc1037548a00eea700d0df9d777edf19cd7"
+sha512 = "e27620080ae53460b00cabacaff409a960e0d6c6811b7e3519d5461cb62654e0016161eed914352171af56191b70a97c79320b3ef29c0636b74a0471c2398055"
+sha256 = "ce0704323bc06d381ed0aa63029fcd9f78289120d70c6ea4a8a6c8cf9f4ed26a"
+
+[[add]]
+name = "Automobility: Unofficial Port"
+project_id = "B6d5S1wQ"
+version_id = "LRK6PwC8"
+version = "0.5.0-unofficial.29+26.2"
+file = "automobility-0.5.0-unofficial.29+26.2-fabric.jar"
+url = "https://cdn.modrinth.com/data/B6d5S1wQ/versions/LRK6PwC8/automobility-0.5.0-unofficial.29%2B26.2-fabric.jar"
+release_type = "beta"
+published = "2026-08-25T10:43:26.690585Z"
+license = "MIT"
+side = "both"
+role = "Road vehicles and an automobile assembler"
+source_url = "https://github.com/nickynicolaus/automobility-unofficial-port"
+issues_url = "https://github.com/nickynicolaus/automobility-unofficial-port/issues"
+sha1 = "7e90f7f33352e470d8075b9d0ee3863d8bdf20ef"
+sha512 = "188bd344defe5453b40ab99af1492e1d2fb6eaad10a631a6929ce996dde5f06407ce76a42fe68c93b2fc80836abcb462ff11f44a25ee654279fec3e33f50d733"
+sha256 = "a442f17c5604bf3bafdffe18fb87992ec3353b56b94ab4ff5d0660bcef095ada"
+
+# Candidates that were not added to the disposable instances, either because their
+# exact release was absent, their advertised behavior violated the physical route
+# contract, or their candidate stack was not clean enough for this focused run.
+[not_added]
+create_rail = "Create and Create Fabric had no usable exact Fabric 26.2 release in the Modrinth version query. Create is Forge/NeoForge-oriented, and the official project uses LicenseRef-Create-Mod-License."
+extended_rails = "No exact verified Fabric 26.2 release was returned for Extended Rails by the Modrinth API search/version review. No substitute was tested."
+immersive_aircraft = "No exact verified Fabric 26.2 release was returned for Immersive Aircraft by the Modrinth API search/version review. No substitute was tested."
+better_boat_movement = "The observed Better Boat Movement candidate was labeled for 26.1 rather than an exact verified 26.2 Fabric release. No substitute was tested."
+icy_better_horses = "Icy's Better Horses has an exact 26.2 Fabric release, but its advertised roster and beyond-range whistle behavior imply global or teleport-like horse access rather than a local physical service."
+copper_rails = "Copper Rails has an exact 26.2 Fabric release, but the inspected project is rail variants and physics only and exposes no station or freight endpoint."
+roads_n_vehicles = "Roads 'n' Vehicles has an exact 26.2 Fabric release, but the inspected project is a small decor and ride surface and exposes no station or freight endpoint."
+create_fly_steam_n_rails = "Steam 'n' Rails Continued has an exact 26.2 Fabric release, but its required Create Fly release is named 26.2-rc-2 and there is no clean stable 26.2 dependency stack to test. No substitute was invented."
+tesseract = "LAB-08 found an exact 26.2 Fabric release, but Tesseract advertises any-distance and cross-dimensional item transport. That contradicts ADR 0012 without an explicit physical depot."
+hopper_plus = "LAB-08 found an exact 26.2 Fabric release, but Hopper Plus explicitly advertises teleporting items across distances. That contradicts ADR 0012."
+vanilla_modes = "Walking, horses, boats, rails, chest minecarts, and Elytra are not downloadable candidates. They remain the ordinary baseline."
+
+[not_tested]
+station_endpoints = "No tested candidate exposed a bounded station, depot, or route-registration API suitable for explicit Forever registration. Minecart Trains Fork only exposed pairwise cart linkage."
+freight_service = "No candidate exposed a durable source, cargo, buffer, destination, capacity, service, and exactly-once freight contract. Vanilla chest-minecart cargo was tested as an ordinary inventory only."
+chunk_unload = "A full in-transit chunk-unload matrix was not run. Controlled instances used force-loaded chunks for repeatability, so no candidate is credited with safe unloaded transit."
+route_damage = "No candidate had a registered route to damage. Disconnected-track and broken-service behavior therefore remains a route-adapter follow-up."
+client_visual_review = "Automobility and Minecart Trains Fork reached the client with OpenGL and texture-atlas evidence, but screenshots were black and no human visual inspection or interactive controls were performed."
+multiplayer = "No real player connection was available. Permissions, multiplayer desync, and per-player vehicle ownership were not tested."
+server_profiling = "No tick profiler or sustained route benchmark was run. Startup timings are observations only and do not establish a performance bound."
