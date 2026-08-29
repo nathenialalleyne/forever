@@ -37,6 +37,20 @@ your risk tolerance.
 | **Public source, still proprietary** | Keep All-Rights-Reserved but scope it explicitly to original material. Same cleanup. | Same cost as above, without granting reuse. | Only if read-only visibility is genuinely the goal. |
 | **Publish a `.mrpack`** | A separate question from the source repo. Needs Global Packs permission or a replacement first. | Per-release review. | Later, after the source decision. |
 
+## One thing now depends on this
+
+Testing found that the pack ships **no Matcha safety net**. If the Matcha archive is
+missing, a server starts normally with 1585 recipes instead of 2346 and says nothing. The
+diagnostic that prevents this (MRH-010) is written and tested, but it lives in the
+companion mod, and the companion mod is not in the pack.
+
+Shipping it means the pack distributes original code, which needs its licence settled.
+So this decision is no longer only about publication: it now gates a real safety feature
+for anyone who installs the pack. Tracked as **MRH-011**.
+
+This does not change my recommendation, because the pack has no users yet. It does mean
+the decision stops being free once it does.
+
 ## What I would suggest
 
 **Stay private for now.** It costs nothing, blocks nothing, and the only thing you lose is
