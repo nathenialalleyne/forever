@@ -127,6 +127,27 @@ This matters for publication: if the generated reports can be reproduced from a
 legitimately obtained archive, they need not be committed at all. See
 `labs/results/LAB-LICENCE-publication-readiness.md`.
 
+## Pack download verification
+
+```sh
+python3 scripts/verify-pack-downloads.py                     # from pack/, the source of truth
+python3 scripts/verify-pack-downloads.py --mrpack dist/*.mrpack   # from an exported pack
+```
+
+Downloads every pinned dependency and checks its bytes against the pinned hash and size.
+
+This answers a different question from `validate-pack.sh`. That script checks the metadata
+is internally consistent; a pin can be perfectly well-formed and still point at a URL that
+404s or at a file whose contents have changed. This is the closest thing to an end-to-end
+test the pack has, and the only check standing between "the metadata looks right" and "a
+player can install this".
+
+Requires network access, so it is a local and release-time check rather than part of the
+offline CI run. It downloads to memory and writes nothing, because third-party binaries
+must never land in the working tree.
+
+Run it before any release, and after changing or re-pinning a dependency.
+
 ## Repository-map check
 
 ```sh
