@@ -67,12 +67,17 @@ it may be replaced by third-party mods. Its per-file classification is in
 ./scripts/validate-pack.sh        # metadata consistency, exact pins, no committed binaries
 ./scripts/build-pack.sh           # reproducible .mrpack export under dist/
 ./scripts/report-dependencies.sh  # regenerate the dependency lock report
+python3 scripts/check-repo-map.py # AGENTS.md's repository map still matches the tree
+./scripts/client-smoke.sh         # the client launches, renders, and stops cleanly
 ```
 
-Some results are marked "server verified, client pending", because automated checks run
-on a machine with no display and a dedicated server never loads resource packs.
-`docs/testing/client-verification.md` is a ten-minute manual pass that closes that gap
-using only a launcher.
+Client checks run automatically too. An earlier belief that this host had no display was
+never tested and turned out to be false, so `./scripts/client-smoke.sh` launches the
+client, confirms it renders, and stops it. See `docs/testing/client-environment.md`.
+
+Three things still need a person, because the host has no audio, no narrator, and window
+screenshots capture black: visual and colour judgement, sound, and two-player multiplayer.
+`docs/testing/client-verification.md` is the short manual pass for those.
 
 Packwiz is the source of truth for the mod list. It has no tagged releases, so install it
 with `go install github.com/packwiz/packwiz@latest` per the official guidance. Third-party
