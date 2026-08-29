@@ -44,12 +44,21 @@ missing, a server starts normally with 1585 recipes instead of 2346 and says not
 diagnostic that prevents this (MRH-010) is written and tested, but it lives in the
 companion mod, and the companion mod is not in the pack.
 
-Shipping it means the pack distributes original code, which needs its licence settled.
-So this decision is no longer only about publication: it now gates a real safety feature
-for anyone who installs the pack. Tracked as **MRH-011**.
+There are actually **two** silent paths, and the second is worse: a decoy archive with the
+correct filename also yields 1585 recipes and says nothing, so the file looks present and
+correct. Configuration alone cannot detect this; I tested Global Packs' `log_pack_ids` and
+it produces identical output for a healthy and a fake archive.
+
+**The fix is proven and waiting.** Dropping the existing companion build into a pack
+instance turns both silent failures into a loud, actionable error banner, without blocking
+startup. No new code is needed. Tracked as **MRH-011**.
+
+Shipping it means the pack distributes original code, which needs its licence settled. So
+this decision is no longer only about publication: it gates a finished, tested safety
+feature for anyone who installs the pack.
 
 This does not change my recommendation, because the pack has no users yet. It does mean
-the decision stops being free once it does.
+the decision stops being free the moment someone installs it.
 
 ## What I would suggest
 
