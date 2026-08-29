@@ -265,6 +265,19 @@ These are investigation and integration spikes. They establish whether the selec
 - **Test requirements:** Completeness check against all LAB reports, candidate-source review, licence review, save-safety review, and a manual gate review by the pack owner.
 - **Removal/migration risks:** A gap report that omits a dependency or persisted identifier can authorise an unsafe companion. No code ticket may proceed from an incomplete report, and the report must be revisited when candidate versions change.
 
+### MRH-011: Ship the Matcha baseline diagnostic with the pack [Next]
+
+- **Objective:** Make the MRH-010 baseline diagnostic actually reach a player, so a missing or degraded Matcha archive is reported instead of silently changing the world.
+- **Dependencies:** MRH-010 (complete), PACK-01, ADR 0027, and `docs/decisions/OPEN-rights-model.md`.
+- **Evidence for this ticket:** A disposable server assembled from `pack/` with the Matcha datapack removed starts normally at 1585 recipes and 1688 advancements instead of 2346/1805, with **no diagnostic at all**. The code is present in `dev.forever.compat.matcha` with unit and GameTest coverage; it is simply not shipped.
+- **Custom-code gate:** No new code is needed. The work is packaging an existing, tested feature.
+- **Explicit non-goals:** No new gameplay, no blocking startup, no change to the diagnostic's behaviour or wording.
+- **Acceptance criteria:**
+  1. A pack install with Matcha missing shows the framed ERROR banner, and a degraded archive shows the WARN form.
+  2. Startup is never blocked, matching MRH-010's tested behaviour.
+  3. The companion build is pinned by exact version and hash like every other input, and appears in `docs/compatibility/pack-input-provenance.md`.
+- **Blocked on:** the rights-model decision. Shipping the companion mod means the pack distributes original code, so its licence must be settled first.
+
 ### PACK-01: Assemble the pinned baseline profile [Planned]
 - **Evidence recorded 2026-08-29 (partial, not a completion claim).** Several acceptance criteria are now demonstrated and should not be re-derived:
   - Reproducible export (criterion 1): two `./scripts/build-pack.sh` runs two seconds apart produced **byte-identical** `.mrpack` files.
@@ -274,7 +287,9 @@ These are investigation and integration spikes. They establish whether the selec
   - Index integrity: `scripts/validate-pack.sh` now verifies the index against its files and `pack.toml` against the index, and was checked against a real `packwiz refresh`.
   - Per-input identity, source, licence, compatibility and removal notes (criterion 2, complete): `docs/compatibility/pack-input-provenance.md`, generated from the Modrinth API with every source URL requested to confirm it resolves. `validate-pack.sh` now fails if a pinned input is missing from it.
   - Packwiz tool identity and acquisition policy (criterion 4): `docs/compatibility/packwiz-acquisition.md`. Verified that upstream publishes 0 releases and 0 tags, so the Go pseudo-version `v0.0.0-20260218225342-dfd8b68a4796` is recorded as the exact-revision substitute for a version pin.
-  - **Still open:** client startup and a disposable-world smoke test, and altered/missing-input failure cases.
+  - Missing-input failure case (criterion 5, tested): a disposable server with the Matcha datapack removed but every mod present **starts normally** at 1585 recipes and 1688 advancements, versus 2346/1805 with Matcha. It fails open exactly as LAB-02 measured.
+  - **Gap found by that test:** the MRH-010 diagnostic did **not** fire, because the companion mod is not in `pack/`. The safety net exists in `dev.forever.compat.matcha` and is unit- and GameTest-covered, but a player installing the pack today would get the silent degradation MRH-010 was written to prevent. Shipping it needs a companion build plus the rights-model decision, since the pack would then distribute original code. Tracked as **MRH-011**.
+  - **Still open:** client startup and a disposable-world smoke test, and the altered-input (corrupted archive) case.
 
 - **Objective:** Build the first Packwiz-managed Many Roads Home profile from the compatibility results, with pinned inputs, configuration, provenance, and a reproducible Matcha loading path.
 - **Dependencies:** LAB-01 through LAB-12, ADRs 0024, 0025, and 0027, and the licence review for every selected input.
