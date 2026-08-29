@@ -14,6 +14,7 @@ The prototype code is preserved as evidence under ADR 0034, not as a claim of pr
 - `docs/architecture.md`
 - `docs/dependency-baseline.md`
 - `docs/roadmap.md` for where the project actually stands
+- the most recent `docs/session-report-*.md`, which is the fastest way to resume
 
 ## Current phase
 
