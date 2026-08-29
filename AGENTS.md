@@ -307,6 +307,7 @@ future work. A directory being shown here does not mean its gameplay is implemen
 | `docs/world-save-safety.md` | Disposable-world, backup, dependency, and migration safety rules. |
 | `docs/roadmap.md` | Milestones and scope status. |
 | `docs/backlog.md` | Ticket queue and acceptance contracts. |
+| `docs/decisions/` | Decisions that require the project owner rather than an experiment. A file prefixed `OPEN-` is unresolved and names exactly what is being asked. |
 
 The architecture document is intentionally broader than the current source tree. Do
 not create empty packages to fill the map. The first implementation of a system should
