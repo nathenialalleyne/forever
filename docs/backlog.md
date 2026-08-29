@@ -272,7 +272,8 @@ These are investigation and integration spikes. They establish whether the selec
   - Inputs resolve as pinned (criterion 2, in part): all 9 pinned files download and match their sha512, checked by `scripts/verify-pack-downloads.py`.
   - Dedicated-server startup: a disposable instance assembled from `pack/` alone booted and stopped cleanly, preserving the 2346-recipe and 1805-advancement Matcha baseline.
   - Index integrity: `scripts/validate-pack.sh` now verifies the index against its files and `pack.toml` against the index, and was checked against a real `packwiz refresh`.
-  - **Still open:** per-input licence and removal notes (criterion 2 in full), the Packwiz acquisition-policy record (criterion 4), client startup and a disposable-world smoke test, and altered/missing-input failure cases.
+  - Per-input identity, source, licence, compatibility and removal notes (criterion 2, complete): `docs/compatibility/pack-input-provenance.md`, generated from the Modrinth API with every source URL requested to confirm it resolves. `validate-pack.sh` now fails if a pinned input is missing from it.
+  - **Still open:** the Packwiz acquisition-policy record (criterion 4), client startup and a disposable-world smoke test, and altered/missing-input failure cases.
 
 - **Objective:** Build the first Packwiz-managed Many Roads Home profile from the compatibility results, with pinned inputs, configuration, provenance, and a reproducible Matcha loading path.
 - **Dependencies:** LAB-01 through LAB-12, ADRs 0024, 0025, and 0027, and the licence review for every selected input.

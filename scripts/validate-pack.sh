@@ -85,6 +85,27 @@ if [[ -f "${PACK_DIR}/defaultconfigs/global_packs.toml" ]]; then
         || fail "global_packs.toml config_version does not match the pinned Global Packs build (expected 4)"
 fi
 
+# 6b. Every pinned input must appear in the provenance record. PACK-01 requires an
+#     identity, source, licence and removal note per input; a pin added without one
+#     silently erodes that, and licensing is not something to discover at release time.
+PROVENANCE="${ROOT_DIR}/docs/compatibility/pack-input-provenance.md"
+if [[ -f "${PROVENANCE}" ]]; then
+    undocumented=""
+    while IFS= read -r meta; do
+        version="$(grep -oE 'version = "[^"]+"' "${meta}" | tail -1 | cut -d'"' -f2)"
+        if [[ -n "${version}" ]] && ! grep -q "\`${version}\`" "${PROVENANCE}"; then
+            undocumented+=" $(basename "${meta}")"
+        fi
+    done < <(find "${PACK_DIR}" -name '*.pw.toml')
+    if [[ -n "${undocumented}" ]]; then
+        fail "pinned inputs missing from the provenance record:${undocumented}"
+    else
+        pass "every pinned input appears in the provenance record"
+    fi
+else
+    fail "docs/compatibility/pack-input-provenance.md is missing"
+fi
+
 # 7. The index must match the files it describes, and pack.toml must match the index.
 #    packwiz refresh normally maintains this, but packwiz is frequently absent (it has
 #    no tagged releases, so it is not installed by default and CI never has it). Without
