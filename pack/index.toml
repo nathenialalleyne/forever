@@ -1,13 +1,17 @@
 hash-format = "sha256"
 
 [[files]]
+file = ".packwizignore"
+hash = "574165039359b39eae26223c1ed7f32b8bae3a6930f92695b65da153a5dfc60c"
+
+[[files]]
 file = "datapacks/matcha-flavoured.pw.toml"
 hash = "406a8714e82c116feca14517b974a0607dabf8d4671313cc150e98f1d9601a02"
 metafile = true
 
 [[files]]
 file = "defaultconfigs/global_packs.toml"
-hash = "78068084d8d883495eb4dc04effbd9c25c24ecbfc7803b6462bed40b26fd53a6"
+hash = "51ba264b266c80a76d2969e32b90e6563d501864766ae6fb21b82934d4b411db"
 
 [[files]]
 file = "mods/architectury-api.pw.toml"
@@ -25,6 +29,11 @@ hash = "7ed424f5ce1febe2c2c0e5fc58d34858f1bbd97eabdceb9b9c6afdde4bf578df"
 metafile = true
 
 [[files]]
+file = "mods/ferritecore.pw.toml"
+hash = "069d81cab53c0141459ad4d70bcf3e10f17652f24cc62d3b4a0fc2cd2b700871"
+metafile = true
+
+[[files]]
 file = "mods/globalpacks.pw.toml"
 hash = "40e90e4fcf96b43a76dd16f48d5fdb0b91d74dcf60fb34a39e58a5bdfb2abf72"
 metafile = true
@@ -32,6 +41,11 @@ metafile = true
 [[files]]
 file = "mods/jade.pw.toml"
 hash = "427ac639f77e4ed43b801c3597c959f96a054ecb8d531971c11f7d860748d45e"
+metafile = true
+
+[[files]]
+file = "mods/lithium.pw.toml"
+hash = "a5ee497ec151dd6e6b946091e12e2c56362e5c772c4b8ea175b2e81277cc708d"
 metafile = true
 
 [[files]]

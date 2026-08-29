@@ -11,6 +11,16 @@
 # Both lists below therefore point at that same path. Global Packs resolves entries
 # relative to the instance folder.
 #
+# Expected benign error. Because the archive already sits in the folder Global Packs
+# copies into, startup logs two lines of:
+#     ERROR: java.nio.file.FileAlreadyExistsException: ./datapacks/Matcha_Flavoured_1_12.zip
+# immediately followed by "Found new data pack Matcha_Flavoured_1_12.zip, loading it
+# automatically". The copy is redundant, not failed: the pack loads and the 2346-recipe
+# and 1805-advancement baseline is preserved. One line appears per role, resource pack
+# and datapack. This is logged at ERROR by the mod but is not a fault, and it predates
+# any Many Roads Home change. Do not "fix" it by moving the archive out of datapacks/,
+# which would break the packwiz datapack-folder contract in .config-packwiz.toml.
+#
 # Load order. MEASURED, not assumed. LAB-02 listed a probe pack before Matcha and the
 # probe WON: the resulting level.dat order was Matcha then probe, and the recipe count
 # changed, which means Minecraft applied the later pack over the earlier one. So the

@@ -85,6 +85,53 @@ if [[ -f "${PACK_DIR}/defaultconfigs/global_packs.toml" ]]; then
         || fail "global_packs.toml config_version does not match the pinned Global Packs build (expected 4)"
 fi
 
+# 7. The index must match the files it describes, and pack.toml must match the index.
+#    packwiz refresh normally maintains this, but packwiz is frequently absent (it has
+#    no tagged releases, so it is not installed by default and CI never has it). Without
+#    this check, editing any pinned file leaves a stale index and every other check still
+#    passes, which is exactly what happened when a config comment was added.
+if python3 - "${PACK_DIR}" <<'PYCHECK'
+import hashlib, re, sys, tomllib
+from pathlib import Path
+
+pack = Path(sys.argv[1])
+index_text = (pack / "index.toml").read_text(encoding="utf-8")
+problems = []
+
+listed = set()
+for entry in re.finditer(r'file = "([^"]+)"\nhash = "([0-9a-f]+)"', index_text):
+    name, expected = entry.group(1), entry.group(2)
+    listed.add(name)
+    target = pack / name
+    if not target.is_file():
+        problems.append(f"index lists a missing file: {name}")
+    elif hashlib.sha256(target.read_bytes()).hexdigest() != expected:
+        problems.append(f"index hash is stale for: {name}")
+
+# A file present but unlisted is just as broken: it would not be exported.
+for candidate in sorted(pack.rglob("*")):
+    if not candidate.is_file():
+        continue
+    name = candidate.relative_to(pack).as_posix()
+    if name in ("index.toml", "pack.toml") or name in listed:
+        continue
+    problems.append(f"file is not listed in the index: {name}")
+
+declared = tomllib.loads((pack / "pack.toml").read_text(encoding="utf-8"))["index"]["hash"]
+actual = hashlib.sha256((pack / "index.toml").read_bytes()).hexdigest()
+if declared != actual:
+    problems.append("pack.toml index hash does not match index.toml")
+
+for problem in problems:
+    print(f"  {problem}", file=sys.stderr)
+sys.exit(1 if problems else 0)
+PYCHECK
+then
+    pass "index matches the pinned files and pack.toml"
+else
+    fail "the pack index is out of date; run packwiz refresh or regenerate it"
+fi
+
 # 7. packwiz's own consistency check, when the tool is available.
 if command -v packwiz >/dev/null 2>&1; then
     (cd "${PACK_DIR}" && packwiz --config "${CONFIG}" refresh >/dev/null) \
