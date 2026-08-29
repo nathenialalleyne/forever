@@ -273,7 +273,8 @@ These are investigation and integration spikes. They establish whether the selec
   - Dedicated-server startup: a disposable instance assembled from `pack/` alone booted and stopped cleanly, preserving the 2346-recipe and 1805-advancement Matcha baseline.
   - Index integrity: `scripts/validate-pack.sh` now verifies the index against its files and `pack.toml` against the index, and was checked against a real `packwiz refresh`.
   - Per-input identity, source, licence, compatibility and removal notes (criterion 2, complete): `docs/compatibility/pack-input-provenance.md`, generated from the Modrinth API with every source URL requested to confirm it resolves. `validate-pack.sh` now fails if a pinned input is missing from it.
-  - **Still open:** the Packwiz acquisition-policy record (criterion 4), client startup and a disposable-world smoke test, and altered/missing-input failure cases.
+  - Packwiz tool identity and acquisition policy (criterion 4): `docs/compatibility/packwiz-acquisition.md`. Verified that upstream publishes 0 releases and 0 tags, so the Go pseudo-version `v0.0.0-20260218225342-dfd8b68a4796` is recorded as the exact-revision substitute for a version pin.
+  - **Still open:** client startup and a disposable-world smoke test, and altered/missing-input failure cases.
 
 - **Objective:** Build the first Packwiz-managed Many Roads Home profile from the compatibility results, with pinned inputs, configuration, provenance, and a reproducible Matcha loading path.
 - **Dependencies:** LAB-01 through LAB-12, ADRs 0024, 0025, and 0027, and the licence review for every selected input.
