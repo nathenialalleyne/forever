@@ -274,6 +274,8 @@ These are investigation and integration spikes. They establish whether the selec
   - *Matcha substituted:* a structurally valid decoy with the correct filename gives the same 1585/1688 and, again, no diagnostic. This is the more dangerous case, because the file exists and is named correctly, so an operator has nothing to notice.
 
   The code is present in `dev.forever.compat.matcha` with unit and GameTest coverage, and `MatchaBaselineReport` already maps the substituted case to DEGRADED and the missing case to MISSING. It is simply not shipped.
+
+  **A cheaper mitigation was tried and does not work.** Global Packs offers `log_pack_ids = true`, which looked like it might expose a wrong archive without shipping any code. It does not: with a healthy Matcha and with a decoy, the `# Listing Data Packs #` block is byte-for-byte identical and mentions Matcha in neither. Configuration alone cannot detect this, which is what makes the companion diagnostic the actual fix rather than a preference.
 - **Custom-code gate:** No new code is needed. The work is packaging an existing, tested feature.
 - **Explicit non-goals:** No new gameplay, no blocking startup, no change to the diagnostic's behaviour or wording.
 - **Acceptance criteria:**
