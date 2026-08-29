@@ -269,7 +269,11 @@ These are investigation and integration spikes. They establish whether the selec
 
 - **Objective:** Make the MRH-010 baseline diagnostic actually reach a player, so a missing or degraded Matcha archive is reported instead of silently changing the world.
 - **Dependencies:** MRH-010 (complete), PACK-01, ADR 0027, and `docs/decisions/OPEN-rights-model.md`.
-- **Evidence for this ticket:** A disposable server assembled from `pack/` with the Matcha datapack removed starts normally at 1585 recipes and 1688 advancements instead of 2346/1805, with **no diagnostic at all**. The code is present in `dev.forever.compat.matcha` with unit and GameTest coverage; it is simply not shipped.
+- **Evidence for this ticket:** Two failure paths were tested against a server assembled from `pack/`, and both are silent.
+  - *Matcha missing:* starts at 1585 recipes and 1688 advancements instead of 2346/1805, with no diagnostic.
+  - *Matcha substituted:* a structurally valid decoy with the correct filename gives the same 1585/1688 and, again, no diagnostic. This is the more dangerous case, because the file exists and is named correctly, so an operator has nothing to notice.
+
+  The code is present in `dev.forever.compat.matcha` with unit and GameTest coverage, and `MatchaBaselineReport` already maps the substituted case to DEGRADED and the missing case to MISSING. It is simply not shipped.
 - **Custom-code gate:** No new code is needed. The work is packaging an existing, tested feature.
 - **Explicit non-goals:** No new gameplay, no blocking startup, no change to the diagnostic's behaviour or wording.
 - **Acceptance criteria:**
@@ -291,7 +295,8 @@ These are investigation and integration spikes. They establish whether the selec
   - **Gap found by that test:** the MRH-010 diagnostic did **not** fire, because the companion mod is not in `pack/`. The safety net exists in `dev.forever.compat.matcha` and is unit- and GameTest-covered, but a player installing the pack today would get the silent degradation MRH-010 was written to prevent. Shipping it needs a companion build plus the rights-model decision, since the pack would then distribute original code. Tracked as **MRH-011**.
   - Client startup (tested): a clean clone with exactly the 9 pinned inputs reached a rendering main menu. OpenGL 4.5, 61 mods loaded including Lithium, FerriteCore, Jade, REI and Global Packs, and 26 texture atlases stitched. Matcha's client resource role is active.
   - **Known benign client noise:** 374 `Codepoint 'e000' declared multiple times` warnings from Matcha's own `custom_emojis.png`. Pre-existing (187 appear in an earlier single-role baseline) and doubled here because Matcha is deliberately loaded in both the resource-pack and datapack roles. Not caused by any Many Roads Home change.
-  - **Still open:** a disposable-world smoke test with real play, and the altered-input (corrupted archive) case.
+  - Altered-input failure case (criterion 5, tested): a structurally valid decoy archive with the correct filename `Matcha_Flavoured_1_12.zip` produced 1585 recipes and 1688 advancements and **no diagnostic whatsoever**. This is worse than the missing case, because the file is present and correctly named, so nothing looks wrong. It strengthens MRH-011 rather than adding new work: `MatchaBaselineReport` already classifies an unverifiable archive as DEGRADED, so shipping the companion is the fix.
+  - **Still open:** a disposable-world smoke test with real play, which needs a human.
 
 - **Objective:** Build the first Packwiz-managed Many Roads Home profile from the compatibility results, with pinned inputs, configuration, provenance, and a reproducible Matcha loading path.
 - **Dependencies:** LAB-01 through LAB-12, ADRs 0024, 0025, and 0027, and the licence review for every selected input.
