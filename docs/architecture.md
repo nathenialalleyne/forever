@@ -1,13 +1,20 @@
 # Architecture
 
-This document describes the intended structure of Forever. It includes implemented
-boundaries and reserved future ones. It exists so that later agents place new code
-in the right module instead of accumulating everything into one class or one save blob.
+This document describes the intended structure of the **Many Roads Home** companion mod.
+It includes implemented boundaries and reserved future ones. It exists so that later
+agents place new code in the right module instead of accumulating everything into one
+class or one save blob.
 
-> Current reality: implemented feature packages exist, but only `core/storage` has
-> been migrated to the layered layout in the current pilot. Other feature packages
-> remain flat until their own migrations are reviewed. Do not create empty
-> placeholder classes to "complete" this diagram.
+Note that the companion mod is a *small* part of the product. Many Roads Home is a
+modpack: most behaviour comes from third-party mods, configuration and datapacks, and
+custom code requires a documented gap. See `docs/modpack-architecture.md`.
+
+> Current reality: all seven feature packages under `dev.forever.core` now use the
+> layered `domain`/`application`/`adapter` layout from ADR 0021, enforced by ArchUnit
+> and Checkstyle. Two documented exceptions are recorded in that ADR. The source still
+> lives at the repository root rather than under `companion/`; see that directory's
+> README for why the move is a separate ticket. Do not create empty placeholder classes
+> to "complete" this diagram.
 
 ## Module overview
 

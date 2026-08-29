@@ -1,0 +1,48 @@
+# LAB-12 manifest: companion boundary and gap analysis
+
+[baseline]
+minecraft = "26.2"
+fabric_loader = "0.19.3"
+fabric_api_project_id = "P7dR8mSH"
+fabric_api_version_id = "NqwNSxwA"
+fabric_api_file = "fabric-api-0.158.0+26.2.jar"
+global_packs_project_id = "NRLPy2mk"
+global_packs_version_id = "DqrPrUMp"
+global_packs_file = "globalpacks-fabric-26.2-26.2.0.jar"
+matcha_project_id = "QI0EmgZ1"
+matcha_version_id = "E9rngRfK"
+matcha_file = "Matcha_Flavoured_1_12.zip"
+
+[not_added]
+reason = "This capstone adds no dependency to the primary pack and installs no candidate. It inventories the evidence from LAB-01 through LAB-11, LAB-CLIENT, LAB-CLIENT2, and LAB-LICENCE. No new mod was needed to answer the companion-boundary question."
+
+[not_tested]
+companion_candidate_mods = "No additional candidate was installed. Existing retained candidates and alternatives are covered by the completed lab manifests and results. Installing FTB Quests, Patchouli, Modonomicon, or a route/logistics provider here would duplicate completed evidence and would not test the connective ownership question."
+private_fork = "Not attempted. No identity-critical gap reached the fork rung, and no licence, upstream commit, patch set, or rebuild evidence exists to authorize one."
+new_custom_implementation = "Not attempted by ticket requirement. LAB-12 is an evidence inventory and may recommend tickets, but may not implement Java, Mixins, registries, screens, or persistent schemas."
+
+[sources]
+repository_records = [
+  "docs/backlog.md",
+  "docs/architecture.md",
+  "docs/architecture/ownership-matrix.csv",
+  "docs/adr/0022-extensible-by-default.md",
+  "docs/adr/0024-modpack-first-product-ownership.md",
+  "docs/adr/0026-existing-mod-first-escalation-policy.md",
+  "docs/adr/0033-documented-gap-analysis-for-companion-code.md",
+  "docs/world-save-safety.md",
+  "labs/results/LAB-01-information-and-onboarding.md",
+  "labs/results/LAB-02-pack-loader-dual-role.md",
+  "labs/results/LAB-03-building-and-excavation.md",
+  "labs/results/LAB-04-blueprints-and-schematics.md",
+  "labs/results/LAB-05-food-cooking-preservation.md",
+  "labs/results/LAB-06-seasons-and-climate.md",
+  "labs/results/LAB-07-storage-indexing.md",
+  "labs/results/LAB-08-local-item-transport.md",
+  "labs/results/LAB-09-transport-and-vehicles.md",
+  "labs/results/LAB-10-performance-structures-ambience.md",
+  "labs/results/LAB-11-adventure-rewards-and-gates.md",
+  "labs/results/LAB-CLIENT-client-side-verification.md",
+  "labs/results/LAB-CLIENT2-client-only-candidates.md",
+  "labs/results/LAB-LICENCE-publication-readiness.md"
+]
