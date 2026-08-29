@@ -275,6 +275,12 @@ These are investigation and integration spikes. They establish whether the selec
 
   The code is present in `dev.forever.compat.matcha` with unit and GameTest coverage, and `MatchaBaselineReport` already maps the substituted case to DEGRADED and the missing case to MISSING. It is simply not shipped.
 
+  **The fix is verified to work.** Dropping the existing companion build into a pack instance closes both silent paths:
+  - *Matcha missing:* the framed `MANY ROADS HOME BASELINE PROBLEM: MISSING` banner appears at ERROR with actionable steps ("Confirm datapacks/Matcha_Flavoured_1_12.zip exists", "Reinstall the pack from the exported .mrpack"). Startup is not blocked.
+  - *Matcha substituted:* the same banner appears. It reports MISSING rather than DEGRADED, which is defensible because a decoy carrying no Matcha content genuinely has no baseline present; the player-visible outcome, a loud actionable error instead of silence, is correct either way. Worth confirming against a *partially* altered real archive when MRH-011 is implemented.
+
+  So MRH-011 is packaging only: no code change is needed, and the behaviour is already demonstrated end to end.
+
   **A cheaper mitigation was tried and does not work.** Global Packs offers `log_pack_ids = true`, which looked like it might expose a wrong archive without shipping any code. It does not: with a healthy Matcha and with a decoy, the `# Listing Data Packs #` block is byte-for-byte identical and mentions Matcha in neither. Configuration alone cannot detect this, which is what makes the companion diagnostic the actual fix rather than a preference.
 - **Custom-code gate:** No new code is needed. The work is packaging an existing, tested feature.
 - **Explicit non-goals:** No new gameplay, no blocking startup, no change to the diagnostic's behaviour or wording.
