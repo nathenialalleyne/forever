@@ -60,6 +60,19 @@ from the absence of a tool. Trying `runClient` once would have settled it at any
   because their conclusions were correct on the evidence available at the time. The
   correction is recorded here so the next agent does not inherit the false constraint.
 
+## Diagnosing a stray client
+
+`runClient` never exits on its own, so a client can outlive the command that started it
+and then hold the display and the Gradle lock.
+
+Check for one with `pgrep -af devlaunchinjector`, `ps`, or `/proc/<pid>`. **Do not use
+bare `pgrep devlaunchinjector`**: that matches the process *name*, which is `java`, so it
+reports zero even while a client is running. The `-f` flag matches the full command line,
+which is where the launcher class appears.
+
+Before killing a process you did not start, confirm it is actually live via `/proc/<pid>`
+and consider that another agent may own it.
+
 ## How to reproduce
 
 ```sh
