@@ -1,25 +1,62 @@
-# Agent Brief: M0-M2 Foundation Build
+# Agent Brief: Many Roads Home, compatibility-evidence phase
 
-You are a worker agent on the **Forever** Minecraft Fabric project.
-Repo root: `/home/natea/repos/forever`
+You are a worker agent on **Many Roads Home**, a curated Minecraft Fabric **modpack**.
+Repo root: `/home/natea/repos/forever` (the directory name predates the rename).
+
+The project was previously a custom-mod-first prototype called Forever. It pivoted to a
+modpack: the deliverable is maintained third-party mods plus configuration, datapacks and
+a resource pack, with a *small* companion mod only where nothing existing can do the job.
+The prototype code is preserved as evidence under ADR 0034, not as a claim of progress.
 
 ## Read these first (they already exist, do not rewrite them)
 - `docs/vision.md`
 - `docs/design-principles.md`
 - `docs/architecture.md`
 - `docs/dependency-baseline.md`
+- `docs/roadmap.md` for where the project actually stands
 
-## Hard scope rule for this run
-Milestones M0 (project foundation), M1 (Matcha acquisition/pinning/audit tooling),
-and M2 (AI-readable architecture and design docs) ONLY.
+## Current phase
 
-**Do NOT implement any gameplay system.** No masteries, item mastery, nonbreaking
-equipment, repair, reforging, settlements, villager careers, migration, Obols, coin
-purse, warehouses, food effects, seasons, transportation, workers, shops, custom
-screens, custom blocks, or custom items. These get documented and backlogged, never
-coded, during this run.
+`LAB-01` through `LAB-11` are complete; `LAB-12` is the last one running. Results are in
+`labs/results/` and every one is authoritative over older planning text. Read the labs
+relevant to your task **before** proposing anything: several documents predate them.
 
-Do not create empty Java classes just to populate future packages.
+**The dominant finding is restraint.** Five labs concluded *adopt nothing*, and that was
+the correct answer each time:
+- Matcha already owns food, hunger, healing and food effects (LAB-05).
+- Vanilla already handles local item transport (LAB-08) and travel (LAB-09).
+- No structure provider is safe to adopt, because generated chunks are permanent (LAB-10).
+- No guidebook or advancement-noise problem exists, so no reward or journal system is
+  needed (LAB-01, LAB-11).
+
+Two rules follow from that pattern. Any candidate advertising **any-distance, wireless or
+cross-dimensional** behaviour is rejected under ADR 0012, and any candidate that **loses or
+corrupts saved data when removed** is rejected on save safety. Both have already
+disqualified real candidates.
+
+## Hard scope rule
+
+**Do NOT implement a gameplay system.** No masteries, equipment condition, repair,
+reforging, settlements, villager careers, Obols, warehouses, food effects, seasons,
+transportation, workers, shops, custom screens, custom blocks or custom items. Document
+and backlog them instead.
+
+Custom code requires a documented gap that `LAB-12` and ADR 0033 support. "No existing mod
+does exactly what I imagined" is not a gap; "no existing mod can do this safely, and here
+is the evidence" is.
+
+Do not create empty Java classes or directories to populate a future package or to satisfy
+the repository map. `scripts/check-repo-map.py` enforces the map, and inventing a directory
+to please it is explicitly the wrong fix.
+
+## Verified environment notes
+
+- `export JAVA_HOME=~/toolchains/jdk-25.0.4.1+1` before any Gradle command.
+- A graphical client **does** run here. An earlier belief that it could not was untested
+  and false: see `docs/testing/client-environment.md` and `scripts/client-smoke.sh`.
+  There is no audio, no narrator, and window screenshots capture black, so read logs.
+- `runClient` never exits by itself. Use a timeout and kill any survivor.
+- Use disposable instances under `/tmp`. Never point anything at a real world.
 
 ## Verified pinned baseline (authoritative, do not change)
 | Component | Version |
@@ -43,9 +80,10 @@ Minecraft 26.2 is NON-OBFUSCATED: there are no Yarn mappings and none are declar
 Local JDK 25 for running builds: `export JAVA_HOME=~/toolchains/jdk-25.0.4.1+1`
 
 ## Project identity
-- mod ID `forever`, display name `Forever`, base package `dev.forever`
-- version `0.0.0-dev`
-- private project; original Forever code is "All rights reserved" (LicenseRef-Forever-Proprietary)
+- product name **Many Roads Home**; the companion mod still uses mod ID `forever`,
+  base package `dev.forever`, and version `0.0.0-dev`. Renaming those is its own ticket.
+- private repository; original code is "All rights reserved" (LicenseRef-Forever-Proprietary).
+  The rights model is an open decision: `docs/decisions/OPEN-rights-model.md`
 - Matcha material is CC-BY-NC-SA-4.0 and must be kept separate from original code
 
 ## The 18 design principles (summarised; full text in docs/design-principles.md)
