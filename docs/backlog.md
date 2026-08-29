@@ -248,7 +248,7 @@ These are investigation and integration spikes. They establish whether the selec
 - **Test requirements:** Fresh-player route, no-structure route, solo route, declined quest, repeated structure visit, reward duplication, advancement-noise review, and server authority checks.
 - **Removal/migration risks:** Removing a quest or structure can strand persistent reward claims and discovery state. Preserve the knowledge record and provide an alternate route before disabling a source.
 
-### LAB-12: Companion boundary and gap-analysis compatibility spike [Planned]
+### LAB-12: Companion boundary and gap-analysis compatibility spike [Done]
 
 - **Objective:** Produce the first evidence-led inventory of connective problems that existing mods, configuration, datapacks, resource packs, scripting, and public APIs cannot safely solve.
 - **Dependencies:** MRH-000 and LAB-01 through LAB-11.

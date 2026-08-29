@@ -14,9 +14,17 @@ The root Fabric and audit foundation from the pre-pivot work remains in the repo
 
 ### M1: Baseline compatibility
 
-**Status: In progress. `LAB-01` through `LAB-11` are complete; `LAB-12` is the last one running.** Three unplanned labs were added as evidence demanded: `LAB-CLIENT` and `LAB-CLIENT2` after a supposed no-display constraint was tested and disproved, and `LAB-LICENCE` because publication was blocked on an unperformed review. All results are in `labs/results/`.
+**Status: Lab evidence complete. `LAB-01` through `LAB-12` are all done.** Three unplanned labs were added as evidence demanded: `LAB-CLIENT` and `LAB-CLIENT2` after a supposed no-display constraint was tested and disproved, and `LAB-LICENCE` because publication was blocked on an unperformed review. All results are in `labs/results/`.
 
 The dominant finding is restraint. Five labs concluded **adopt nothing**: Matcha already owns food (LAB-05), vanilla already handles local item transport (LAB-08) and travel (LAB-09), no structure provider is safe to adopt because generated chunks are permanent (LAB-10), and no reward system is needed because no advancement-noise or guidebook problem exists (LAB-01, LAB-11). Twenty of 34 systems in the ownership matrix now carry a lab-backed decision.
+
+`LAB-12`, the capstone, found that custom code is **conditionally justified for exactly one gap**: a
+server-authoritative local storage index (G-01), which follows from LAB-07 overturning the
+assumption that an existing storage mod could fill that role. Even that is `NEEDS_MORE_EVIDENCE`
+pending an attempt at a public-API or narrow-adapter route, and **LAB-12 authorises no code**.
+The Matcha integrity diagnostic (G-02) and climate normalisation (G-04) should use existing tools,
+continuing MRH-010 and the ADR 0014 abstraction. The capability web (G-03) and a unified Field
+Journal (G-05) are deferred for want of a measured failure.
 
 `PACK-01` then assembles the first Packwiz-managed profile from that evidence.
 

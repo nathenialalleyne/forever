@@ -48,7 +48,7 @@ names, so the same lab can be re-run months later against the same artifacts.
 | LAB-09 | Rail, horse, boat, and vehicle behaviour on a dedicated server | Done: all vanilla modes adopted as baseline; every teleport-like candidate rejected |
 | LAB-10 | Performance, ambience, structures, and worldgen: spacing, loot control, save permanence | Done: Lithium+FerriteCore adopted; no structure provider; client verdicts to LAB-CLIENT2 |
 | LAB-11 | Adventure rewards and capability gates: no essential capability is adventure-only | Done: adopt nothing; Matcha/vanilla rewards kept; structure gates rejected |
-| LAB-12 | Companion boundary and gap analysis: what genuinely needs custom code | Planned |
+| LAB-12 | Companion boundary and gap analysis: what genuinely needs custom code | Done: only G-01 storage index conditionally justifies custom code; no code authorised |
 
 ## Running labs in parallel
 
