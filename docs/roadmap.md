@@ -14,15 +14,21 @@ The root Fabric and audit foundation from the pre-pivot work remains in the repo
 
 ### M1: Baseline compatibility
 
-**Status: Next.** Run `LAB-01` through `LAB-12` before implementing custom systems. The labs test Matcha onboarding, the dual-role pack loader, building and excavation, blueprints, food, seasons, storage, local transport, rail and vehicles, performance and worldgen, adventure rewards, and the companion boundary. `PACK-01` then assembles the first Packwiz-managed profile from evidence.
+**Status: In progress. `LAB-01` through `LAB-11` are complete; `LAB-12` is the last one running.** Three unplanned labs were added as evidence demanded: `LAB-CLIENT` and `LAB-CLIENT2` after a supposed no-display constraint was tested and disproved, and `LAB-LICENCE` because publication was blocked on an unperformed review. All results are in `labs/results/`.
 
-M1 exits only when the selected inputs have authoritative compatibility and licence records, the exact Matcha archive loads in both roles, ordinary play remains available, and unresolved gaps are explicit. Global Packs is the current named 26.2 loader candidate, but its All-Rights-Reserved status remains a release risk.
+The dominant finding is restraint. Five labs concluded **adopt nothing**: Matcha already owns food (LAB-05), vanilla already handles local item transport (LAB-08) and travel (LAB-09), no structure provider is safe to adopt because generated chunks are permanent (LAB-10), and no reward system is needed because no advancement-noise or guidebook problem exists (LAB-01, LAB-11). Twenty of 34 systems in the ownership matrix now carry a lab-backed decision.
+
+`PACK-01` then assembles the first Packwiz-managed profile from that evidence.
+
+M1 exits only when the selected inputs have authoritative compatibility and licence records, the exact Matcha archive loads in both roles, ordinary play remains available, and unresolved gaps are explicit. Two exit conditions are still open. Global Packs is All-Rights-Reserved and its declared source URL now returns 404, verified against the Modrinth API, which is a release risk rather than a technical one. The rights model itself is an open decision for the project owner: see `docs/decisions/OPEN-rights-model.md`.
 
 ## Planned milestones
 
 ### M2: Information and onboarding
 
-**Status: Planned.** Deliver the unified Field Journal and normalise starter books, recipe viewers, contextual information, and advancement signals. A process expected of the player must remain inspectable. Source books may be suppressed only after their instructions and provenance are retained. See `INFO-01` and `INFO-02`.
+**Status: Planned, and materially smaller than written.** LAB-01 measured the two problems this milestone was scoped to solve and found neither exists. Matcha ships no starter book to reconcile, and it already silences the 141 recipe-unlock advancements, leaving 69 toasts and 3 tabs out of 243. No entry was classified as redundant notification, and LAB-01 proposed changing nothing. REI and Jade are the adopted surfaces.
+
+What remains is the genuine question of whether processes can be cross-referenced coherently, which `LAB-12` is assessing. A custom Field Journal is **not** currently justified: on LAB-01 evidence the ADR 0033 gate is not met, and Jade's `IBlockComponentProvider` is the identified seam for surfacing journal state without a journal owning the HUD. A process expected of the player must remain inspectable, and source instructions must never be suppressed. See `INFO-01` and `INFO-02`.
 
 ### M3: Building and gathering
 
