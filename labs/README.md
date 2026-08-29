@@ -45,7 +45,7 @@ names, so the same lab can be re-run months later against the same artifacts.
 | LAB-06 | Seasons and climate against Matcha environment, crops, weather, performance | Done: ADR 0014 upheld; Homeostatic PILOT behind the abstraction; nothing added to pack/ |
 | LAB-07 | Storage indexing and local search: early shulkers, wireless restrictions, world removal | Done: no candidate qualifies; StorageGuide PILOT for read-only search only |
 | LAB-08 | Local item transport and automation: pipes, minecarts, storage integration, chunk unloading | Done: vanilla hoppers baseline; Logistics: Automation PILOT; teleporting mods rejected |
-| LAB-09 | Rail, horse, boat, and vehicle behaviour on a dedicated server | Planned |
+| LAB-09 | Rail, horse, boat, and vehicle behaviour on a dedicated server | Done: all vanilla modes adopted as baseline; every teleport-like candidate rejected |
 | LAB-10 | Performance, ambience, structures, and worldgen: spacing, loot control, save permanence | Done: Lithium+FerriteCore adopted; no structure provider; client verdicts to LAB-CLIENT2 |
 | LAB-11 | Adventure rewards and capability gates: no essential capability is adventure-only | Done: adopt nothing; Matcha/vanilla rewards kept; structure gates rejected |
 | LAB-12 | Companion boundary and gap analysis: what genuinely needs custom code | Planned |

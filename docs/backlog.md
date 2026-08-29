@@ -197,7 +197,7 @@ These are investigation and integration spikes. They establish whether the selec
 - **Test requirements:** Full and empty transfers, endpoint removal, restart during transfer, duplicate request, unloaded endpoint, cross-dimension rejection, permission checks, and server performance bounds.
 - **Removal/migration risks:** Transport networks often encode links and buffers outside the item stack. Removing one can strand or duplicate cargo, so preserve the old network long enough to drain or migrate it in a disposable-world test.
 
-### LAB-09: Rail, horse, boat, and vehicle compatibility spike [Planned]
+### LAB-09: Rail, horse, boat, and vehicle compatibility spike [Done]
 
 - **Objective:** Evaluate existing transport mods and vanilla modes for fixed routes, freight, horses, boats, and physical service behaviour.
 - **Dependencies:** MRH-000, LAB-03, LAB-08, LAB-02, ADRs 0010, 0013, 0018, 0024, and 0026, and the transportation specification.
