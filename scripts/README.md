@@ -127,6 +127,28 @@ This matters for publication: if the generated reports can be reproduced from a
 legitimately obtained archive, they need not be committed at all. See
 `labs/results/LAB-LICENCE-publication-readiness.md`.
 
+## Repository-map check
+
+```sh
+python3 scripts/check-repo-map.py
+```
+
+Fails when the AGENTS.md repository map and the tracked tree disagree, in either
+direction. An undocumented tracked path means work landed somewhere unexplained; a map
+row that matches nothing tracked means the map describes a layout that no longer exists.
+
+The map is how a new agent decides where code belongs, so a stale map is worse than no
+map: it teaches the wrong layout confidently. This check was written after four tracked
+directories were found missing from it, including `companion/`, which exists purely to
+mark a boundary.
+
+Deliberately git-ignored directories such as `dist/` and `vendor/` are listed explicitly
+in the script, so granting an exemption is a visible edit rather than a silent match.
+Never create an empty directory to satisfy this check: AGENTS.md forbids placeholder
+directories, and the correct fix is to remove the stale row.
+
+Runs in CI. Pure Python with no dependencies.
+
 ## Client smoke check
 
 ```sh

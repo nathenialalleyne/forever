@@ -63,6 +63,14 @@ jobs:
       - name: Validate art assets
         run: ./gradlew validateAssets --no-daemon
 
+      # AGENTS.md's repository map is how a new agent decides where code belongs, so a
+      # stale map actively teaches the wrong layout. This check keeps the map and the
+      # tracked tree in agreement in both directions: an undocumented path means work
+      # landed somewhere unexplained, and a map row matching nothing means the map
+      # describes a layout that no longer exists. Pure Python, no dependencies.
+      - name: Check the repository map matches the tree
+        run: python3 scripts/check-repo-map.py
+
       - name: Upload root test reports on failure
         if: failure()
         uses: actions/upload-artifact@v4

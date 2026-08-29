@@ -272,11 +272,19 @@ future work. A directory being shown here does not mean its gameplay is implemen
 | `.github/workflows/ci.yml` | Java 25 root build, unit-test, and standalone audit-tool CI. It deliberately does not fetch Matcha. |
 | `build.gradle`, `settings.gradle`, `gradle.properties` | Root Fabric/Loom build, split source sets, test configuration, and pinned properties. Do not edit them for a documentation-only ticket. |
 | `gradle/`, `gradlew`, `gradlew.bat` | Root Gradle wrapper at version 9.5.1. |
-| `src/main/` | Common/server-safe source and resources. At foundation scope it contains only the minimal mod entrypoint. |
-| `src/client/` | Client-only source and resources. It contains only the minimal client entrypoint. |
+| `src/main/` | Common/server-safe source and resources. Holds the companion mod, which is layered `domain`/`application`/`adapter` per ADR 0021 and enforced by ArchUnit. It is still at the repository root rather than under `companion/`; see that directory's README. |
+| `src/client/` | Client-only source and resources, including the client entrypoint and asset placeholders. Loom keeps these classes off the common classpath. |
 | `src/test/` | Plain JVM JUnit tests for logic that does not need Minecraft. |
 | `src/gametest/` | Dedicated-server GameTest source and resources. The current test is an initialisation smoke test. |
 | `pack/` | **Packwiz modpack source of truth.** Metadata only, never third-party binaries. `pack.toml` pins Minecraft and the loader; `mods/` and `datapacks/` hold one pinned dependency per file. |
+| `companion/` | Reserved home for the companion mod. Deliberately a documented boundary marker, not a placeholder: the source still lives in `src/` and its README explains why the move is a separate ticket. Do not add code here without that ticket. |
+| `art/` | Source art, palettes, and previews for the asset pipeline, with `assetTools` and `./gradlew validateAssets`. Working files only; shipped textures live under `src/client/resources/`. |
+| `config/checkstyle/` | Checkstyle rules and suppressions enforcing the layered-package boundaries. |
+| `CHANGELOG.md` | Human-readable record of notable changes. |
+| `.editorconfig` | Shared whitespace and encoding settings. |
+| `LICENSE`, `THIRD_PARTY_NOTICES.md` | Rights model and third-party attribution. The current licence is All-Rights-Reserved and is **not** an open-source grant. Read `labs/results/LAB-LICENCE-publication-readiness.md` and ADR 0020 before any visibility or distribution change. |
+| `.gitignore` | Ignore rules. Keeps `vendor/` archives, `dist/` exports, and build output out of version control, which is what stops third-party binaries being committed. |
+| `.config-packwiz.toml` | Packwiz configuration required by `build-pack.sh` and `validate-pack.sh`. Its `datapack-folder` setting is what lets packwiz accept the official Matcha archive, whose Modrinth loader field is `datapack`. |
 | `labs/` | Compatibility spikes: manifests and written results. Candidates are tested here in small groups, never added straight to `pack/`. |
 | `dist/` | Exported `.mrpack` build artifacts. Git-ignored; produced by `scripts/build-pack.sh`. |
 | `scripts/` | Pack build, validation, and dependency reporting, plus pinned Matcha acquisition and disposable development-world installation. These scripts must never target a live world. |
