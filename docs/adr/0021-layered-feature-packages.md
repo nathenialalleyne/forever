@@ -112,6 +112,19 @@ The following table records the inspection result for every storage source file.
 
 ## Known exceptions
 
+### EquipmentMath remains at its feature root
+
+`EquipmentMath` sits at `dev.forever.core.equipment` rather than in `domain`, and is the only
+class in any feature that is not inside a layer package. Its API consumes `EquipmentBalance`
+and `EquipmentState`, which are Minecraft-shaped records living in `adapter`. Placing it in
+`domain` would therefore invert the dependency and make domain code depend on the adapter,
+which is precisely what this ADR forbids. Introducing neutral replacement value types would be
+a redesign rather than a structural move.
+
+The rationale is repeated on the class itself, so a reader encountering it does not have to
+find this ADR to know the placement is deliberate. If a future ticket gives the feature
+neutral value types, the class should move into `domain` and this exception should be removed.
+
 ### WarehouseController remains one adapter class
 
 `WarehouseController` is approximately 430 lines and combines transaction synchronisation,
