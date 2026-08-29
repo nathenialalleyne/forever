@@ -266,6 +266,13 @@ These are investigation and integration spikes. They establish whether the selec
 - **Removal/migration risks:** A gap report that omits a dependency or persisted identifier can authorise an unsafe companion. No code ticket may proceed from an incomplete report, and the report must be revisited when candidate versions change.
 
 ### PACK-01: Assemble the pinned baseline profile [Planned]
+- **Evidence recorded 2026-08-29 (partial, not a completion claim).** Several acceptance criteria are now demonstrated and should not be re-derived:
+  - Reproducible export (criterion 1): two `./scripts/build-pack.sh` runs two seconds apart produced **byte-identical** `.mrpack` files.
+  - No committed third-party JARs (criterion 5): the export contains only `modrinth.index.json` and the Global Packs override; every dependency is a URL and hash reference. Verified by listing archive entries.
+  - Inputs resolve as pinned (criterion 2, in part): all 9 pinned files download and match their sha512, checked by `scripts/verify-pack-downloads.py`.
+  - Dedicated-server startup: a disposable instance assembled from `pack/` alone booted and stopped cleanly, preserving the 2346-recipe and 1805-advancement Matcha baseline.
+  - Index integrity: `scripts/validate-pack.sh` now verifies the index against its files and `pack.toml` against the index, and was checked against a real `packwiz refresh`.
+  - **Still open:** per-input licence and removal notes (criterion 2 in full), the Packwiz acquisition-policy record (criterion 4), client startup and a disposable-world smoke test, and altered/missing-input failure cases.
 
 - **Objective:** Build the first Packwiz-managed Many Roads Home profile from the compatibility results, with pinned inputs, configuration, provenance, and a reproducible Matcha loading path.
 - **Dependencies:** LAB-01 through LAB-12, ADRs 0024, 0025, and 0027, and the licence review for every selected input.
