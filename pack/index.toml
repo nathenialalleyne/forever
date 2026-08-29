@@ -1,10 +1,6 @@
 hash-format = "sha256"
 
 [[files]]
-file = ".packwizignore"
-hash = "574165039359b39eae26223c1ed7f32b8bae3a6930f92695b65da153a5dfc60c"
-
-[[files]]
 file = "datapacks/matcha-flavoured.pw.toml"
 hash = "406a8714e82c116feca14517b974a0607dabf8d4671313cc150e98f1d9601a02"
 metafile = true

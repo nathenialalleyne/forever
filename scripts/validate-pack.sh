@@ -108,12 +108,40 @@ for entry in re.finditer(r'file = "([^"]+)"\nhash = "([0-9a-f]+)"', index_text):
     elif hashlib.sha256(target.read_bytes()).hexdigest() != expected:
         problems.append(f"index hash is stale for: {name}")
 
-# A file present but unlisted is just as broken: it would not be exported.
+# A file present but unlisted is just as broken: it would not be exported. The
+# exclusions mirror what packwiz itself omits, confirmed by diffing this check
+# against a real `packwiz refresh`: the index never lists itself, pack.toml, or
+# .packwizignore, and never lists a path .packwizignore excludes. Guessing these
+# would make the check reject packwiz's own correct output, which is worse than
+# having no check at all.
+ignore_patterns = []
+ignore_file = pack / ".packwizignore"
+if ignore_file.is_file():
+    for line in ignore_file.read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if line and not line.startswith("#"):
+            ignore_patterns.append(line)
+
+
+def is_ignored(name: str) -> bool:
+    from fnmatch import fnmatch
+
+    for pattern in ignore_patterns:
+        if pattern.endswith("/"):
+            if name.startswith(pattern) or f"/{pattern}" in f"/{name}":
+                return True
+        elif fnmatch(name, pattern) or fnmatch(Path(name).name, pattern):
+            return True
+    return False
+
+
 for candidate in sorted(pack.rglob("*")):
     if not candidate.is_file():
         continue
     name = candidate.relative_to(pack).as_posix()
-    if name in ("index.toml", "pack.toml") or name in listed:
+    if name in ("index.toml", "pack.toml", ".packwizignore") or name in listed:
+        continue
+    if is_ignored(name):
         continue
     problems.append(f"file is not listed in the index: {name}")
 

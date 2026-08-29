@@ -80,7 +80,10 @@ screenshots capture black: visual and colour judgement, sound, and two-player mu
 `docs/testing/client-verification.md` is the short manual pass for those.
 
 Packwiz is the source of truth for the mod list. It has no tagged releases, so install it
-with `go install github.com/packwiz/packwiz@latest` per the official guidance. Third-party
+with `go install github.com/packwiz/packwiz@latest` per the official guidance, then put
+`$(go env GOPATH)/bin` on your PATH. Without it the scripts still run and still validate
+the pack; they skip only the checks that need the tool itself, and say so rather than
+passing silently. Third-party
 JARs are never committed: every dependency is referenced by URL and hash.
 
 ## Technical baseline
