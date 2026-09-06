@@ -35,7 +35,9 @@ Use a **diagnostic source set in the existing root Gradle/Loom project**, at
 `diagnosticJar` task. The source set compiles against the already-pinned Minecraft and
 Fabric API classpaths but is not attached to the existing `forever` mod mapping and is
 not included in the normal root `jar`. The task writes a separately reviewable candidate
-under `build/` and has no pack or publication task.
+under `build/` and has no pack or publication task. A separate `diagnosticGameTest` source
+set and fixture JAR is used only by disposable dedicated-server evidence; it is not part
+of the candidate artifact.
 
 The build generates one small `matcha-diagnostic.properties` resource from the committed
 `matcha.lock.json` during diagnostic resource processing. This makes the archive filename,
@@ -129,12 +131,18 @@ material under ADRs 0002, 0020, and 0027.
 
 The candidate is intended to contain only these original diagnostic classes:
 
+- `dev.forever.compat.matcha.diagnostic.MatchaDiagnosticArchive`
 - `dev.forever.compat.matcha.diagnostic.MatchaDiagnosticEntrypoint`
 - `dev.forever.compat.matcha.diagnostic.MatchaDiagnosticLifecycle`
 - `dev.forever.compat.matcha.diagnostic.MatchaDiagnosticObserver`
 - `dev.forever.compat.matcha.diagnostic.MatchaDiagnosticProfile`
+- `dev.forever.compat.matcha.diagnostic.MatchaDiagnosticRegistrationGate`
 - `dev.forever.compat.matcha.diagnostic.MatchaDiagnosticReport`
 - `dev.forever.compat.matcha.diagnostic.MatchaDiagnosticStatus`
+
+The separate GameTest fixture contains only
+`dev.forever.compat.matcha.diagnostic.MatchaDiagnosticArtifactGameTest` and is never
+copied into the candidate.
 
 The final JAR scan must prove there is one common entrypoint, no client metadata, no
 `dev.forever.ForeverMod`, `dev.forever.client`, `dev.forever.core`, gameplay registry or

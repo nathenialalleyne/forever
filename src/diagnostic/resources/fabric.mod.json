@@ -1,0 +1,23 @@
+{
+	"schemaVersion": 1,
+	"id": "forever-matcha-diagnostic",
+	"version": "${version}",
+	"name": "Many Roads Home Matcha Baseline Diagnostic",
+	"description": "Read-only, server-side verification of the pinned Matcha baseline archive.",
+	"authors": [
+		"Forever Project"
+	],
+	"license": "LicenseRef-Forever-Proprietary",
+	"environment": "server",
+	"entrypoints": {
+		"main": [
+			"dev.forever.compat.matcha.diagnostic.MatchaDiagnosticEntrypoint"
+		]
+	},
+	"depends": {
+		"fabricloader": ">=0.19.3",
+		"minecraft": "~26.2",
+		"java": ">=25",
+		"fabric-api": "*"
+	}
+}

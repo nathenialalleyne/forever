@@ -45,6 +45,99 @@ sourceSets {
 		compileClasspath += sourceSets.main.output
 		runtimeClasspath += sourceSets.main.output
 	}
+
+	// MRH-013's diagnostic candidate is deliberately a separate source set. It shares
+	// the pinned compile/runtime APIs for convenience but is never attached to the
+	// existing "forever" mod or its production JAR.
+	diagnostic {
+		java.srcDir("src/diagnostic/java")
+		resources.srcDir("src/diagnostic/resources")
+		compileClasspath += sourceSets.main.compileClasspath
+		runtimeClasspath += sourceSets.main.runtimeClasspath
+	}
+
+	// The fixture is packaged separately from both the candidate and the root
+	// prototype. It exists only for an isolated dedicated-server GameTest run.
+	diagnosticGameTest {
+		java.srcDir("src/diagnosticGameTest/java")
+		resources.srcDir("src/diagnosticGameTest/resources")
+		compileClasspath += sourceSets.main.compileClasspath
+		compileClasspath += sourceSets.diagnostic.output
+		runtimeClasspath += sourceSets.main.runtimeClasspath
+		runtimeClasspath += sourceSets.diagnostic.output
+	}
+}
+
+// Generate the candidate's immutable identity resource from the committed Matcha lock.
+// This is deterministic and keeps the runtime check tied to the same lock that governs
+// the pack, without reading repository files from a running server.
+def diagnosticProfileFile = layout.buildDirectory.file("generated/diagnostic-resources/matcha-diagnostic.properties")
+tasks.register("generateDiagnosticProfile") {
+	inputs.file(layout.projectDirectory.file("matcha.lock.json"))
+	outputs.file(diagnosticProfileFile)
+	doLast {
+		def lock = new groovy.json.JsonSlurper().parse(layout.projectDirectory.file("matcha.lock.json").asFile)
+		def artifact = lock.artifact
+		def filename = lock.filename as String
+		def hash = lock.sha256 as String
+		def version = lock.version_number as String
+		def size = artifact.size as Long
+		if (filename != artifact.filename || hash != artifact.sha256 || size != artifact.size
+				|| !(hash ==~ /[0-9a-f]{64}/) || size <= 0L || version == null || version.isBlank()) {
+			throw new GradleException("matcha.lock.json has inconsistent or invalid artifact identity")
+		}
+		def maxBytes = Math.min(Math.max(size * 2L, size + 1_048_576L), 64L * 1024L * 1024L)
+		def output = diagnosticProfileFile.get().asFile
+		output.parentFile.mkdirs()
+		output.setText("""# Generated from matcha.lock.json. Do not edit by hand.
+archive_filename=${filename}
+archive_sha256=${hash}
+archive_size=${size}
+max_archive_bytes=${maxBytes}
+version=${version}
+pack_min_format=88.0
+pack_max_format=107.1
+pack_description=Klei's Matcha Flavoured ${version} for 26.2
+""", "UTF-8")
+	}
+}
+
+tasks.named("processDiagnosticResources") {
+	dependsOn(tasks.named("generateDiagnosticProfile"))
+	inputs.property("version", project.version)
+	from(diagnosticProfileFile.map { it.asFile.parentFile })
+	duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+	filesMatching("fabric.mod.json") {
+		expand "version": project.version
+	}
+}
+
+tasks.named("processDiagnosticGameTestResources") {
+	duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+tasks.register("diagnosticJar", Jar) {
+	dependsOn(tasks.named("diagnosticClasses"))
+	archiveBaseName.set("forever-matcha-diagnostic")
+	archiveVersion.set(project.version.toString())
+	destinationDirectory.set(layout.buildDirectory.dir("diagnostic-libs"))
+	from(sourceSets.diagnostic.output)
+	from("LICENSE") {
+		into("META-INF")
+		rename { "LICENSE-Forever" }
+	}
+	preserveFileTimestamps = false
+	reproducibleFileOrder = true
+}
+
+tasks.register("diagnosticGameTestJar", Jar) {
+	dependsOn(tasks.named("diagnosticGameTestClasses"))
+	archiveBaseName.set("forever-matcha-diagnostic-gametest")
+	archiveVersion.set(project.version.toString())
+	destinationDirectory.set(layout.buildDirectory.dir("diagnostic-libs"))
+	from(sourceSets.diagnosticGameTest.output)
+	preserveFileTimestamps = false
+	reproducibleFileOrder = true
 }
 
 loom {
@@ -91,7 +184,18 @@ dependencies {
 	// ArchUnit keeps the documented package boundaries executable without adding
 	// anything to the runtime mod or shipped JAR.
 	testImplementation "com.tngtech.archunit:archunit-junit5:${project.archunit_version}"
-	testImplementation files(sourceSets.assetTools.output, sourceSets.assetTools.compileClasspath)
+	testImplementation files(
+			sourceSets.assetTools.output,
+			sourceSets.assetTools.compileClasspath,
+			sourceSets.diagnostic.output)
+}
+
+tasks.named("compileTestJava") {
+	dependsOn(tasks.named("diagnosticClasses"))
+}
+
+tasks.named("test") {
+	dependsOn(tasks.named("diagnosticClasses"))
 }
 
 tasks.register("validateAssets", JavaExec) {

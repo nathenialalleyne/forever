@@ -1,0 +1,20 @@
+{
+	"schemaVersion": 1,
+	"id": "forever-matcha-diagnostic-gametest",
+	"version": "1.0.0",
+	"name": "Many Roads Home Matcha Diagnostic GameTest",
+	"description": "Disposable dedicated-server fixture for the diagnostic-only candidate.",
+	"environment": "server",
+	"entrypoints": {
+		"fabric-gametest": [
+			"dev.forever.compat.matcha.diagnostic.MatchaDiagnosticArtifactGameTest"
+		]
+	},
+	"depends": {
+		"fabricloader": ">=0.19.3",
+		"minecraft": "~26.2",
+		"java": ">=25",
+		"fabric-api": "*",
+		"forever-matcha-diagnostic": "*"
+	}
+}
