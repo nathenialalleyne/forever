@@ -317,6 +317,7 @@ class MatchaDiagnosticObserverTest {
 				ZipOutputStream zip = new ZipOutputStream(output, StandardCharsets.UTF_8)) {
 			writeEntry(zip, "pack.mcmeta", VALID_METADATA);
 			ZipEntry entry = new ZipEntry(DATA_ENTRY);
+			entry.setTime(FIXED_ZIP_ENTRY_TIME_MILLIS);
 			entry.setExtra(new byte[8193]);
 			zip.putNextEntry(entry);
 			zip.write("{}".getBytes(StandardCharsets.UTF_8));
