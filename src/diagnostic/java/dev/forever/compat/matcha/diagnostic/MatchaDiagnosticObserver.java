@@ -40,7 +40,8 @@ final class MatchaDiagnosticObserver {
 
 		try {
 			boolean markerObserved = observedVersionMarker(server.getScoreboard());
-			return inspect(server.getServerDirectory(), serverNamespaces, markerObserved);
+			return inspect(
+					server.getServerDirectory(), serverNamespaces, markerObserved, MatchaDiagnosticProfile.read());
 		} catch (RuntimeException exception) {
 			return malformed("Could not resolve the server's bounded Matcha archive path: "
 					+ exception.getClass().getSimpleName() + ".");
@@ -53,33 +54,52 @@ final class MatchaDiagnosticObserver {
 	 * Minecraft server or touching a world save.
 	 */
 	static MatchaDiagnosticReport inspect(Path serverRoot, Set<String> serverNamespaces) {
-		return inspect(serverRoot, serverNamespaces, false);
+		MatchaDiagnosticProfile.Profile profile = MatchaDiagnosticProfile.read();
+		return inspect(serverRoot, serverNamespaces, false, profile);
+	}
+
+	/**
+	 * Inspects a server root with an explicitly supplied profile for deterministic synthetic fixtures.
+	 * Production observation always uses the embedded lock profile through the overload above.
+	 */
+	static MatchaDiagnosticReport inspect(
+			Path serverRoot, Set<String> serverNamespaces, MatchaDiagnosticProfile.Profile profile) {
+		return inspect(serverRoot, serverNamespaces, false, profile);
 	}
 
 	private static MatchaDiagnosticReport inspect(
-			Path serverRoot, Set<String> serverNamespaces, boolean markerObserved) {
+			Path serverRoot,
+			Set<String> serverNamespaces,
+			boolean markerObserved,
+			MatchaDiagnosticProfile.Profile profile) {
 		if (serverRoot == null) {
 			return malformed("The server root path was null; no archive was inspected.");
 		}
 		if (serverNamespaces == null) {
 			return malformed("The server namespace evidence was null; no archive was trusted.");
 		}
-
-		MatchaDiagnosticProfile.Profile profile = MatchaDiagnosticProfile.read();
-		if (!profile.valid()) {
-			return malformed(profile.error());
+		if (profile == null || !profile.valid()) {
+			return malformed(profile == null ? "The supplied Matcha lock profile was null." : profile.error());
 		}
-
-		Path root;
 		try {
-			root = serverRoot.toAbsolutePath().normalize();
+			return inspectRoot(serverRoot.toAbsolutePath().normalize(), serverNamespaces, markerObserved, profile);
 		} catch (RuntimeException exception) {
 			return malformed("The server root path could not be normalised: "
 					+ exception.getClass().getSimpleName() + ".");
 		}
+	}
+
+	private static MatchaDiagnosticReport inspectRoot(
+			Path root,
+			Set<String> serverNamespaces,
+			boolean markerObserved,
+			MatchaDiagnosticProfile.Profile profile) {
 		Path datapacks = root.resolve(DATAPACK_DIRECTORY).normalize();
 		if (!datapacks.startsWith(root) || !datapacks.getParent().equals(root)) {
 			return malformed("The diagnostic datapack path escaped the server root; no file was read.");
+		}
+		if (Files.isSymbolicLink(root)) {
+			return unreadable("The server root is a symbolic link; refusing to read outside the server instance.");
 		}
 		if (Files.isSymbolicLink(datapacks)) {
 			return unreadable("The diagnostic datapacks directory is a symbolic link; refusing to read outside the server root.");
@@ -90,65 +110,104 @@ final class MatchaDiagnosticObserver {
 		if (!Files.isDirectory(datapacks, LinkOption.NOFOLLOW_LINKS)) {
 			return unreadable("The diagnostic datapacks path is not a readable directory: " + DATAPACK_DIRECTORY + ".");
 		}
-
 		Path archive = datapacks.resolve(profile.archiveFilename()).normalize();
+		return inspectArchivePath(archive, root, datapacks, serverNamespaces, markerObserved, profile);
+	}
+
+	private static MatchaDiagnosticReport inspectArchivePath(
+			Path archive,
+			Path root,
+			Path datapacks,
+			Set<String> serverNamespaces,
+			boolean markerObserved,
+			MatchaDiagnosticProfile.Profile profile) {
 		if (!archive.startsWith(root) || !archive.getParent().equals(datapacks)) {
 			return malformed("The locked Matcha archive filename is not a direct child of datapacks; no file was read.");
 		}
 		if (Files.notExists(archive, LinkOption.NOFOLLOW_LINKS)) {
 			return missing(profile);
 		}
-		if (Files.isSymbolicLink(archive) || !Files.isRegularFile(archive, LinkOption.NOFOLLOW_LINKS)) {
+		if (Files.isSymbolicLink(archive)) {
+			return unreadable("The expected Matcha archive is a symbolic link: " + archiveLabel(profile) + ".");
+		}
+		if (!Files.isRegularFile(archive, LinkOption.NOFOLLOW_LINKS)) {
 			return unreadable("The expected Matcha archive is not a regular readable file: " + archiveLabel(profile) + ".");
 		}
+		MatchaDiagnosticArchive.Inspection inspection = MatchaDiagnosticArchive.inspect(archive, profile);
+		if (inspection.failureStatus() != null) {
+			return warning(inspection.failureStatus(), inspection.failureMessage(), standardRemedies(profile));
+		}
+		return classifyArchive(inspection, serverNamespaces, markerObserved, profile);
+	}
 
-		MatchaDiagnosticArchive.Inspection archiveInspection = MatchaDiagnosticArchive.inspect(archive, profile);
-		if (archiveInspection.failureStatus() != null) {
-			return warning(archiveInspection.failureStatus(), archiveInspection.failureMessage(), standardRemedies(profile));
-		}
-		if (!archiveInspection.dataRole()) {
-			return missing(profile, "The archive exists but contains no audited Matcha data namespace. A decoy archive is not a valid baseline.");
-		}
-		if (archiveInspection.metadata().failureStatus() != null) {
-			MatchaDiagnosticArchive.MetadataInspection metadata = archiveInspection.metadata();
+	private static MatchaDiagnosticReport classifyArchive(
+			MatchaDiagnosticArchive.Inspection inspection,
+			Set<String> serverNamespaces,
+			boolean markerObserved,
+			MatchaDiagnosticProfile.Profile profile) {
+		if (inspection.metadata().failureStatus() != null) {
+			MatchaDiagnosticArchive.MetadataInspection metadata = inspection.metadata();
 			return warning(metadata.failureStatus(), metadata.failureMessage(), standardRemedies(profile));
 		}
-		if (!archiveInspection.resourceRole()) {
+		if (!inspection.dataRole()) {
+			return inspection.resourceRole()
+					? warning(
+							MatchaDiagnosticStatus.ONE_SIDED_ROLE,
+							"The Matcha archive contains resource-pack assets but no audited Matcha data namespace; "
+									+ "the baseline is one-sided.",
+							oneSidedRemedies(profile))
+					: missing(profile,
+							"The archive exists but contains no audited Matcha data namespace. "
+									+ "A decoy archive is not a valid baseline.");
+		}
+		if (!inspection.resourceRole()) {
 			return warning(
 					MatchaDiagnosticStatus.ONE_SIDED_ROLE,
 					"The Matcha archive contains its datapack role but no resource-pack assets; the baseline is one-sided.",
-					List.of(
-							"Restore the original " + archiveLabel(profile) + " archive without extracting or splitting it.",
-							"Configure the pack loader to use the same archive as both the required datapack and resource pack."));
+					oneSidedRemedies(profile));
 		}
-		if (!archiveInspection.digest().equalsIgnoreCase(profile.archiveSha256())) {
-			return warning(
-					MatchaDiagnosticStatus.CHECKSUM_MISMATCH,
-					"The Matcha archive checksum does not match the lock (not a ZIP or pack.mcmeta parse error): observed "
-							+ archiveInspection.digest() + ", expected " + profile.archiveSha256() + ".",
-					List.of(
-							"Restore the exact " + archiveLabel(profile) + " archive and compare its SHA-256 with matcha.lock.json.",
-							"If the Matcha version was deliberately changed, update the lock and compatibility record together."));
+		if (!inspection.digest().equalsIgnoreCase(profile.archiveSha256())) {
+			return checksumMismatch(inspection.digest(), profile);
 		}
 		if (!MatchaDiagnosticArchive.hasKnownData(serverNamespaces)) {
-			return warning(
-					MatchaDiagnosticStatus.ONE_SIDED_ROLE,
-					"The locked Matcha archive is present, but its datapack role was not observed on this server. "
-							+ "A dedicated server cannot verify a remote client's resource-pack role.",
-						List.of(
-								"Confirm the pack loader lists " + archiveLabel(profile)
-										+ " as a required datapack AND resource pack.",
-								"Verify the resource-pack role separately from a client; server evidence "
-										+ "cannot establish that remote role."));
+			return missingServerRole(profile);
 		}
+		return healthy(profile, markerObserved);
+	}
 
+	private static MatchaDiagnosticReport checksumMismatch(
+			String observedDigest, MatchaDiagnosticProfile.Profile profile) {
+		return warning(
+				MatchaDiagnosticStatus.CHECKSUM_MISMATCH,
+				"The Matcha archive checksum does not match the lock (not a ZIP or pack.mcmeta parse error): observed "
+						+ observedDigest + ", expected " + profile.archiveSha256() + ".",
+				List.of(
+						"Restore the exact " + archiveLabel(profile) + " archive and compare its SHA-256 with matcha.lock.json.",
+						"If the Matcha version was deliberately changed, update the lock and compatibility record together."));
+	}
+
+	private static MatchaDiagnosticReport missingServerRole(MatchaDiagnosticProfile.Profile profile) {
+		return warning(
+				MatchaDiagnosticStatus.ONE_SIDED_ROLE,
+				"The locked Matcha archive is present, but its datapack role was not observed on this server. "
+						+ "A dedicated server cannot verify a remote client's resource-pack role.",
+				List.of(
+						"Confirm the pack loader lists " + archiveLabel(profile)
+								+ " as a required datapack AND resource pack.",
+						"Verify the resource-pack role separately from a client; server evidence "
+								+ "cannot establish that remote role."));
+	}
+
+	private static MatchaDiagnosticReport healthy(
+			MatchaDiagnosticProfile.Profile profile, boolean markerObserved) {
 		String markerSummary = markerObserved
 				? " The audited runtime version marker was also observed."
 				: " No runtime version marker was exposed by this server view.";
 		return MatchaDiagnosticReport.healthy(
-				"Matcha " + profile.version() + " matches the locked SHA-256 and its datapack role is active. "
-						+ "The dedicated server cannot verify a remote client's resource-pack role; "
-						+ "verify that role separately on a client." + markerSummary);
+			"Matcha " + profile.version() + " archive bytes match the locked SHA-256, and a known Matcha "
+					+ "datapack namespace is visible through this server's resource manager. This bounded evidence "
+					+ "does not prove that archive was the loaded source or that a remote client's resource-pack "
+					+ "role is active; verify that role separately on a client." + markerSummary);
 	}
 
 	private static boolean observedVersionMarker(Scoreboard scoreboard) {
@@ -206,6 +265,12 @@ final class MatchaDiagnosticObserver {
 		return List.of(
 				"Restore " + archiveLabel(profile) + " from the pinned source and compare its SHA-256 with matcha.lock.json.",
 				"If the Matcha version was deliberately changed, update the lock and compatibility record together.");
+	}
+
+	private static List<String> oneSidedRemedies(MatchaDiagnosticProfile.Profile profile) {
+		return List.of(
+				"Restore the original " + archiveLabel(profile) + " archive without extracting or splitting it.",
+				"Configure the pack loader to use the same archive as both the required datapack and resource pack.");
 	}
 
 	private static String archiveLabel(MatchaDiagnosticProfile.Profile profile) {
