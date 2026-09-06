@@ -1,6 +1,8 @@
 # MRH-013: Approved diagnostic implementation architecture
 
-**Status:** Approved for private implementation and disposable-instance validation only.
+**Status:** Implemented and technically verified as a private dedicated-server candidate.
+[Canonical runtime evidence](mrh-013-runtime-evidence.md) records the exact source/artifact,
+review, tests, and remaining deployment limits. No pack inclusion or distribution is approved.
 
 **Owner approval record (2026-09-06):** The project owner approved the MRH-012
 common/server-only, read-only Matcha baseline diagnostic boundary and explicitly opened
@@ -80,7 +82,8 @@ The safe archive snapshot requires the filesystem provider to support directory-
 opening through `SecureDirectoryStream`. If it does not, this private candidate reports
 `UNREADABLE` with the limitation and does not reopen the archive through a raceable parent
 path. The candidate makes no claim of Windows or macOS compatibility, and this limitation
-does not authorise rollout. The runtime provider matrix belongs to the next stage.
+does not authorise rollout. Linux runtime validation and the unsupported-provider fixture
+are recorded in the evidence report; other platform validation remains outside this result.
 
 The report is a value produced from this observation. It has explicit statuses for
 healthy, missing, checksum mismatch, one-sided role, unsupported, malformed, and
@@ -184,6 +187,8 @@ shaded into the candidate.
   no world writes, persistence, downloads, repairs, or network behaviour. All owned
   servers stop cleanly and logs remain outside the repository.
 
-This record does not authorise pack inclusion. MRH-011 remains blocked on this evidence,
-its own assembled-artifact proof, the PACK-01 human smoke gate, and the unresolved rights
-and distribution decision.
+The evidence above is now recorded in the linked canonical report. This record does not
+authorise pack inclusion. MRH-011 remains blocked on its own assembled-artifact proof,
+the PACK-01 human smoke gate, and the unresolved rights and distribution decision.
+The candidate has `environment: server`, so it does not execute in client or integrated
+single-player environments. Its presence in a client instance is not diagnostic coverage.
