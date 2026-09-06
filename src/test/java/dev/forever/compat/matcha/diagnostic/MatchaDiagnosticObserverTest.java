@@ -1,5 +1,6 @@
 package dev.forever.compat.matcha.diagnostic;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -26,6 +27,7 @@ import org.junit.jupiter.api.io.TempDir;
 
 class MatchaDiagnosticObserverTest {
 	private static final String LOCKED_SHA256 = "6209783021c358044abedabacee471faff5bd4080437d4e3b5e51963f1804248";
+	private static final long FIXED_ZIP_ENTRY_TIME_MILLIS = 315_532_800_000L;
 	private static final String DATA_ENTRY = "data/main/function/setup/scoreboard.mcfunction";
 	private static final String ASSET_ENTRY = "assets/minecraft/items/heart_container.json";
 	private static final String VALID_METADATA = "{\"pack\":{\"min_format\":88.0,\"max_format\":107.1,"
@@ -58,8 +60,21 @@ class MatchaDiagnosticObserverTest {
 		assertTrue(report.summary().contains("archive bytes match the locked SHA-256"));
 		assertTrue(report.summary().contains("does not prove that archive was the loaded source"));
 		assertTrue(report.summary().contains("remote client's resource-pack role"));
+		assertFalse(report.summary().contains("marker"), report.summary());
 		assertTrue(report.remedies().isEmpty());
 		assertTrue(Files.isRegularFile(archive));
+	}
+
+	@Test
+	@DisplayName("the same synthetic archive input produces byte-identical ZIP bytes")
+	void syntheticArchiveBytesAreReproducible(@TempDir Path temp) throws IOException {
+		Path first = temp.resolve("first/datapacks/Matcha_Flavoured_1_12.zip");
+		Path second = temp.resolve("second/datapacks/Matcha_Flavoured_1_12.zip");
+
+		writeArchiveAt(first, VALID_METADATA, List.of(DATA_ENTRY), List.of(ASSET_ENTRY), "{}");
+		writeArchiveAt(second, VALID_METADATA, List.of(DATA_ENTRY), List.of(ASSET_ENTRY), "{}");
+
+		assertArrayEquals(Files.readAllBytes(first), Files.readAllBytes(second));
 	}
 
 	@Test
@@ -411,7 +426,9 @@ class MatchaDiagnosticObserverTest {
 	}
 
 	private static void writeEntry(ZipOutputStream zip, String name, String content) throws IOException {
-		zip.putNextEntry(new ZipEntry(name));
+		ZipEntry entry = new ZipEntry(name);
+		entry.setTime(FIXED_ZIP_ENTRY_TIME_MILLIS);
+		zip.putNextEntry(entry);
 		zip.write(content.getBytes(StandardCharsets.UTF_8));
 		zip.closeEntry();
 	}

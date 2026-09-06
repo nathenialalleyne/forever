@@ -17,7 +17,6 @@ import java.nio.file.Path;
 import java.nio.file.SecureDirectoryStream;
 import java.nio.file.StandardOpenOption;
 import java.nio.file.attribute.BasicFileAttributeView;
-import java.nio.file.attribute.BasicFileAttributes;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.HexFormat;
@@ -98,8 +97,11 @@ final class MatchaDiagnosticArchive {
 				if (directory instanceof SecureDirectoryStream<?> secure) {
 					return snapshotSecureDirectory(secure, archive.getFileName(), maxBytes);
 				}
+				return SnapshotResult.failure(
+						MatchaDiagnosticStatus.UNREADABLE,
+						"The filesystem provider does not expose SecureDirectoryStream for safe directory-relative archive "
+								+ "opening; use a provider that does instead of a raceable fallback.");
 			}
-			return snapshotDirect(archive, maxBytes);
 		} catch (IOException | SecurityException exception) {
 			return SnapshotResult.failure(
 					MatchaDiagnosticStatus.UNREADABLE,
@@ -125,24 +127,6 @@ final class MatchaDiagnosticArchive {
 		}
 		try (SeekableByteChannel channel = typedDirectory.newByteChannel(
 				filename, Set.of(StandardOpenOption.READ, LinkOption.NOFOLLOW_LINKS))) {
-			return readSnapshot(channel, maxBytes);
-		}
-	}
-	private static SnapshotResult snapshotDirect(Path archive, long maxBytes) throws IOException {
-		if (Files.isSymbolicLink(archive.getParent())) {
-			return SnapshotResult.failure(
-					MatchaDiagnosticStatus.UNREADABLE,
-					"The diagnostic archive parent is a symbolic link; refusing to read outside the instance.");
-		}
-		BasicFileAttributes attributes = Files.readAttributes(
-				archive, BasicFileAttributes.class, LinkOption.NOFOLLOW_LINKS);
-		if (!attributes.isRegularFile()) {
-			return SnapshotResult.failure(
-					MatchaDiagnosticStatus.UNREADABLE,
-					"The expected Matcha archive is not a regular readable file.");
-		}
-		try (SeekableByteChannel channel = Files.newByteChannel(
-				archive, Set.of(StandardOpenOption.READ, LinkOption.NOFOLLOW_LINKS))) {
 			return readSnapshot(channel, maxBytes);
 		}
 	}

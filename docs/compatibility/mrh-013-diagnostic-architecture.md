@@ -65,15 +65,22 @@ The observer performs two bounded, read-only operations:
 
 1. Resolve only `server.getServerDirectory()/datapacks/Matcha_Flavoured_1_12.zip`, after
    validating that the path is the expected relative child and is a regular non-symlink
-   file. It checks a fixed maximum byte size, hashes the file once with JDK
-   `MessageDigest`, and opens only that archive with `ZipFile`. It reads a bounded
-   `pack.mcmeta`, bounds entry count and entry-name length, rejects unsafe archive names,
-   and checks known Matcha data/resource prefixes without extracting or walking any
-   other filesystem path.
-2. Ask the server's `ResourceManager` for the fixed audited Matcha data namespaces and
-   inspect the known scoreboard marker only where the server exposes it. This is bounded
-   server-side data evidence. A dedicated server cannot prove that a remote client has
-   activated the resource-pack role, so healthy server evidence is not dual-role proof.
+   file. It requires a `SecureDirectoryStream` from the archive parent, takes one fixed
+   maximum-size byte snapshot, hashes those bytes once with JDK `MessageDigest`, and parses
+   that same snapshot with `ZipInputStream`. It reads a bounded `pack.mcmeta`, bounds entry
+   count and entry-name length, rejects unsafe archive names, and checks known Matcha
+   data/resource prefixes without extracting or walking any other filesystem path.
+2. Ask the server's `ResourceManager` for the fixed audited Matcha data namespaces. This is
+   bounded server-side data evidence. A dedicated server cannot prove that a remote client
+   has activated the resource-pack role, so healthy server evidence is not dual-role proof.
+
+### Filesystem provider limitation
+
+The safe archive snapshot requires the filesystem provider to support directory-relative
+opening through `SecureDirectoryStream`. If it does not, this private candidate reports
+`UNREADABLE` with the limitation and does not reopen the archive through a raceable parent
+path. The candidate makes no claim of Windows or macOS compatibility, and this limitation
+does not authorise rollout. The runtime provider matrix belongs to the next stage.
 
 The report is a value produced from this observation. It has explicit statuses for
 healthy, missing, checksum mismatch, one-sided role, unsupported, malformed, and
@@ -89,8 +96,7 @@ The diagnostic does not instantiate `MatchaAdapter`, `VerifiedMatchaAdapter`,
 `NoOpMatchaAdapter`, or any existing report path that reaches item/behaviour mappings.
 Their package is a valid Matcha isolation boundary, but the current API closure reaches
 unrelated mappings and therefore cannot be called diagnostic-only. The new classes keep
-all Matcha-specific namespace, marker, archive, and profile facts below
-`dev.forever.compat.matcha`.
+all Matcha-specific namespace, archive, and profile facts below `dev.forever.compat.matcha`.
 
 ## ADR 0026 escalation and ADR 0033 gap reasoning
 
@@ -102,7 +108,7 @@ The selection is the narrowest response to the measured gap, not a new gameplay 
 | Datapack | Matcha data can define gameplay but cannot hash the archive or require its own presence before a server starts. | Insufficient. Do not add a diagnostic datapack. |
 | Resource pack | Resource content cannot validate the server's archive identity and cannot inspect a remote client's activated role. | Insufficient. Do not add a client resource diagnostic. |
 | Stable scripting layer | No pinned, supported scripting layer is present in the baseline, and a script would still need bounded filesystem/hash and lifecycle access. | No candidate. Do not add a dependency. |
-| Public API/event integration | Fabric's public server lifecycle events and Minecraft's public server/resource APIs expose the required startup, successful-reload, namespace, and marker hooks. | Use directly at the boundary. |
+| Public API/event integration | Fabric's public server lifecycle events and Minecraft's public server/resource APIs expose the required startup, successful-reload, and namespace hooks. | Use directly at the boundary. |
 | Narrow compatibility adapter | The selected implementation is a narrow read-only Matcha diagnostic under the existing isolation vocabulary. It does not publish gameplay translations. | **Selected.** |
 | Version-guarded Mixin | No private Minecraft hook is needed. | Reject. |
 | Private fork | Global Packs already loads the archive correctly; changing it would add provenance, licence, and maintenance cost. | Reject. |
@@ -148,7 +154,7 @@ The final JAR scan must prove there is one common entrypoint, no client metadata
 `dev.forever.ForeverMod`, `dev.forever.client`, `dev.forever.core`, gameplay registry or
 attachment references, `SavedData`, network registration, existing Matcha mapping class,
 or unrelated Matcha-derived evidence. Runtime class references are limited to JDK,
-Minecraft server/resource/scoreboard types, Fabric lifecycle/initializer APIs, Gson already
+Minecraft server/resource types, Fabric lifecycle/initializer APIs, Gson already
 supplied by the Minecraft runtime, and SLF4J already supplied by Fabric. No dependency is
 shaded into the candidate.
 
