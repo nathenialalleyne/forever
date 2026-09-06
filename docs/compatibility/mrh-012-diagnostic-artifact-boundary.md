@@ -1,7 +1,16 @@
-# MRH-012: Proposed diagnostic-only artifact boundary
+# MRH-012: Approved diagnostic-only artifact boundary
 
-**Status:** Design ready, explicitly pending owner approval. This document is evidence and a
-proposal, not an implementation approval, an artifact approval, or a distribution grant.
+**Status:** Approved by the project owner on 2026-09-06 for the private MRH-013 implementation
+and disposable-instance validation only. This approval is for the diagnostic-only boundary,
+not pack inclusion, publication, distribution, a licence or rights decision, gameplay, or
+the full root prototype artifact.
+
+**Approval record:** The owner explicitly approved the common/server-only, read-only Matcha
+baseline diagnostic boundary, accepted rejection of `ForeverMod` as an artifact entrypoint,
+and opened MRH-013. The owner did not approve any prototype gameplay registration, client
+surface, Matcha extraction, third-party JAR change, pack edit, or release path. The selected
+implementation architecture is recorded before code in
+[`mrh-013-diagnostic-architecture.md`](mrh-013-diagnostic-architecture.md).
 
 **Scope:** Define the smallest *behavioural* boundary that a later ticket may implement for
 the read-only Matcha baseline diagnostic from MRH-010. No source-set, module, project, fork,
@@ -138,7 +147,7 @@ identity components and runtime mapping markers. MRH-013 must prove that unrelat
 Matcha-derived mapping material is not pulled into the diagnostic artifact, rather than
 assuming that package membership alone is sufficient isolation.
 
-### Conceptual diagnostic closure (proposed, pending approval)
+### Approved conceptual diagnostic closure
 
 The smallest behavioural closure is the following set of responsibilities, plus one
 common/server-safe entrypoint and lifecycle owner:
@@ -152,10 +161,10 @@ common/server-safe entrypoint and lifecycle owner:
 | Operator report | `MatchaBaselineReport` and, if its current signature is retained, `MatchaAdapterStatus` | Reuse wording/severity/remedy semantics without enabling mappings. |
 | Lifecycle/logging | Current mixed `ForeverMatchaCompat` shows the required hooks but also publishes a gameplay adapter | Implement only the lifecycle/report path after approval. The current root entrypoint is not eligible. |
 
-This is a conceptual boundary, not a new class list or build decision. The future ticket must
-show the final closure from its actual artifact, because the current `ForeverMatchaCompat`
-API couples reporting to the full adapter graph. No implementation may silently retain that
-coupling and call the result diagnostic-only.
+This remains a behavioural boundary, not a class list or build decision. MRH-013 records the
+selected architecture and must show the final closure from its actual artifact, because the
+current `ForeverMatchaCompat` API couples reporting to the full adapter graph. No
+implementation may silently retain that coupling and call the result diagnostic-only.
 
 ## Explicit exclusions
 
@@ -282,17 +291,17 @@ hash and distinct-mismatch report requirements, healthy no-new-noise, lifecycle 
 or any world/save test. The requested Gradle build tests the unchanged baseline source tree;
 it cannot make those candidate-artifact claims.
 
-## Owner gates and next ticket
+## Approval and next ticket
 
-The owner must approve all of the following separately:
+The project owner approved all of the following on 2026-09-06 for private MRH-013 work:
 
 1. the conceptual boundary in this document: common/server-only Matcha evidence and baseline
    reporting, with no prototype gameplay or client surface;
 2. the explicit rejection of the full root prototype JAR as MRH-011's artifact; and
-3. opening **MRH-013**, the blocked implementation/packaging ticket that may select the
-   minimal implementation architecture and build the approved diagnostic only.
+3. opening **MRH-013**, the implementation/packaging ticket that records its minimal
+   architecture and builds the approved diagnostic only.
 
-Approval of this document does **not** approve Java changes, an artifact, pack inclusion,
+Approval of this document does **not** approve Java gameplay changes, pack inclusion,
 publication, distribution, or a rights model. PACK-01's final diagnostic criterion remains
 open and closes only with MRH-011's assembled-artifact proof; historical lab/profile evidence
 is not completion. MRH-011 remains blocked on MRH-013's completed artifact work, PACK-01's
