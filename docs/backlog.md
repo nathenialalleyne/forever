@@ -265,32 +265,52 @@ These are investigation and integration spikes. They establish whether the selec
 - **Test requirements:** Completeness check against all LAB reports, candidate-source review, licence review, save-safety review, and a manual gate review by the pack owner.
 - **Removal/migration risks:** A gap report that omits a dependency or persisted identifier can authorise an unsafe companion. No code ticket may proceed from an incomplete report, and the report must be revisited when candidate versions change.
 
-### MRH-011: Ship the Matcha baseline diagnostic with the pack [Next]
+### MRH-012: Define the diagnostic-only artifact boundary [Next]
 
-- **Objective:** Make the MRH-010 baseline diagnostic actually reach a player, so a missing or degraded Matcha archive is reported instead of silently changing the world.
-- **Dependencies:** MRH-010 (complete), PACK-01, ADR 0027, and `docs/decisions/OPEN-rights-model.md`.
+- **Objective:** Resolve and record the smallest approved artifact boundary for delivering MRH-010's read-only Matcha baseline diagnostic without shipping the prototype gameplay systems. Separate design approval for that boundary from a later implementation or packaging ticket, preserve original Forever code as private and proprietary, and keep Matcha and other third-party material provenance distinct.
+- **Dependencies:** MRH-010 (complete), ADRs 0020, 0024, 0025, 0026, 0033, and 0034, `docs/pivot/existing-code-inventory.md`, `docs/decisions/OPEN-rights-model.md`, and a review of `src/main/java/dev/forever/ForeverMod.java` and `dev.forever.compat.matcha`.
+- **Authoritative sources to inspect:** `src/main/java/dev/forever/ForeverMod.java`, the existing `dev.forever.compat.matcha` implementation and tests, the root build metadata as read-only context, `docs/architecture.md`, `docs/compatibility/matcha-loading.md`, `docs/pivot/existing-code-inventory.md`, ADRs 0020, 0024, 0025, 0026, 0033, and 0034, and `docs/decisions/OPEN-rights-model.md`.
+- **Existing-mod candidates:** None for this boundary decision. MRH-010 already records that the tested configuration-only mitigation (`log_pack_ids = true`) cannot identify a missing or substituted archive. This ticket must not treat the full prototype JAR, a gameplay mod, or a new loader as an approved diagnostic substitute.
+- **Custom-code gate:** Design and ownership work only. No Java, build, pack, artifact, or gameplay change is authorised by this ticket. The existing MRH-010 gap evidence covers diagnostic behaviour, not a new build architecture or permission to activate prototype systems. Any future implementation must return as a separate reviewed ticket and still satisfy ADRs 0026 and 0033.
+- **Explicit non-goals:** No choice of source-set, module, project, fork, shading, or other build architecture; no code or build-script edit; no root prototype JAR publication or pack inclusion; no gameplay registration, save migration, refactor, or deletion; no third-party JAR modification or Matcha extraction/repackaging; no licence change, rights-model decision, public release, or distribution authorisation.
+- **Acceptance criteria:**
+  1. The design inventory records the exact diagnostic runtime closure and confirms that `ForeverMod.java:41-63` unconditionally initializes equipment, mastery, settlement, storage, guide, career, economy, and Matcha compatibility. It explicitly rejects the full prototype JAR as the MRH-011 artifact because it activates seven prototype gameplay systems.
+  2. A reviewed conceptual boundary names the diagnostic-only behaviour and required entrypoint while explicitly excluding prototype gameplay registrations, gameplay data, client surfaces, persistent gameplay state, and unrelated Matcha-derived material. The boundary does not select a new build architecture.
+  3. The ticket records a separate owner approval gate for the boundary and a separate future implementation or packaging ticket. Approval of this design does not approve gameplay, artifact publication, or distribution.
+  4. The design preserves the existing source, unit tests, GameTests, prototype tag, and provenance records under ADR 0034, and keeps original Forever rights separate from Matcha and third-party terms under ADR 0020. Private-only preparation is explicitly not a redistribution grant.
+  5. The future artifact validation plan distinguishes the already-tested missing and decoy/MISSING outcomes from the outstanding partially altered real-archive DEGRADED/WARN outcome, and requires startup to remain unblocked without world writes.
+- **Test requirements:** This documentation ticket requires source/dependency-closure inspection, an entrypoint registration inventory, Markdown and repository consistency checks, `git diff --check`, and manual owner review of the boundary. A later implementation ticket must test a healthy archive, missing archive with the ERROR/MISSING banner, a structurally valid decoy retaining the recorded MISSING evidence, a partially altered real archive producing the WARN/DEGRADED form, unblocked dedicated-server startup, absence of all seven prototype initializers and gameplay registrations, exact artifact identity/provenance, and rights/removal handling. No artifact or world test is claimed complete by MRH-012.
+- **Removal/migration risks:** An imprecise closure could ship gameplay registries, persistent identifiers, client classes, or proprietary source unintentionally. Artifact isolation must not delete or silently repurpose the preserved prototype, must not create a save migration obligation, and must retain recoverable source and provenance. Any selected implementation architecture, artifact pin, or distribution path requires its own review after this design ticket.
+
+### MRH-011: Ship the Matcha baseline diagnostic with the pack [Blocked]
+
+- **Objective:** Make the MRH-010 baseline diagnostic actually reach a player through an artifact boundary approved by MRH-012, so a missing or degraded Matcha archive is reported instead of silently changing the world. This ticket does not approve the full prototype JAR.
+- **Dependencies:** MRH-012 (diagnostic-only artifact boundary approved), MRH-010 (complete), PACK-01, ADR 0027, and `docs/decisions/OPEN-rights-model.md`.
 - **Evidence for this ticket:** Two failure paths were tested against a server assembled from `pack/`, and both are silent.
   - *Matcha missing:* starts at 1585 recipes and 1688 advancements instead of 2346/1805, with no diagnostic.
   - *Matcha substituted:* a structurally valid decoy with the correct filename gives the same 1585/1688 and, again, no diagnostic. This is the more dangerous case, because the file exists and is named correctly, so an operator has nothing to notice.
 
-  The code is present in `dev.forever.compat.matcha` with unit and GameTest coverage, and `MatchaBaselineReport` already maps the substituted case to DEGRADED and the missing case to MISSING. It is simply not shipped.
+  The code is present in `dev.forever.compat.matcha` with unit and GameTest coverage. `MatchaBaselineReport` maps absent evidence to MISSING and present-but-unverified evidence to DEGRADED. The tested decoy supplies no Matcha evidence and therefore reports MISSING; it does not demonstrate the partially altered real-archive DEGRADED path. The diagnostic is not shipped in `pack/`.
+
+  **Artifact-scope qualification:** The end-to-end experiment below used the existing companion build as behaviour evidence only. It is not approval to ship that full root JAR. `src/main/java/dev/forever/ForeverMod.java:41-63` unconditionally initializes equipment, mastery, settlement, storage, guide, career, economy, and Matcha compatibility, so the root artifact also activates seven prototype gameplay systems. MRH-012 must define and obtain approval for the diagnostic-only boundary before any MRH-011 implementation or packaging work.
 
   **The fix is verified to work.** Dropping the existing companion build into a pack instance closes both silent paths:
   - *Matcha missing:* the framed `MANY ROADS HOME BASELINE PROBLEM: MISSING` banner appears at ERROR with actionable steps ("Confirm datapacks/Matcha_Flavoured_1_12.zip exists", "Reinstall the pack from the exported .mrpack"). Startup is not blocked.
   - *Matcha substituted:* the same banner appears. It reports MISSING rather than DEGRADED, which is defensible because a decoy carrying no Matcha content genuinely has no baseline present; the player-visible outcome, a loud actionable error instead of silence, is correct either way. Worth confirming against a *partially* altered real archive when MRH-011 is implemented.
 
-  So MRH-011 is packaging only: no code change is needed, and the behaviour is already demonstrated end to end.
+  This evidence confirms that an artifact carrying the diagnostic can close the two measured silent paths, not that MRH-011 is packaging-only or that the full prototype JAR is approved. The partially altered real-archive DEGRADED/WARN form remains an outstanding validation item. No implementation architecture is selected here; MRH-012 is the prerequisite for that boundary.
 
   **A cheaper mitigation was tried and does not work.** Global Packs offers `log_pack_ids = true`, which looked like it might expose a wrong archive without shipping any code. It does not: with a healthy Matcha and with a decoy, the `# Listing Data Packs #` block is byte-for-byte identical and mentions Matcha in neither. Configuration alone cannot detect this, which is what makes the companion diagnostic the actual fix rather than a preference.
-- **Custom-code gate:** No new code is needed. The work is packaging an existing, tested feature.
-- **Explicit non-goals:** No new gameplay, no blocking startup, no change to the diagnostic's behaviour or wording.
+- **Custom-code/artifact gate:** No new gameplay code is authorised. MRH-011 may package only a diagnostic-only artifact after MRH-012 design approval; the full root prototype JAR is explicitly not approved because it registers seven prototype systems at common initialization. The existing unit and GameTest evidence is preserved as behaviour evidence, not artifact-scope approval.
+- **Explicit non-goals:** No new gameplay, no blocking startup, no change to the diagnostic's behaviour or wording, no build-architecture decision, and no inclusion or distribution of the full prototype JAR.
 - **Acceptance criteria:**
-  1. A pack install with Matcha missing shows the framed ERROR banner, and a degraded archive shows the WARN form.
+  1. A pack install using the approved diagnostic-only artifact with Matcha missing shows the framed ERROR banner, and a partially altered real archive shows the WARN/DEGRADED form. The existing decoy result remains recorded as MISSING evidence.
   2. Startup is never blocked, matching MRH-010's tested behaviour.
-  3. The companion build is pinned by exact version and hash like every other input, and appears in `docs/compatibility/pack-input-provenance.md`.
-- **Blocked on:** the rights-model decision. Shipping the companion mod means the pack distributes original code, so its licence must be settled first.
+  3. The approved diagnostic-only artifact is pinned by exact version and hash like every other input, appears in `docs/compatibility/pack-input-provenance.md`, and passes the rights and provenance review.
+- **Blocked on:** MRH-012's design and owner approval, PACK-01's outstanding human real-play smoke test, and the open rights/distribution gates in `docs/decisions/OPEN-rights-model.md` and ADR 0020. Private-only preparation or a local artifact test does not authorise pack inclusion, publication, or distribution.
 
 ### PACK-01: Assemble the pinned baseline profile [Planned]
+
 - **Evidence recorded 2026-08-29 (partial, not a completion claim).** Several acceptance criteria are now demonstrated and should not be re-derived:
   - Reproducible export (criterion 1): two `./scripts/build-pack.sh` runs two seconds apart produced **byte-identical** `.mrpack` files.
   - No committed third-party JARs (criterion 5): the export contains only `modrinth.index.json` and the Global Packs override; every dependency is a URL and hash reference. Verified by listing archive entries.
