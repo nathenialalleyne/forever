@@ -30,6 +30,15 @@ current `ForeverMod` is not that entrypoint. This names the lifecycle contract, 
 implementation architecture. Whether a future implementation reuses, splits, or replaces
 any current class is deliberately left to MRH-013 after this boundary is approved.
 
+This proposal is not implementable by merely rewiring the existing report. The current
+`MatchaServerEvidence.gather()` passes `null` for the observed digest and metadata and an
+empty fingerprint map, `MatchaBaselineReport.fromStatus()` does not put the locked SHA-256
+in its missing report, and no live healthy result has been demonstrated. Server-side
+resource observation also cannot verify a remote client's resource-pack role, and the
+current lifecycle registration has no proof of repeated-initialization idempotence. These
+are source-vs-spec and evidence gaps for MRH-013, not reasons to weaken MRH-010. This is a
+review correction, not a superseding ADR or a build-architecture decision.
+
 ## Source-backed runtime trace
 
 | Stage | Source evidence | What actually happens today | Boundary consequence |
@@ -51,13 +60,22 @@ The live gatherer deliberately supplies no archive digest, no pack metadata, and
 fingerprints because a running server sees unpacked resources rather than the original zip.
 It supplies namespace paths and, when available, only the objective name. Consequently:
 
+A dedicated server cannot inspect whether a remote client has activated the archive's
+resource-pack role. `getNamespaces()` and the scoreboard observe data-side signals only.
+Even a healthy server-side result is therefore not full dual-role validation. MRH-010's
+one-sided role requirement remains "where detectable on that side"; MRH-013 must add a
+separate assembled-pack/client verification of the resource role. No client feature is
+auto-approved by this boundary.
+
 - no known Matcha namespace produces `ABSENT`, then `MISSING`, and the framed ERROR report;
 - one or more known namespaces normally produces `PRESENT` evidence, then
   `PRESENT_UNVERIFIED`, then `DEGRADED` WARN because the full identity evidence is absent;
 - a gather failure produces malformed evidence and a safe degraded report; and
 - synthetic complete evidence in `MatchaVersionDetectorTest` can produce `SUPPORTED` and a
   healthy report, but that is not evidence that a built artifact or a live server currently
-  supplies complete identity evidence.
+  supplies complete identity evidence; and
+- the current source does not demonstrate the healthy-install no-new-noise requirement,
+  distinct live checksum-mismatch reporting, or an idempotent lifecycle/report sequence.
 
 LAB-02's missing archive and structurally valid decoy both supplied no Matcha namespaces and
 therefore remain recorded as `MISSING` evidence. A partially altered *real* archive producing
@@ -185,8 +203,10 @@ why its selected implementation remains the smallest safe owner under ADRs 0026 
 
 The diagnostic reads resource namespaces and scoreboard metadata and holds only process-local
 status. It must introduce no persistent schema, SavedData key, attachment, item component,
-network packet, migration, or world write. The server remains authoritative because the
-server gathers and reports the evidence; a client is not needed to decide the result.
+network packet, migration, or world write. The server remains authoritative for the evidence
+it can observe, but it cannot assert that a remote client activated the resource-pack role.
+A separate assembled-pack/client verification is therefore required for full dual-role
+validation; no client feature is approved by this document.
 
 On absent, malformed, unsupported, or unverified evidence, startup remains unblocked and the
 report is visible. The diagnostic must not repair, download, modify, or remove Matcha. Removing
@@ -219,13 +239,13 @@ No source, generated report, archive, licence, or notice was changed by this des
 | --- | --- | --- | --- |
 | Entrypoint registration | `fabric.mod.json` and `ForeverMod.java:41-63` | Artifact metadata names only the approved diagnostic common entrypoint and no client entrypoint. | Source confirmed; candidate unbuilt. |
 | Seven prototype initialisers | All seven `Forever*.initialize()` implementations and their registrations | Dedicated artifact scan/startup proves no seven-system initializer, registry, attachment, item, SavedData, or reload listener runs. | Baseline behaviour distinguished; absence unverified. |
-| Matcha lifecycle | `SERVER_STARTED` and successful `END_DATA_PACK_RELOAD` hooks | Both hooks gather/report once, reload is success-gated, and no duplicate registration or stale result occurs. | Source/unit behaviour present; artifact path unverified. |
-| Bounded evidence | `MatchaServerEvidence`, fixed ten namespaces, `version_number`, 64-path cap | Live dedicated-server tests cover absent, partial namespace, marker unavailable, malformed read, and successful reload. | Existing source and GameTests reviewed. |
-| Detection/report mapping | `MatchaVersionDetectorTest`, `MatchaBaselineReportTest`, `MatchaDetectionGameTest` | Healthy, missing, decoy/MISSING, partially altered real archive/DEGRADED-WARN, unsupported, and malformed cases against the approved artifact. | Missing and decoy evidence exists; partial-real case open. |
-| Pack inputs and roles | `global_packs.toml`, Packwiz metadata, Matcha lock and LAB-02 | Exact pinned archive and Global Packs roles are present without extraction or rewrite; altered input remains visible. | Pack baseline evidence exists; no candidate artifact test. |
-| Startup and world safety | Read-only source path and report tests | Dedicated server reaches ready state for every failure status and world files are unchanged by the diagnostic. | No world run in MRH-012. |
+| Matcha lifecycle | `SERVER_STARTED` and successful `END_DATA_PACK_RELOAD` hooks | A repeated-initialization fixture proves exactly one registration set; one observation/report per `SERVER_STARTED` or successful reload; no report on failed reload; and no stale cross-server result. | Hooks are present, but lifecycle idempotence and cross-server isolation are unverified. |
+| Bounded evidence | `MatchaServerEvidence`, fixed ten namespaces, `version_number`, 64-path cap | Live dedicated-server tests cover absent, partial namespace, marker unavailable, malformed read, and successful reload without treating server evidence as proof of a remote client resource role. | Existing source and GameTests reviewed; complete identity and remote-client role remain unverified. |
+| Detection/report mapping | `MatchaVersionDetectorTest`, `MatchaBaselineReportTest`, `MatchaDetectionGameTest` | Before shipping, the artifact reports a missing archive with the expected locked SHA-256, distinguishes a checksum mismatch from Matcha parse errors, reports one-sided roles where detectable, preserves the remedy text, keeps startup unblocked, produces no new noise for a healthy install, and covers healthy, missing, decoy/MISSING, partially altered real archive/DEGRADED-WARN, unsupported, and malformed cases. | Synthetic mapping and missing/decoy evidence exist; the source-vs-spec acceptance gaps and partial-real case remain open. |
+| Pack inputs and roles | `global_packs.toml`, Packwiz metadata, Matcha lock and LAB-02 | Exact pinned archive and Global Packs roles are present without extraction or rewrite; altered input remains visible, with a separate assembled-pack/client check for the remote resource role because server evidence is insufficient. | Pack baseline evidence exists; no candidate artifact or full dual-role validation. |
+| Startup and world safety | Read-only source path and report tests | Dedicated server reaches ready state for every failure status, a healthy install adds no diagnostic noise, and world files are unchanged by the diagnostic. | No world run in MRH-012; healthy no-new-noise remains unverified. |
 | Persistent state/network | Seven initializer source inspections and architecture rules | Artifact contains no gameplay persistence, migration, packet, or client-authority path. | Proposed exclusion; not verified from candidate artifact. |
-| Client boundary | Current `client` metadata and `ForeverClient` source | Dedicated server loads with no client class; candidate metadata has no client registration or client asset dependency. | Current client surface explicitly excluded; unverified candidate. |
+| Client boundary | Current `client` metadata and `ForeverClient` source | Dedicated server loads with no client class; candidate metadata has no client registration or client asset dependency; a separate pack/client check verifies the resource role. A healthy server result is not dual-role proof. | Current client surface explicitly excluded; server-only observation cannot verify the remote resource role. |
 | Provenance and rights | `LICENSE`, ADR 0020, ADR 0027, `THIRD_PARTY_NOTICES.md`, lock/provenance records | Candidate identity, source, notices, removal notes, and rights decision are reviewed before MRH-011 packaging. | Documentation boundary only; rights remain open. |
 | Removal | ADR 0034 and world-save safety rules | Removing diagnostic code does not delete source or alter existing save identifiers; changing Matcha/loader follows a separate migration review. | No removal operation performed. |
 
@@ -247,11 +267,20 @@ artifact approval:
 - `ForeverInitializationGameTest` proves the current full common initializer can start a
   dedicated GameTest server. It is not a test that the seven prototype systems are absent.
 - `ForeverModTest` checks the current root package boundary, not candidate artifact metadata.
+- No current test proves that the missing message includes the locked SHA-256, that a live
+  checksum mismatch is distinct from Matcha parse errors, that a healthy live install adds
+  no new noise, or that a one-sided remote client role is observable from the server.
+- No current test is an explicit repeated-initialization fixture. Repeated calls must prove
+  exactly one registration set, one observation/report per `SERVER_STARTED` or successful
+  reload, no report on failed reload, and no stale result across servers. These are future
+  implementation tests, not coverage claimed by MRH-012.
 
 Not verified by MRH-012 are a diagnostic-only artifact, a partially altered real archive,
 artifact hashes, exact packaged provenance, absence of gameplay registrations from a built
-artifact, client-entrypoint removal, or any world/save test. The requested Gradle build tests
-the unchanged baseline source tree; it cannot make those candidate-artifact claims.
+artifact, client-entrypoint removal, full dual-role/client resource activation, the locked
+hash and distinct-mismatch report requirements, healthy no-new-noise, lifecycle idempotence,
+or any world/save test. The requested Gradle build tests the unchanged baseline source tree;
+it cannot make those candidate-artifact claims.
 
 ## Owner gates and next ticket
 
@@ -264,5 +293,8 @@ The owner must approve all of the following separately:
    minimal implementation architecture and build the approved diagnostic only.
 
 Approval of this document does **not** approve Java changes, an artifact, pack inclusion,
-publication, distribution, or a rights model. MRH-011 remains blocked on MRH-013's completed
-artifact work, PACK-01's human smoke test, and the open rights/distribution gate.
+publication, distribution, or a rights model. PACK-01's final diagnostic criterion remains
+open and closes only with MRH-011's assembled-artifact proof; historical lab/profile evidence
+is not completion. MRH-011 remains blocked on MRH-013's completed artifact work, PACK-01's
+recorded non-diagnostic pinned-input/profile-assembly evidence and human smoke gate before
+inclusion, and the open rights/distribution gate.

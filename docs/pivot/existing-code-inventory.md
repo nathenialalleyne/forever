@@ -3,7 +3,7 @@
 **Pivot:** Many Roads Home modpack-first pivot  
 **Branch:** `modpack-first`  
 **Review date:** 2026-08-28  
-**Status:** inventory only. No source, resource, script, pack, or document outside this file was changed by this worker.
+**Status:** inventory only. No source, resource, script, pack, or document outside this file was changed by the original inventory pass.
 
 ## Scope and reading method
 
@@ -13,17 +13,19 @@ The run brief in `.pivot-context.md` was read first. I then ran the required rec
 find src tools scripts docs -type f | sort
 ```
 
-The observed tree contains **294 Java source files**, not the approximately 261 stated in the run prompt:
+The filesystem snapshot recorded on 2026-08-28 contains **294 Java source files**, not the approximately 261 stated in the run prompt. The snapshot counts below are historical and are retained for provenance; they are not a current tracked-path count:
 
 | Area | Observed files | Meaningful contents |
-|---|---:|---|
-| `src` | 304 | 183 common Java classes, one client class, 33 unit-test classes, 9 GameTest classes, 37 asset-tool classes, resources, and the placeholder asset |
+| --- | ---: | --- |
+| `src` | 302 | 182 common Java classes, one client class, 32 unit-test classes, 9 GameTest classes, 37 asset-tool classes, resources, and the placeholder asset |
 | `tools` | 166 | the standalone Matcha audit project, 32 production classes, one test class, and 32 deterministic fixture files plus build support |
 | `scripts` | 11 | acquisition, disposable-world installation, audit, Packwiz export, validation, and dependency reporting |
 | `docs` | 88 before this output | design, ADR, system specifications, research, audit evidence, playtest, asset, and pivot records |
 | `pack` | 7 | Packwiz metadata and pinned Matcha, Fabric API, and Global Packs inputs |
 | `generated` | 21 | deterministic Matcha 1.12 audit reports |
 | `art` | 10 | palette source plus documented empty placeholder directories |
+
+**Current bounded reconciliation (2026-09-06):** An independent count using `git ls-files '*.java'` (tracked paths only) finds **297 tracked Java source files**. The count is `263` under `src` (`183` common, `1` client, `33` unit-test, `9` GameTest, and `37` asset-tool classes) plus `34` under `tools/matcha-audit` (`32` production classes and `2` audit-test classes). The two tracked audit-test paths are `tools/matcha-audit/src/test/java/dev/forever/tools/audit/MatchaAuditApplicationTest.java` and `tools/matcha-audit/src/test/java/dev/forever/tools/audit/ReportWriterTimestampTest.java`. This bounded Java-only reconciliation does not replace the historical all-file area counts above.
 
 Empty directories and `.gitkeep` markers are called out where they communicate a source boundary. Gradle caches, `build/`, `run/`, ordinary runtime logs, and editor state are operational output rather than meaningful implementation entries. The ignored third-party Matcha archive under `vendor/matcha/` is called out separately because it is a licensing and provenance boundary.
 
@@ -43,7 +45,7 @@ The detailed records use grouped paths when every listed file has the same respo
 Counts below are **decision records**, not raw file counts. A decision record may expand to several exact paths, which are all listed in the sections that follow.
 
 | Classification | Decision records | Meaning in this review |
-|---|---:|---|
+| --- | ---: | --- |
 | KEEP | 35 | Architecture, safety contracts, connective domain concepts, Matcha isolation, tests, audit tooling, and authoritative design records |
 | ADAPT | 16 | Existing custom code or metadata that can survive only after ownership and namespace changes |
 | REPLACE | 0 | **Revised by LAB-07.** The single REPLACE entry was the searchable warehouse index, on the assumption that a third-party storage mod would own it. LAB-07 tested seven candidates and found none that provides a server-authoritative index over arbitrary registered containers without either wireless access or unsafe removal. That entry is now ADAPT pending a proven migration contract. |
@@ -59,7 +61,7 @@ These totals count records, not classes. For example, the 28 Matcha adapter clas
 `docs/mod-research/candidate-matrix.csv` is present in this checkout and was read in full. It contains 58 candidate rows with exact project IDs, version IDs, Minecraft/loader claims, licensing, persistence, conflict, and decision fields. The following mappings are therefore research dispositions, not completed adoption decisions. The current authoritative ownership notes are `docs/architecture/ownership-matrix.csv`, `docs/modpack-architecture.md`, ADR 0024, ADR 0026, and the laboratory queue in `labs/README.md`.
 
 | Existing responsibility or design | Provisional owner | Existing-code decision | Evidence or next review |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | Recipe viewing | EMI or REI, exactly one | KEEP the narrow `GuideRecipeViewerCapability`; do not build a viewer | LAB-01 and 26.2 client/server test |
 | Contextual block/entity information | Jade or equivalent | KEEP the Field Journal contract; ADAPT only a bridge | LAB-01 and exact 26.2 release verification |
 | Mass placement and assisted construction | Effortless Building, AutoBuild, or equivalent | No current implementation found. DEFER replacement selection | LAB-02 and LAB-12. Server authority and real material cost are acceptance gates |
@@ -81,7 +83,7 @@ These totals count records, not classes. For example, the 28 Matcha adapter clas
 | Blueprints | Optional blueprint library | DEFER | ADR 0032. Never a survival requirement and never redistributed without permission |
 
 | Existing responsibility or design | Matrix candidate and current disposition | Existing-code decision | Required follow-up |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | Recipe viewing | REI `nfn13YXA`, `26.2.820+fabric [4o0NSIMj]`, `ADOPT_BASELINE`; EMI has no observed 26.2 Fabric release and is `DEFER` | KEEP the narrow guide port, no custom viewer | LAB-01 must verify one viewer and suppress duplicate guide noise |
 | Contextual block/entity information | Jade `nvQzSEkH`, `26.2.11+fabric [ue8CO97w]`, `PILOT` | KEEP the Field Journal contract, adapt only a bridge | LAB-01 on client/server and Matcha item presentation |
 | Mass building | AutoBuild `wzBO46L7`, `2.0.1+26.2 [Q7qeA1GB]`, `COMPATIBILITY_SPIKE`; Building Wands `XkisZUfp`, `PILOT`; Effortless Building `DYtfQEYj`, `PILOT`; Axiom is `REJECT` | No current implementation found. DEFER replacement selection | LAB-02 and LAB-12. Server authority, material cost, and ordinary placement are gates |
@@ -128,7 +130,7 @@ All common Java sources compiled under the pinned Java 25 root build. The curren
 
 **Paths:** all 28 classes under `src/main/java/dev/forever/compat/matcha/`:
 
-- `ForeverMatchaCompat.java`, `MatchaAdapter.java`, `MatchaAdapterStatus.java`, `MatchaAdapters.java`
+- `ForeverMatchaCompat.java`, `MatchaAdapter.java`, `MatchaAdapterStatus.java`, `MatchaAdapters.java`, `MatchaBaselineReport.java`
 - `MatchaBehaviorCapability.java`, `MatchaBehaviorObservation.java`, `MatchaBehaviorTranslation.java`, `MatchaCapability.java`
 - `MatchaConfidence.java`, `MatchaDetectionEvidence.java`, `MatchaDetectionResult.java`, `MatchaDetectionStatus.java`
 - `MatchaItemIdentityCapability.java`, `MatchaItemObservation.java`, `MatchaItemTranslation.java`, `MatchaPackMetadata.java`
@@ -739,10 +741,11 @@ The storage system contains both a custom traveler cache and a generic searchabl
 
 ### [KEEP] Unit and architecture regression tests
 
-**Paths:** all 32 files under `src/test/java/`:
+**Paths:** all 33 files under `src/test/java/`:
 
 - `src/test/java/dev/forever/ForeverModTest.java`
 - `src/test/java/dev/forever/architecture/ArchitectureRulesTest.java`
+- `src/test/java/dev/forever/compat/matcha/MatchaBaselineReportTest.java`
 - `src/test/java/dev/forever/compat/matcha/MatchaServerEvidenceTest.java`
 - `src/test/java/dev/forever/compat/matcha/MatchaVersionDetectorTest.java`
 - `src/test/java/dev/forever/core/career/adapter/CareerCodecTest.java`
@@ -817,7 +820,7 @@ The storage system contains both a custom traveler cache and a generic searchabl
 
 ### [KEEP] Audit CLI production classes
 
-**Paths:** all 32 files under `tools/matcha-audit/src/main/java/dev/forever/matcha/audit/`:
+**Paths:** all 32 files under `tools/matcha-audit/src/main/java/dev/forever/tools/audit/`:
 
 - `AuditAnalyzer.java`, `AuditException.java`, `AuditReport.java`, `AuditRunner.java`, `ClassifiedFile.java`
 - `CliOptions.java`, `CliParser.java`, `CsvWriter.java`, `ExitCodes.java`, `FunctionAnalyzer.java`, `Hashing.java`
@@ -842,7 +845,8 @@ The storage system contains both a custom traveler cache and a generic searchabl
 
 **Paths:**
 
-- `tools/matcha-audit/src/test/java/dev/forever/matcha/audit/MatchaAuditApplicationTest.java`
+- `tools/matcha-audit/src/test/java/dev/forever/tools/audit/MatchaAuditApplicationTest.java`
+- `tools/matcha-audit/src/test/java/dev/forever/tools/audit/ReportWriterTimestampTest.java`
 - `tools/matcha-audit/src/test/resources/fixture-pack/README.txt`
 - `tools/matcha-audit/src/test/resources/fixture-pack/pack.mcmeta`
 - `tools/matcha-audit/src/test/resources/fixture-pack/assets/matcha/atlases/blocks.json`
@@ -876,9 +880,9 @@ The storage system contains both a custom traveler cache and a generic searchabl
 - `tools/matcha-audit/src/test/resources/fixture-pack/data/matcha/worldgen/biome/garden.json`
 - `tools/matcha-audit/src/test/resources/fixture-pack/data/minecraft/recipes/vanilla.json`
 
-**Current responsibility:** Small synthetic fixture archive and its test. The fixture intentionally covers parse errors, references, unknown paths, vanilla overrides, and resource/data namespaces. It is not the Matcha release itself.
+**Current responsibility:** Small synthetic fixture archive and its two audit tests. The fixture intentionally covers parse errors, references, unknown paths, vanilla overrides, and resource/data namespaces. It is not the Matcha release itself.
 
-**Build and tests:** Covered by the independent audit-tool test command, which passed with tasks up to date.
+**Build and tests:** Covered by the independent audit-tool test command, which passed with tasks up to date. Both tracked audit-test classes are part of this current count.
 
 **Possible duplicated mechanic:** None. Fixture content is test input.
 
@@ -1048,7 +1052,7 @@ The storage system contains both a custom traveler cache and a generic searchabl
 
 **Current responsibility:** Generated, deterministic reports from the pinned Matcha archive. The summary records 5,190 files, 2,433 data files, 2,754 resource files, zero parse errors, 95 unknown paths, 24 scoreboards, 3,649 vanilla namespace overrides, 28,981 references, and 60 unresolved internal references.
 
-**Build and tests:** Generated output is not compiled by the mod. The standalone audit test passed. The files were inspected as generated evidence and must not be hand-edited.
+**Build and tests:** Generated output is not compiled by the mod. The standalone audit-tool tests passed. The files were inspected as generated evidence and must not be hand-edited.
 
 **Possible duplicated mechanic:** Reports document exactly where Matcha overlaps custom equipment, food, trades, structures, weather, recipes, and other systems. They are evidence, not gameplay.
 
@@ -1227,7 +1231,7 @@ The documentation is not uniform. Some records are authoritative pivot decisions
 
 **Current responsibility:** Audit conventions, findings, manual review gates, and per-system Matcha classifications. The current classification has 30 rows covering progression, fire/campfire, kiln, tools, substitutions, hunger, healing, food effects, death, equipment, durability, enchanting, XP, spawners, drops, villagers, trades, Obols, shulkers, loot, structures, Nether, End, weather, darkness, multiplayer, recipes, tutorialization, resource-pack identity, and mod compatibility.
 
-**Build and tests:** Not compiled. Generated reports and the independent audit test support the evidence.
+**Build and tests:** Not compiled. Generated reports and the independent audit-tool tests support the evidence.
 
 **Possible duplicated mechanic:** Matcha overlaps multiple old custom systems. The classification separates them rather than assuming the entire archive is one indivisible mechanic.
 
@@ -1424,7 +1428,7 @@ The documentation is not uniform. Some records are authoritative pivot decisions
 - `THIRD_PARTY_NOTICES.md`
 - `CHANGELOG.md`
 
-**Current responsibility:** Ignore rules, contributor and user entrypoints, agent pointers, proprietary license, Matcha third-party notice, and change history. `README.md` states the first implementation pass has seven systems, 126 unit tests, and 20 GameTests, which conflicts with the current observed 32 unit-test classes and 27 runtime GameTests. `CHANGELOG.md` still says foundation only.
+**Current responsibility:** Ignore rules, contributor and user entrypoints, agent pointers, proprietary license, Matcha third-party notice, and change history. `README.md` states the first implementation pass has seven systems, 126 unit tests, and 20 GameTests, which conflicts with the current observed 33 unit-test classes and 27 runtime GameTests. `CHANGELOG.md` still says foundation only.
 
 **Build and tests:** Not compiled. Their status claims were compared with source and runtime evidence.
 
@@ -1487,7 +1491,7 @@ The source currently uses mod id `forever` and package `dev.forever`. The workin
 The costly identifiers are the ones that can be serialized into worlds, item stacks, components, registries, resource paths, or player-visible knowledge:
 
 | Identifier class | Existing examples | Persistence or compatibility consequence |
-|---|---|---|
+| --- | --- | --- |
 | Registry IDs | `forever:field_tool`, `forever:obol` | Item/block identity in saved stacks and recipes. Renaming requires aliases or data migration. |
 | Component and attachment types | `forever:equipment_state`, `forever:mastery_state`, `forever:career_state`, `forever:coin_purse`, `forever:traveler_cache_contents` | Player/item data survives reload and may be copied on death. Removing the type can strand or erase state. |
 | SavedData keys | `forever:settlements`, `forever:storage/warehouses` | World-level state and migration. A key rename needs explicit read-old/write-new behavior and recovery tests. |
@@ -1504,7 +1508,7 @@ The future companion id question is therefore a separate migration ticket. Befor
 The following likely replacement candidates were explicitly searched for by responsibility and are **not implemented** in the current source tree. Their absence is a finding, not permission to add placeholders:
 
 | Mechanic | Source found | Recommended owner | Classification of current state |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | Mass block placement, mirroring, palette replacement | None | Existing builder mod plus pack policy | DEFER |
 | Vein mining | None | Existing vein-mining mod | DEFER |
 | Schematic rendering and material preview | None | Litematica-class client tool | DEFER |
