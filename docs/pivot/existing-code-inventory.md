@@ -17,7 +17,7 @@ The observed tree contains **294 Java source files**, not the approximately 261 
 
 | Area | Observed files | Meaningful contents |
 |---|---:|---|
-| `src` | 302 | 182 common Java classes, one client class, 32 unit-test classes, 9 GameTest classes, 37 asset-tool classes, resources, and the placeholder asset |
+| `src` | 304 | 183 common Java classes, one client class, 33 unit-test classes, 9 GameTest classes, 37 asset-tool classes, resources, and the placeholder asset |
 | `tools` | 166 | the standalone Matcha audit project, 32 production classes, one test class, and 32 deterministic fixture files plus build support |
 | `scripts` | 11 | acquisition, disposable-world installation, audit, Packwiz export, validation, and dependency reporting |
 | `docs` | 88 before this output | design, ADR, system specifications, research, audit evidence, playtest, asset, and pivot records |
@@ -52,7 +52,7 @@ Counts below are **decision records**, not raw file counts. A decision record ma
 | UNKNOWN_PENDING_REVIEW | 0 | No existing artifact is left without an interim disposition. Candidate ownership remains provisional where noted. |
 | **Total** | **54** | Every meaningful inventory decision record is represented below |
 
-These totals count records, not classes. For example, the 27 Matcha adapter classes are one KEEP record because they form one deliberately isolated compatibility boundary. The raw Java counts and exact paths are still listed below. The provisional-owner and negative-inventory tables use classifications as explanatory state labels, but are not additional detailed decision records.
+These totals count records, not classes. For example, the 28 Matcha adapter classes are one KEEP record because they form one deliberately isolated compatibility boundary. The raw Java counts and exact paths are still listed below. The provisional-owner and negative-inventory tables use classifications as explanatory state labels, but are not additional detailed decision records.
 
 ## Provisional third-party ownership map
 
@@ -126,7 +126,7 @@ All common Java sources compiled under the pinned Java 25 root build. The curren
 
 ### [KEEP] Matcha compatibility boundary
 
-**Paths:** all 27 classes under `src/main/java/dev/forever/compat/matcha/`:
+**Paths:** all 28 classes under `src/main/java/dev/forever/compat/matcha/`:
 
 - `ForeverMatchaCompat.java`, `MatchaAdapter.java`, `MatchaAdapterStatus.java`, `MatchaAdapters.java`
 - `MatchaBehaviorCapability.java`, `MatchaBehaviorObservation.java`, `MatchaBehaviorTranslation.java`, `MatchaCapability.java`
