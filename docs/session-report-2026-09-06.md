@@ -30,4 +30,4 @@ Written 2026-09-06 on `modpack-first`, from clean base `34ee50a3a8218337f8abce32
 - `./scripts/validate-pack.sh` — passed all pack metadata, exact-pin, provenance, and binary checks.
 - `JAVA_HOME=$HOME/toolchains/jdk-25.0.4.1+1 ./gradlew clean build --no-daemon` — passed. The build emitted six existing GameTest deprecation warnings and ordinary deprecated-API notes; all tests and checks passed.
 
-No world access, Matcha acquisition/install, pack export, publication, commit, or push was authorised by this documentation slice. The build validates the unchanged current baseline and not a diagnostic-only candidate artifact.
+No world access, Matcha acquisition/install, pack export, publication, or distribution was run. The documentation change was committed as `0bc7a71` and pushed to `origin/modpack-first`; the follow-up report correction is the next commit in that range. The build validates the unchanged current baseline and not a diagnostic-only candidate artifact.
